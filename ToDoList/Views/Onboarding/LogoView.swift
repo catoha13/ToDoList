@@ -16,8 +16,9 @@ struct LogoView: View {
                 .frame(width: 149, height: 149)
             
             Text("todo list")
-                .font(.Roboto)
+                .font(.custom("Roboto-ThinItalic", size: 48))
                 .foregroundColor(.customBlack)
+                .padding(.top, 15)
             
         }
         .onAppear {

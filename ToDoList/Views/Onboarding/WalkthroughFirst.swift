@@ -11,44 +11,47 @@ struct WalkthroughFirst: View {
     @State var isPresented: Bool
     
     var body: some View {
-        VStack {
-            Image("events")
-                .padding(.top, 46)
-            
-            Text("Welcome to todo list")
-                .font(.custom("Roboto-ThinItalic", size: 24))
-                .foregroundColor(.customBlack)
-                .padding(.top, 50)
-            
-            Text("Whats going to happen tomorrow?")
-                .font(.custom("Roboto-Medium", size: 18))
-                .font(.system(.title3))
-                .foregroundColor(.customBlack)
-                .padding(.top, 11)
-            
-            DotsView(firstColor: true,
-                     secondColor: false,
-                     thirdColor: false)
-            
-            ZStack {
-                Image("pathFitst")
-                    .resizable()
+        NavigationView {
+            VStack {
+                Image("events")
+                    .padding(.top, 46)
                 
-                Image("pathFirstBack")
-                    .resizable()
+                Text("Welcome to todo list")
+                    .font(.custom("Roboto-ThinItalic", size: 24))
+                    .foregroundColor(.customBlack)
+                    .padding(.top, 50)
                 
-                Button {
+                Text("Whats going to happen tomorrow?")
+                    .font(.custom("Roboto-Medium", size: 18))
+                    .font(.system(.title3))
+                    .foregroundColor(.customBlack)
+                    .padding(.top, 11)
+                
+                DotsView(firstColor: true,
+                         secondColor: false,
+                         thirdColor: false)
+                
+                ZStack {
+                    Image("pathFitst")
+                        .resizable()
                     
-                } label: {
-                    Text("Get started")
+                    Image("pathFirstBack")
+                        .resizable()
+                    
+                    NavigationLink {
+                        WalkthroughSecond(isPresented: isPresented)
+                    } label: {
+                        Text("Get Started")
+                    }
+                    .buttonStyle(CustomButtonStyleOnboarding())
+
                 }
-                .buttonStyle(CustomButtonStyleOnboarding())
+                .ignoresSafeArea()
+                .frame(maxHeight: 362, alignment: .bottom)
+                .padding(.top, 90)
             }
-            .ignoresSafeArea()
-            .frame(maxHeight: 362, alignment: .bottom)
-            .padding(.top, 90)
-                
-            
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
