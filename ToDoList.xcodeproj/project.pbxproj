@@ -143,12 +143,12 @@
 		AC7714D728856C6B00A0C804 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				AC77153A28859C4600A0C804 /* Info.plist */,
 				AC7714DA28856C6B00A0C804 /* ContentView.swift */,
 				AC77150728856CB200A0C804 /* Views */,
 				AC7715112885898E00A0C804 /* Extentions */,
 				AC7715332885957400A0C804 /* Resources */,
 				AC7714D828856C6B00A0C804 /* ToDoListApp.swift */,
+				AC77153A28859C4600A0C804 /* Info.plist */,
 				AC7714DC28856C6D00A0C804 /* Assets.xcassets */,
 				AC7714E128856C6D00A0C804 /* Persistence.swift */,
 				AC77151428858C4400A0C804 /* CoreDataExample.swift */,
