@@ -1,10 +1,3 @@
-//
-//  DotsView.swift
-//  ToDoList
-//
-//  Created by Артём on 18.07.22.
-//
-
 import SwiftUI
 
 struct DotsView: View {

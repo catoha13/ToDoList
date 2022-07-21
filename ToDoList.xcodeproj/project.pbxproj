@@ -38,6 +38,7 @@
 		AC7715362885964E00A0C804 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715352885964E00A0C804 /* Constants.swift */; };
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
 		AC77153C2885A37E00A0C804 /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77153B2885A37E00A0C804 /* DotsView.swift */; };
+		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		AC7715382885985F00A0C804 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AC77153B2885A37E00A0C804 /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
+		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				AC77150928857E9B00A0C804 /* LogoView.swift */,
+				ACD0537428887CF900F7FF1D /* OnboardingView.swift */,
 				AC77150B28857EC800A0C804 /* WalkthroughFirst.swift */,
 				AC77150D28857ED100A0C804 /* WalkthroughSecond.swift */,
 				AC77150F28857EDB00A0C804 /* WalkthroughThird.swift */,
@@ -402,6 +405,7 @@
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
 				AC77153C2885A37E00A0C804 /* DotsView.swift in Sources */,
+				ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */,
 				AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */,
 				AC77150E28857ED100A0C804 /* WalkthroughSecond.swift in Sources */,
 				AC77151028857EDB00A0C804 /* WalkthroughThird.swift in Sources */,
