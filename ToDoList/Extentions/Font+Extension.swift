@@ -26,3 +26,22 @@ extension Font {
         }
 
 }
+
+enum Roboto {
+    static func thinItalic(size: CGFloat) -> UIFont {
+        return UIFont(name: "Roboto-ThinItalic", size: size)!
+    }
+    
+    static func medium(size: CGFloat) -> UIFont {
+        return UIFont(name: "Roboto-Medium", size: size)!
+    }
+    
+    static func mediumItalic(size: CGFloat) -> UIFont {
+        return UIFont(name: "Roboto-MediumItalic", size: size)!
+    }
+    
+    static func regular(size: CGFloat) -> UIFont {
+        return UIFont(name: "Roboto-Regular", size: size)!
+    }
+
+}

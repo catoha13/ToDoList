@@ -57,6 +57,21 @@ struct CustomCircleButton: View {
     }
 }
 
+struct CustomCreateButton: View {
+    var action: () -> Void
+    var text: String
+    
+    var body: some View {
+        Button {
+            self.action()
+        } label: {
+            Text(text)
+                .font(Font(Roboto.thinItalic(size: 18)))
+                .foregroundColor(.customBlack)
+        }
+    }
+}
+
 
 struct CustomButtons_Previews: PreviewProvider {
     static var previews: some View {

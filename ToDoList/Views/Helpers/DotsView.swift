@@ -9,15 +9,12 @@ struct DotsView: View {
         HStack {
             Circle()
                 .frame(width: 8, height: 8)
-                .foregroundColor(firstColor ? Color.black : Color.customDot)
             
             Circle()
                 .frame(width: 8, height: 8)
-                .foregroundColor(secondColor ? Color.black : Color.customDot)
             
             Circle()
                 .frame(width: 8, height: 8)
-                .foregroundColor(thirdColor ? Color.black : Color.customDot)
         }
         .padding()
     }
