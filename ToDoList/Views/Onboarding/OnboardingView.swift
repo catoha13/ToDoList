@@ -54,7 +54,7 @@ struct OnboardingView_Previews: PreviewProvider {
     @State static var image = "events"
     @State static var text = "Welcome to todo list"
     @State static var description = "Whats going to happen tomorrow?"
-    @State static var backgroundFirst = "pathFitst"
+    @State static var backgroundFirst = "pathFirst"
     @State static var backgroundSecond = "pathFirstBack"
     @State static var buttonAction = {}
 

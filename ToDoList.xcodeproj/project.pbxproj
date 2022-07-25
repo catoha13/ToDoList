@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
+		AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImageView.swift */; };
+		AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6907288B0687007D78E0 /* CustomTextField.swift */; };
+		AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6909288B0727007D78E0 /* SingInView.swift */; };
+		AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F690B288B2A9A007D78E0 /* ForgotPasswordView.swift */; };
+		AC2F690E288B2CAE007D78E0 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F690D288B2CAE007D78E0 /* BackButton.swift */; };
+		AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */; };
+		AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6913288B31F5007D78E0 /* CustomButtons.swift */; };
+		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
+		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
 		AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714D828856C6B00A0C804 /* ToDoListApp.swift */; };
 		AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714DA28856C6B00A0C804 /* ContentView.swift */; };
 		AC7714DD28856C6D00A0C804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7714DC28856C6D00A0C804 /* Assets.xcassets */; };
@@ -59,6 +69,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		AC2F6904288B0635007D78E0 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		AC2F6907288B0687007D78E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		AC2F6909288B0727007D78E0 /* SingInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInView.swift; sourceTree = "<group>"; };
+		AC2F690B288B2A9A007D78E0 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		AC2F690D288B2CAE007D78E0 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderAndDescription.swift; sourceTree = "<group>"; };
+		AC2F6913288B31F5007D78E0 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
+		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
 		AC7714D528856C6B00A0C804 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7714D828856C6B00A0C804 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		AC7714DA28856C6B00A0C804 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -122,6 +142,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC2F6901288AF6C3007D78E0 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				AC2F6902288AF6DA007D78E0 /* SignUpView.swift */,
+				AC2F6909288B0727007D78E0 /* SingInView.swift */,
+				AC2F690B288B2A9A007D78E0 /* ForgotPasswordView.swift */,
+				AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */,
+				AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
 		AC7714CC28856C6B00A0C804 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				AC77150828857E4A00A0C804 /* Onboarding */,
+				AC2F6901288AF6C3007D78E0 /* Authorization */,
 				AC7715372885984900A0C804 /* Helpers */,
 			);
 			path = Views;
@@ -254,8 +287,13 @@
 		AC7715372885984900A0C804 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
 				AC77153B2885A37E00A0C804 /* DotsView.swift */,
+				AC2F6904288B0635007D78E0 /* CircleImageView.swift */,
+				AC2F6907288B0687007D78E0 /* CustomTextField.swift */,
+				AC2F690D288B2CAE007D78E0 /* BackButton.swift */,
+				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -402,20 +440,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */,
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
+				AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */,
+				AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */,
 				AC77153C2885A37E00A0C804 /* DotsView.swift in Sources */,
 				ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */,
+				AC2F690E288B2CAE007D78E0 /* BackButton.swift in Sources */,
 				AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */,
 				AC77150E28857ED100A0C804 /* WalkthroughSecond.swift in Sources */,
+				AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */,
 				AC77151028857EDB00A0C804 /* WalkthroughThird.swift in Sources */,
 				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
+				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
+				AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
 				AC7714E528856C6D00A0C804 /* ToDoList.xcdatamodeld in Sources */,
+				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				AC77150C28857EC800A0C804 /* WalkthroughFirst.swift in Sources */,
+				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
+				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,6 +632,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -595,7 +644,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -616,6 +665,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -627,7 +677,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
