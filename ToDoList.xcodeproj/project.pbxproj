@@ -12,7 +12,6 @@
 		AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6907288B0687007D78E0 /* CustomTextField.swift */; };
 		AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6909288B0727007D78E0 /* SingInView.swift */; };
 		AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F690B288B2A9A007D78E0 /* ForgotPasswordView.swift */; };
-		AC2F690E288B2CAE007D78E0 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F690D288B2CAE007D78E0 /* BackButton.swift */; };
 		AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */; };
 		AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6913288B31F5007D78E0 /* CustomButtons.swift */; };
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
@@ -34,9 +33,6 @@
 		AC7714F928856C6D00A0C804 /* ToDoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714F828856C6D00A0C804 /* ToDoListUITests.swift */; };
 		AC7714FB28856C6D00A0C804 /* ToDoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714FA28856C6D00A0C804 /* ToDoListUITestsLaunchTests.swift */; };
 		AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77150928857E9B00A0C804 /* LogoView.swift */; };
-		AC77150C28857EC800A0C804 /* WalkthroughFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77150B28857EC800A0C804 /* WalkthroughFirst.swift */; };
-		AC77150E28857ED100A0C804 /* WalkthroughSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77150D28857ED100A0C804 /* WalkthroughSecond.swift */; };
-		AC77151028857EDB00A0C804 /* WalkthroughThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77150F28857EDB00A0C804 /* WalkthroughThird.swift */; };
 		AC771513288589A100A0C804 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC771512288589A100A0C804 /* Font+Extension.swift */; };
 		AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77151428858C4400A0C804 /* CoreDataExample.swift */; };
 		AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77151728858EC300A0C804 /* Color+Extension.swift */; };
@@ -54,7 +50,6 @@
 		AC7715312885922800A0C804 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771525288591AC00A0C804 /* Roboto-ThinItalic.ttf */; };
 		AC7715362885964E00A0C804 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715352885964E00A0C804 /* Constants.swift */; };
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
-		AC77153C2885A37E00A0C804 /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77153B2885A37E00A0C804 /* DotsView.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 /* End PBXBuildFile section */
@@ -82,7 +77,6 @@
 		AC2F6907288B0687007D78E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		AC2F6909288B0727007D78E0 /* SingInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInView.swift; sourceTree = "<group>"; };
 		AC2F690B288B2A9A007D78E0 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
-		AC2F690D288B2CAE007D78E0 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderAndDescription.swift; sourceTree = "<group>"; };
 		AC2F6913288B31F5007D78E0 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -107,9 +101,6 @@
 		AC7714F828856C6D00A0C804 /* ToDoListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITests.swift; sourceTree = "<group>"; };
 		AC7714FA28856C6D00A0C804 /* ToDoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC77150928857E9B00A0C804 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
-		AC77150B28857EC800A0C804 /* WalkthroughFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughFirst.swift; sourceTree = "<group>"; };
-		AC77150D28857ED100A0C804 /* WalkthroughSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughSecond.swift; sourceTree = "<group>"; };
-		AC77150F28857EDB00A0C804 /* WalkthroughThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughThird.swift; sourceTree = "<group>"; };
 		AC771512288589A100A0C804 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		AC77151428858C4400A0C804 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
 		AC77151728858EC300A0C804 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -128,7 +119,6 @@
 		AC7715352885964E00A0C804 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC7715382885985F00A0C804 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AC77153B2885A37E00A0C804 /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -272,9 +262,6 @@
 			children = (
 				AC77150928857E9B00A0C804 /* LogoView.swift */,
 				ACD0537428887CF900F7FF1D /* OnboardingView.swift */,
-				AC77150B28857EC800A0C804 /* WalkthroughFirst.swift */,
-				AC77150D28857ED100A0C804 /* WalkthroughSecond.swift */,
-				AC77150F28857EDB00A0C804 /* WalkthroughThird.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -329,10 +316,8 @@
 			children = (
 				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
-				AC77153B2885A37E00A0C804 /* DotsView.swift */,
 				AC2F6904288B0635007D78E0 /* CircleImageView.swift */,
 				AC2F6907288B0687007D78E0 /* CustomTextField.swift */,
-				AC2F690D288B2CAE007D78E0 /* BackButton.swift */,
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
 			);
 			path = Helpers;
@@ -493,14 +478,10 @@
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
 				AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */,
 				AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */,
-				AC77153C2885A37E00A0C804 /* DotsView.swift in Sources */,
 				ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */,
 				AC676BCC288EBE7F001DDE34 /* ViewRouter.swift in Sources */,
-				AC2F690E288B2CAE007D78E0 /* BackButton.swift in Sources */,
 				AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */,
-				AC77150E28857ED100A0C804 /* WalkthroughSecond.swift in Sources */,
 				AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */,
-				AC77151028857EDB00A0C804 /* WalkthroughThird.swift in Sources */,
 				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */,
@@ -515,7 +496,6 @@
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
-				AC77150C28857EC800A0C804 /* WalkthroughFirst.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
