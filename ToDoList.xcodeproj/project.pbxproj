@@ -16,6 +16,8 @@
 		AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6913288B31F5007D78E0 /* CustomButtons.swift */; };
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
 		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
+		AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */; };
+		AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EF8B328900CB10087E2FA /* BackButton.swift */; };
 		AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BBF288EBE7F001DDE34 /* ProfileView.swift */; };
 		AC676BC7288EBE7F001DDE34 /* QuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC0288EBE7F001DDE34 /* QuickView.swift */; };
 		AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */; };
@@ -81,6 +83,8 @@
 		AC2F6913288B31F5007D78E0 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
+		AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskView.swift; sourceTree = "<group>"; };
+		AC4EF8B328900CB10087E2FA /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		AC676BBF288EBE7F001DDE34 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AC676BC0288EBE7F001DDE34 /* QuickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickView.swift; sourceTree = "<group>"; };
 		AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaskView.swift; sourceTree = "<group>"; };
@@ -163,10 +167,10 @@
 		AC676BBD288EBE7F001DDE34 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				ACD6C560288F14D30033D732 /* Create */,
 				AC676BC3288EBE7F001DDE34 /* CustomTabBarView.swift */,
 				AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */,
 				AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */,
+				ACD6C560288F14D30033D732 /* Create */,
 				AC676BBE288EBE7F001DDE34 /* TabViews */,
 			);
 			path = MainScreen;
@@ -316,6 +320,7 @@
 			children = (
 				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
+				AC4EF8B328900CB10087E2FA /* BackButton.swift */,
 				AC2F6904288B0635007D78E0 /* CircleImageView.swift */,
 				AC2F6907288B0687007D78E0 /* CustomTextField.swift */,
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
@@ -327,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				ACD6C561288F14F90033D732 /* CreateView.swift */,
+				AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -474,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */,
+				AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */,
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
 				AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */,
@@ -486,6 +493,7 @@
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
+				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
 				AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */,
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,

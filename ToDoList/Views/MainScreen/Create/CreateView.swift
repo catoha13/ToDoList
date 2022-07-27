@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateView: View {
     @Binding var isPresented: Bool
+    @State private var isCreateViewPresented = false
     
     var body: some View {
         
@@ -10,10 +11,10 @@ struct CreateView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: 20)
                 .background(.secondary)
-                            
+            
             VStack {
                 CustomCreateButton(action: {
-                    
+                    isCreateViewPresented.toggle()
                 }, text: "Add Task")
                 .padding()
                 .frame(width: 220)
@@ -33,10 +34,14 @@ struct CreateView: View {
                 }, text: "Add Check List")
                 .padding()
                 .frame(width: 220)
-
+                
             }
             .frame(width: 268, height: 214)
-        .background(.white)
+            .background(.white)
+            .cornerRadius(Constants.radiusFive)
+        }
+        .fullScreenCover(isPresented: $isCreateViewPresented) {
+            CreateTaskView(isPresented: $isCreateViewPresented)
         }
     }
 }
@@ -47,6 +52,5 @@ struct CreateView_Previews: PreviewProvider {
     static var previews: some View {
         CreateView(isPresented: $isPresented)
             .cornerRadius(Constants.radiusFive)
-//            .previewLayout(.fixed(width: 268, height: 214))
     }
 }

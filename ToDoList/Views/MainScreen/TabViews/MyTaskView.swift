@@ -17,7 +17,7 @@ struct MyTaskView: View {
                     .padding(.trailing, -40)
                 Spacer()
                 Button {
-                    // some action
+                    
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                         .resizable()
