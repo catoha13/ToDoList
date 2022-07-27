@@ -10,13 +10,11 @@ struct BackButton: View {
             HStack {
                 Image(systemName: "arrow.left")
                     .resizable()
-                    .foregroundColor(.customBlack)
+                    .foregroundColor(.white)
                     .frame(width: 25.2, height: 17.71)
-                
-                Spacer()
             }
         }
-        .padding(.bottom)
+        .padding(.leading)
     }
 }
 
