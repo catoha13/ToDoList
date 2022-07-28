@@ -21,6 +21,9 @@ extension Color {
     public static var customTabBarColor: Color {
         return Color(UIColor(red: 0.162, green: 0.181, blue: 0.307, alpha: 1))
     }
+    public static var customBlue: Color {
+        return Color(UIColor(red: 0.376, green: 0.455, blue: 0.976, alpha: 1))
+    }
     
     
     //MARK: Gradient

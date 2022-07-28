@@ -2,47 +2,58 @@ import SwiftUI
 
 struct CreateView: View {
     @Binding var isPresented: Bool
-    @State private var isCreateViewPresented = false
     
     var body: some View {
         
-        ZStack {
-            Text("")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .blur(radius: 20)
-                .background(.secondary)
-            
-            VStack {
-                CustomCreateButton(action: {
-                    isCreateViewPresented.toggle()
-                }, text: "Add Task")
-                .padding()
-                .frame(width: 220)
+            ZStack {
+                Text("")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .blur(radius: 20)
+                    .background(.secondary)
                 
-                Divider()
-                
-                CustomCreateButton(action: {
+                VStack {
+                    NavigationLink {
+                        CreateTaskView()
+                    } label: {
+                        Label {
+                            Text("Add Task")
+                                .font(Font(Roboto.thinItalic(size: 18)))
+                                .foregroundColor(.customBlack)
+                        } icon: {}
+                            .padding()
+                            .frame(width: 220)
+                    }
+                    Divider()
                     
-                }, text: "Add Quick Note")
-                .padding()
-                .frame(width: 220)
-                
-                Divider()
-                
-                CustomCreateButton(action: {
+                    NavigationLink {
+                        
+                    } label: {
+                        Label {
+                            Text("Add Quick Note")
+                                .font(Font(Roboto.thinItalic(size: 18)))
+                                .foregroundColor(.customBlack)
+                        } icon: {}
+                            .padding()
+                            .frame(width: 220)
+                    }
+                    Divider()
                     
-                }, text: "Add Check List")
-                .padding()
-                .frame(width: 220)
-                
+                    NavigationLink {
+                        
+                    } label: {
+                        Label {
+                            Text("Add Check List")
+                                .font(Font(Roboto.thinItalic(size: 18)))
+                                .foregroundColor(.customBlack)
+                        } icon: {}
+                            .padding()
+                            .frame(width: 220)
+                    }
+                }
+                .frame(width: 268, height: 214)
+                .background(.white)
+                .cornerRadius(Constants.radiusFive)
             }
-            .frame(width: 268, height: 214)
-            .background(.white)
-            .cornerRadius(Constants.radiusFive)
-        }
-        .fullScreenCover(isPresented: $isCreateViewPresented) {
-            CreateTaskView(isPresented: $isCreateViewPresented)
-        }
     }
 }
 
