@@ -21,64 +21,22 @@ struct CreateTaskView: View {
     }
     
     var body: some View {
-        ScrollView {
-            
             VStack {
                 //MARK: Header
-                HStack {
-                    Spacer()
-                    Text("New Task")
-                        .font(Font(Roboto.thinItalic(size: 20)))
-                        .foregroundColor(.white)
-                        .padding(.top, -24)
-                    Spacer()
-                }
-                .frame(height: 161)
-                .background(Color.customCoral)
+               Header(text: "New Task")
                 
-                
-                
-                //MARK: split into different files
                 ZStack {
                     //MARK: Bottom View
-                    HStack {
-                        Spacer()
-                        Text("")
-                            .font(Font(Roboto.thinItalic(size: 20)))
-                            .foregroundColor(.white)
-                            .padding(.top, 30)
-                        Spacer()
-                    }
-                    .frame(height: 90)
-                    .background(Color.customTabBarColor)
-                    .offset(y: 296)
+                    Bottom()
                     
                     VStack(alignment: .center) {
                         
                         HStack {
                             //MARK: Assignee
-                            Text("For")
-                                .font(Font(Roboto.thinItalic(size: 18)))
-                            TextField(text: $assignee) {
-                                Text("Assignee")
-                            }
-                            .frame(width: 90, height: 48)
-                            .multilineTextAlignment(.center)
-                            .background(.bar)
-                            .cornerRadius(Constants.raidiusFifty)
-                            
+                            TextAndTextfield(text: $assignee, description: "Assignee")
                             Spacer()
-                            
                             //MARK: Project
-                            Text("In")
-                                .font(Font(Roboto.thinItalic(size: 18)))
-                            TextField(text: $project) {
-                                Text("Project")
-                            }
-                            .frame(width: 90, height: 48)
-                            .multilineTextAlignment(.center)
-                            .background(.bar)
-                            .cornerRadius(Constants.raidiusFifty)
+                            TextAndTextfield(text: $project, description: "Project")
                         }
                         .padding(.top, -10)
                         .padding(.bottom, 10)
@@ -195,9 +153,12 @@ struct CreateTaskView: View {
                     .cornerRadius(Constants.radiusFive)
                     .offset(y: -40)
                     .shadow(radius: 4)
+                    if !assignee.isEmpty {
+                        SearchUserView(filteredText: $assignee)
+                            .offset(y: 14)
+                    }
                 }
             }
-        }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
