@@ -9,6 +9,7 @@ struct CreateTaskView: View {
     @State private var getDate = "Anytime"
     @State private var addTaskPressed = false
     @State private var showSideView = false
+    @State private var searchedUser = ""
     
     var body: some View {
         ZStack {
@@ -144,9 +145,11 @@ struct CreateTaskView: View {
                     .offset(y: -40)
                     .shadow(radius: 4)
                     
-                    if !assignee.isEmpty {
+                    if assignee != searchedUser {
                         //MARK: SearchUser View
-                        SearchUserView(filteredText: $assignee)
+                        SearchUserView(filteredText: $assignee,searchedUser: $assignee) {
+                            searchedUser = assignee
+                        }
                     }
                 }
             }
