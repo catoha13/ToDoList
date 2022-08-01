@@ -7,7 +7,7 @@ struct CustomButtons: View {
 }
 
 //MARK: Custom Filled Button
-struct CustomFilledButton: View {
+struct CustomCoralFilledButton: View {
     var text: String
     var action: () -> Void
     
@@ -19,6 +19,22 @@ struct CustomFilledButton: View {
             Text(text)
         })
         .buttonStyle(CustomButtonStyle())
+    }
+}
+
+//MARK: Custom Blue Button
+struct CustomBlueFilledButton: View {
+    var text: String
+    var action: () -> Void
+    
+    var body: some View {
+        
+        Button(action: {
+            self.action()
+        }, label: {
+            Text(text)
+        })
+        .buttonStyle(CustomBlueButtonStyle())
     }
 }
 
@@ -77,7 +93,8 @@ struct CustomButtons_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CustomButtons()
-            CustomFilledButton(text: "Sign In", action: {})
+            CustomCoralFilledButton(text: "Sign In", action: {})
+            CustomBlueFilledButton(text: "Complete Task", action: {})
             CustomButton(text: "Sing Up", action: {})
             CustomCircleButton(action: {})
         }

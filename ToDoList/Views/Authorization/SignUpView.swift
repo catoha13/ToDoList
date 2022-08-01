@@ -26,7 +26,7 @@ struct SignUpView: View {
                                 placeholder: "Enter your password",
                                 variable: password)
                 
-                CustomFilledButton(text: "Sign Up", action: {
+                CustomCoralFilledButton(text: "Sign Up", action: {
                     // some action
                     isMainPresented.toggle()
                 })

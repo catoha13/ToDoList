@@ -26,3 +26,17 @@ struct CustomButtonStyle: ButtonStyle {
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }
+
+struct CustomBlueButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        return configuration.label
+            .frame(width: 327, height: 48)
+            .background(Color.customBlue)
+            .font(.custom("Roboto-ThinItalic", size: 18))
+            .foregroundColor(.white)
+            .cornerRadius(Constants.radiusFive)
+            .scaleEffect(configuration.isPressed ? 0.9 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}
+

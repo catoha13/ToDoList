@@ -4,33 +4,22 @@ struct CreateTaskView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var assignee = ""
     @State private var project = ""
-    @State private var title = "Title"
+    @State private var title = ""
     @State private var description = ""
     @State private var getDate = "Anytime"
-    
-    //MARK: Custom back button
-    var btnBack : some View { Button(action: {
-        self.presentationMode.wrappedValue.dismiss()
-    }) {
-        Image(systemName: "arrow.left")
-            .resizable()
-            .foregroundColor(.white)
-            .frame(width: 25.2, height: 17.71)
-            .padding()
-    }
-    }
+    @State private var addTaskPressed = false
+    @State private var showSideView = false
     
     var body: some View {
+        ZStack {
             VStack {
                 //MARK: Header
-               Header(text: "New Task")
-                
+                Header(text: "New Task")
                 ZStack {
                     //MARK: Bottom View
                     Bottom()
-                    
+                    //MARK: View
                     VStack(alignment: .center) {
-                        
                         HStack {
                             //MARK: Assignee
                             TextAndTextfield(text: $assignee, description: "Assignee")
@@ -66,7 +55,6 @@ struct CreateTaskView: View {
                             TextField(text: $description) {
                                 Text("Text here")
                                     .font(Font(Roboto.regular(size: 16)))
-                                    
                             }
                             .padding(.horizontal, 10)
                             Spacer()
@@ -144,8 +132,10 @@ struct CreateTaskView: View {
                         .padding(.leading, 10)
                         
                         //MARK: Custom Button
-                        CustomFilledButton(text: "Add Task") {
-                            
+                        CustomCoralFilledButton(text: "Add Task") {
+                            withAnimation {
+                                addTaskPressed.toggle()
+                            }
                         }
                     }
                     .frame(width: 343, height: 669)
@@ -153,15 +143,43 @@ struct CreateTaskView: View {
                     .cornerRadius(Constants.radiusFive)
                     .offset(y: -40)
                     .shadow(radius: 4)
+                    
                     if !assignee.isEmpty {
+                        //MARK: SearchUser View
                         SearchUserView(filteredText: $assignee)
-                            .offset(y: 14)
                     }
                 }
             }
-        .ignoresSafeArea()
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+            .ignoresSafeArea()
+            
+            //MARK: Show ViewTask
+            if addTaskPressed {
+                ViewTask(title: title,
+                         image: "pathFirst",
+                         username: assignee,
+                         dueDate: "Jul 13, 2022",
+                         description: description,
+                         tag: project,
+                         color: .customBlue,
+                         showSideView: $showSideView,
+                         closeViewTask: $addTaskPressed)
+                .offset(y: -20)
+            }
+            //MARK: Show SideView
+            if showSideView {
+                SideView(isPresented: $showSideView,
+                         firstText: "Add Member",
+                         secondText: "Edit Task",
+                         thirdText: "Delete Task")
+                .onTapGesture {
+                    if showSideView {
+                        showSideView.toggle()
+                    }
+                }
+                
+            }
+        }
+        .navigationBarHidden(true)
     }
 }
 
