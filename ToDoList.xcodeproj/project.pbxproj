@@ -58,7 +58,7 @@
 		AC7715312885922800A0C804 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771525288591AC00A0C804 /* Roboto-ThinItalic.ttf */; };
 		AC7715362885964E00A0C804 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715352885964E00A0C804 /* Constants.swift */; };
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
-		AC925B80289848450098892A /* CreateNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B7F289848450098892A /* CreateNote.swift */; };
+		AC925B80289848450098892A /* CreateNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B7F289848450098892A /* CreateNoteView.swift */; };
 		AC925B82289855CE0098892A /* ChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B81289855CE0098892A /* ChooseColor.swift */; };
 		AC925B842898594F0098892A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B832898594F0098892A /* ColorButton.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
@@ -138,7 +138,7 @@
 		AC7715352885964E00A0C804 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC7715382885985F00A0C804 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AC925B7F289848450098892A /* CreateNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNote.swift; sourceTree = "<group>"; };
+		AC925B7F289848450098892A /* CreateNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteView.swift; sourceTree = "<group>"; };
 		AC925B81289855CE0098892A /* ChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColor.swift; sourceTree = "<group>"; };
 		AC925B832898594F0098892A /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -373,7 +373,7 @@
 		AC925B7E289848130098892A /* Add Note */ = {
 			isa = PBXGroup;
 			children = (
-				AC925B7F289848450098892A /* CreateNote.swift */,
+				AC925B7F289848450098892A /* CreateNoteView.swift */,
 			);
 			path = "Add Note";
 			sourceTree = "<group>";
@@ -560,7 +560,7 @@
 				AC676BCA288EBE7F001DDE34 /* CustomTabBarView.swift in Sources */,
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
-				AC925B80289848450098892A /* CreateNote.swift in Sources */,
+				AC925B80289848450098892A /* CreateNoteView.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,

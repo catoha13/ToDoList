@@ -55,16 +55,11 @@ struct CustomTabBarView: View {
                 }
                 .edgesIgnoringSafeArea(.bottom)
                 .ignoresSafeArea(edges: .top)
-               
+                
                 if isCreatePressed {
                     CreateView(isPresented: $isCreatePressed)
                         .cornerRadius(Constants.radiusFive)
                         .ignoresSafeArea()
-                        .onTapGesture {
-                            if isCreatePressed == true {
-                                isCreatePressed.toggle()
-                            }
-                        }
                 }
             }
         }

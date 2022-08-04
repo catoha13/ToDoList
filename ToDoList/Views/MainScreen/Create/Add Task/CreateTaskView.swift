@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct CreateTaskView: View {
-//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var isPresented: Bool
     @State private var assignee = ""
     @State private var project = ""
@@ -18,8 +17,6 @@ struct CreateTaskView: View {
                 //MARK: Header
                 Header(text: "New Task", isPresented: $isPresented)
                 ZStack {
-                    //MARK: Bottom View
-//                    Bottom()
                     //MARK: View
                     VStack(alignment: .center) {
                         HStack {
