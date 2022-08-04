@@ -46,7 +46,7 @@ struct CommentsView: View {
                             .font(Font(Roboto.thinItalic(size: 16)))
                     }
                 }
-                .background(.quaternary)
+                .background(Color.customBar)
             }
             .frame(width: 295, height: 120)
             .overlay(RoundedRectangle(cornerRadius: Constants.radiusFive)

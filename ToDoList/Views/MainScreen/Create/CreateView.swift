@@ -2,18 +2,21 @@ import SwiftUI
 
 struct CreateView: View {
     @Binding var isPresented: Bool
-    
+    @State var showQuickNote = false
+    @State var showCreateTask = false
     var body: some View {
         
             ZStack {
                 Text("")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .blur(radius: 20)
-                    .background(.secondary)
+                    .background(showCreateTask || showQuickNote ? .clear : .secondary)
                 
                 VStack {
-                    NavigationLink {
-                        CreateTaskView()
+                    Button {
+                        withAnimation {
+                            showCreateTask.toggle()
+                        }
                     } label: {
                         Label {
                             Text("Add Task")
@@ -25,8 +28,10 @@ struct CreateView: View {
                     }
                     Divider()
                     
-                    NavigationLink {
-                        
+                    Button {
+                        withAnimation {
+                            showQuickNote.toggle()
+                        }
                     } label: {
                         Label {
                             Text("Add Quick Note")
@@ -38,7 +43,7 @@ struct CreateView: View {
                     }
                     Divider()
                     
-                    NavigationLink {
+                    Button {
                         
                     } label: {
                         Label {
@@ -53,6 +58,15 @@ struct CreateView: View {
                 .frame(width: 268, height: 214)
                 .background(.white)
                 .cornerRadius(Constants.radiusFive)
+                
+                //MARK: Show Create Task
+                if showCreateTask {
+                    CreateTaskView(isPresented: $showCreateTask)
+                }
+                //MARK: Show Quick Note
+                if showQuickNote {
+                    CreateNote(isPresented: $showQuickNote)
+                }
             }
     }
 }

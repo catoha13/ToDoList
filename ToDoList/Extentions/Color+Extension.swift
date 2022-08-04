@@ -24,7 +24,23 @@ extension Color {
     public static var customBlue: Color {
         return Color(UIColor(red: 0.376, green: 0.455, blue: 0.976, alpha: 1))
     }
+    public static var customPink: Color {
+        return Color(UIColor(red: 0.894, green: 0.169, blue: 0.416, alpha: 1))
+    }
+    public static var customGreen: Color {
+        return Color(UIColor(red: 0.353, green: 0.733, blue: 0.337, alpha: 1))
+    }
+    public static var customDarkPurple: Color {
+        return Color(UIColor(red: 0.238, green: 0.229, blue: 0.383, alpha: 1))
+    }
+    public static var customBiege: Color {
+        return Color(UIColor(red: 0.956, green: 0.791, blue: 0.559, alpha: 1))
+    }
+    public static var customBar: Color {
+        return Color(UIColor(red: 0.956, green: 0.956, blue: 0.956, alpha: 1))
+    }
     
+
     
     //MARK: Gradient
     public static var firstColor: Color {

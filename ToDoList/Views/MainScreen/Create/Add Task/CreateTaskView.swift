@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct CreateTaskView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Binding var isPresented: Bool
     @State private var assignee = ""
     @State private var project = ""
     @State private var title = ""
@@ -15,10 +16,10 @@ struct CreateTaskView: View {
         ZStack {
             VStack {
                 //MARK: Header
-                Header(text: "New Task")
+                Header(text: "New Task", isPresented: $isPresented)
                 ZStack {
                     //MARK: Bottom View
-                    Bottom()
+//                    Bottom()
                     //MARK: View
                     VStack(alignment: .center) {
                         HStack {
@@ -39,7 +40,7 @@ struct CreateTaskView: View {
                         .padding()
                         .font(Font(Roboto.thinItalic(size: 18)))
                         .frame(height: 66)
-                        .background(.bar)
+                        .background(Color.customBar)
                         
                         //MARK: Description Label
                         HStack {
@@ -73,7 +74,7 @@ struct CreateTaskView: View {
                                 }
                                 Spacer()
                             }
-                            .background(.bar)
+                            .background(Color.customBar)
                         }
                         .frame(width: 295, height: 120)
                         .overlay(RoundedRectangle(cornerRadius: Constants.radiusFive)
@@ -97,7 +98,7 @@ struct CreateTaskView: View {
                         }
                         .padding(.leading, 24)
                         .frame(height: 66)
-                        .background(.bar)
+                        .background(Color.customBar)
                         .padding(.vertical)
                         
                         //MARK: Add Member
@@ -112,7 +113,7 @@ struct CreateTaskView: View {
                                 Text("Anyone")
                                     .frame(width: 90, height: 58)
                                     .multilineTextAlignment(.center)
-                                    .background(.bar)
+                                    .background(Color.customBar)
                                     .cornerRadius(Constants.raidiusFifty)
                                 Button {
                                     
@@ -139,7 +140,7 @@ struct CreateTaskView: View {
                             }
                         }
                     }
-                    .frame(width: 343, height: 669)
+                    .frame(width: 343, height: 672)
                     .background(.white)
                     .cornerRadius(Constants.radiusFive)
                     .offset(y: -40)
@@ -153,7 +154,7 @@ struct CreateTaskView: View {
                     }
                 }
             }
-            .ignoresSafeArea()
+            .frame(width: 390, height: 669)
             
             //MARK: Show ViewTask
             if addTaskPressed {
@@ -166,7 +167,7 @@ struct CreateTaskView: View {
                          color: .customBlue,
                          showSideView: $showSideView,
                          closeViewTask: $addTaskPressed)
-                .offset(y: -20)
+                .offset(y: -10)
             }
             //MARK: Show SideView
             if showSideView {
@@ -189,6 +190,6 @@ struct CreateTaskView: View {
 struct CreateTaskView_Previews: PreviewProvider {
     @State static var isPresented = false
     static var previews: some View {
-        CreateTaskView()
+        CreateTaskView(isPresented: $isPresented)
     }
 }

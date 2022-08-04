@@ -1,25 +1,18 @@
 import SwiftUI
 
 struct Header: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var text: String
+    @Binding var isPresented: Bool
     var body: some View {
         HStack {
-            Button {
-                self.presentationMode.wrappedValue.dismiss()
-            } label: {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .foregroundColor(.white)
-                    .frame(width: 25.2, height: 17.71)
-                    .padding(.leading, 10)
-            }
+            BackButton(isPresented: $isPresented)
             .padding()
             Spacer()
             Text(text)
                 .font(Font(Roboto.thinItalic(size: 20)))
                 .foregroundColor(.white)
-                .padding(.leading, -50)
+                .padding(.leading, -70)
             Spacer()
         }
         .frame(height: 161)
@@ -29,7 +22,8 @@ struct Header: View {
 
 struct Header_Previews: PreviewProvider {
     @State static var text = "New Task"
+    @State static var isPresented = false
     static var previews: some View {
-        Header(text: text)
+        Header(text: text, isPresented: $isPresented)
     }
 }

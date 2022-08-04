@@ -15,6 +15,7 @@ struct MyTaskView: View {
                     .font(Font(Roboto.thinItalic(size: 20)))
                     .foregroundColor(.white)
                     .padding(.trailing, -40)
+                    .padding(.top, 40)
                 Spacer()
                 Button {
                     
@@ -22,17 +23,16 @@ struct MyTaskView: View {
                     Image(systemName: "slider.horizontal.3")
                         .resizable()
                         .frame(width: 20, height: 21)
-                        .padding(.trailing, 20)
+                        .padding(.trailing, 24)
+                        .padding(.top, 40)
                         .foregroundColor(.white)
                 }
             }
             .frame(height: 107)
             .background(Color.customCoral)
+            .padding(.top, -10)
             
-            
-            
-
-            
+            Spacer()
         }
     }
 }

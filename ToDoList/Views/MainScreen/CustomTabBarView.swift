@@ -49,23 +49,22 @@ struct CustomTabBarView: View {
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .quick, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "list.bullet.rectangle.portrait.fill", tabName: "Quick")
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .profile, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.fill", tabName: "Profile")
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
+                        .frame(width: geometry.size.width, height: geometry.size.height/7)
                         .background(Color.customTabBarColor.shadow(radius: 2))
                     }
                 }
                 .edgesIgnoringSafeArea(.bottom)
                 .ignoresSafeArea(edges: .top)
-                .overlay {
-                    if isCreatePressed {
-                        CreateView(isPresented: $isCreatePressed)
-                            .cornerRadius(Constants.radiusFive)
-                            .ignoresSafeArea()
-                    }
-                }
-                .onTapGesture {
-                    if isCreatePressed == true {
-                        isCreatePressed.toggle()
-                    }
+               
+                if isCreatePressed {
+                    CreateView(isPresented: $isCreatePressed)
+                        .cornerRadius(Constants.radiusFive)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            if isCreatePressed == true {
+                                isCreatePressed.toggle()
+                            }
+                        }
                 }
             }
         }
