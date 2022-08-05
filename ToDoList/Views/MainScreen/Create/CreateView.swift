@@ -4,15 +4,16 @@ struct CreateView: View {
     @Binding var isPresented: Bool
     @State var showQuickNote = false
     @State var showCreateTask = false
+    @State var showCheckList = false
     var body: some View {
         
         ZStack {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: 20)
-                .background(showCreateTask || showQuickNote ? .clear : .secondary)
+                .background(showCreateTask || showQuickNote || showCheckList ? .clear : .secondary)
                 .onTapGesture {
-                    if showQuickNote == true || showCreateTask == false {
+                    if showQuickNote == true || showCreateTask || showCheckList == false {
                         isPresented.toggle()
                     }
                 }
@@ -49,7 +50,9 @@ struct CreateView: View {
                 Divider()
                 
                 Button {
-                    
+                    withAnimation {
+                        showCheckList.toggle()
+                    }
                 } label: {
                     Label {
                         Text("Add Check List")
@@ -71,6 +74,10 @@ struct CreateView: View {
             //MARK: Show Quick Note
             if showQuickNote {
                 CreateNoteView(isPresented: $showQuickNote)
+            }
+            //MARK: Show Check List
+            if showCheckList {
+                CreateCheckListView(isPresented: $showCheckList)
             }
         }
     }

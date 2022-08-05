@@ -16,6 +16,8 @@
 		AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6913288B31F5007D78E0 /* CustomButtons.swift */; };
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
 		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
+		AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39777F289C670F0007BEBB /* CreateCheckListView.swift */; };
+		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */; };
 		AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EF8B328900CB10087E2FA /* BackButton.swift */; };
 		AC5E2E9E289310CA005B48BD /* ViewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5E2E9D289310CA005B48BD /* ViewTask.swift */; };
@@ -92,6 +94,8 @@
 		AC2F6913288B31F5007D78E0 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
+		AC39777F289C670F0007BEBB /* CreateCheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCheckListView.swift; sourceTree = "<group>"; };
+		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskView.swift; sourceTree = "<group>"; };
 		AC4EF8B328900CB10087E2FA /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		AC5E2E9D289310CA005B48BD /* ViewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTask.swift; sourceTree = "<group>"; };
@@ -182,6 +186,14 @@
 			path = Authorization;
 			sourceTree = "<group>";
 		};
+		AC39777E289C66EF0007BEBB /* AddCheckList */ = {
+			isa = PBXGroup;
+			children = (
+				AC39777F289C670F0007BEBB /* CreateCheckListView.swift */,
+			);
+			path = AddCheckList;
+			sourceTree = "<group>";
+		};
 		AC66016D2892D31E005A7B02 /* Create */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +201,7 @@
 				AC66016E2892D370005A7B02 /* TextAndTextfield.swift */,
 				AC925B81289855CE0098892A /* ChooseColor.swift */,
 				AC925B832898594F0098892A /* ColorButton.swift */,
+				AC397781289C68CA0007BEBB /* CheckList.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -197,10 +210,10 @@
 			isa = PBXGroup;
 			children = (
 				AC676BC3288EBE7F001DDE34 /* CustomTabBarView.swift */,
-				AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */,
-				AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */,
-				ACD6C560288F14D30033D732 /* Create */,
 				AC676BBE288EBE7F001DDE34 /* TabViews */,
+				AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */,
+				AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */,
+				ACD6C560288F14D30033D732 /* Create */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -384,6 +397,7 @@
 				ACD6C561288F14F90033D732 /* CreateView.swift */,
 				AC925B7D289848080098892A /* Add Task */,
 				AC925B7E289848130098892A /* Add Note */,
+				AC39777E289C66EF0007BEBB /* AddCheckList */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -548,6 +562,7 @@
 				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */,
+				AC397782289C68CA0007BEBB /* CheckList.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
 				AC5E2E9E289310CA005B48BD /* ViewTask.swift in Sources */,
@@ -561,6 +576,7 @@
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC925B80289848450098892A /* CreateNoteView.swift in Sources */,
+				AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
