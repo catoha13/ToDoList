@@ -22,9 +22,9 @@ struct SignUpView: View {
                                 variable: username)
                     .padding(.bottom, 20)
                 
-                CustomTextField(text: "Password",
-                                placeholder: "Enter your password",
-                                variable: password)
+                CustomSecureTextField(text: "Password",
+                                      placeholder: "Enter your password",
+                                      variable: password)
                 
                 CustomCoralFilledButton(text: "Sign Up", action: {
                     // some action

@@ -11,7 +11,7 @@ struct SingInView: View {
     var btnBack : some View { Button(action: {
             self.presentationMode.wrappedValue.dismiss()
             }) {
-                Image(systemName: "arrow.left") // set image here
+                Image(systemName: "arrow.left")
                     .resizable()
                     .foregroundColor(.black)
                     .frame(width: 25.2, height: 17.71)
@@ -31,9 +31,9 @@ struct SingInView: View {
                 .padding(.bottom, 20)
             
             VStack(alignment: .trailing) {
-                CustomTextField(text: "Password",
-                                placeholder: "Enter your password",
-                                variable: password)
+                CustomSecureTextField(text: "Password",
+                                      placeholder: "Enter your password",
+                                      variable: password)
                 
                 NavigationLink {
                     ForgotPasswordView()

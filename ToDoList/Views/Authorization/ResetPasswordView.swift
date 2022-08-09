@@ -13,7 +13,7 @@ struct ResetPasswordView: View {
     var btnBack : some View { Button(action: {
             self.presentationMode.wrappedValue.dismiss()
             }) {
-                Image(systemName: "arrow.left") // set image here
+                Image(systemName: "arrow.left")
                     .resizable()
                     .foregroundColor(.black)
                     .frame(width: 25.2, height: 17.71)
@@ -31,11 +31,11 @@ struct ResetPasswordView: View {
                             placeholder: "Enter your number",
                             variable: resetNumber)
             
-            CustomTextField(text: "New password",
+            CustomSecureTextField(text: "New password",
                             placeholder: "Enter new password",
                             variable: newPassword)
             
-            CustomTextField(text: "Confirm password",
+            CustomSecureTextField(text: "Confirm password",
                             placeholder: "Confirm",
                             variable: confirmPassword)
             
