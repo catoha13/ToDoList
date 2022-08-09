@@ -1,7 +1,5 @@
 import SwiftUI
 
-// странно располоожена кнопка при вызове клавиатуры
-
 struct ResetPasswordView: View {
     var resetNumber = ""
     var newPassword = ""

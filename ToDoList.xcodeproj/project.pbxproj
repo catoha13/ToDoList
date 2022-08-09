@@ -243,6 +243,8 @@
 			children = (
 				AC7714DA28856C6B00A0C804 /* ContentView.swift */,
 				ACD8F67628A24F7C009A4A6E /* Network */,
+				ACD8F67928A27F88009A4A6E /* Models */,
+				ACD8F67A28A27F9F009A4A6E /* ViewModels */,
 				AC77150728856CB200A0C804 /* Views */,
 				AC7715112885898E00A0C804 /* Extentions */,
 				AC7715332885957400A0C804 /* Resources */,
@@ -397,6 +399,20 @@
 			children = (
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		ACD8F67928A27F88009A4A6E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		ACD8F67A28A27F9F009A4A6E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

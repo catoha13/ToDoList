@@ -8,7 +8,7 @@ struct SuccessfulView: View {
             
             VStack {
                 Text("Successful!")
-                    .font(.custom("Roboto-ThinItalic", size: 32)) // add to extension?
+                    .font(.custom("Roboto-ThinItalic", size: 32))
                     .foregroundColor(.customBlack)
                     .padding(.bottom, 10)
                 

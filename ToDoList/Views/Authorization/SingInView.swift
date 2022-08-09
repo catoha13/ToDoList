@@ -1,7 +1,5 @@
 import SwiftUI
 
-// не совсем понятно на какой экран вести юзера при нажатии sign in
-
 struct SingInView: View {
     @State var username: String = ""
     @State var password: String = ""
@@ -45,7 +43,7 @@ struct SingInView: View {
             }
             
             NavigationLink("Sing In") {
-                // some action
+                
             }
             .buttonStyle(CustomButtonStyle())
             .padding(.vertical, 80)
