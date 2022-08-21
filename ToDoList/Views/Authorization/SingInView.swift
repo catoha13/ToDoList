@@ -1,9 +1,8 @@
 import SwiftUI
 
 struct SingInView: View {
-    @State var username: String = ""
-    @State var password: String = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @StateObject var viewModel = SignInViewModel()
     
     //MARK: Custom back button
     var btnBack : some View { Button(action: {
@@ -23,15 +22,15 @@ struct SingInView: View {
             HeaderAndDescription(text: "Welcome back",
                                  description: "Sign in to continue")
             
-            CustomTextField(text: "Username",
-                            placeholder: "Enter username",
-                            variable: username)
+            CustomTextField(text: "Email",
+                            placeholder: "Enter your email",
+                            variable: $viewModel.username)
                 .padding(.bottom, 20)
             
             VStack(alignment: .trailing) {
                 CustomSecureTextField(text: "Password",
                                       placeholder: "Enter your password",
-                                      variable: password)
+                                      variable: $viewModel.password)
                 
                 NavigationLink {
                     ForgotPasswordView()
@@ -42,14 +41,14 @@ struct SingInView: View {
                 }
             }
             
-            NavigationLink("Sing In") {
-                
+            Button("Sing In") {
+                viewModel.signIn()
             }
             .buttonStyle(CustomButtonStyle())
             .padding(.vertical, 80)
             
             CustomButton(text: "Sign Up", action: {
-                
+                self.presentationMode.wrappedValue.dismiss()
             })
             .padding(.vertical, 50)
             

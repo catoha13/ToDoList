@@ -19,16 +19,15 @@ struct SignUpView: View {
                 
                 CustomTextField(text: "Username",
                                 placeholder: "Enter username",
-                                variable: username)
-                    .padding(.bottom, 20)
+                                variable: $username)
+                .padding(.bottom, 20)
                 
                 CustomSecureTextField(text: "Password",
                                       placeholder: "Enter your password",
-                                      variable: password)
+                                      variable: $password)
                 
                 CustomCoralFilledButton(text: "Sign Up", action: {
-                    // some action
-                    isMainPresented.toggle()
+                    
                 })
                 .padding(.top, 72)
                 .fullScreenCover(isPresented: $isMainPresented) {

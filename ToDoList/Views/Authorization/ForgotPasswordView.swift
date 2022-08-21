@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ForgotPasswordView: View {
-    var email = ""
+    @State var email = ""
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -25,7 +25,7 @@ struct ForgotPasswordView: View {
             
             CustomTextField(text: "Email",
                             placeholder: "Enter your email",
-                            variable: email)
+                            variable: $email)
             .keyboardType(.emailAddress)
             
             NavigationLink("Send Request") {

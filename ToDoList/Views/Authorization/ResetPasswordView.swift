@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct ResetPasswordView: View {
-    var resetNumber = ""
-    var newPassword = ""
-    var confirmPassword = ""
+    @State var resetNumber = ""
+    @State var newPassword = ""
+    @State var confirmPassword = ""
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -27,15 +27,15 @@ struct ResetPasswordView: View {
             
             CustomTextField(text: "Reset code",
                             placeholder: "Enter your number",
-                            variable: resetNumber)
+                            variable: $resetNumber)
             
             CustomSecureTextField(text: "New password",
                             placeholder: "Enter new password",
-                            variable: newPassword)
+                            variable: $newPassword)
             
             CustomSecureTextField(text: "Confirm password",
                             placeholder: "Confirm",
-                            variable: confirmPassword)
+                            variable: $confirmPassword)
             
             NavigationLink("Change password") {
                 SuccessfulView()
