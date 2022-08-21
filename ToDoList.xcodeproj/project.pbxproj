@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
 		AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImageView.swift */; };
 		AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6907288B0687007D78E0 /* CustomTextField.swift */; };
@@ -16,6 +17,11 @@
 		AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6913288B31F5007D78E0 /* CustomButtons.swift */; };
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
 		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
+		AC39BC3728B177A4001FB8D8 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkErrors.swift */; };
+		AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */; };
+		AC49149528A6EEF80030E852 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149428A6EEF80030E852 /* NetworkManager.swift */; };
+		AC49149A28AA8ECC0030E852 /* WebServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149928AA8ECC0030E852 /* WebServiceModel.swift */; };
+		AC49149C28AAE5350030E852 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149B28AAE5350030E852 /* NetworkProtocol.swift */; };
 		AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */; };
 		AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EF8B328900CB10087E2FA /* BackButton.swift */; };
 		AC5E2E9E289310CA005B48BD /* ViewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5E2E9D289310CA005B48BD /* ViewTask.swift */; };
@@ -64,6 +70,7 @@
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
+		ACF8371E28AD2C3D00ED78B1 /* SingInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* SingInService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +91,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModels.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AC2F6904288B0635007D78E0 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		AC2F6907288B0687007D78E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -93,6 +101,11 @@
 		AC2F6913288B31F5007D78E0 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
+		AC39BC3628B177A4001FB8D8 /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
+		AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIgnInViewModel.swift; sourceTree = "<group>"; };
+		AC49149428A6EEF80030E852 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		AC49149928AA8ECC0030E852 /* WebServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceModel.swift; sourceTree = "<group>"; };
+		AC49149B28AAE5350030E852 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskView.swift; sourceTree = "<group>"; };
 		AC4EF8B328900CB10087E2FA /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		AC5E2E9D289310CA005B48BD /* ViewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTask.swift; sourceTree = "<group>"; };
@@ -145,6 +158,7 @@
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
+		ACF8371D28AD2C3D00ED78B1 /* SingInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +196,14 @@
 				AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */,
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		AC49148F28A6EEA40030E852 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ACF8371D28AD2C3D00ED78B1 /* SingInService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		AC66016D2892D31E005A7B02 /* Create */ = {
@@ -241,6 +263,7 @@
 		AC7714D728856C6B00A0C804 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				AC7714D828856C6B00A0C804 /* ToDoListApp.swift */,
 				AC7714DA28856C6B00A0C804 /* ContentView.swift */,
 				ACD8F67628A24F7C009A4A6E /* Network */,
 				ACD8F67928A27F88009A4A6E /* Models */,
@@ -248,7 +271,6 @@
 				AC77150728856CB200A0C804 /* Views */,
 				AC7715112885898E00A0C804 /* Extentions */,
 				AC7715332885957400A0C804 /* Resources */,
-				AC7714D828856C6B00A0C804 /* ToDoListApp.swift */,
 				AC77153A28859C4600A0C804 /* Info.plist */,
 				AC7714DC28856C6D00A0C804 /* Assets.xcassets */,
 				AC7714E128856C6D00A0C804 /* Persistence.swift */,
@@ -397,6 +419,10 @@
 		ACD8F67628A24F7C009A4A6E /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				AC49149428A6EEF80030E852 /* NetworkManager.swift */,
+				AC49149B28AAE5350030E852 /* NetworkProtocol.swift */,
+				AC39BC3628B177A4001FB8D8 /* NetworkErrors.swift */,
+				AC49148F28A6EEA40030E852 /* Services */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -404,6 +430,8 @@
 		ACD8F67928A27F88009A4A6E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */,
+				AC49149928AA8ECC0030E852 /* WebServiceModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -411,6 +439,7 @@
 		ACD8F67A28A27F9F009A4A6E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -558,10 +587,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */,
+				AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */,
 				AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */,
 				AC5E2EA22893234A005B48BD /* CommentsView.swift in Sources */,
+				ACF8371E28AD2C3D00ED78B1 /* SingInService.swift in Sources */,
 				AC66016A2892D232005A7B02 /* Header.swift in Sources */,
+				AC39BC3728B177A4001FB8D8 /* NetworkErrors.swift in Sources */,
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
+				AC49149528A6EEF80030E852 /* NetworkManager.swift in Sources */,
+				AC49149A28AA8ECC0030E852 /* WebServiceModel.swift in Sources */,
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
 				AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */,
 				AC925B842898594F0098892A /* ColorButton.swift in Sources */,
@@ -574,6 +608,7 @@
 				AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */,
 				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
+				AC49149C28AAE5350030E852 /* NetworkProtocol.swift in Sources */,
 				AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
@@ -592,6 +627,7 @@
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,
+				AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */,
 				ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */,
 				AC925B82289855CE0098892A /* ChooseColor.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
