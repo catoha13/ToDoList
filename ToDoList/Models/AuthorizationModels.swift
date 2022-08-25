@@ -9,11 +9,11 @@ struct Model: Codable {
     var username: String = ""
 }
 
-struct SignInResponseModel: Codable {
-    var data: SignInResponse
+struct SignInResponceModel: Codable {
+    var data: SignInResponce
 }
 
-struct SignInResponse: Codable {
+struct SignInResponce: Codable {
     var user_id: String
     var access_token: String
     var token_type: String
@@ -21,11 +21,11 @@ struct SignInResponse: Codable {
     var expires_in: Int
 }
 
-struct SignUpResponseModel: Codable {
-    var data: SignUpResponse
+struct SignUpResponceModel: Codable {
+    var data: SignUpResponce
 }
 
-struct SignUpResponse: Codable {
+struct SignUpResponce: Codable {
     var id: String
     var email: String
     var username: String

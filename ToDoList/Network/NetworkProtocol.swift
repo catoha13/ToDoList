@@ -1,12 +1,9 @@
 import Foundation
+import Combine
 
 protocol NetworkProtocol {
     func get()
-    func post<T: Codable, U: Codable>(body: T, url: String, completion: @escaping (Result<U, Error>) -> ())
+    func post<T: Codable, U: Codable>(body: T, path: String) -> AnyPublisher<U, NetworkError>
     func put()
     func delete()
-}
-
-extension NetworkProtocol {
-    func post<P, M>(body: P, url: String, completion: @escaping (M) -> ()) {}
 }

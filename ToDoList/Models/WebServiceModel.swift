@@ -1,21 +1,21 @@
 import Foundation
 
-//MARK: Route
-enum Route: String {
+//MARK: Path
+enum Path: String {
     case signIn = "/sign-in"
     case signUp = "/sign-up"
 }
 
-//MARK: Environment
+//MARK: Endpoint
 enum Endpoint: String {
     case authorization = "https://todolist.dev2.cogniteq.com/api/v1"
 }
 
 //MARK: Method
 enum Method: String {
-    case GET
-    case POST
-    case PUT
-    case DELETE
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
     
 }
