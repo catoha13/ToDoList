@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SingInView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @StateObject var viewModel = SignInViewModel()
+    @StateObject private var viewModel = SignInViewModel()
     
     //MARK: Custom back button
     var btnBack : some View { Button(action: {
