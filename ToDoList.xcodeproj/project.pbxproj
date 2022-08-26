@@ -68,6 +68,7 @@
 		AC925B82289855CE0098892A /* ChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B81289855CE0098892A /* ChooseColor.swift */; };
 		AC925B842898594F0098892A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B832898594F0098892A /* ColorButton.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
+		ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
 		ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */; };
@@ -156,6 +157,7 @@
 		AC925B81289855CE0098892A /* ChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColor.swift; sourceTree = "<group>"; };
 		AC925B832898594F0098892A /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
 		ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
+				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,
 				ACD6C562288F14F90033D732 /* CreateView.swift in Sources */,
 				AC676BCA288EBE7F001DDE34 /* CustomTabBarView.swift in Sources */,
+				ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */,
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC925B80289848450098892A /* CreateNote.swift in Sources */,
