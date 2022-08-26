@@ -15,8 +15,8 @@ struct CustomTextField: View {
                     Text(placeholder)
                         .font(Font(Roboto.regular(size: 16)))
                         .foregroundColor(.customGray)
-                        .textInputAutocapitalization(.never)
                 }
+                .textInputAutocapitalization(.never)
                 
                 if !variable.isEmpty {
                     withAnimation {
