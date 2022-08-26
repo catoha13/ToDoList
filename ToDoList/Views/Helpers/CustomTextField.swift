@@ -17,6 +17,7 @@ struct CustomTextField: View {
                         .foregroundColor(.customGray)
                 }
                 .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
                 
                 if !variable.isEmpty {
                     withAnimation {
