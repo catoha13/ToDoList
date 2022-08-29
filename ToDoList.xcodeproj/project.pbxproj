@@ -71,6 +71,7 @@
 		ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
+		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
 		ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +161,7 @@
 		ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
+		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
 		ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -383,6 +385,7 @@
 				AC2F6907288B0687007D78E0 /* CustomTextField.swift */,
 				ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */,
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
+				ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */,
 				AC66016D2892D31E005A7B02 /* Create */,
 			);
 			path = Helpers;
@@ -617,6 +620,7 @@
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
 				AC5E2E9E289310CA005B48BD /* ViewTask.swift in Sources */,
 				AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */,
+				ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */,
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
 				AC7714E528856C6D00A0C804 /* ToDoList.xcdatamodeld in Sources */,

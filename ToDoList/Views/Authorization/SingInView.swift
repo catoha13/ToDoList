@@ -24,7 +24,8 @@ struct SingInView: View {
             
             CustomTextField(text: "Email",
                             placeholder: "Enter your email",
-                            variable: $viewModel.username)
+                            variable: $viewModel.email)
+            .keyboardType(.emailAddress)
                 .padding(.bottom, 20)
             
             VStack(alignment: .trailing) {
@@ -41,16 +42,23 @@ struct SingInView: View {
                 }
             }
             
+            TextWithErrorDecsription(text: $viewModel.errorMessage)
+            
             Button("Sing In") {
                 viewModel.signIn()
             }
             .buttonStyle(CustomButtonStyle())
             .padding(.vertical, 80)
+            .fullScreenCover(isPresented: $viewModel.credentialsChecked) {
+                CustomTabBarView(viewRouter: ViewRouter(),
+                                 isPresented: $viewModel.credentialsChecked)
+            }
             
             CustomButton(text: "Sign Up", action: {
                 self.presentationMode.wrappedValue.dismiss()
             })
-            .padding(.vertical, 50)
+            .padding(.vertical, 30)
+            .padding(.bottom, 36)
             
             Spacer()
             

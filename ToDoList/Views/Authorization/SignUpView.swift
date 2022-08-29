@@ -3,7 +3,6 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     @Binding var isPresented: Bool
-    @State var isMainPresented = false
     
     var body: some View {
         
@@ -11,7 +10,7 @@ struct SignUpView: View {
             VStack {
                 HeaderAndDescription(text: "Welcome",
                                      description: "Sign up to continue")
-                .padding(.top, 96)
+                .padding(.top, 66)
                 
                 CircleImageView(image: viewModel.avatar, width: 107, height: 104)
                     .padding(.bottom, 26)
@@ -20,6 +19,7 @@ struct SignUpView: View {
                     CustomTextField(text: "Email",
                                     placeholder: "Enter email",
                                     variable: $viewModel.email)
+                    .keyboardType(.emailAddress)
                     
                     CustomTextField(text: "Username",
                                     placeholder: "Enter username",
@@ -31,10 +31,12 @@ struct SignUpView: View {
                 }
                 .padding(.vertical, 2)
                 CustomCoralFilledButton(text: "Sign Up", action: {
-                    
+//                    viewModel.signUp()
                 })
                 .padding(.top, 32)
-                .fullScreenCover(isPresented: $isMainPresented) {
+                .opacity(viewModel.isCredentialsValid ? 1 : 0.6)
+                .disabled(!viewModel.isCredentialsValid)
+                .fullScreenCover(isPresented: $viewModel.isPresented) {
                     CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
                 }
                 

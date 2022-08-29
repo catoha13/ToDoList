@@ -27,12 +27,8 @@ final class NetworkMaganer: NetworkProtocol {
             .receive(on: DispatchQueue.main)
             .map { $0.data }
             .decode(type: U.self, decoder: JSONDecoder() )
-            .mapError { error in
-                if error is NetworkError {
-                    return error as! NetworkError
-                } else {
-                    return NetworkError.decodingError(error as! DecodingError)
-                }
+            .mapError { error -> NetworkError in
+                return NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }

@@ -1,9 +1,6 @@
 import Foundation
 
-struct RequestModel: Codable {
-    var data: [Model]
-}
-struct Model: Codable {
+struct RequestBodyModel: Codable {
     var email: String = ""
     var password: String = ""
     var username: String = ""
