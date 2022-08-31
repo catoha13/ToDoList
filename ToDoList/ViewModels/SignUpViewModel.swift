@@ -7,17 +7,21 @@ final class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var email: String = ""
     @Published var avatar: String = ""
+    @Published var errorMessage: String = ""
     @Published var isEmailValid = false
     @Published var isPasswordValid = false
     @Published var isCredentialsValid = false
     @Published var isPresented = false
     
     private var authService = AuthService()
+    private var token = Token()
     private var cancellables = Set<AnyCancellable>()
-    private lazy var model = RequestBodyModel(email: email, password: password, username: username)
-    private lazy var publisher: AnyPublisher<SignUpResponceModel, NetworkError> = {
+    private var  model: RequestBodyModel {
+        RequestBodyModel(email: email, password: password, username: username)
+    }
+    private  var publisher: AnyPublisher<SignUpResponceModel, NetworkError>  {
         authService.signUp(model: model)
-    }()
+    }
     
     let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
@@ -47,12 +51,20 @@ final class SignUpViewModel: ObservableObject {
     func signUp() {
         publisher
             .sink(receiveCompletion: {
-                print($0)
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self.errorMessage = error.description
+                }
             }, receiveValue: {
                 if $0.data.message == nil {
-                    self.isPresented = true
+                    self.token.savedToken = $0.data.userSession?.accessToken ?? "no data"
+                    self.token.refreshToken = $0.data.userSession?.refreshToken ?? "no data"
+                    self.token.expireDate = $0.data.userSession?.expiresIn ?? 0
+                } else {
+                    self.errorMessage = $0.data.message ?? "no data"
                 }
-                print($0)
             })
             .store(in: &cancellables)
     }

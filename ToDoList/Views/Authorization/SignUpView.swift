@@ -30,8 +30,11 @@ struct SignUpView: View {
                                           variable: $viewModel.password)
                 }
                 .padding(.vertical, 2)
+                
+                TextWithErrorDecsription(text: $viewModel.errorMessage)
+                
                 CustomCoralFilledButton(text: "Sign Up", action: {
-//                    viewModel.signUp()
+                    viewModel.signUp()
                 })
                 .padding(.top, 32)
                 .opacity(viewModel.isCredentialsValid ? 1 : 0.6)
