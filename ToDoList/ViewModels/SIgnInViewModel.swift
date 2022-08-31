@@ -8,6 +8,7 @@ final class SignInViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var credentialsChecked = false
     
+    private var token = Token()
     private var authService = AuthService()
     private var cancellables = Set<AnyCancellable>()
     private var model: RequestBodyModel {
@@ -21,7 +22,6 @@ final class SignInViewModel: ObservableObject {
         publisher
             .sink(
                 receiveCompletion: {
-                    print($0)
                     switch $0 {
                     case .finished:
                         return
@@ -29,9 +29,14 @@ final class SignInViewModel: ObservableObject {
                         self.errorMessage = error.description
                     }
                 }, receiveValue: {
-                    print("Value \($0)")
                     if $0.data.message == nil {
-                        self.credentialsChecked = true
+                        self.token.savedToken = $0.data.accessToken ?? "no data"
+                        self.token.refreshToken = $0.data.refreshToken ?? "no data"
+                        self.token.expireDate = $0.data.expiresIn ?? 0
+                        self.token.checkToken
+                            .sink { self.credentialsChecked = $0
+                            }
+                            .store(in: &self.cancellables)
                     } else {
                         self.errorMessage = $0.data.message ?? "no data"
                     }

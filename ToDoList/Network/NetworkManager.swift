@@ -7,13 +7,17 @@ final class NetworkMaganer: NetworkProtocol {
     
     private var session = URLSession.shared
     let encoder = JSONEncoder()
+    let decoder = JSONDecoder()
 
     func get() {}
     func put() {}
     func delete() {}
     
     func post<T, U>(body: T, path: String) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
+        
         let jsonData = try? encoder.encode(body)
 
         let url = URL(string: Endpoint.authorization.rawValue + path)
@@ -26,7 +30,7 @@ final class NetworkMaganer: NetworkProtocol {
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
             .map { $0.data }
-            .decode(type: U.self, decoder: JSONDecoder() )
+            .decode(type: U.self, decoder: decoder )
             .mapError { error -> NetworkError in
                 return NetworkError.requestFailed(error.localizedDescription)
             }

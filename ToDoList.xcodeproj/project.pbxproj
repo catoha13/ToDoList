@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */; };
+		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
 		AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImageView.swift */; };
 		AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6907288B0687007D78E0 /* CustomTextField.swift */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModels.swift; sourceTree = "<group>"; };
+		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AC2F6904288B0635007D78E0 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		AC2F6907288B0687007D78E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -190,6 +192,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC20A02C28BD686D00E7B718 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				AC20A02D28BD689300E7B718 /* Token.swift */,
+				AC49148F28A6EEA40030E852 /* Services */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		AC2F6901288AF6C3007D78E0 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,7 +438,7 @@
 				AC49149428A6EEF80030E852 /* NetworkManager.swift */,
 				AC49149B28AAE5350030E852 /* NetworkProtocol.swift */,
 				AC39BC3628B177A4001FB8D8 /* NetworkError.swift */,
-				AC49148F28A6EEA40030E852 /* Services */,
+				AC20A02C28BD686D00E7B718 /* Authentication */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -593,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */,
+				AC20A02E28BD689300E7B718 /* Token.swift in Sources */,
 				AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */,
 				AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */,
 				AC5E2EA22893234A005B48BD /* CommentsView.swift in Sources */,

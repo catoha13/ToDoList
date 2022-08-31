@@ -11,11 +11,11 @@ struct SignInResponceModel: Codable {
 }
 
 struct SignInResponce: Codable {
-    var user_id: String?
-    var access_token: String?
-    var token_type: String?
-    var refresh_token: String?
-    var expires_in: Int?
+    var userId: String?
+    var accessToken: String?
+    var tokenType: String?
+    var refreshToken: String?
+    var expiresIn: Int?
     var message: String?
     var code: Int?
 }
@@ -28,14 +28,26 @@ struct SignUpResponce: Codable {
     var id: String?
     var email: String?
     var username: String?
-    var avatar_url: String?
-    var user_session: UserSession?
+    var avatarUrl: String?
+    var userSession: UserSession?
     var message: String?
     var code: Int?
 }
 
 struct UserSession: Codable {
-    var access_token: String
-    var refresh_token: String
-    var expires_in: Int
+    var accessToken: String
+    var refreshToken: String
+    var expiresIn: Int
+}
+
+struct RefreshTokenModel: Codable {
+    var data: TokenData
+}
+struct TokenData: Codable {
+    var accessToken: String?
+    var tokenType: String?
+    var refreshToken: String?
+    var expiresIn: Int?
+    var message: String?
+    var code: Int?
 }

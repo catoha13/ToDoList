@@ -4,6 +4,7 @@ import Foundation
 enum Path: String {
     case signIn = "/sign-in"
     case signUp = "/sign-up"
+    case refreshToken = "/refresh-token"
 }
 
 //MARK: Endpoint

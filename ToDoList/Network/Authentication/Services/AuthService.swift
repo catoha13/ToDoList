@@ -13,4 +13,9 @@ final class AuthService {
         let path = Path.signUp.rawValue
         return networkManager.post(body: model, path: path)
     }
+    
+    func refreshToken<T,U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        let path = Path.refreshToken.rawValue
+        return networkManager.post(body: model, path: path)
+    }
 }
