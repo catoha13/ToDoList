@@ -6,12 +6,14 @@ final class SignUpViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var password: String = ""
     @Published var email: String = ""
-    @Published var avatar: String = ""
     @Published var errorMessage: String = ""
     @Published var isEmailValid = false
     @Published var isPasswordValid = false
     @Published var isCredentialsValid = false
     @Published var isPresented = false
+    @Published var showImagePicker : Bool = false
+    @Published var avatar : Image? = nil
+    @Published var url: String? = nil
     
     private var authService = AuthService()
     private var token = Token()

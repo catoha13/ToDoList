@@ -12,8 +12,24 @@ struct SignUpView: View {
                                      description: "Sign up to continue")
                 .padding(.top, 66)
                 
-                CircleImageView(image: viewModel.avatar, width: 107, height: 104)
-                    .padding(.bottom, 26)
+                ZStack {
+                    viewModel.avatar?
+                        .resizable()
+                        .frame(width: 107, height: 104)
+                        .background(.secondary)
+                        .clipShape(Circle())
+                        .foregroundColor(.customGray)
+                        .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))
+                    
+                    CustomAvatarButton() {
+                        viewModel.showImagePicker.toggle()
+                    }
+                    .sheet(isPresented: $viewModel.showImagePicker) {
+                        ImagePicker(isShown: self.$viewModel.showImagePicker,
+                                    image: $viewModel.avatar,
+                                    url: $viewModel.url)
+                    }
+                }
                 
                 Group {
                     CustomTextField(text: "Email",
@@ -36,7 +52,7 @@ struct SignUpView: View {
                 CustomCoralFilledButton(text: "Sign Up", action: {
                     viewModel.signUp()
                 })
-                .padding(.top, 32)
+                .padding(.top, 10)
                 .opacity(viewModel.isCredentialsValid ? 1 : 0.6)
                 .disabled(!viewModel.isCredentialsValid)
                 .fullScreenCover(isPresented: $viewModel.isPresented) {
