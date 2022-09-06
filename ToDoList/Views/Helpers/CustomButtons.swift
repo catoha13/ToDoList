@@ -64,7 +64,6 @@ struct CustomCircleButton: View {
         } label: {
             Text("+")
                 .frame(width: 60, height: 60)
-//                .background(Color.customCoral) // change to gradient
                 .background(RadialGradient(colors: [.firstColor, .secondColor], center: UnitPoint(x: 0, y: 0), startRadius: 90, endRadius: 20))
                 .foregroundColor(.white)
                 .font(.RobotoThinItalic)
@@ -88,6 +87,25 @@ struct CustomCreateButton: View {
     }
 }
 
+//MARK: Avatar upload button
+struct CustomAvatarButton: View {
+    var action: () -> Void
+    
+    var body: some View {
+        Button {
+            self.action()
+        } label: {
+            Text("Upload\navatar\nsdfsddsafa\nsdfadsf")
+//                .font(.footnote)
+                .foregroundColor(.clear)
+        }
+        .frame(width: 107, height: 104)
+//        .background(.secondary)
+        .clipShape(Circle())
+        .foregroundColor(.customGray)
+        .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))
+    }
+}
 
 struct CustomButtons_Previews: PreviewProvider {
     static var previews: some View {
@@ -97,6 +115,7 @@ struct CustomButtons_Previews: PreviewProvider {
             CustomBlueFilledButton(text: "Complete Task", action: {})
             CustomButton(text: "Sing Up", action: {})
             CustomCircleButton(action: {})
+            CustomAvatarButton(action: {})
         }
         .previewLayout(.fixed(width: 400, height: 200))
     }

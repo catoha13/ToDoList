@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct ForgotPasswordView: View {
-    var username = ""
+    @State var email = ""
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     //MARK: Custom back button
-    var btnBack : some View { Button(action: {
+    var backButton : some View { Button(action: {
             self.presentationMode.wrappedValue.dismiss()
             }) {
-                Image(systemName: "arrow.left") // set image here
+                Image(systemName: "arrow.left")
                     .resizable()
                     .foregroundColor(.black)
                     .frame(width: 25.2, height: 17.71)
@@ -23,9 +23,10 @@ struct ForgotPasswordView: View {
             HeaderAndDescription(text: "Forgot Password",
                                  description: "Please enter your email below to recevie your password reset instructions")
             
-            CustomTextField(text: "Username",
-                            placeholder: "Enter username",
-                            variable: username)
+            CustomTextField(text: "Email",
+                            placeholder: "Enter your email",
+                            variable: $email)
+            .keyboardType(.emailAddress)
             
             NavigationLink("Send Request") {
                 ResetPasswordView()
@@ -40,7 +41,7 @@ struct ForgotPasswordView: View {
         }
         .padding(.horizontal, 30)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .navigationBarItems(leading: backButton)
     }
 }
 
