@@ -20,7 +20,7 @@ final class NetworkMaganer: NetworkProtocol {
         
         let jsonData = try? encoder.encode(body)
 
-        let url = URL(string: Endpoint.authorization.rawValue + path)
+        let url = URL(string: BaseUrl.authorization.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.post.rawValue
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")

@@ -5,7 +5,7 @@ struct SingInView: View {
     @StateObject private var viewModel = SignInViewModel()
     
     //MARK: Custom back button
-    var btnBack : some View { Button(action: {
+    var backButton : some View { Button(action: {
             self.presentationMode.wrappedValue.dismiss()
             }) {
                 Image(systemName: "arrow.left")
@@ -65,7 +65,7 @@ struct SingInView: View {
         }
         .padding(.horizontal, 30)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .navigationBarItems(leading: backButton)
     }
 }
 
