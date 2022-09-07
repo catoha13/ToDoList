@@ -71,6 +71,8 @@
 		AC925B82289855CE0098892A /* ChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B81289855CE0098892A /* ChooseColor.swift */; };
 		AC925B842898594F0098892A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B832898594F0098892A /* ColorButton.swift */; };
 		ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */; };
+		ACADC52928C76F7400289409 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52828C76F7400289409 /* Task.swift */; };
+		ACADC52B28C774D800289409 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52A28C774D800289409 /* TaskList.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
 		ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
@@ -165,6 +167,8 @@
 		AC925B81289855CE0098892A /* ChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColor.swift; sourceTree = "<group>"; };
 		AC925B832898594F0098892A /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarModel.swift; sourceTree = "<group>"; };
+		ACADC52828C76F7400289409 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		ACADC52A28C774D800289409 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
@@ -396,6 +400,8 @@
 		AC7715372885984900A0C804 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				ACADC52728C76F5900289409 /* Task */,
+				AC66016D2892D31E005A7B02 /* Create */,
 				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
 				AC4EF8B328900CB10087E2FA /* BackButton.swift */,
@@ -436,6 +442,15 @@
 				AC925B7F289848450098892A /* CreateNote.swift */,
 			);
 			path = "Add Note";
+			sourceTree = "<group>";
+		};
+		ACADC52728C76F5900289409 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				ACADC52828C76F7400289409 /* Task.swift */,
+				ACADC52A28C774D800289409 /* TaskList.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 		ACD6C560288F14D30033D732 /* Create */ = {
@@ -664,6 +679,8 @@
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC925B80289848450098892A /* CreateNote.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
+				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
+				ACADC52928C76F7400289409 /* Task.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,

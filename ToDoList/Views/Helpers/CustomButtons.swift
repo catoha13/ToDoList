@@ -64,6 +64,7 @@ struct CustomCircleButton: View {
         } label: {
             Text("+")
                 .frame(width: 60, height: 60)
+//                .background(Color.customCoral) // change to gradient
                 .background(RadialGradient(colors: [.firstColor, .secondColor], center: UnitPoint(x: 0, y: 0), startRadius: 90, endRadius: 20))
                 .foregroundColor(.white)
                 .font(.RobotoThinItalic)
@@ -106,6 +107,30 @@ struct CustomAvatarButton: View {
         .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))
     }
 }
+struct DeleteCustomButton: View {
+    var action: () -> Void
+    
+    var body: some View {
+        Button {
+            self.action()
+        } label: {
+            Image(systemName: "trash")
+        }
+    }
+}
+
+struct EditCustomButton: View {
+    var action: () -> Void
+    
+    var body: some View {
+        Button {
+            self.action()
+        } label: {
+            Image(systemName: "pencil")
+        }
+    }
+}
+
 
 struct CustomButtons_Previews: PreviewProvider {
     static var previews: some View {
@@ -116,6 +141,8 @@ struct CustomButtons_Previews: PreviewProvider {
             CustomButton(text: "Sing Up", action: {})
             CustomCircleButton(action: {})
             CustomAvatarButton(action: {})
+            DeleteCustomButton(action: {})
+            EditCustomButton(action: {})
         }
         .previewLayout(.fixed(width: 400, height: 200))
     }

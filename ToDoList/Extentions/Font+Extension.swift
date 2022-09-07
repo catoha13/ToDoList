@@ -14,6 +14,9 @@ extension Font {
     static var RobotoThinItalic: Font {
             Font.custom("Roboto-ThinItalic", size: 24, relativeTo: .title2)
         }
+    static var RobotoThinItalicTaskHeader: Font {
+            Font.custom("Roboto-ThinItalic", size: 14, relativeTo: .title2)
+        }
     static var RobotoThinItalicLarge: Font {
             Font.custom("Roboto-ThinItalic", size: 48, relativeTo: .title)
         }

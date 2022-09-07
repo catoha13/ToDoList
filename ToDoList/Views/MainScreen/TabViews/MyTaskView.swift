@@ -32,7 +32,10 @@ struct MyTaskView: View {
             .background(Color.customCoral)
             .padding(.top, -10)
             
-            Spacer()
+            TaskEditableList()
+                .frame(height: 500)
+           
+//            Spacer()
         }
     }
 }
