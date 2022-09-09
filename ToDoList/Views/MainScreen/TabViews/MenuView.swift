@@ -1,11 +1,45 @@
 import SwiftUI
 
 struct MenuView: View {
+    @State private var isPresented = false
+    @State private var selectedColor: Color = .red
+    @State private var projectName = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack(alignment: .center) {
+                ScrollView {
+                Text("Projects")
+                    .font(.RobotoThinItalicHeader)
+                    .padding(.vertical, 50)
+                
+                ForEach(0..<1) { _ in
+                    HStack {
+                        ProjectCell()
+                        ProjectCell()
+                    }
+                }
+                AddProjectButton() {
+                    self.isPresented.toggle()
+                }
+                }
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.indigo)
-
+            .background(Color.customWhiteBackground)
+            
+            if isPresented {
+                ZStack {
+                    Text("")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.secondary)
+                    ProjectChooseColor(isPresented: $isPresented, selectedColor: $selectedColor, projectName: $projectName)
+                        .frame(width: 338)
+                        .cornerRadius(Constants.radiusFive)
+                        .ignoresSafeArea()
+                    
+                }
+            }
+        }
     }
 }
 

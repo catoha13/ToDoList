@@ -13,7 +13,7 @@ final class NetworkMaganer: NetworkProtocol {
     func put() {}
     func delete() {}
     
-    func post<T, U>(body: T, path: String) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
+    func post<T, U>(body: T, path: String, header: String?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
@@ -25,6 +25,9 @@ final class NetworkMaganer: NetworkProtocol {
         request.httpMethod = Method.post.rawValue
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if header != nil {
+            request.setValue(header, forHTTPHeaderField: "Authorization")
+        }
         request.httpBody = jsonData
         
         return session.dataTaskPublisher(for: request)

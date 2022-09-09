@@ -1,11 +1,5 @@
 import SwiftUI
 
-struct CustomButtons: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
 //MARK: Custom Filled Button
 struct CustomCoralFilledButton: View {
     var text: String
@@ -131,11 +125,45 @@ struct EditCustomButton: View {
     }
 }
 
+struct AddProjectButton: View {
+    var action: () -> ()
+    var body: some View {
+        Button {
+            self.action()
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .frame(width: 80, height: 80)
+                Text("+")
+                    .foregroundColor(.white)
+                    .font(.RobotoThinItalic)
+            }
+            
+            .frame(width: 70, height: 70)
+        }
+        .padding(.vertical, 30)
+        .padding(.trailing, 250)
+    }
+}
+
+struct ColorConfirmButton: View {
+    var action: () -> ()
+    
+    var body: some View {
+        Button {
+            self.action()
+        } label: {
+            Text("Done")
+        }
+        .buttonStyle(CustomColorButtonStyle())
+        .padding()
+    }
+}
+
 
 struct CustomButtons_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CustomButtons()
             CustomCoralFilledButton(text: "Sign In", action: {})
             CustomBlueFilledButton(text: "Complete Task", action: {})
             CustomButton(text: "Sing Up", action: {})
@@ -143,6 +171,8 @@ struct CustomButtons_Previews: PreviewProvider {
             CustomAvatarButton(action: {})
             DeleteCustomButton(action: {})
             EditCustomButton(action: {})
+            AddProjectButton(action: {})
+            ColorConfirmButton(action: {})
         }
         .previewLayout(.fixed(width: 400, height: 200))
     }

@@ -26,7 +26,7 @@ struct CreateNote: View {
                     .padding()
                     .multilineTextAlignment(.leading)
                     
-                    ChooseColor(selectedColor: $selectedColor)
+                    ChooseColor(selectedColor: selectedColor)
                         .padding(.trailing, 48)
                 }
                 .frame(width: 343, height: 468)

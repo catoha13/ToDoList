@@ -5,6 +5,9 @@ extension Font {
     static var RobotoRegular: Font {
             Font.custom("Roboto-Regular", size: 20, relativeTo: .title3)
         }
+    static var RobotoRegularSmall: Font {
+            Font.custom("Roboto-Regular", size: 18, relativeTo: .title3)
+        }
     static var RobotoThinItalicTabBar: Font {
         Font.custom("Roboto-ThinItalic", size: 12, relativeTo: .subheadline)
         }
@@ -13,6 +16,9 @@ extension Font {
         }
     static var RobotoThinItalic: Font {
             Font.custom("Roboto-ThinItalic", size: 24, relativeTo: .title2)
+        }
+    static var RobotoThinItalicHeader: Font {
+            Font.custom("Roboto-ThinItalic", size: 20, relativeTo: .title2)
         }
     static var RobotoThinItalicTaskHeader: Font {
             Font.custom("Roboto-ThinItalic", size: 14, relativeTo: .title2)
