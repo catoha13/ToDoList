@@ -39,6 +39,10 @@ extension Color {
     public static var customBar: Color {
         return Color(UIColor(red: 0.956, green: 0.956, blue: 0.956, alpha: 1))
     }
+    public static var customWhiteBackground: Color {
+        return Color(UIColor(red: 0.992, green: 0.992, blue: 0.992, alpha: 1))
+    }
+   
     
 
     

@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct ChooseColor: View {
-    @Binding var selectedColor: Color
-    @State var selectedButton: Bool? = nil
-    @State private var selectButton = [false, false, false ,false, false]
+    @State var selectedColor: Color
     @State private var colorArray = [Color.customBlue,
                                      Color.customPink,
                                      Color.customGreen,
@@ -16,11 +14,8 @@ struct ChooseColor: View {
                 .font(Font(Roboto.thinItalic(size: 18)))
                 .padding()
             HStack {
-                ForEach(0..<colorArray.count, id: \.self) { element in
-                    ColorButton(color: $colorArray[element],
-                                isSelected: selectButton[element]) {
-                        selectedColor = colorArray[element]
-                    }
+                ForEach(colorArray, id: \.self) { element in
+                    ColorButton(selectedColor: $selectedColor, color: element)
                 }
             }
         }
@@ -29,8 +24,8 @@ struct ChooseColor: View {
 }
 
 struct ChooseColor_Previews: PreviewProvider {
-    @State static var selectedColor: Color = .customBiege
+    @State static var selectedColor: Color = .customBlue
     static var previews: some View {
-        ChooseColor(selectedColor: $selectedColor)
+        ChooseColor(selectedColor: selectedColor)
     }
 }

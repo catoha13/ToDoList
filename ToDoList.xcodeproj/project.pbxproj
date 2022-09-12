@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0AECD028CB351800505181 /* ProjectChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */; };
 		AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */; };
 		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
@@ -28,6 +29,9 @@
 		AC5E2E9E289310CA005B48BD /* ViewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5E2E9D289310CA005B48BD /* ViewTask.swift */; };
 		AC5E2EA22893234A005B48BD /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5E2EA12893234A005B48BD /* CommentsView.swift */; };
 		AC5E2EA428932E18005B48BD /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5E2EA328932E18005B48BD /* SideView.swift */; };
+		AC6406A328CA66A600D1D129 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6406A228CA66A600D1D129 /* MenuViewModel.swift */; };
+		AC6406A528CA66D300D1D129 /* ProjectsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6406A428CA66D300D1D129 /* ProjectsModel.swift */; };
+		AC6406A828CA67E400D1D129 /* ProjectNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6406A728CA67E400D1D129 /* ProjectNetworkService.swift */; };
 		AC66016A2892D232005A7B02 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6601692892D232005A7B02 /* Header.swift */; };
 		AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66016E2892D370005A7B02 /* TextAndTextfield.swift */; };
 		AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6601702892D5B6005A7B02 /* SearchUserView.swift */; };
@@ -70,6 +74,9 @@
 		AC925B80289848450098892A /* CreateNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B7F289848450098892A /* CreateNote.swift */; };
 		AC925B82289855CE0098892A /* ChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B81289855CE0098892A /* ChooseColor.swift */; };
 		AC925B842898594F0098892A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B832898594F0098892A /* ColorButton.swift */; };
+		AC9CC1A028CA0FEF005B4387 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */; };
+		ACADC52928C76F7400289409 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52828C76F7400289409 /* Task.swift */; };
+		ACADC52B28C774D800289409 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52A28C774D800289409 /* TaskList.swift */; };
 		ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
 		ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */; };
@@ -97,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectChooseColor.swift; sourceTree = "<group>"; };
 		AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModels.swift; sourceTree = "<group>"; };
 		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -118,6 +126,9 @@
 		AC5E2E9D289310CA005B48BD /* ViewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTask.swift; sourceTree = "<group>"; };
 		AC5E2EA12893234A005B48BD /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		AC5E2EA328932E18005B48BD /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
+		AC6406A228CA66A600D1D129 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		AC6406A428CA66D300D1D129 /* ProjectsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsModel.swift; sourceTree = "<group>"; };
+		AC6406A728CA67E400D1D129 /* ProjectNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNetworkService.swift; sourceTree = "<group>"; };
 		AC6601692892D232005A7B02 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		AC66016E2892D370005A7B02 /* TextAndTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAndTextfield.swift; sourceTree = "<group>"; };
 		AC6601702892D5B6005A7B02 /* SearchUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserView.swift; sourceTree = "<group>"; };
@@ -164,6 +175,9 @@
 		AC925B7F289848450098892A /* CreateNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNote.swift; sourceTree = "<group>"; };
 		AC925B81289855CE0098892A /* ChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColor.swift; sourceTree = "<group>"; };
 		AC925B832898594F0098892A /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
+		AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		ACADC52828C76F7400289409 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		ACADC52A28C774D800289409 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarModel.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -224,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */,
+				AC6406A728CA67E400D1D129 /* ProjectNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -405,6 +420,8 @@
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
 				ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */,
 				AC66016D2892D31E005A7B02 /* Create */,
+				AC9CC19E28CA0FDB005B4387 /* Project */,
+				ACADC52728C76F5900289409 /* Task */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -438,6 +455,24 @@
 			path = "Add Note";
 			sourceTree = "<group>";
 		};
+		AC9CC19E28CA0FDB005B4387 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */,
+				AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */,
+			);
+			path = Project;
+			sourceTree = "<group>";
+		};
+		ACADC52728C76F5900289409 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				ACADC52828C76F7400289409 /* Task.swift */,
+				ACADC52A28C774D800289409 /* TaskList.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		ACD6C560288F14D30033D732 /* Create */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +500,7 @@
 				AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */,
 				ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */,
 				AC49149928AA8ECC0030E852 /* WebServiceModel.swift */,
+				AC6406A428CA66D300D1D129 /* ProjectsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -474,6 +510,7 @@
 			children = (
 				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
 				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
+				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -623,6 +660,8 @@
 				AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */,
 				AC20A02E28BD689300E7B718 /* Token.swift in Sources */,
 				AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */,
+				AC6406A328CA66A600D1D129 /* MenuViewModel.swift in Sources */,
+				AC9CC1A028CA0FEF005B4387 /* ProjectCell.swift in Sources */,
 				AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */,
 				ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */,
 				AC9063FC28BFFE22002450A8 /* ImagePickerCoordinator.swift in Sources */,
@@ -637,12 +676,15 @@
 				AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */,
 				AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */,
 				AC925B842898594F0098892A /* ColorButton.swift in Sources */,
+				AC6406A528CA66D300D1D129 /* ProjectsModel.swift in Sources */,
 				AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */,
 				AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */,
+				AC0AECD028CB351800505181 /* ProjectChooseColor.swift in Sources */,
 				AC5E2EA428932E18005B48BD /* SideView.swift in Sources */,
 				ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */,
 				AC676BCC288EBE7F001DDE34 /* ViewRouter.swift in Sources */,
 				AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */,
+				AC6406A828CA67E400D1D129 /* ProjectNetworkService.swift in Sources */,
 				AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */,
 				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
@@ -664,6 +706,8 @@
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC925B80289848450098892A /* CreateNote.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
+				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
+				ACADC52928C76F7400289409 /* Task.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,

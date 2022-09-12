@@ -1,29 +1,28 @@
 import SwiftUI
 
 struct ColorButton: View {
-    @Binding var color: Color
-    @State var isSelected: Bool?
-    @State var action: () -> Void
+    @Binding var selectedColor: Color
+    @State var color: Color
+    @State private var isSelected = false
     
     var body: some View {
         Button {
-            action()
-            isSelected?.toggle()
+            isSelected.toggle()
+            selectedColor = color
         } label: {
             RoundedRectangle(cornerRadius: Constants.radiusFive)
                 .frame(width: 48, height: 48)
                 .foregroundColor(color)
-                .overlay(isSelected ?? false ? Image(systemName: "checkmark").foregroundColor(.white) : nil)
+                .overlay(selectedColor == color ? Image(systemName: "checkmark").foregroundColor(.white) : nil)
         }
-        
     }
 }
 
 struct ColorButton_Previews: PreviewProvider {
     @State static var color: Color = .customPink
-    @State static var isSelected = false
+    @State static var selectedColor: Color = .customBlue
     
     static var previews: some View {
-        ColorButton(color: $color, isSelected: isSelected, action: {})
+        ColorButton(selectedColor: $selectedColor, color: color)
     }
 }
