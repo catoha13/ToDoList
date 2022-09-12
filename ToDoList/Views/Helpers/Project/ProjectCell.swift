@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct ProjectCell: View {
-    
+    @State var color = "#6074F9"
+    @State var text = ""
+    @State var taskCounter = 9
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -9,11 +11,11 @@ struct ProjectCell: View {
                 ZStack {
                     Circle()
                         .frame(width: 26, height: 26)
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color(hex: color))
                         .opacity(0.3)
                     Circle()
                         .frame(width: 14, height: 14)
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color(hex: color))
                 }
                 .padding(.horizontal, 14)
                 .padding(.bottom, 26)
@@ -24,7 +26,7 @@ struct ProjectCell: View {
                     .padding(.horizontal,15)
                     .padding(.bottom, 17)
                 
-                Text("10 Tasks")
+                Text("\(taskCounter) Tasks")
                     .font(.RobotoRegular)
                     .foregroundColor(.secondary)
                     .padding(.horizontal,15)

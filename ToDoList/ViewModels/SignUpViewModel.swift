@@ -17,6 +17,7 @@ final class SignUpViewModel: ObservableObject {
     
     private var authService = AuthService()
     private var token = Token()
+    private var user = User()
     private var cancellables = Set<AnyCancellable>()
     private var  model: RequestBodyModel {
         RequestBodyModel(email: email, password: password, username: username)
@@ -27,7 +28,7 @@ final class SignUpViewModel: ObservableObject {
     
     let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
-    
+
     init() {
         $email
             .map { email in
@@ -41,7 +42,7 @@ final class SignUpViewModel: ObservableObject {
             }
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellables)
-        
+
         Publishers.CombineLatest($isEmailValid, $isPasswordValid)
             .map { isEmailValid, isPasswordValid in
                 return ( isEmailValid && isPasswordValid)
@@ -57,16 +58,23 @@ final class SignUpViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    self.errorMessage = error.description
+//                    self.errorMessage = error.description
+                    print(error.localizedDescription)
                 }
+                print($0)
             }, receiveValue: {
                 if $0.data.message == nil {
+                    self.isPresented.toggle()
                     self.token.savedToken = $0.data.userSession?.accessToken ?? "no data"
                     self.token.refreshToken = $0.data.userSession?.refreshToken ?? "no data"
                     self.token.expireDate = $0.data.userSession?.expiresIn ?? 0
+                    self.token.tokenType = $0.data.userSession?.tokenType
+                    self.user.userId = $0.data.id ?? "no data"
+                    self.user.savedEmail = $0.data.email ?? "no data"
                 } else {
                     self.errorMessage = $0.data.message ?? "no data"
                 }
+                print($0)
             })
             .store(in: &cancellables)
     }

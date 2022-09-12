@@ -53,8 +53,6 @@ struct SignUpView: View {
                     viewModel.signUp()
                 })
                 .padding(.top, 10)
-                .opacity(viewModel.isCredentialsValid ? 1 : 0.6)
-                .disabled(!viewModel.isCredentialsValid)
                 .fullScreenCover(isPresented: $viewModel.isPresented) {
                     CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
                 }

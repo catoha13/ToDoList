@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MenuView: View {
+    @StateObject private var viewModel = MenuViewModel()
+    
     @State private var isPresented = false
     @State private var selectedColor: Color = .red
     @State private var projectName = ""
@@ -12,13 +14,12 @@ struct MenuView: View {
                 Text("Projects")
                     .font(.RobotoThinItalicHeader)
                     .padding(.vertical, 50)
-                
-                ForEach(0..<1) { _ in
-                    HStack {
-                        ProjectCell()
-                        ProjectCell()
+                    
+                    ForEach(viewModel.projectsArray, id: \.self) { data in
+                        ProjectCell(color: data.color, text: data.title, taskCounter: 8)
+                        
                     }
-                }
+                   
                 AddProjectButton() {
                     self.isPresented.toggle()
                 }
@@ -39,6 +40,9 @@ struct MenuView: View {
                     
                 }
             }
+        }
+        .onAppear {
+//            viewModel.fetchProjects()
         }
     }
 }

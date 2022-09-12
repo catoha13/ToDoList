@@ -37,6 +37,7 @@ struct SignUpResponce: Codable {
 struct UserSession: Codable {
     var accessToken: String
     var refreshToken: String
+    var tokenType: String
     var expiresIn: Int
 }
 

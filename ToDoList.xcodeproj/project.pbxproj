@@ -69,6 +69,7 @@
 		AC7715312885922800A0C804 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771525288591AC00A0C804 /* Roboto-ThinItalic.ttf */; };
 		AC7715362885964E00A0C804 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715352885964E00A0C804 /* Constants.swift */; };
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
+		AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8CFFF728CF2DF200337AA2 /* User.swift */; };
 		AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063F928BFFDB3002450A8 /* ImagePicker.swift */; };
 		AC9063FC28BFFE22002450A8 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */; };
 		AC925B80289848450098892A /* CreateNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B7F289848450098892A /* CreateNote.swift */; };
@@ -170,6 +171,7 @@
 		AC7715352885964E00A0C804 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC7715382885985F00A0C804 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AC8CFFF728CF2DF200337AA2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC9063F928BFFDB3002450A8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		AC925B7F289848450098892A /* CreateNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNote.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				AC20A02D28BD689300E7B718 /* Token.swift */,
+				AC8CFFF728CF2DF200337AA2 /* User.swift */,
 				AC49148F28A6EEA40030E852 /* Services */,
 			);
 			path = Authentication;
@@ -704,6 +707,7 @@
 				ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */,
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
+				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC925B80289848450098892A /* CreateNote.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
