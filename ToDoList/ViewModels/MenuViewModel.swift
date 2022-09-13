@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Combine
 
 final class MenuViewModel: ObservableObject {
@@ -36,7 +37,7 @@ final class MenuViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     // alert with error
-                    print(error.description)
+                    print("error – \(error)")
                 }
             }, receiveValue: {
                 print($0)
@@ -56,7 +57,7 @@ final class MenuViewModel: ObservableObject {
                 }
             }, receiveValue: {
                 self.projectsArray = $0.data
-                print(self.projectsArray[0])
+                print(self.projectsArray)
             })
             .store(in: &cancellables)
     }

@@ -40,6 +40,8 @@ final class NetworkMaganer: NetworkProtocol {
         
         let jsonData = try? encoder.encode(body)
         
+       
+        
         let url = URL(string: BaseUrl.authorization.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.post.rawValue
@@ -50,6 +52,13 @@ final class NetworkMaganer: NetworkProtocol {
         }
         request.httpBody = jsonData
         
+        do {
+            if let json = try JSONSerialization.jsonObject(with: jsonData!) as? [String: Any] {
+                print(json)
+            }
+        } catch {
+            print("error")
+        }
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
             .map { $0.data }

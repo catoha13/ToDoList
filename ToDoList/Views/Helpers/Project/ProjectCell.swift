@@ -21,7 +21,7 @@ struct ProjectCell: View {
                 .padding(.bottom, 26)
                 Spacer()
             }
-                Text("Personal")
+                Text(text)
                     .font(.RobotoThinItalic)
                     .padding(.horizontal,15)
                     .padding(.bottom, 17)
