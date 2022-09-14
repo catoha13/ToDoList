@@ -65,26 +65,23 @@ struct MenuView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
                     VStack(spacing: 0) {
-                        HStack {
-                            Text("Editing")
-                            Spacer()
-                            Button("Delete") {
-                                showAlert.toggle()
-                            }
-                            .foregroundColor(.red)
-                            .alert(isPresented: $showAlert) {
-                                Alert(title: Text("Are you sure?"), primaryButton: .destructive(Text("Delete")) {
-                                    viewModel.deleteProject()
-                                    isEditing = false
-                                    showAlert = false
-                                }, secondaryButton: .default(Text("Go back")))
-                            }
+                        Button("Delete project") {
+                            showAlert.toggle()
                         }
+                        .foregroundColor(.red)
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Are you sure?"), message: Text("This action is irreversible.") , primaryButton: .destructive(Text("Delete")) {
+                                viewModel.deleteProject()
+                                isEditing = false
+                                showAlert = false
+                            }, secondaryButton: .default(Text("Go back")))
+                        }
+                        
                         .frame(maxWidth: .infinity)
                         .frame(height: 46)
-                        .padding(.horizontal, 50)
+                        .padding(.horizontal, 30)
                         .background(.white)
-                        .font(.RobotoThinItalic)
+                        .font(.RobotoThinItalicSmall)
                         
                         ProjectChooseColor(isPresented: $isEditing,
                                            extracedColor: $selectedColor,
@@ -92,8 +89,11 @@ struct MenuView: View {
                             viewModel.chosenColor = selectedColor
                             viewModel.projectName = projectName
                             viewModel.updateProject()
+                            projectName = ""
                         }
                     }
+                    .frame(width: 338)
+                    .cornerRadius(Constants.radiusFive)
                 }
             }
         }
