@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Task: View {
+struct TaskCell: View {
     @Binding var task: String
     @Binding var time: String
     @Binding var color: Color
@@ -50,7 +50,7 @@ struct Task_Previews: PreviewProvider {
     @State static var color = Color.blue
     
     static var previews: some View {
-        Task(task: $task, time: $time, color: $color, deleteAction: {})
+        TaskCell(task: $task, time: $time, color: $color, deleteAction: {})
             .previewLayout(.fixed(width: 343, height: 70))
     }
 }

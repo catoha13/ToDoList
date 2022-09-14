@@ -33,6 +33,7 @@ final class SignInViewModel: ObservableObject {
                         self.token.savedToken = $0.data.accessToken ?? "no data"
                         self.token.refreshToken = $0.data.refreshToken ?? "no data"
                         self.token.expireDate = $0.data.expiresIn ?? 0
+                        self.token.tokenType = $0.data.tokenType ?? "no data"
                         self.token.checkToken
                             .sink { self.credentialsChecked = $0
                             }

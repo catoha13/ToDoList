@@ -69,13 +69,14 @@
 		AC7715312885922800A0C804 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771525288591AC00A0C804 /* Roboto-ThinItalic.ttf */; };
 		AC7715362885964E00A0C804 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715352885964E00A0C804 /* Constants.swift */; };
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
+		AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8CFFF728CF2DF200337AA2 /* User.swift */; };
 		AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063F928BFFDB3002450A8 /* ImagePicker.swift */; };
 		AC9063FC28BFFE22002450A8 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */; };
 		AC925B80289848450098892A /* CreateNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B7F289848450098892A /* CreateNote.swift */; };
 		AC925B82289855CE0098892A /* ChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B81289855CE0098892A /* ChooseColor.swift */; };
 		AC925B842898594F0098892A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B832898594F0098892A /* ColorButton.swift */; };
 		AC9CC1A028CA0FEF005B4387 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */; };
-		ACADC52928C76F7400289409 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52828C76F7400289409 /* Task.swift */; };
+		ACADC52928C76F7400289409 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52828C76F7400289409 /* TaskCell.swift */; };
 		ACADC52B28C774D800289409 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52A28C774D800289409 /* TaskList.swift */; };
 		ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
@@ -170,13 +171,14 @@
 		AC7715352885964E00A0C804 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC7715382885985F00A0C804 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AC8CFFF728CF2DF200337AA2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC9063F928BFFDB3002450A8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		AC925B7F289848450098892A /* CreateNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNote.swift; sourceTree = "<group>"; };
 		AC925B81289855CE0098892A /* ChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColor.swift; sourceTree = "<group>"; };
 		AC925B832898594F0098892A /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
-		ACADC52828C76F7400289409 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		ACADC52828C76F7400289409 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		ACADC52A28C774D800289409 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarModel.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				AC20A02D28BD689300E7B718 /* Token.swift */,
+				AC8CFFF728CF2DF200337AA2 /* User.swift */,
 				AC49148F28A6EEA40030E852 /* Services */,
 			);
 			path = Authentication;
@@ -467,7 +470,7 @@
 		ACADC52728C76F5900289409 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				ACADC52828C76F7400289409 /* Task.swift */,
+				ACADC52828C76F7400289409 /* TaskCell.swift */,
 				ACADC52A28C774D800289409 /* TaskList.swift */,
 			);
 			path = Task;
@@ -704,10 +707,11 @@
 				ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */,
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
+				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC925B80289848450098892A /* CreateNote.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
-				ACADC52928C76F7400289409 /* Task.swift in Sources */,
+				ACADC52928C76F7400289409 /* TaskCell.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,

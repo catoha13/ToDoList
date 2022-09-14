@@ -6,6 +6,7 @@ final class Token: ObservableObject {
     @AppStorage("token") var savedToken: String?
     @AppStorage("refreshToken") var refreshToken : String?
     @AppStorage("expireDate") var expireDate: Int?
+    @AppStorage("tokenType") var tokenType: String?
     
     private var authService = AuthService()
     private var cancellables = Set<AnyCancellable>()

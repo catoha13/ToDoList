@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ChooseColor: View {
-    @State var selectedColor: Color
+    @Binding var selectedColor: Color
     @State private var colorArray = [Color.customBlue,
                                      Color.customPink,
                                      Color.customGreen,
@@ -26,6 +26,6 @@ struct ChooseColor: View {
 struct ChooseColor_Previews: PreviewProvider {
     @State static var selectedColor: Color = .customBlue
     static var previews: some View {
-        ChooseColor(selectedColor: selectedColor)
+        ChooseColor(selectedColor: $selectedColor)
     }
 }
