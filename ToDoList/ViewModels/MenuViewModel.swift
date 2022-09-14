@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import Combine
 
@@ -39,15 +38,8 @@ final class MenuViewModel: ObservableObject {
     
     func createProject() {
         publisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
-            }, receiveValue: {
-                print($0)
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { _ in
                 self.fetchProjects()
             })
             .store(in: &cancellables)
@@ -55,31 +47,17 @@ final class MenuViewModel: ObservableObject {
     
     func fetchProjects() {
         fetchPublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: {
                 self.projectsArray = $0.data
-                print(self.projectsArray)
             })
             .store(in: &cancellables)
     }
     
     func updateProject() {
         updatePublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
-            }, receiveValue: {
-                print($0)
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { _ in
                 self.fetchProjects()
             })
             .store(in: &cancellables)
@@ -87,15 +65,8 @@ final class MenuViewModel: ObservableObject {
     
     func deleteProject() {
         deletePublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
-            }, receiveValue: {
-                print($0)
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { _ in
                 self.fetchProjects()
             })
             .store(in: &cancellables)

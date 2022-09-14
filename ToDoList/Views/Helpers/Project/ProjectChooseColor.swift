@@ -47,7 +47,6 @@ struct ProjectChooseColor_Previews: PreviewProvider {
     @State static var projectName = ""
     @State static var extractedColor = ""
     
-    
     static var previews: some View {
         ProjectChooseColor(isPresented: $isPresented,
                            extracedColor: $extractedColor,
