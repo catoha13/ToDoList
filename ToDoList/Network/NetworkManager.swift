@@ -30,7 +30,30 @@ final class NetworkMaganer: NetworkProtocol {
             }
             .eraseToAnyPublisher()
     }
-    func put() {}
+    func put<T, U>(body: T, path: String, header: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.outputFormatting = .prettyPrinted
+        
+        let jsonData = try? encoder.encode(body)
+        
+        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        var request = URLRequest(url: url!)
+        request.httpMethod = Method.put.rawValue
+        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        request.httpBody = jsonData
+        
+        return session.dataTaskPublisher(for: request)
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: U.self, decoder: decoder )
+            .mapError { error -> NetworkError in
+                return NetworkError.requestFailed(error.localizedDescription)
+            }
+            .eraseToAnyPublisher()
+    }
     func delete() {}
     
     func post<T, U>(body: T, path: String, header: String?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
@@ -39,8 +62,6 @@ final class NetworkMaganer: NetworkProtocol {
         encoder.outputFormatting = .prettyPrinted
         
         let jsonData = try? encoder.encode(body)
-        
-       
         
         let url = URL(string: BaseUrl.authorization.rawValue + path)
         var request = URLRequest(url: url!)
@@ -52,13 +73,6 @@ final class NetworkMaganer: NetworkProtocol {
         }
         request.httpBody = jsonData
         
-        do {
-            if let json = try JSONSerialization.jsonObject(with: jsonData!) as? [String: Any] {
-                print(json)
-            }
-        } catch {
-            print("error")
-        }
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
             .map { $0.data }

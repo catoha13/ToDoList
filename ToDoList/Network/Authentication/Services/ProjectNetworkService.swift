@@ -14,4 +14,9 @@ final class ProjectNetworkService {
         let path = Path.fetchProjects.rawValue + (user.userId ?? "no data")
         return networkManager.get(path: path, header: header)
     }
+    
+    func updateProject<T, U>(model: T, header: String, projectId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        let path = Path.projects.rawValue + "/" + projectId
+        return networkManager.put(body: model, path: path, header: header)
+    }
 }

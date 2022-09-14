@@ -7,6 +7,7 @@ final class MenuViewModel: ObservableObject {
     @Published var projectName = ""
     @Published var chosenColor = ""
     @Published var projectsArray: [FetchProjectsData] = []
+    @Published var selectedProject = ""
     
     private var token = Token()
     private let user = User()
@@ -28,6 +29,9 @@ final class MenuViewModel: ObservableObject {
     private var fetchPublisher: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
         return projectService.fetchProjects(header: header)
     }
+    private var updatePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
+        return projectService.updateProject(model: model, header: header, projectId: selectedProject)
+    }
     
     func createProject() {
         publisher
@@ -36,8 +40,7 @@ final class MenuViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    // alert with error
-                    print("error – \(error)")
+                    print(error)
                 }
             }, receiveValue: {
                 print($0)
@@ -53,8 +56,7 @@ final class MenuViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    // alert with error
-                    print(error.description)
+                    print(error)
                 }
             }, receiveValue: {
                 self.projectsArray = $0.data
@@ -63,4 +65,23 @@ final class MenuViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func updateProject() {
+        updatePublisher
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
+            }, receiveValue: {
+                print($0)
+                self.fetchProjects()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func deleteProject() {
+        
+    }
 }

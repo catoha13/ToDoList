@@ -4,6 +4,7 @@ struct MenuView: View {
     @StateObject private var viewModel = MenuViewModel()
     
     @State private var isPresented = false
+    @State private var isEditing = false
     @State private var selectedColor = ""
     @State private var projectName = ""
     private var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
@@ -19,6 +20,12 @@ struct MenuView: View {
                     LazyVGrid(columns: flexibleLayout) {
                         ForEach(viewModel.projectsArray, id: \.self) { data in
                             ProjectCell(color: data.color, text: data.title, taskCounter: 8)
+                                .onLongPressGesture {
+                                    viewModel.selectedProject = data.id
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        isEditing.toggle()
+                                    }
+                                }
                         }
                     }
                     
@@ -44,12 +51,32 @@ struct MenuView: View {
                     .frame(width: 338)
                     .cornerRadius(Constants.radiusFive)
                     .ignoresSafeArea()
-                    
+                }
+            }
+            
+            if isEditing {
+                ZStack {
+                    Text("")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.secondary)
+                    VStack {
+                        Text("Editing")
+                            .frame(maxWidth: .infinity)
+                            .background(.white)
+                            .font(.RobotoThinItalic)
+                        ProjectChooseColor(isPresented: $isEditing,
+                                           extracedColor: $selectedColor,
+                                           projectName: $projectName) {
+                            viewModel.chosenColor = selectedColor
+                            viewModel.projectName = projectName
+                            viewModel.updateProject()
+                        }
+                    }
                 }
             }
         }
         .onAppear {
-//            viewModel.fetchProjects()
+            viewModel.fetchProjects()
         }
     }
 }
