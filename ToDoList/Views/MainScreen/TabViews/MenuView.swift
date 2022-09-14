@@ -5,6 +5,7 @@ struct MenuView: View {
     
     @State private var isPresented = false
     @State private var isEditing = false
+    @State private var showAlert = false
     @State private var selectedColor = ""
     @State private var projectName = ""
     private var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
@@ -30,7 +31,9 @@ struct MenuView: View {
                     }
                     
                     AddProjectButton() {
-                        self.isPresented.toggle()
+                        withAnimation {
+                            self.isPresented.toggle()
+                        }
                     }
                 }
             }
@@ -59,11 +62,28 @@ struct MenuView: View {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
-                    VStack {
-                        Text("Editing")
-                            .frame(maxWidth: .infinity)
-                            .background(.white)
-                            .font(.RobotoThinItalic)
+                    VStack(spacing: 0) {
+                        HStack {
+                            Text("Editing")
+                            Spacer()
+                            Button("Delete") {
+                                showAlert.toggle()
+                            }
+                            .foregroundColor(.red)
+                            .alert(isPresented: $showAlert) {
+                                Alert(title: Text("Are you sure?"), primaryButton: .destructive(Text("Delete")) {
+                                    viewModel.deleteProject()
+                                    isEditing = false
+                                    showAlert = false
+                                }, secondaryButton: .default(Text("Go back")))
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 46)
+                        .padding(.horizontal, 50)
+                        .background(.white)
+                        .font(.RobotoThinItalic)
+                        
                         ProjectChooseColor(isPresented: $isEditing,
                                            extracedColor: $selectedColor,
                                            projectName: $projectName) {
@@ -78,6 +98,7 @@ struct MenuView: View {
         .onAppear {
             viewModel.fetchProjects()
         }
+        
     }
 }
 

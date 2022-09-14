@@ -11,11 +11,11 @@ struct ProjectResponceModel: Codable {
 }
 
 struct ProjectResponceData: Codable {
-    var id: String
-    var title: String
-    var color: String
-    var ownerId: String
-    var createdAt: String
+    var id: String?
+    var title: String?
+    var color: String?
+    var ownerId: String?
+    var createdAt: String?
 }
 
 struct FetchProjectsResponceModel: Codable {

@@ -54,7 +54,25 @@ final class NetworkMaganer: NetworkProtocol {
             }
             .eraseToAnyPublisher()
     }
-    func delete() {}
+    func delete<U>(path: String, header: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.outputFormatting = .prettyPrinted
+        
+        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        var request = URLRequest(url: url!)
+        request.httpMethod = Method.delete.rawValue
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        return session.dataTaskPublisher(for: request)
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: U.self, decoder: decoder )
+            .mapError { error -> NetworkError in
+                return NetworkError.requestFailed(error.localizedDescription)
+            }
+            .eraseToAnyPublisher()
+    }
     
     func post<T, U>(body: T, path: String, header: String?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase

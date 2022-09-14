@@ -19,4 +19,9 @@ final class ProjectNetworkService {
         let path = Path.projects.rawValue + "/" + projectId
         return networkManager.put(body: model, path: path, header: header)
     }
+    
+    func deletePost<U>(header: String, projectId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.projects.rawValue + "/" + projectId
+        return networkManager.delete(path: path, header: header)
+    }
 }

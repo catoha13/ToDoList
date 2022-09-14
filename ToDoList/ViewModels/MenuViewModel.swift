@@ -13,6 +13,7 @@ final class MenuViewModel: ObservableObject {
     private let user = User()
     private var projectService = ProjectNetworkService()
     private var cancellables = Set<AnyCancellable>()
+    
     private var header: String {
       return (token.tokenType ?? "") + " " + (token.savedToken ?? "")
     }
@@ -31,6 +32,9 @@ final class MenuViewModel: ObservableObject {
     }
     private var updatePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.updateProject(model: model, header: header, projectId: selectedProject)
+    }
+    private var deletePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
+        return projectService.deletePost(header: header, projectId: selectedProject)
     }
     
     func createProject() {
@@ -82,6 +86,18 @@ final class MenuViewModel: ObservableObject {
     }
     
     func deleteProject() {
-        
+        deletePublisher
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
+            }, receiveValue: {
+                print($0)
+                self.fetchProjects()
+            })
+            .store(in: &cancellables)
     }
 }
