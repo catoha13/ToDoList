@@ -1,10 +1,8 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State var username: String = ""
-    @State var password: String = ""
+    @StateObject private var viewModel = SignUpViewModel()
     @Binding var isPresented: Bool
-    @State var isMainPresented = false
     
     var body: some View {
         
@@ -12,26 +10,50 @@ struct SignUpView: View {
             VStack {
                 HeaderAndDescription(text: "Welcome",
                                      description: "Sign up to continue")
-                .padding(.top, 96)
+                .padding(.top, 66)
                 
-                CircleImageView(image: "superhero", width: 107, height: 104)
-                    .padding(.bottom, 26)
+                ZStack {
+                    viewModel.avatar?
+                        .resizable()
+                        .frame(width: 107, height: 104)
+                        .background(.secondary)
+                        .clipShape(Circle())
+                        .foregroundColor(.customGray)
+                        .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))
+                    
+                    CustomAvatarButton() {
+                        viewModel.showImagePicker.toggle()
+                    }
+                    .sheet(isPresented: $viewModel.showImagePicker) {
+                        ImagePicker(isShown: self.$viewModel.showImagePicker,
+                                    image: $viewModel.avatar,
+                                    url: $viewModel.url)
+                    }
+                }
                 
-                CustomTextField(text: "Username",
-                                placeholder: "Enter username",
-                                variable: username)
-                    .padding(.bottom, 20)
+                Group {
+                    CustomTextField(text: "Email",
+                                    placeholder: "Enter email",
+                                    variable: $viewModel.email)
+                    .keyboardType(.emailAddress)
+                    
+                    CustomTextField(text: "Username",
+                                    placeholder: "Enter username",
+                                    variable: $viewModel.username)
+                    
+                    CustomSecureTextField(text: "Password",
+                                          placeholder: "Enter your password",
+                                          variable: $viewModel.password)
+                }
+                .padding(.vertical, 2)
                 
-                CustomTextField(text: "Password",
-                                placeholder: "Enter your password",
-                                variable: password)
+                TextWithErrorDecsription(text: $viewModel.errorMessage)
                 
                 CustomCoralFilledButton(text: "Sign Up", action: {
-                    // some action
-                    isMainPresented.toggle()
+                    viewModel.signUp()
                 })
-                .padding(.top, 72)
-                .fullScreenCover(isPresented: $isMainPresented) {
+                .padding(.top, 10)
+                .fullScreenCover(isPresented: $viewModel.isPresented) {
                     CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
                 }
                 

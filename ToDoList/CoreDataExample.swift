@@ -30,7 +30,7 @@ struct CoreDataExample: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+//                    EditButton()
                 }
                 ToolbarItem {
                     Button(action: addItem) {

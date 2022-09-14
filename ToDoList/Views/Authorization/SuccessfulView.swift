@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SuccessfulView: View {
+    @State private var isPresented = false
     var body: some View {
         VStack {
             Image("confirmed")
@@ -8,7 +9,7 @@ struct SuccessfulView: View {
             
             VStack {
                 Text("Successful!")
-                    .font(.custom("Roboto-ThinItalic", size: 32)) // add to extension?
+                    .font(.custom("Roboto-ThinItalic", size: 32))
                     .foregroundColor(.customBlack)
                     .padding(.bottom, 10)
                 
@@ -20,11 +21,19 @@ struct SuccessfulView: View {
             }
             .multilineTextAlignment(.center)
             .lineLimit(3)
+            .onAppear {
+                Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { _ in
+                    isPresented.toggle()
+                }
+            }
             
         }
         .padding(.horizontal, 30)
         .padding(.bottom, 60)
         .navigationBarBackButtonHidden(true)
+        .fullScreenCover(isPresented: $isPresented) {
+            SignUpView(isPresented: $isPresented)
+        }
     }
 }
 

@@ -1,19 +1,17 @@
 import SwiftUI
 
-// странно располоожена кнопка при вызове клавиатуры
-
 struct ResetPasswordView: View {
-    var resetNumber = ""
-    var newPassword = ""
-    var confirmPassword = ""
+    @State var resetNumber = ""
+    @State var newPassword = ""
+    @State var confirmPassword = ""
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     //MARK: Custom back button
-    var btnBack : some View { Button(action: {
+    var backButton : some View { Button(action: {
             self.presentationMode.wrappedValue.dismiss()
             }) {
-                Image(systemName: "arrow.left") // set image here
+                Image(systemName: "arrow.left")
                     .resizable()
                     .foregroundColor(.black)
                     .frame(width: 25.2, height: 17.71)
@@ -29,15 +27,15 @@ struct ResetPasswordView: View {
             
             CustomTextField(text: "Reset code",
                             placeholder: "Enter your number",
-                            variable: resetNumber)
+                            variable: $resetNumber)
             
-            CustomTextField(text: "New password",
+            CustomSecureTextField(text: "New password",
                             placeholder: "Enter new password",
-                            variable: newPassword)
+                            variable: $newPassword)
             
-            CustomTextField(text: "Confirm password",
+            CustomSecureTextField(text: "Confirm password",
                             placeholder: "Confirm",
-                            variable: confirmPassword)
+                            variable: $confirmPassword)
             
             NavigationLink("Change password") {
                 SuccessfulView()
@@ -49,7 +47,7 @@ struct ResetPasswordView: View {
         }
         .padding(.horizontal, 30)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .navigationBarItems(leading: backButton)
     }
 }
 
