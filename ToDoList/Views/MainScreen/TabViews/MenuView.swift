@@ -23,6 +23,7 @@ struct MenuView: View {
                             ProjectCell(color: data.color, text: data.title, taskCounter: 8)
                                 .onLongPressGesture {
                                     viewModel.selectedProject = data.id
+                                    projectName = data.title
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         isEditing.toggle()
                                     }
@@ -50,6 +51,7 @@ struct MenuView: View {
                         viewModel.projectName = projectName
                         viewModel.createProject()
                         viewModel.fetchProjects()
+                        projectName = ""
                     }
                     .frame(width: 338)
                     .cornerRadius(Constants.radiusFive)
