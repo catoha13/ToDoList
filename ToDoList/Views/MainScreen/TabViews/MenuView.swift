@@ -50,7 +50,6 @@ struct MenuView: View {
                         viewModel.chosenColor = selectedColor
                         viewModel.projectName = projectName
                         viewModel.createProject()
-                        viewModel.fetchProjects()
                         projectName = ""
                     }
                     .frame(width: 338)
