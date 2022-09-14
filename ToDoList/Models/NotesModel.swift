@@ -11,14 +11,14 @@ struct NotesResponseModel: Codable {
 }
 
 struct NotesResponseData: Codable {
-    var id: String
-    var description: String
-    var color: String
-    var ownerId: String
-    var isCompleted: Bool
-    var createdAt: String
-    var message: String
-    var code: Int
+    var id: String?
+    var description: String?
+    var color: String?
+    var ownerId: String?
+    var isCompleted: Bool?
+    var createdAt: String?
+    var message: String?
+    var code: Int?
 }
 
 struct FetchAllNotesModel: Codable {

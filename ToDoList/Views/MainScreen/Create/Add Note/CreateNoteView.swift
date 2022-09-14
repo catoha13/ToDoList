@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct CreateNoteView: View {
-    @State var description = ""
     @Binding var isPresented: Bool
-    @State var selectedColor: Color = .clear
+    
+    @StateObject private var viewModel = CreateNoteViewModel()
+    @State private var selectedColor: Color = .clear
     
     var body: some View {
         VStack {
@@ -19,7 +20,7 @@ struct CreateNoteView: View {
                     Spacer()
                 }
                 .padding(.bottom, 6)
-                TextEditor(text: $description)
+                TextEditor(text: $viewModel.noteText)
                     .font(Font(Roboto.medium(size: 16)))
                     .padding()
                     .frame(width: 308, height: 151)
@@ -31,7 +32,7 @@ struct CreateNoteView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    
+                    viewModel.selectedColor = convertColor(color: selectedColor)
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 40)
@@ -47,6 +48,12 @@ struct CreateNoteView: View {
         .frame(width: 390)
         .ignoresSafeArea()
         .navigationBarHidden(true)
+    }
+    func convertColor(color: Color) -> String {
+        var stringColor = color.description
+        stringColor.removeLast()
+        stringColor.removeLast()
+        return stringColor
     }
 }
 
