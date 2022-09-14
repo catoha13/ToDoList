@@ -41,6 +41,7 @@ final class MenuViewModel: ObservableObject {
                 }
             }, receiveValue: {
                 print($0)
+                self.fetchProjects()
             })
             .store(in: &cancellables)
     }

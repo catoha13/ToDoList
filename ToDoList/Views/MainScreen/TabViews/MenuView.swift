@@ -49,7 +49,7 @@ struct MenuView: View {
             }
         }
         .onAppear {
-            viewModel.fetchProjects()
+//            viewModel.fetchProjects()
         }
     }
 }

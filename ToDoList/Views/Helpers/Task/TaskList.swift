@@ -35,7 +35,7 @@ struct TaskEditableList: View {
         List {
             Section {
                 ForEach($tasks, content: { item in
-                    Task(task: item.task,
+                    TaskCell(task: item.task,
                          time: item.time,
                          color: item.color,
                          deleteAction: {})
@@ -48,7 +48,7 @@ struct TaskEditableList: View {
             
             Section(content: {
                 ForEach($tomorrowTasks, content: { item in
-                    Task(task: item.task,
+                    TaskCell(task: item.task,
                          time: item.time,
                          color: item.color) {
 //                        let indexSet = IndexSet(arrayLiteral: <#T##IndexSet.ArrayLiteralElement...##IndexSet.ArrayLiteralElement#>)
