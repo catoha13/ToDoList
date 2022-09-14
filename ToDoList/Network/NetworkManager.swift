@@ -9,7 +9,7 @@ final class NetworkMaganer: NetworkProtocol {
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
 
-    func get<U>(path: String, header: String?) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func get<T, U>(body: T?,path: String, header: String?) -> AnyPublisher<U, NetworkError> where T:Encodable, U: Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
@@ -17,6 +17,13 @@ final class NetworkMaganer: NetworkProtocol {
         let url = URL(string: BaseUrl.authorization.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.get.rawValue
+        
+        if body != nil {
+            let jsonData = try? encoder.encode(body)
+            request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+        }
         
         if header != nil {
             request.setValue(header, forHTTPHeaderField: "Authorization")

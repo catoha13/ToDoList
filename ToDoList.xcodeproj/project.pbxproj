@@ -85,6 +85,9 @@
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
 		ACDC76B528D2101E00B4C5F9 /* CreateNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */; };
+		ACDC76B728D21D2D00B4C5F9 /* CreateNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */; };
+		ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */; };
+		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
 		ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */; };
 /* End PBXBuildFile section */
@@ -189,6 +192,9 @@
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
 		ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteView.swift; sourceTree = "<group>"; };
+		ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewModel.swift; sourceTree = "<group>"; };
+		ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
+		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
 		ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -254,6 +260,7 @@
 			children = (
 				ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */,
 				AC6406A728CA67E400D1D129 /* ProjectNetworkService.swift */,
+				ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -518,6 +525,7 @@
 				ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */,
 				AC49149928AA8ECC0030E852 /* WebServiceModel.swift */,
 				AC6406A428CA66D300D1D129 /* ProjectsModel.swift */,
+				ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -528,6 +536,7 @@
 				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
 				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
 				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
+				ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -714,8 +723,10 @@
 				AC5E2E9E289310CA005B48BD /* ViewTask.swift in Sources */,
 				AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */,
 				ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */,
+				ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */,
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
+				ACDC76B728D21D2D00B4C5F9 /* CreateNoteViewModel.swift in Sources */,
 				AC7714E528856C6D00A0C804 /* ToDoList.xcdatamodeld in Sources */,
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,
 				ACD6C562288F14F90033D732 /* CreateView.swift in Sources */,
@@ -727,6 +738,7 @@
 				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
+				ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */,
 				ACADC52928C76F7400289409 /* TaskCell.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
