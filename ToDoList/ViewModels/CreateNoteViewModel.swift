@@ -4,7 +4,9 @@ import Combine
 final class CreateNoteViewModel: ObservableObject {
     @Published var noteText = ""
     @Published var selectedColor = ""
-    @Published var selectedNote = "" // bind to view
+    @Published var selectedNote = ""
+    @Published var isCompleted = false
+    @Published var notesArray: [FetchAllNotesResponseData] = []
     
     private var token = Token()
     private let user = User()
@@ -19,24 +21,19 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     private var model: NotesModel {
-        return NotesModel(description: noteText, color: selectedColor, ownerId: ownerId)
+        return NotesModel(description: noteText, color: selectedColor, ownerId: ownerId, isCompleted: isCompleted)
     }
-    private var fetchModel: FetchAllNotesData {
-        return FetchAllNotesData(ownerId: ownerId)
-    }
-    private var emptyModel: FetchAllNotesModel? = nil
-    
     private var createPublisher: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.createNote(model: model, header: header)
     }
     private var deletePublisher: AnyPublisher<NotesResponseModel, NetworkError> {
-        return notesService.deleteNote(header: header)
+        return notesService.deleteNote(header: header, noteId: selectedNote)
     }
     private var fetchOnePublisher: AnyPublisher<NotesResponseModel, NetworkError> {
-        return notesService.fetchOneNote(model: emptyModel, header: header, noteId: selectedNote)
+        return notesService.fetchOneNote(header: header, noteId: selectedNote)
     }
-    private var fetchAllPublisher: AnyPublisher<NotesResponseModel, NetworkError> {
-        return notesService.fetchAllNotes(model: model, header: header)
+    private var fetchAllPublisher: AnyPublisher<FetchAllNotesResponseModel, NetworkError> {
+        return notesService.fetchAllNotes(header: header)
     }
     private var updatePublisher: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.updateNotes(model: model, header: header, noteId: selectedNote)
@@ -44,74 +41,63 @@ final class CreateNoteViewModel: ObservableObject {
     
     func createNote() {
         createPublisher
-            .sink(receiveCompletion: {
-                switch $0 {
+            .sink(receiveCompletion: { item in
+                switch item {
+                    
                 case .finished:
                     return
                 case .failure(let error):
-                    print("create publisher – \(error)")
+                    print("create publisher error – \(error)")
                 }
-            }, receiveValue: {
-                print("create publisher – \($0)")
+            }, receiveValue: { _ in
+                print("fetch notes")
+                self.fetchAllNotes()
             })
             .store(in: &cancellables)
     }
+    
     func deleteNote() {
         deletePublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print("delete publisher – \(error)")
-                }
-            }, receiveValue: {
-                print("delete publisher – \($0)")
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { _ in
+                self.fetchAllNotes()
             })
             .store(in: &cancellables)
     }
     
     func fetchOneNote() {
         fetchOnePublisher
-            .sink(receiveCompletion: {
-                switch $0 {
+            .sink(receiveCompletion: { item in
+                switch item {
                 case .finished:
                     return
                 case .failure(let error):
-                    print("fetch one publisher – \(error)")
+                    print("fetch one publisher error – \(error)")
                 }
             }, receiveValue: {
-                print("fetch one publisher – \($0)")
+                print("fetch one publisher – \($0.data)")
+                
             })
             .store(in: &cancellables)
     }
     
     func fetchAllNotes() {
         fetchAllPublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print("fetch all publisher – \(error)")
-                }
+            .sink(receiveCompletion: { item in
+                print("item = \(item)")
             }, receiveValue: {
-                print("fetch all publisher – \($0)")
+                self.notesArray = $0.data
+                print("printed $0.data = \($0.data)")
             })
             .store(in: &cancellables)
     }
     
     func updateNote() {
         updatePublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print("update publisher – \(error)")
-                }
-            }, receiveValue: {
-                print("update publisher – \($0)")
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { _ in
+//                self.fetchOneNote()
+                self.fetchAllNotes()
             })
             .store(in: &cancellables)
     }

@@ -90,6 +90,7 @@
 		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
 		ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */; };
+		ACFD4DC128D2360A004EB8D3 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD4DC028D2360A004EB8D3 /* NoteCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +198,7 @@
 		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
 		ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		ACFD4DC028D2360A004EB8D3 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,7 +231,6 @@
 			children = (
 				AC20A02D28BD689300E7B718 /* Token.swift */,
 				AC8CFFF728CF2DF200337AA2 /* User.swift */,
-				AC49148F28A6EEA40030E852 /* Services */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -445,6 +446,7 @@
 				AC66016D2892D31E005A7B02 /* Create */,
 				AC9CC19E28CA0FDB005B4387 /* Project */,
 				ACADC52728C76F5900289409 /* Task */,
+				ACFD4DBF28D235F9004EB8D3 /* Note */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -514,6 +516,7 @@
 				AC49149B28AAE5350030E852 /* NetworkProtocol.swift */,
 				AC39BC3628B177A4001FB8D8 /* NetworkError.swift */,
 				AC20A02C28BD686D00E7B718 /* Authentication */,
+				AC49148F28A6EEA40030E852 /* Services */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -539,6 +542,14 @@
 				ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		ACFD4DBF28D235F9004EB8D3 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				ACFD4DC028D2360A004EB8D3 /* NoteCell.swift */,
+			);
+			path = Note;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -737,6 +748,7 @@
 				AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */,
 				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
+				ACFD4DC128D2360A004EB8D3 /* NoteCell.swift in Sources */,
 				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
 				ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */,
 				ACADC52928C76F7400289409 /* TaskCell.swift in Sources */,

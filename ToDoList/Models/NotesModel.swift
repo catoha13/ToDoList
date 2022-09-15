@@ -4,6 +4,7 @@ struct NotesModel: Codable {
     var description: String
     var color: String
     var ownerId: String
+    var isCompleted: Bool
 }
 
 struct NotesResponseModel: Codable {
@@ -21,9 +22,15 @@ struct NotesResponseData: Codable {
     var code: Int?
 }
 
-struct FetchAllNotesModel: Codable {
-    var data: FetchProjectsData
+struct FetchAllNotesResponseModel: Codable {
+    var data: [FetchAllNotesResponseData]
 }
-struct FetchAllNotesData: Codable {
+
+struct FetchAllNotesResponseData: Codable, Hashable {
+    var id: String
+    var description: String
+    var color: String
     var ownerId: String
+    var isCompleted: Bool
+    var createdAt: String
 }

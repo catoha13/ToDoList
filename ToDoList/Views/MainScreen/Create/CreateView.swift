@@ -13,7 +13,7 @@ struct CreateView: View {
                 .blur(radius: 20)
                 .background(showCreateTask || showQuickNote || showCheckList ? .clear : .secondary)
                 .onTapGesture {
-                    if showQuickNote == true || showCreateTask || showCheckList == false {
+                    if showQuickNote || showCreateTask || showCheckList {
                         isPresented.toggle()
                     }
                 }
@@ -66,6 +66,9 @@ struct CreateView: View {
             .frame(width: 268, height: 214)
             .background(.white)
             .cornerRadius(Constants.radiusFive)
+            .onChange(of: showCreateTask || showQuickNote || showCheckList) { newValue in
+                isPresented = newValue
+            }
             
             //MARK: Show Create Task
             if showCreateTask {

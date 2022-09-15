@@ -23,12 +23,11 @@ final class MenuViewModel: ObservableObject {
     private var model: ProjectModel {
         return ProjectModel(title: projectName, color: chosenColor, ownerId: ownerId)
     }
-    private var emptyModel: FetchProjectsResponceModel? = nil
     private var publisher: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.createProject(model: model, header: header)
     }
     private var fetchPublisher: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
-        return projectService.fetchProjects(model: emptyModel, header: header)
+        return projectService.fetchProjects(header: header)
     }
     private var updatePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.updateProject(model: model, header: header, projectId: selectedProject)

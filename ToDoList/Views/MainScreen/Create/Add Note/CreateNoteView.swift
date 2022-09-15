@@ -33,6 +33,8 @@ struct CreateNoteView: View {
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
                     viewModel.selectedColor = convertColor(color: selectedColor)
+                    viewModel.createNote()
+                    isPresented.toggle()
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 40)

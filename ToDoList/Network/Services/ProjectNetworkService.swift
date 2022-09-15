@@ -9,9 +9,9 @@ final class ProjectNetworkService {
         return networkManager.post(body: model, path: path, header: header)
     }
     
-    func fetchProjects<T, U>(model: T?, header: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func fetchProjects<U>( header: String) -> AnyPublisher<U, NetworkError> where  U: Decodable {
         let path = Path.fetchProjects.rawValue + (user.userId ?? "no data")
-        return networkManager.get(body: model, path: path, header: header)
+        return networkManager.get(path: path, header: header)
     }
     
     func updateProject<T, U>(model: T, header: String, projectId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
