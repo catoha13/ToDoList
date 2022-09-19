@@ -32,7 +32,7 @@ struct CreateNoteView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.selectedColor = convertColor(color: selectedColor)
+                    viewModel.selectedColor = viewModel.convertColor(color: selectedColor)
                     viewModel.createNote()
                     isPresented.toggle()
                 }
@@ -47,15 +47,8 @@ struct CreateNoteView: View {
             
             Spacer()
         }
-        .frame(width: 390)
         .ignoresSafeArea()
         .navigationBarHidden(true)
-    }
-    func convertColor(color: Color) -> String {
-        var stringColor = color.description
-        stringColor.removeLast()
-        stringColor.removeLast()
-        return stringColor
     }
 }
 

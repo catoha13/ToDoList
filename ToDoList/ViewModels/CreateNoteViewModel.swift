@@ -14,7 +14,7 @@ final class CreateNoteViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     private var header: String {
-      return (token.tokenType ?? "") + " " + (token.savedToken ?? "")
+        return (token.tokenType ?? "") + " " + (token.savedToken ?? "")
     }
     private var ownerId: String {
         return user.userId ?? "no data"
@@ -41,17 +41,9 @@ final class CreateNoteViewModel: ObservableObject {
     
     func createNote() {
         createPublisher
-            .sink(receiveCompletion: { item in
-                switch item {
-                    
-                case .finished:
-                    return
-                case .failure(let error):
-                    print("create publisher error – \(error)")
-                }
-            }, receiveValue: { _ in
-                print("fetch notes")
-                self.fetchAllNotes()
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.fetchAllNotes()
             })
             .store(in: &cancellables)
     }
@@ -59,8 +51,8 @@ final class CreateNoteViewModel: ObservableObject {
     func deleteNote() {
         deletePublisher
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchAllNotes()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchAllNotes()
             })
             .store(in: &cancellables)
     }
@@ -80,14 +72,11 @@ final class CreateNoteViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
     func fetchAllNotes() {
         fetchAllPublisher
-            .sink(receiveCompletion: { item in
-                print("item = \(item)")
-            }, receiveValue: {
-                self.notesArray = $0.data
-                print("printed $0.data = \($0.data)")
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                    self?.notesArray = item.data
             })
             .store(in: &cancellables)
     }
@@ -95,10 +84,16 @@ final class CreateNoteViewModel: ObservableObject {
     func updateNote() {
         updatePublisher
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-//                self.fetchOneNote()
-                self.fetchAllNotes()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchAllNotes()
             })
             .store(in: &cancellables)
+    }
+    
+    func convertColor(color: Color) -> String {
+        var stringColor = color.description
+        stringColor.removeLast()
+        stringColor.removeLast()
+        return stringColor
     }
 }
