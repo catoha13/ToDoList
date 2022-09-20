@@ -1,17 +1,20 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @StateObject var viewModel = ProfileViewModel()
+    var token = Token()
+    var user = User()
     
     var body: some View {
         VStack {
             Text("Profile")
                 .font(.RobotoThinItalic)
             
-            AboutUser(userName: "Artom Prischchepov",
-                      userEmail: "artomprichepov@gmail.com",
-                      userAvatar: "superhero",
-                      createdTask: "12",
-                      completedTasks: "3") {
+            AboutUser(userName: $viewModel.username,
+                      userEmail: $viewModel.email,
+                      userAvatar: viewModel.avatarUrl,
+                      createdTask: $viewModel.createdTask,
+                      completedTasks: $viewModel.completedTask) {
                 
             }
             StatisticCollection(tasksCount: 2,
@@ -42,6 +45,10 @@ struct ProfileView: View {
             }            
         }
         .background(Color.customWhiteBackground)
+        .onAppear {
+            viewModel.fetchUser()
+            viewModel.fetchStatistics()
+        }
     }
 }
 

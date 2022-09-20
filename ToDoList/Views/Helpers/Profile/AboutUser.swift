@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct AboutUser: View {
-    @State var userName = "Stephen Chow"
-    @State var userEmail = "some23098@mail.com"
-    @State var userAvatar = "person"
-    @State var createdTask = "0"
-    @State var completedTasks = "0"
+    @Binding var userName: String
+    @Binding var userEmail: String
+    @State var userAvatar: String
+    @Binding var createdTask: Int
+    @Binding var completedTasks: Int
     @State var showEditView: () -> ()
+    
     var body: some View {
         VStack {
             HStack {
@@ -33,13 +34,13 @@ struct AboutUser: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(createdTask)
+                    Text("\(createdTask)")
                     Text("Created Task")
                         .font(.RobotoMediumSmall)
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text(completedTasks)
+                    Text(("\(completedTasks)"))
                     Text("Completed Tasks")
                         .font(.RobotoMediumSmall)
                 }
@@ -57,7 +58,18 @@ struct AboutUser: View {
 }
 
 struct AboutUser_Previews: PreviewProvider {
+    @State static var username = "Stephen Chow"
+    @State static var email  = "some23098@mail.com"
+    @State static var avatar = "person"
+    @State static var createdTask = 0
+    @State static var completedTask = 0
+    
     static var previews: some View {
-        AboutUser(showEditView: {})
+        AboutUser(userName: $username,
+                  userEmail: $email,
+                  userAvatar: avatar,
+                  createdTask: $createdTask,
+                  completedTasks: $completedTask,
+                  showEditView: {})
     }
 }

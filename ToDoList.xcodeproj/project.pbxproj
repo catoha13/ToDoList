@@ -88,6 +88,9 @@
 		ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */; };
 		ACF6F33228D9F92100665511 /* StatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33128D9F92100665511 /* StatCollectionCell.swift */; };
 		ACF6F33428D9FAE700665511 /* StatisticCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33328D9FAE700665511 /* StatisticCircle.swift */; };
+		ACF6F33628DA05BA00665511 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */; };
+		ACF6F33828DA05C400665511 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33728DA05C400665511 /* ProfileModel.swift */; };
+		ACF6F33A28DA05F800665511 /* ProfileNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33928DA05F800665511 /* ProfileNetworkService.swift */; };
 		ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
@@ -194,6 +197,9 @@
 		ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCollection.swift; sourceTree = "<group>"; };
 		ACF6F33128D9F92100665511 /* StatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCollectionCell.swift; sourceTree = "<group>"; };
 		ACF6F33328D9FAE700665511 /* StatisticCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCircle.swift; sourceTree = "<group>"; };
+		ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		ACF6F33728DA05C400665511 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		ACF6F33928DA05F800665511 /* ProfileNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkService.swift; sourceTree = "<group>"; };
 		ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,6 +256,7 @@
 			children = (
 				ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */,
 				AC6406A728CA67E400D1D129 /* ProjectNetworkService.swift */,
+				ACF6F33928DA05F800665511 /* ProfileNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -524,6 +531,7 @@
 				ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */,
 				AC49149928AA8ECC0030E852 /* WebServiceModel.swift */,
 				AC6406A428CA66D300D1D129 /* ProjectsModel.swift */,
+				ACF6F33728DA05C400665511 /* ProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -534,6 +542,7 @@
 				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
 				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
 				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
+				ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -698,6 +707,7 @@
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
 				AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */,
 				AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */,
+				ACF6F33628DA05BA00665511 /* ProfileViewModel.swift in Sources */,
 				AC925B842898594F0098892A /* ColorButton.swift in Sources */,
 				AC6406A528CA66D300D1D129 /* ProjectsModel.swift in Sources */,
 				AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */,
@@ -713,6 +723,7 @@
 				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC49149C28AAE5350030E852 /* NetworkProtocol.swift in Sources */,
+				ACF6F33A28DA05F800665511 /* ProfileNetworkService.swift in Sources */,
 				AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
@@ -726,6 +737,7 @@
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,
 				ACD6C562288F14F90033D732 /* CreateView.swift in Sources */,
 				ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */,
+				ACF6F33828DA05C400665511 /* ProfileModel.swift in Sources */,
 				AC676BCA288EBE7F001DDE34 /* CustomTabBarView.swift in Sources */,
 				ACF6F33428D9FAE700665511 /* StatisticCircle.swift in Sources */,
 				ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */,
