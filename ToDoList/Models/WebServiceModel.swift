@@ -8,7 +8,7 @@ enum Path: String {
     case projects = "/projects"
     case fetchProjects = "/user-projects/"
     case fetchUser = "/users/"
-    case fetchUserStatistics = "/user-statistics/"
+    case fetchUserStatistics = "/users-statistics/"
     case userAvatar = "/users-avatar"
 }
 

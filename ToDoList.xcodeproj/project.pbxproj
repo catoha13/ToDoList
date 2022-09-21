@@ -231,9 +231,9 @@
 		AC20A02C28BD686D00E7B718 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				AC49148F28A6EEA40030E852 /* Services */,
 				AC20A02D28BD689300E7B718 /* Token.swift */,
 				AC8CFFF728CF2DF200337AA2 /* User.swift */,
-				AC49148F28A6EEA40030E852 /* Services */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";

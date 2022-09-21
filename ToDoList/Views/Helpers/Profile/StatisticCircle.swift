@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct StatisticCircle: View {
-    @State var persantage = "13%"
+    @Binding var percentage: String
     @State var text = "Events"
     @State var color: Color = .customCoral
     @State var progress = 0.25
     var body: some View {
         VStack {
             ZStack {
-                Text(persantage)
+                Text(percentage)
                 Circle()
                     .stroke(.quaternary.opacity(0.4),
                             style: StrokeStyle(lineWidth: 2))
@@ -30,7 +30,8 @@ struct StatisticCircle: View {
 }
 
 struct StatisticCircle_Previews: PreviewProvider {
+    @State static var percentage = "99%"
     static var previews: some View {
-        StatisticCircle()
+        StatisticCircle(percentage: $percentage)
     }
 }

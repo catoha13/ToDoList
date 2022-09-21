@@ -2,13 +2,12 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
-    var token = Token()
-    var user = User()
     
     var body: some View {
         VStack {
             Text("Profile")
-                .font(.RobotoThinItalic)
+                .font(.RobotoThinItalicHeader)
+                .padding(.top, -30)
             
             AboutUser(userName: $viewModel.username,
                       userEmail: $viewModel.email,
@@ -31,18 +30,19 @@ struct ProfileView: View {
             }
             
             HStack {
-                StatisticCircle(persantage: "40%",
+                StatisticCircle(percentage: $viewModel.eventsPercentage,
                                 text: "Events",
-                                color: .customCoral, progress: 0.40)
-                StatisticCircle(persantage: "80%",
+                                color: .customCoral,
+                                progress: viewModel.eventsProgress)
+                StatisticCircle(percentage: $viewModel.quickNotesPercentage,
                                 text: "To do",
                                 color: .customBlue,
-                                progress: 0.80)
-                StatisticCircle(persantage: "10%",
+                                progress: viewModel.quickNoteProgress)
+                StatisticCircle(percentage: $viewModel.toDotsPercentage,
                                 text: "Quick notes",
                                 color: .customPurple,
-                                progress: 0.10)
-            }            
+                                progress: viewModel.eventsProgress)
+            }
         }
         .background(Color.customWhiteBackground)
         .onAppear {
