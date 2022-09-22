@@ -1,4 +1,5 @@
 import Combine
+import SwiftUI
 
 final class ProfileNetworkService {
     private let networkManager = NetworkMaganer.shared
@@ -11,8 +12,19 @@ final class ProfileNetworkService {
         user.userId ?? "no data"
     }
     
-    func uploadUserAvatar() {
+    func uploadUserAvatar<T, U>(body: T,image: Image , imageName: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        let path = Path.userAvatar.rawValue
+        let uiImage = image.asUIImage()
+        let imageData = uiImage.jpegData(compressionQuality: 1)
+        let imageStr = imageData?.base64EncodedData()
+        let paramStr = "\(String(describing: imageStr))"
+        let paramData = paramStr.data(using: .utf8) ?? Data()
+        let params = [
+            "file" : paramData,
+            "user_id" : userId
+        ] as [String : Any]
         
+       return networkManager.post(body: body, path: path, header: header, parameters: params)
     }
     
     func fetchUser<U>() -> AnyPublisher<U,NetworkError> where U: Decodable {
@@ -26,7 +38,7 @@ final class ProfileNetworkService {
     }
     
     func downloadUserAvatar<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
-        let path = Path.userAvatar.rawValue + userId
+        let path = Path.userAvatar.rawValue + "/" + userId
         return networkManager.get(path: path, header: header)
     }
 }

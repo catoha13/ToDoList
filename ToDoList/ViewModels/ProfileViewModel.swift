@@ -5,7 +5,7 @@ final class ProfileViewModel: ObservableObject {
     
     @Published var username = ""
     @Published var email = ""
-    @Published var avatarUrl = "superhero"
+    @Published var avatarUrl = ""
     @Published var createdTask = 0
     @Published var completedTask = 0
     @Published var eventsPercentage = ""
@@ -24,6 +24,9 @@ final class ProfileViewModel: ObservableObject {
     private var fetchUserStatisticsPublisher: AnyPublisher<FetchUserStatisticsModel, NetworkError> {
         return profileService.fetchUserStatistics()
     }
+    private var downloadAvatarPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
+        return profileService.downloadUserAvatar()
+    }
     
     func fetchUser() {
         fetchUserPublisher
@@ -32,6 +35,8 @@ final class ProfileViewModel: ObservableObject {
                 self?.username = item.data.username ?? ""
                 self?.email = item.data.email ?? ""
                 self?.avatarUrl = item.data.avatarUrl ?? ""
+                print(self!.avatarUrl)
+                self?.downloadAvatar()
             })
             .store(in: &cancellables)
     }
@@ -48,6 +53,15 @@ final class ProfileViewModel: ObservableObject {
                 self?.eventsProgress = self?.convertProgress(percentage: item.data.events ?? "") ?? 0.0
                 self?.quickNoteProgress = self?.convertProgress(percentage: item.data.quickNotes ?? "") ?? 0.0
                 self?.toDoProgress = self?.convertProgress(percentage: item.data.todo ?? "") ?? 0.0
+            })
+            .store(in: &cancellables)
+    }
+    
+    func downloadAvatar() {
+        downloadAvatarPublisher
+            .sink(receiveCompletion: { _z in
+            }, receiveValue: { [weak self] item in
+                self?.avatarUrl = item.data.avatarUrl ?? ""
             })
             .store(in: &cancellables)
     }

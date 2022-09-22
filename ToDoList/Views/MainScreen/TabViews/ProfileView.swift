@@ -46,6 +46,7 @@ struct ProfileView: View {
         }
         .background(Color.customWhiteBackground)
         .onAppear {
+            viewModel.downloadAvatar()
             viewModel.fetchUser()
             viewModel.fetchStatistics()
         }
