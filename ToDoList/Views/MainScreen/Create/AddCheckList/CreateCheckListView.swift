@@ -48,7 +48,6 @@ struct CreateCheckListView: View {
             
             Spacer()
         }
-        .frame(width: 390)
         .ignoresSafeArea()
         .navigationBarHidden(true)
     }
