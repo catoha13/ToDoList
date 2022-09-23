@@ -11,7 +11,7 @@ final class NotesNetworkService {
     
     func createNote<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
         let path = Path.note.rawValue
-        return networkManager.post(body: model, path: path, header: header)
+        return networkManager.post(body: model, path: path, header: header, parameters: nil)
     }
     
     func deleteNote<U>(noteId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
