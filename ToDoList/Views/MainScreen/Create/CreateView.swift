@@ -4,70 +4,85 @@ struct CreateView: View {
     @Binding var isPresented: Bool
     @State var showQuickNote = false
     @State var showCreateTask = false
+    @State var showCheckList = false
     var body: some View {
         
-            ZStack {
-                Text("")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .blur(radius: 20)
-                    .background(showCreateTask || showQuickNote ? .clear : .secondary)
-                
-                VStack {
-                    Button {
-                        withAnimation {
-                            showCreateTask.toggle()
-                        }
-                    } label: {
-                        Label {
-                            Text("Add Task")
-                                .font(Font(Roboto.thinItalic(size: 18)))
-                                .foregroundColor(.customBlack)
-                        } icon: {}
-                            .padding()
-                            .frame(width: 220)
-                    }
-                    Divider()
-                    
-                    Button {
-                        withAnimation {
-                            showQuickNote.toggle()
-                        }
-                    } label: {
-                        Label {
-                            Text("Add Quick Note")
-                                .font(Font(Roboto.thinItalic(size: 18)))
-                                .foregroundColor(.customBlack)
-                        } icon: {}
-                            .padding()
-                            .frame(width: 220)
-                    }
-                    Divider()
-                    
-                    Button {
-                        
-                    } label: {
-                        Label {
-                            Text("Add Check List")
-                                .font(Font(Roboto.thinItalic(size: 18)))
-                                .foregroundColor(.customBlack)
-                        } icon: {}
-                            .padding()
-                            .frame(width: 220)
+        ZStack {
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .blur(radius: 20)
+                .background(showCreateTask || showQuickNote || showCheckList ? .clear : .secondary)
+                .onTapGesture {
+                    if showQuickNote || showCreateTask || showCheckList {
+                        isPresented.toggle()
                     }
                 }
-                .frame(width: 268, height: 214)
-                .background(.white)
-                .cornerRadius(Constants.radiusFive)
-                
-                //MARK: Show Create Task
-                if showCreateTask {
-                    CreateTaskView(isPresented: $showCreateTask)
+            
+            VStack {
+                Button {
+                    withAnimation {
+                        showCreateTask.toggle()
+                    }
+                } label: {
+                    Label {
+                        Text("Add Task")
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .foregroundColor(.customBlack)
+                    } icon: {}
+                        .padding()
+                        .frame(width: 220)
                 }
-                //MARK: Show Quick Note
-                if showQuickNote {
-                    CreateNote(isPresented: $showQuickNote)
+                Divider()
+                
+                Button {
+                    withAnimation {
+                        showQuickNote.toggle()
+                    }
+                } label: {
+                    Label {
+                        Text("Add Quick Note")
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .foregroundColor(.customBlack)
+                    } icon: {}
+                        .padding()
+                        .frame(width: 220)
+                }
+                Divider()
+                
+                Button {
+                    withAnimation {
+                        showCheckList.toggle()
+                    }
+                } label: {
+                    Label {
+                        Text("Add Check List")
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .foregroundColor(.customBlack)
+                    } icon: {}
+                        .padding()
+                        .frame(width: 220)
                 }
             }
+            .frame(width: 268, height: 214)
+            .background(.white)
+            .cornerRadius(Constants.radiusFive)
+            .onChange(of: showCreateTask || showQuickNote || showCheckList) { newValue in
+                isPresented = newValue
+            }
+            
+            //MARK: Show Create Task
+            if showCreateTask {
+                CreateTaskView(isPresented: $showCreateTask)
+            }
+            //MARK: Show Quick Note
+            if showQuickNote {
+                CreateNoteView(isPresented: $showQuickNote)
+            }
+            //MARK: Show Check List
+            if showCheckList {
+                CreateCheckListView(isPresented: $showCheckList)
+            }
+        }
     }
 }
 

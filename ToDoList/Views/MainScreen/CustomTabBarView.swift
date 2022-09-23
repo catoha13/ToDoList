@@ -43,7 +43,7 @@ struct CustomTabBarView: View {
                                         .scaleEffect()
                                 }
                             }
-                            .offset(y: -28)
+                            .offset(y: -34)
                             
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .quick, width: 74, height: 26, systemIconName: "list.bullet.rectangle.portrait.fill", tabName: "Quick")
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .profile, width: 74, height: 26, systemIconName: "person.fill", tabName: "Profile")
@@ -58,16 +58,11 @@ struct CustomTabBarView: View {
                 .offset(y: 10)
                 .edgesIgnoringSafeArea(.bottom)
                 .ignoresSafeArea(edges: .top)
-               
+                
                 if isCreatePressed {
                     CreateView(isPresented: $isCreatePressed)
                         .cornerRadius(Constants.radiusFive)
                         .ignoresSafeArea()
-                        .onTapGesture {
-                            if isCreatePressed == true {
-                                isCreatePressed.toggle()
-                            }
-                        }
                 }
             }
         }

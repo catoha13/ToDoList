@@ -25,6 +25,7 @@ final class NetworkMaganer: NetworkProtocol {
         if header != nil {
             request.setValue(header, forHTTPHeaderField: "Authorization")
         }
+        
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
             .map { $0.data }

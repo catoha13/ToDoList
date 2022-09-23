@@ -2,9 +2,10 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @State var presente = true
+@State var isPresented = true
     var body: some View {
-       LogoView()
+       CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
+//        LogoView()
     }
 }
 

@@ -33,7 +33,6 @@ struct ProjectCell: View {
                     .padding(.bottom, 27)
         }
         .frame(width: 165, height: 180)
-        
         .background(.white)
     }
 }

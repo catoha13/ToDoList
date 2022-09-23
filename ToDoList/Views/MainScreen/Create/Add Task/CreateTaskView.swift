@@ -151,7 +151,7 @@ struct CreateTaskView: View {
                     }
                 }
             }
-            .frame(width: 390, height: 669)
+            .frame(height: 669)
             
             //MARK: Show ViewTask
             if addTaskPressed {
