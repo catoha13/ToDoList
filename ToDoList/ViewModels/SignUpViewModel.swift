@@ -16,14 +16,23 @@ final class SignUpViewModel: ObservableObject {
     @Published var url: String? = nil
     
     private var authService = AuthService()
+    private var profileService = ProfileNetworkService()
     private var token = Token()
     private var user = User()
+    
     private var cancellables = Set<AnyCancellable>()
     private var  model: RequestBodyModel {
         RequestBodyModel(email: email, password: password, username: username)
     }
     private  var publisher: AnyPublisher<SignUpResponceModel, NetworkError>  {
         authService.signUp(model: model)
+    }
+    
+    private var emptyModel: String? = nil
+    private var uploadAvatarPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
+        return profileService.uploadUserAvatar(body: emptyModel,
+                                               image: avatar ?? Image(""),
+                                               imageName: url ?? "")
     }
     
     let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
@@ -78,6 +87,17 @@ final class SignUpViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+    
+    func uploadAvatar() {
+        uploadAvatarPublisher
+            .sink(receiveCompletion: { _ in
+            },
+                  receiveValue: {
+                print("upload avatar \($0)")
+            })
+            .store(in: &cancellables)
+    }
+    
 }
 
 

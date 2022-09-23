@@ -7,6 +7,9 @@ enum Path: String {
     case refreshToken = "/refresh-token"
     case projects = "/projects"
     case fetchProjects = "/user-projects/"
+    case fetchUser = "/users/"
+    case fetchUserStatistics = "/users-statistics/"
+    case userAvatar = "/users-avatar"
 }
 
 //MARK: Endpoint

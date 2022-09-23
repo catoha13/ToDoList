@@ -10,7 +10,5 @@ struct CircleImageView: View {
             .resizable()
             .frame(width: width, height: height)
             .clipShape(Circle())
-            .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))
-            .shadow(radius: 10)
     }
 }
