@@ -12,6 +12,9 @@ enum Path: String {
     case fetchUser = "/users/"
     case fetchUserStatistics = "/users-statistics/"
     case userAvatar = "/users-avatar"
+    case checklists = "/checklists"
+    case checklistsItems = "/checklists-items"
+    case usersChecklists = "/user-checklists/"
 }
 
 //MARK: Endpoint

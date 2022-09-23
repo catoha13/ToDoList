@@ -1,18 +1,18 @@
 import SwiftUI
 
 struct CheckList: View {
-    @ObservedObject var data = CheckListData()
+    @StateObject var viewModel = CheckListViewModel()
     
     var body: some View {
         ScrollView {
-            ForEach(data.checkListData, id: \.self) { item in
+            ForEach(viewModel.checkListArray, id: \.self) { item in
                 CheckView(isChecked: item.isChecked, title: item.title)
                     .padding(.vertical, 10)
             }
             HStack {
                 //MARK: Add Button
                 Button {
-                    data.checkListData.append(CheckListItem(id: UUID(), isChecked: false, title: ""))
+                    viewModel.checkListArray.append(CheckListItem(id: UUID(), isChecked: false, title: ""))
                 } label: {
                     Text("+ Add new item")
                         .font(Font(Roboto.thinItalic(size: 16)))
@@ -23,7 +23,7 @@ struct CheckList: View {
                 //MARK: Delete Button
                 Spacer()
                 Button {
-                    data.checkListData.removeLast()
+                    viewModel.checkListArray.removeLast()
                 } label: {
                     Image(systemName: "trash")
                         .resizable()
@@ -44,11 +44,6 @@ struct CheckList_Previews: PreviewProvider {
         CheckList()
     }
 }
-class CheckListData: ObservableObject {
-    @Published var checkListData = [
-        CheckListItem(title: "")
-    ]
-}
 
 struct CheckListItem: Identifiable, Hashable {
     var id = UUID()
@@ -59,10 +54,10 @@ struct CheckListItem: Identifiable, Hashable {
 struct CheckView: View {
     @State var isChecked: Bool = false
     @State var title: String
+    
     func toggle() {
         isChecked = !isChecked
     }
-    
     var body: some View {
         HStack{
             Button(action: toggle) {
@@ -73,8 +68,7 @@ struct CheckView: View {
             TextField(text: $title, label: {
                 Text("List item")
             })
-            
-            
+            .foregroundColor(isChecked ? Color.secondary : Color.black)
         }
     }
 }

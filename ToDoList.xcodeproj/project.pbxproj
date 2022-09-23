@@ -37,6 +37,9 @@
 		AC66016A2892D232005A7B02 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6601692892D232005A7B02 /* Header.swift */; };
 		AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66016E2892D370005A7B02 /* TextAndTextfield.swift */; };
 		AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6601702892D5B6005A7B02 /* SearchUserView.swift */; };
+		AC66545628DDEC4100BF80F8 /* ChekListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66545528DDEC4100BF80F8 /* ChekListModel.swift */; };
+		AC66545828DDEC6000BF80F8 /* CheckListNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66545728DDEC6000BF80F8 /* CheckListNetworkService.swift */; };
+		AC66545A28DDECB700BF80F8 /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */; };
 		AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BBF288EBE7F001DDE34 /* ProfileView.swift */; };
 		AC676BC7288EBE7F001DDE34 /* QuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC0288EBE7F001DDE34 /* QuickView.swift */; };
 		AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */; };
@@ -150,6 +153,9 @@
 		AC6601692892D232005A7B02 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		AC66016E2892D370005A7B02 /* TextAndTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAndTextfield.swift; sourceTree = "<group>"; };
 		AC6601702892D5B6005A7B02 /* SearchUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserView.swift; sourceTree = "<group>"; };
+		AC66545528DDEC4100BF80F8 /* ChekListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChekListModel.swift; sourceTree = "<group>"; };
+		AC66545728DDEC6000BF80F8 /* CheckListNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListNetworkService.swift; sourceTree = "<group>"; };
+		AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
 		AC676BBF288EBE7F001DDE34 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AC676BC0288EBE7F001DDE34 /* QuickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickView.swift; sourceTree = "<group>"; };
 		AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaskView.swift; sourceTree = "<group>"; };
@@ -247,7 +253,6 @@
 		AC20A02C28BD686D00E7B718 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				AC49148F28A6EEA40030E852 /* Services */,
 				AC20A02D28BD689300E7B718 /* Token.swift */,
 				AC8CFFF728CF2DF200337AA2 /* User.swift */,
 			);
@@ -282,6 +287,7 @@
 				AC6406A728CA67E400D1D129 /* ProjectNetworkService.swift */,
 				ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */,
 				ACF6F33928DA05F800665511 /* ProfileNetworkService.swift */,
+				AC66545728DDEC6000BF80F8 /* CheckListNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -564,6 +570,7 @@
 				AC6406A428CA66D300D1D129 /* ProjectsModel.swift */,
 				ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */,
 				ACF6F33728DA05C400665511 /* ProfileModel.swift */,
+				AC66545528DDEC4100BF80F8 /* ChekListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -576,6 +583,7 @@
 				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
 				ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */,
 				ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */,
+				AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -742,6 +750,7 @@
 				ACF6F33E28DC574900665511 /* UIView+Extension.swift in Sources */,
 				AC5E2EA22893234A005B48BD /* CommentsView.swift in Sources */,
 				ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */,
+				AC66545628DDEC4100BF80F8 /* ChekListModel.swift in Sources */,
 				AC66016A2892D232005A7B02 /* Header.swift in Sources */,
 				AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */,
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
@@ -791,6 +800,7 @@
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */,
+				AC66545A28DDECB700BF80F8 /* CheckListViewModel.swift in Sources */,
 				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				ACFD4DC128D2360A004EB8D3 /* NoteCell.swift in Sources */,
@@ -802,6 +812,7 @@
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,
 				AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */,
 				ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */,
+				AC66545828DDEC6000BF80F8 /* CheckListNetworkService.swift in Sources */,
 				AC925B82289855CE0098892A /* ChooseColor.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
 				AC676BCB288EBE7F001DDE34 /* CustomPicker.swift in Sources */,

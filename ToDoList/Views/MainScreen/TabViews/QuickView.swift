@@ -2,6 +2,7 @@ import SwiftUI
 
 struct QuickView: View {
     @StateObject private var viewModelNote = CreateNoteViewModel()
+    @StateObject private var viewModelChecklist = CheckListViewModel()
     @State private var showAlert = false
     @State private var showEdit = false
     @State private var selectedColor: Color = .red
@@ -61,6 +62,7 @@ struct QuickView: View {
         .background(Color.customWhiteBackground)
         .onAppear {
             viewModelNote.fetchAllNotes()
+            viewModelChecklist.fetchAllChecklists()
         }
     }
 }

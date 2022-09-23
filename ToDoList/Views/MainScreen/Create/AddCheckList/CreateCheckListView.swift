@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct CreateCheckListView: View {
+    @State private var viewModel = CheckListViewModel()
     @State var description = ""
-    @Binding var isPresented: Bool
     @State var selectedColor: Color = .clear
+    @Binding var isPresented: Bool
     
     var body: some View {
         VStack {
