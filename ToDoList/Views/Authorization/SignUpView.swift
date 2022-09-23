@@ -25,9 +25,12 @@ struct SignUpView: View {
                         viewModel.showImagePicker.toggle()
                     }
                     .sheet(isPresented: $viewModel.showImagePicker) {
-                        ImagePicker(isShown: self.$viewModel.showImagePicker,
+                        ImagePicker(isShown: $viewModel.showImagePicker,
                                     image: $viewModel.avatar,
                                     url: $viewModel.url)
+                        .onDisappear {
+                            viewModel.uploadAvatar()
+                        }
                     }
                 }
                 

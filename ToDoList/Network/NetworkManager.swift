@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Combine
 
 final class NetworkMaganer: NetworkProtocol {
@@ -6,10 +7,13 @@ final class NetworkMaganer: NetworkProtocol {
     static let shared = NetworkMaganer()
     
     private var session = URLSession.shared
-    let encoder = JSONEncoder()
-    let decoder = JSONDecoder()
-
-    func get<U>(path: String, header: String?) -> AnyPublisher<U, NetworkError> where  U: Decodable {
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+    
+    private let boundary: String = UUID().uuidString
+    private var httpBody = NSMutableData()
+    
+    func get<U>(path: String, header: String?) -> AnyPublisher<U, NetworkError> where U: Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
@@ -75,7 +79,7 @@ final class NetworkMaganer: NetworkProtocol {
             .eraseToAnyPublisher()
     }
     
-    func post<T, U>(body: T, path: String, header: String?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
+    func post<T, U>(body: T?, path: String, header: String?, parameters: [String:Any]?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
@@ -86,11 +90,19 @@ final class NetworkMaganer: NetworkProtocol {
         var request = URLRequest(url: url!)
         request.httpMethod = Method.post.rawValue
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if header != nil {
             request.setValue(header, forHTTPHeaderField: "Authorization")
         }
-        request.httpBody = jsonData
+        if body == nil || parameters != nil {
+            if let params = parameters {
+                let postString = self.getPostString(params: params)
+                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+                request.httpBody = postString.data(using: .utf8)
+            }
+        } else {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+        }
         
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
@@ -100,5 +112,15 @@ final class NetworkMaganer: NetworkProtocol {
                 return NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
+    }
+    
+    private func getPostString(params:[String:Any]) -> String
+    {
+        var data = [String]()
+        for(key, value) in params
+        {
+            data.append(key + ": \(value)")
+        }
+        return data.map { String($0) }.joined(separator: "\n")
     }
 }
