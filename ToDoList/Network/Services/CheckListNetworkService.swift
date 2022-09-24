@@ -5,6 +5,7 @@ final class CheckListNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
     private let token = Token()
+    
     private var header: String {
         (token.tokenType ?? "no data") + " " + (token.savedToken ?? "no data")
     }
@@ -12,8 +13,9 @@ final class CheckListNetworkService {
         user.userId ?? "no data"
     }
     
-    func createChecklist() {
-        
+    func createChecklist<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Codable, U: Decodable {
+        let path = Path.checklists.rawValue
+        return networkManager.post(body: model, path: path, header: header, parameters: nil)
     }
     
     func updateChecklist() {

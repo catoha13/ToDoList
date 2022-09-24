@@ -63,6 +63,7 @@ struct QuickView: View {
         .onAppear {
             viewModelNote.fetchAllNotes()
             viewModelChecklist.fetchAllChecklists()
+            
         }
     }
 }

@@ -1,18 +1,23 @@
 import SwiftUI
 
 struct CheckList: View {
-    @StateObject var viewModel = CheckListViewModel()
+    @Binding var checklistArray: [ChecklistItemsRequest]
+    @State private var isCompleted = false
+    @State private var title = ""
+    private var item: ChecklistItemsRequest {
+        ChecklistItemsRequest(content: title, isCompleted: isCompleted)
+    }
     
     var body: some View {
         ScrollView {
-            ForEach(viewModel.checkListArray, id: \.self) { item in
-                CheckView(isChecked: item.isChecked, title: item.title)
+            ForEach($checklistArray, id: \.self) { item  in
+                CheckView(title: item.content, isChecked: item.isCompleted )
                     .padding(.vertical, 10)
             }
             HStack {
                 //MARK: Add Button
                 Button {
-                    viewModel.checkListArray.append(CheckListItem(id: UUID(), isChecked: false, title: ""))
+                    checklistArray.append(item)
                 } label: {
                     Text("+ Add new item")
                         .font(Font(Roboto.thinItalic(size: 16)))
@@ -23,7 +28,11 @@ struct CheckList: View {
                 //MARK: Delete Button
                 Spacer()
                 Button {
-                    viewModel.checkListArray.removeLast()
+                    if checklistArray.count == 0 {
+                        return
+                    } else {
+                        checklistArray.removeLast()
+                        }
                 } label: {
                     Image(systemName: "trash")
                         .resizable()
@@ -40,20 +49,16 @@ struct CheckList: View {
 }
 
 struct CheckList_Previews: PreviewProvider {
+    @State static var array: [ChecklistItemsRequest] = []
     static var previews: some View {
-        CheckList()
+        CheckList(checklistArray: $array)
     }
 }
 
-struct CheckListItem: Identifiable, Hashable {
-    var id = UUID()
-    var isChecked: Bool = false
-    var title: String
-}
 
 struct CheckView: View {
-    @State var isChecked: Bool = false
-    @State var title: String
+    @Binding var title: String
+    @Binding var isChecked: Bool
     
     func toggle() {
         isChecked = !isChecked

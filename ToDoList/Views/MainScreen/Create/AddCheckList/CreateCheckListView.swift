@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct CreateCheckListView: View {
-    @State private var viewModel = CheckListViewModel()
-    @State var description = ""
+    @StateObject private var viewModel = CheckListViewModel()
+    @State private var title = ""
     @State var selectedColor: Color = .clear
     @Binding var isPresented: Bool
     
@@ -21,14 +21,14 @@ struct CreateCheckListView: View {
                     Spacer()
                 }
                 .padding(.bottom, 6)
-                TextEditor(text: $description)
+                TextEditor(text: $title)
                     .font(Font(Roboto.medium(size: 16)))
                     .padding(.vertical, 10)
                     .frame(width: 308, height: 68)
                     .padding(.trailing, 24)
                 
                 //MARK: CheckList
-                CheckList()
+                CheckList(checklistArray: $viewModel.checklistRequestArray)
                 
                 //MARK: Choose Color
                 ChooseColor(selectedColor: $selectedColor)
@@ -36,7 +36,10 @@ struct CreateCheckListView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    
+                    viewModel.color = viewModel.convertColor(color: selectedColor)
+                    viewModel.title = title
+                    viewModel.createChecklist()
+                    isPresented.toggle()
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 40)

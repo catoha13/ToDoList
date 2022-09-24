@@ -28,7 +28,7 @@ struct ChecklistRequestModel: Codable {
     var items: [ChecklistItemsRequest?]
 }
 
-struct ChecklistItemsRequest: Codable {
+struct ChecklistItemsRequest: Codable, Hashable {
     var content: String
     var isCompleted: Bool
 }
