@@ -4,7 +4,7 @@ struct ChecklistResponseModel: Codable {
     var data: ChecklistData
 }
 
-struct ChecklistData: Codable {
+struct ChecklistData: Codable, Hashable {
     var id: String
     var title: String
     var color: String
@@ -13,7 +13,7 @@ struct ChecklistData: Codable {
     var createdAt: String
 }
 
-struct ChecklistItemsModel: Codable {
+struct ChecklistItemsModel: Codable, Hashable {
     var id: String
     var content: String
     var checklistId: String

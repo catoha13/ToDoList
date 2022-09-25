@@ -93,6 +93,7 @@
 		ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */; };
 		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
+		ACF182F528DF92FD00DD3531 /* ChecklistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */; };
 		ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */; };
 		ACF6F33228D9F92100665511 /* StatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33128D9F92100665511 /* StatCollectionCell.swift */; };
 		ACF6F33428D9FAE700665511 /* StatisticCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33328D9FAE700665511 /* StatisticCircle.swift */; };
@@ -213,6 +214,7 @@
 		ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
 		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
+		ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCell.swift; sourceTree = "<group>"; };
 		ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCollection.swift; sourceTree = "<group>"; };
 		ACF6F33128D9F92100665511 /* StatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCollectionCell.swift; sourceTree = "<group>"; };
 		ACF6F33328D9FAE700665511 /* StatisticCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCircle.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				AC9CC19E28CA0FDB005B4387 /* Project */,
 				ACADC52728C76F5900289409 /* Task */,
 				ACFD4DBF28D235F9004EB8D3 /* Note */,
+				ACF182F128DF92CF00DD3531 /* Checklist */,
 				ACA623F428D9E48A0038888E /* Profile */,
 			);
 			path = Helpers;
@@ -586,6 +589,14 @@
 				AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		ACF182F128DF92CF00DD3531 /* Checklist */ = {
+			isa = PBXGroup;
+			children = (
+				ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */,
+			);
+			path = Checklist;
 			sourceTree = "<group>";
 		};
 		ACFD4DBF28D235F9004EB8D3 /* Note */ = {
@@ -758,6 +769,7 @@
 				AC49149A28AA8ECC0030E852 /* WebServiceModel.swift in Sources */,
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
 				AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */,
+				ACF182F528DF92FD00DD3531 /* ChecklistCell.swift in Sources */,
 				AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */,
 				ACF6F33628DA05BA00665511 /* ProfileViewModel.swift in Sources */,
 				AC925B842898594F0098892A /* ColorButton.swift in Sources */,

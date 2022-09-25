@@ -4,6 +4,7 @@ import SwiftUI
 final class CheckListViewModel: ObservableObject {
     @Published var checklistRequestArray: [ChecklistItemsRequest] = []
     @Published var checklistResponseArray: [ChecklistData] = []
+    @Published var checklistItems: [ChecklistItemsModel] = []
     @Published var title = ""
     @Published var color = ""
     
@@ -28,32 +29,22 @@ final class CheckListViewModel: ObservableObject {
     
     func createChecklist() {
         createChecklistPublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print("create publisher – \(error)")
-                }
-            }, receiveValue: {
-                print($0)
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.fetchAllChecklists()
             })
             .store(in: &cancellables)
     }
+    
     func fetchAllChecklists() {
         fetchAllChecklistsPublisher
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 let array = item.data
                 self?.checklistResponseArray = array.sorted(by: { first, second in
                     first.createdAt < second.createdAt
                 })
+                self?.checklistItems = item.data.first?.items ?? []
             })
             .store(in: &cancellables)
     }
