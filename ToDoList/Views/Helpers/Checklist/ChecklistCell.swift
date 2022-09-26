@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct ChecklistCell: View {
-    @State var title = "Some shit"
     @State var content = [ChecklistItemsModel]()
+    @State var title = "Some"
     @State var color = "#5ABB56"
-    @State var action: () -> ()
-    @State private var gridLayout = [GridItem(.flexible(maximum: 20)),
-                                     GridItem(.flexible())]
+    @Binding var itemContent: String
+    @Binding var itemId: String
+    @Binding var itemIsCompleted: Bool
+    @State var action = {}
     
     var body: some View {
         
@@ -22,6 +23,9 @@ struct ChecklistCell: View {
             ForEach(content, id: \.self) { item in
                 HStack {
                     Button {
+                        itemContent = item.content
+                        itemId = item.id!
+                        itemIsCompleted = item.isCompleted
                         self.action()
                     } label: {
                         Image(systemName: item.isCompleted ? "checkmark.square" : "square")
@@ -43,7 +47,11 @@ struct ChecklistCell: View {
 }
 
 struct ChecklistCell_Previews: PreviewProvider {
+    @State static var itemId = ""
+    @State static var isCompleted = false
+    @State static var title = ""
+    @State static var color = ""
     static var previews: some View {
-        ChecklistCell(action: {})
+        ChecklistCell(itemContent: $title, itemId: $itemId, itemIsCompleted: $isCompleted)
     }
 }

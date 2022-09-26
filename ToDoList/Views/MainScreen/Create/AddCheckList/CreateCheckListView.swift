@@ -21,7 +21,7 @@ struct CreateCheckListView: View {
                     Spacer()
                 }
                 .padding(.bottom, 6)
-                TextEditor(text: $title)
+                TextField("Name the poject", text: $title)
                     .font(Font(Roboto.medium(size: 16)))
                     .padding(.vertical, 10)
                     .frame(width: 308, height: 68)

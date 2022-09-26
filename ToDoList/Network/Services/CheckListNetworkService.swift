@@ -18,8 +18,9 @@ final class CheckListNetworkService {
         return networkManager.post(body: model, path: path, header: header, parameters: nil)
     }
     
-    func updateChecklist() {
-        
+    func updateChecklist<T, U>(model: T, checklistId: String) -> AnyPublisher<U, NetworkError> where T: Codable, U: Decodable {
+        let path = Path.checklists.rawValue + "/" + checklistId
+        return networkManager.put(body: model, path: path, header: header)
     }
     
     func deleteChecklistItem() {

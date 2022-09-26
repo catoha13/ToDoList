@@ -11,26 +11,23 @@ struct ChecklistData: Codable, Hashable {
     var ownerId: String
     var items: [ChecklistItemsModel]
     var createdAt: String
+    var message: String?
+    var code: Int?
 }
 
 struct ChecklistItemsModel: Codable, Hashable {
-    var id: String
+    var id: String?
     var content: String
-    var checklistId: String
+    var checklistId: String?
     var isCompleted: Bool
-    var createdAt: String
+    var createdAt: String?
 }
 
 struct ChecklistRequestModel: Codable {
     var title: String
     var color: String
     var ownerId: String
-    var items: [ChecklistItemsRequest?]
-}
-
-struct ChecklistItemsRequest: Codable, Hashable {
-    var content: String
-    var isCompleted: Bool
+    var items: [ChecklistItemsModel?]
 }
 
 struct FetchAllChecklistsModel: Codable {

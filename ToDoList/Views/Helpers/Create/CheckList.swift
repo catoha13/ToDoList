@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct CheckList: View {
-    @Binding var checklistArray: [ChecklistItemsRequest]
+    @Binding var checklistArray: [ChecklistItemsModel]
     @State private var isCompleted = false
     @State private var title = ""
-    private var item: ChecklistItemsRequest {
-        ChecklistItemsRequest(content: title, isCompleted: isCompleted)
+    private var item: ChecklistItemsModel {
+        ChecklistItemsModel(content: title, isCompleted: isCompleted)
     }
     
     var body: some View {
@@ -49,7 +49,7 @@ struct CheckList: View {
 }
 
 struct CheckList_Previews: PreviewProvider {
-    @State static var array: [ChecklistItemsRequest] = []
+    @State static var array: [ChecklistItemsModel] = []
     static var previews: some View {
         CheckList(checklistArray: $array)
     }
