@@ -23,27 +23,31 @@ final class CheckListViewModel: ObservableObject {
     private var updateItemsModel: [ChecklistItemsModel] {
         return [ChecklistItemsModel(id: itemId,content: newItemContent, isCompleted: isCompleted)]
     }
-     var updateModel: ChecklistRequestModel {
-        return ChecklistRequestModel(title: title, color: color, ownerId: ownerId, items: updateItemsModel)
+     var updateModel: ChecklistUpdateRequestModel {
+        return ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: updateItemsModel)
     }
-    private var requestModel: ChecklistRequestModel {
-        return ChecklistRequestModel(title: title, color: color, ownerId: ownerId, items: checklistRequestArray)
+    private var requestModel: ChecklistUpdateRequestModel {
+        return ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: checklistRequestArray)
     }
     
-    private var createChecklistPublisher: AnyPublisher<ChecklistRequestModel, NetworkError> {
+    private var createChecklistRequest: AnyPublisher<ChecklistUpdateRequestModel, NetworkError> {
         return networkService.createChecklist(model: requestModel)
     }
     
-    private var updateChecklistPublisher: AnyPublisher<ChecklistResponseModel, NetworkError> {
+    private var updateChecklistRequest: AnyPublisher<ChecklistResponseModel, NetworkError> {
         return networkService.updateChecklist(model: updateModel, checklistId: checklistId)
     }
     
-    private var fetchAllChecklistsPublisher: AnyPublisher<FetchAllChecklistsModel, NetworkError> {
+    private var deleteChecklistRequest: AnyPublisher<DeleteChecklistModel, NetworkError> {
+        return networkService.deleteChecklist(checklistId: checklistId)
+    }
+    
+    private var fetchAllChecklistsRequest: AnyPublisher<FetchAllChecklistsModel, NetworkError> {
         return networkService.fetchAllChecklists()
     }
     
     func createChecklist() {
-        createChecklistPublisher
+        createChecklistRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.fetchAllChecklists()
@@ -52,7 +56,7 @@ final class CheckListViewModel: ObservableObject {
     }
     
     func updateChecklist() {
-        updateChecklistPublisher
+        updateChecklistRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchAllChecklists()
@@ -60,8 +64,17 @@ final class CheckListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func deleteChecklist() {
+        deleteChecklistRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] _ in
+                self?.updateChecklist()
+            })
+            .store(in: &cancellables)
+    }
+    
     func fetchAllChecklists() {
-        fetchAllChecklistsPublisher
+        fetchAllChecklistsRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 let array = item.data

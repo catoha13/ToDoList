@@ -1,15 +1,12 @@
 import SwiftUI
 
-struct CreateCheckListView: View {
-    @StateObject private var viewModel = CheckListViewModel()
+struct EditChecklist: View {
+//    @Binding var chosenChecklist
+    @Binding var isPresented: Bool
     @State private var title = ""
     @State var selectedColor: Color = .clear
-    @Binding var isPresented: Bool
-    
     var body: some View {
         VStack {
-            //MARK: Header
-            Header(text: "Add CheckList", isPresented: $isPresented)
             //MARK: View
             VStack(alignment: .trailing) {
                 //MARK: Description
@@ -28,7 +25,7 @@ struct CreateCheckListView: View {
                     .padding(.trailing, 24)
                 
                 //MARK: CheckList
-                CheckList(checklistArray: $viewModel.checklistRequestArray)
+                // chosen element from array
                 
                 //MARK: Choose Color
                 ChooseColor(selectedColor: $selectedColor)
@@ -36,9 +33,9 @@ struct CreateCheckListView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.color = viewModel.convertColor(color: selectedColor)
-                    viewModel.title = title
-                    viewModel.createChecklist()
+//                    viewModel.color = viewModel.convertColor(color: selectedColor)
+//                    viewModel.title = title
+//                    viewModel.createChecklist()
                     isPresented.toggle()
                 }
                 .padding(.horizontal)
@@ -50,17 +47,14 @@ struct CreateCheckListView: View {
             .offset(y: -40)
             .shadow(radius: 4)
             
-            Spacer()
         }
-        .ignoresSafeArea()
-        .navigationBarHidden(true)
+        .padding(.top, 40)
     }
 }
 
-struct CreateCheckListView_Previews: PreviewProvider {
+struct EditChecklist_Previews: PreviewProvider {
     @State static var isPresented = false
-    
     static var previews: some View {
-        CreateCheckListView(isPresented: $isPresented)
+        EditChecklist(isPresented: $isPresented)
     }
 }

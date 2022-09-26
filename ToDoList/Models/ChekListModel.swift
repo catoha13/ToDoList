@@ -23,11 +23,18 @@ struct ChecklistItemsModel: Codable, Hashable {
     var createdAt: String?
 }
 
-struct ChecklistRequestModel: Codable {
+struct ChecklistUpdateRequestModel: Codable {
     var title: String
     var color: String
     var ownerId: String
     var items: [ChecklistItemsModel?]
+}
+
+struct DeleteChecklistModel: Codable {
+    var data: DeleteChecklistData
+}
+struct DeleteChecklistData: Codable {
+    var id: String
 }
 
 struct FetchAllChecklistsModel: Codable {

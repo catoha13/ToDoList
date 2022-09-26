@@ -94,6 +94,7 @@
 		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
 		ACF182F528DF92FD00DD3531 /* ChecklistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */; };
+		ACF182F728E198E100DD3531 /* EditChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F628E198E100DD3531 /* EditChecklist.swift */; };
 		ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */; };
 		ACF6F33228D9F92100665511 /* StatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33128D9F92100665511 /* StatCollectionCell.swift */; };
 		ACF6F33428D9FAE700665511 /* StatisticCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33328D9FAE700665511 /* StatisticCircle.swift */; };
@@ -215,6 +216,7 @@
 		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
 		ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCell.swift; sourceTree = "<group>"; };
+		ACF182F628E198E100DD3531 /* EditChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChecklist.swift; sourceTree = "<group>"; };
 		ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCollection.swift; sourceTree = "<group>"; };
 		ACF6F33128D9F92100665511 /* StatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCollectionCell.swift; sourceTree = "<group>"; };
 		ACF6F33328D9FAE700665511 /* StatisticCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCircle.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */,
+				ACF182F628E198E100DD3531 /* EditChecklist.swift */,
 			);
 			path = Checklist;
 			sourceTree = "<group>";
@@ -765,6 +768,7 @@
 				AC66016A2892D232005A7B02 /* Header.swift in Sources */,
 				AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */,
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
+				ACF182F728E198E100DD3531 /* EditChecklist.swift in Sources */,
 				AC49149528A6EEF80030E852 /* NetworkManager.swift in Sources */,
 				AC49149A28AA8ECC0030E852 /* WebServiceModel.swift in Sources */,
 				AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */,
