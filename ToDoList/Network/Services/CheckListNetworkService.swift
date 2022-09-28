@@ -13,18 +13,19 @@ final class CheckListNetworkService {
         user.userId ?? "no data"
     }
     
-    func createChecklist<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Codable, U: Decodable {
+    func createChecklist<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
         let path = Path.checklists.rawValue
         return networkManager.post(body: model, path: path, header: header, parameters: nil)
     }
     
-    func updateChecklist<T, U>(model: T, checklistId: String) -> AnyPublisher<U, NetworkError> where T: Codable, U: Decodable {
+    func updateChecklist<T, U>(model: T, checklistId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
         let path = Path.checklists.rawValue + "/" + checklistId
         return networkManager.put(body: model, path: path, header: header)
     }
     
-    func deleteChecklistItem() {
-        
+    func deleteChecklistItem<U>(checklistItemId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.checklistsItems.rawValue + "/" + checklistItemId
+        return networkManager.delete(path: path, header: header)
     }
     
     func deleteChecklistItems() {

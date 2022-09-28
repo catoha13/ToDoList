@@ -79,3 +79,13 @@ extension Color {
         )
     }
 }
+
+//MARK: Convert Color to Hex
+extension Color {
+    public func convertToHex() -> String {
+        var hexColor = self.description
+        hexColor.removeLast()
+        hexColor.removeLast()
+        return hexColor
+    }
+}

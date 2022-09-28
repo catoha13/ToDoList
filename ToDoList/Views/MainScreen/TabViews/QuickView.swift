@@ -13,6 +13,7 @@ struct QuickView: View {
     
     @State private var showChecklistEdit = false
     @State private var showEditView = false
+    @State private var selectedChecklist = [ChecklistData]()
     
     var body: some View {
         ZStack {
@@ -79,11 +80,14 @@ struct QuickView: View {
                                       .onLongPressGesture {
                                           viewModelChecklist.checklistId = element.id
                                           viewModelChecklist.title = element.title
+                                          selectedChecklist = [element]
                                           showChecklistEdit.toggle()
                                       }
                                       .confirmationDialog("What do you want?", isPresented: $showChecklistEdit) {
                                           Button("Edit", role: .none) {
-                                              showEditView.toggle()
+                                              withAnimation(.easeInOut(duration: 0.3)) {
+                                                  showEditView.toggle()
+                                              }
                                           }
                                           Button("Delete Checklist", role: .destructive) {
                                               showChecklistAlert.toggle()
@@ -110,7 +114,13 @@ struct QuickView: View {
                 viewModelChecklist.fetchAllChecklists()
             }
             if showEditView {
-                EditChecklist(isPresented: $showChecklistEdit)
+                EditChecklist(isPresented: $showEditView,
+                              title: $viewModelChecklist.title,
+                              color: $viewModelChecklist.color,
+                              selectedArray: $selectedChecklist,
+                              updatedArray: $viewModelChecklist.checklistResponseItems) {
+                    viewModelChecklist.editChecklist()
+                }
             }
         }
     }

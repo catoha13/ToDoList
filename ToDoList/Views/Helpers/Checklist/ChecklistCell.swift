@@ -24,7 +24,7 @@ struct ChecklistCell: View {
                 HStack {
                     Button {
                         itemContent = item.content
-                        itemId = item.id!
+                        itemId = item.id ?? ""
                         itemIsCompleted = item.isCompleted
                         self.action()
                     } label: {

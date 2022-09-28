@@ -23,8 +23,11 @@ final class CheckListViewModel: ObservableObject {
     private var updateItemsModel: [ChecklistItemsModel] {
         return [ChecklistItemsModel(id: itemId,content: newItemContent, isCompleted: isCompleted)]
     }
-     var updateModel: ChecklistUpdateRequestModel {
+    private var updateModel: ChecklistUpdateRequestModel {
         return ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: updateItemsModel)
+    }
+    private var editChecklistModel: ChecklistUpdateRequestModel {
+        return ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: checklistResponseItems)
     }
     private var requestModel: ChecklistUpdateRequestModel {
         return ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: checklistRequestArray)
@@ -36,6 +39,9 @@ final class CheckListViewModel: ObservableObject {
     
     private var updateChecklistRequest: AnyPublisher<ChecklistResponseModel, NetworkError> {
         return networkService.updateChecklist(model: updateModel, checklistId: checklistId)
+    }
+    private var editChecklistRequest: AnyPublisher<ChecklistResponseModel, NetworkError> {
+        return networkService.updateChecklist(model: editChecklistModel, checklistId: checklistId)
     }
     
     private var deleteChecklistRequest: AnyPublisher<DeleteChecklistModel, NetworkError> {
@@ -58,7 +64,16 @@ final class CheckListViewModel: ObservableObject {
     func updateChecklist() {
         updateChecklistRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] _ in
+            }, receiveValue: { [weak self] item in
+                self?.fetchAllChecklists()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func editChecklist() {
+        editChecklistRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
                 self?.fetchAllChecklists()
             })
             .store(in: &cancellables)
@@ -79,17 +94,10 @@ final class CheckListViewModel: ObservableObject {
             }, receiveValue: { [weak self] item in
                 let array = item.data
                 self?.checklistResponseArray = array.sorted(by: { first, second in
-                    first.createdAt < second.createdAt
+                    first.createdAt > second.createdAt
                 })
                 self?.checklistResponseItems = item.data.first?.items ?? []
             })
             .store(in: &cancellables)
-    }
-    
-    func convertColor(color: Color) -> String {
-        var stringColor = color.description
-        stringColor.removeLast()
-        stringColor.removeLast()
-        return stringColor
     }
 }

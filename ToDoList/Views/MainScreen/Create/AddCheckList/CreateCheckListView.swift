@@ -36,7 +36,7 @@ struct CreateCheckListView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.color = viewModel.convertColor(color: selectedColor)
+                    viewModel.color = selectedColor.convertToHex()
                     viewModel.title = title
                     viewModel.createChecklist()
                     isPresented.toggle()

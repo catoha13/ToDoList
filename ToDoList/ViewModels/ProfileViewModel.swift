@@ -68,7 +68,10 @@ final class ProfileViewModel: ObservableObject {
     
     private func convertProgress(percentage: String) -> Double {
         var string = percentage
-        string.removeLast()
+        if string.isEmpty {
+        } else {
+            string.removeLast()
+        }
         let number = Double(string)
         return (number ?? 0.4) / 100
     }
