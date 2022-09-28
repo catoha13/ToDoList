@@ -11,6 +11,7 @@ struct NoteCell: View {
             Rectangle()
                 .foregroundColor(Color(hex: color))
                 .frame(width: 121, height: 3)
+                .offset(y: -20)
             
             HStack {
                 Text(text)
@@ -18,13 +19,14 @@ struct NoteCell: View {
                     .strikethrough(isCompleted)
                     .foregroundColor(.black)
                     .multilineTextAlignment(.leading)
+                    .padding(.top, -10)
                    
                 Spacer()
             }
-            
         }
+        .padding(.vertical, 30)
+        .padding(.horizontal, 10)
         .frame(width: 343)
-        .padding(.vertical, 20)
     }
 }
 

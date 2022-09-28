@@ -2,15 +2,11 @@ import SwiftUI
 
 struct CheckList: View {
     @Binding var checklistArray: [ChecklistItemsModel]
-    @State private var isCompleted = false
-    @State private var title = ""
     @State var deleteAction = {}
-    private var item: ChecklistItemsModel {
-        ChecklistItemsModel(content: title, isCompleted: isCompleted)
-    }
+    @State private var emptyItem = ChecklistItemsModel(content: "", isCompleted: false)
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             ForEach($checklistArray, id: \.self) { item  in
                 CheckView(title: item.content,
                           isChecked: item.isCompleted,
@@ -24,7 +20,7 @@ struct CheckList: View {
             HStack {
                 //MARK: Add Button
                 Button {
-                    checklistArray.append(item)
+                    checklistArray.append(emptyItem)
                 } label: {
                     Text("+ Add new item")
                         .font(Font(Roboto.thinItalic(size: 16)))
@@ -81,15 +77,4 @@ struct CheckView: View {
             .padding()
         }
     }
-}
-
-
-extension Array where Element: Equatable {
-
-    // Remove first collection element that is equal to the given `object`:
-    mutating func remove(object: Element) {
-        guard let index = firstIndex(of: object) else {return}
-        remove(at: index)
-    }
-
 }

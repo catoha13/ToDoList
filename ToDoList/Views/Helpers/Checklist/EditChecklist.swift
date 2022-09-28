@@ -17,7 +17,6 @@ struct EditChecklist: View {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.secondary)
-            VStack {
                 //MARK: View
                 VStack(alignment: .trailing) {
                     //MARK: Description
@@ -60,10 +59,7 @@ struct EditChecklist: View {
                 .frame(width: 343, height: 576)
                 .background(.white)
                 .cornerRadius(Constants.radiusFive)
-                .offset(y: -40)
                 .shadow(radius: 4)
-            }
-            .padding(.top, 40)
         }
     }
 }

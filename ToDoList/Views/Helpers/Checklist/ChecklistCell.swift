@@ -12,13 +12,19 @@ struct ChecklistCell: View {
     var body: some View {
         
         VStack(alignment: .leading) {
-            Rectangle()
-                .frame(width: 121, height: 3)
-                .foregroundColor(Color(hex: color))
-                .offset(y: -20)
-            Text(title)
-                .font(.RobotoThinItalicSmall)
-                .padding(.top, -10)
+            HStack {
+                Rectangle()
+                    .frame(width: 121, height: 3)
+                    .foregroundColor(Color(hex: color))
+                    .offset(y: -20)
+                Spacer()
+            }
+            HStack {
+                Text(title)
+                    .font(.RobotoThinItalicSmall)
+                    .padding(.top, -10)
+                Spacer()
+            }
             
             ForEach(content, id: \.self) { item in
                 HStack {
@@ -40,8 +46,8 @@ struct ChecklistCell: View {
                 .padding(.vertical, 5)
             }
         }
-        .padding(.all, 20)
-        .background(.white)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 10)
         .frame(width: 343)
     }
 }

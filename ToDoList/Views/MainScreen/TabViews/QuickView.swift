@@ -91,7 +91,7 @@ struct QuickView: View {
                                           }
                                           Button("Delete Checklist", role: .destructive) {
                                               showChecklistAlert.toggle()
-                                          } 
+                                          }
                                       } message: {
                                           Text("What do you want to do?")
                                       }
@@ -105,7 +105,6 @@ struct QuickView: View {
                                       }
                     }
                 }
-                .padding(.horizontal, 10)
             }
             .frame(maxWidth: .infinity)
             .background(Color.customWhiteBackground)
