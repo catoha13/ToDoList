@@ -4,7 +4,7 @@ struct CheckList: View {
     @Binding var checklistArray: [ChecklistItemsModel]
     @State private var isCompleted = false
     @State private var title = ""
-    @State var action = {}
+    @State var deleteAction = {}
     private var item: ChecklistItemsModel {
         ChecklistItemsModel(content: title, isCompleted: isCompleted)
     }
@@ -18,7 +18,7 @@ struct CheckList: View {
                     if let index = checklistArray.firstIndex(where: {$0.id == $0.id}) {
                         checklistArray.remove(at: index)
                     }
-                    action()
+                    deleteAction()
                 })
             }
             HStack {

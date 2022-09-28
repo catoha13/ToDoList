@@ -13,7 +13,7 @@ struct QuickView: View {
     
     @State private var showChecklistEdit = false
     @State private var showEditView = false
-    @State private var selectedChecklist = [ChecklistData]()
+    @State private var selectedChecklist = [ChecklistItemsModel]()
     
     var body: some View {
         ZStack {
@@ -80,7 +80,7 @@ struct QuickView: View {
                                       .onLongPressGesture {
                                           viewModelChecklist.checklistId = element.id
                                           viewModelChecklist.title = element.title
-                                          selectedChecklist = [element]
+                                          selectedChecklist = element.items
                                           showChecklistEdit.toggle()
                                       }
                                       .confirmationDialog("What do you want?", isPresented: $showChecklistEdit) {

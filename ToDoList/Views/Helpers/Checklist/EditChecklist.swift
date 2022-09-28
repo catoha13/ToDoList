@@ -5,7 +5,7 @@ struct EditChecklist: View {
     @Binding var title: String
     @Binding var color: String
     @Binding var itemId: String
-    @Binding var selectedArray: [ChecklistData]
+    @Binding var selectedArray: [ChecklistItemsModel]
     @Binding var updatedArray: [ChecklistItemsModel]
     @State private var selectedColor: Color = .clear
     @State var updateAction = {}
@@ -36,10 +36,8 @@ struct EditChecklist: View {
                         .padding(.trailing, 24)
                     
                     //MARK: CheckList
-                    ForEach($selectedArray, id: \.self) { array in
-                        CheckList(checklistArray: array.items) {
-                            deleteAction()
-                        }
+                    CheckList(checklistArray: $selectedArray) {
+                        deleteAction()
                     }
                     
                     //MARK: Choose Color
@@ -48,11 +46,9 @@ struct EditChecklist: View {
                     
                     //MARK: Custom Filled Button
                     CustomCoralFilledButton(text: "Done") {
-                        for array in selectedArray {
-                            updatedArray = array.items
-                            for item in array.items {
-                                itemId = item.id ?? ""
-                            }
+                        updatedArray = selectedArray
+                        for item in selectedArray {
+                            itemId = item.id ?? ""
                         }
                         color = selectedColor.convertToHex()
                         updateAction()
@@ -66,7 +62,6 @@ struct EditChecklist: View {
                 .cornerRadius(Constants.radiusFive)
                 .offset(y: -40)
                 .shadow(radius: 4)
-                
             }
             .padding(.top, 40)
         }
@@ -78,7 +73,7 @@ struct EditChecklist_Previews: PreviewProvider {
     @State static var title = ""
     @State static var color = ""
     @State static var itemId = ""
-    @State static var selectedArray = [ChecklistData]()
+    @State static var selectedArray = [ChecklistItemsModel]()
     @State static var updatedChecklist = [ChecklistItemsModel]()
     static var previews: some View {
         EditChecklist(isPresented: $isPresented,
