@@ -44,6 +44,10 @@ final class CheckListViewModel: ObservableObject {
         return networkService.updateChecklist(model: editChecklistModel, checklistId: checklistId)
     }
     
+    private var deleteChecklistItemRequest: AnyPublisher<DeleteChecklistData, NetworkError> {
+        return networkService.deleteChecklistItem(checklistItemId: itemId)
+    }
+    
     private var deleteChecklistRequest: AnyPublisher<DeleteChecklistModel, NetworkError> {
         return networkService.deleteChecklist(checklistId: checklistId)
     }
@@ -84,6 +88,15 @@ final class CheckListViewModel: ObservableObject {
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.updateChecklist()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func deleteCheclistItem() {
+        deleteChecklistItemRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] _ in
+                self?.fetchAllChecklists()
             })
             .store(in: &cancellables)
     }

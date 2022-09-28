@@ -117,10 +117,15 @@ struct QuickView: View {
                 EditChecklist(isPresented: $showEditView,
                               title: $viewModelChecklist.title,
                               color: $viewModelChecklist.color,
+                              itemId: $viewModelChecklist.itemId,
                               selectedArray: $selectedChecklist,
-                              updatedArray: $viewModelChecklist.checklistResponseItems) {
+                              updatedArray: $viewModelChecklist.checklistResponseItems,
+                              updateAction: {
                     viewModelChecklist.editChecklist()
-                }
+                },
+                              deleteAction: {
+                    viewModelChecklist.deleteCheclistItem()
+                })
             }
         }
     }

@@ -4,10 +4,13 @@ struct EditChecklist: View {
     @Binding var isPresented: Bool
     @Binding var title: String
     @Binding var color: String
+    @Binding var itemId: String
     @Binding var selectedArray: [ChecklistData]
     @Binding var updatedArray: [ChecklistItemsModel]
     @State private var selectedColor: Color = .clear
-    @State var action = {}
+    @State var updateAction = {}
+    @State var deleteAction = {}
+    @State var createChecklist = {}
     
     var body: some View {
         ZStack {
@@ -34,7 +37,9 @@ struct EditChecklist: View {
                     
                     //MARK: CheckList
                     ForEach($selectedArray, id: \.self) { array in
-                        CheckList(checklistArray: array.items)
+                        CheckList(checklistArray: array.items) {
+                            deleteAction()
+                        }
                     }
                     
                     //MARK: Choose Color
@@ -45,9 +50,12 @@ struct EditChecklist: View {
                     CustomCoralFilledButton(text: "Done") {
                         for array in selectedArray {
                             updatedArray = array.items
+                            for item in array.items {
+                                itemId = item.id ?? ""
+                            }
                         }
                         color = selectedColor.convertToHex()
-                        action()
+                        updateAction()
                         isPresented.toggle()
                     }
                     .padding(.horizontal)
@@ -69,12 +77,14 @@ struct EditChecklist_Previews: PreviewProvider {
     @State static var isPresented = false
     @State static var title = ""
     @State static var color = ""
+    @State static var itemId = ""
     @State static var selectedArray = [ChecklistData]()
     @State static var updatedChecklist = [ChecklistItemsModel]()
     static var previews: some View {
         EditChecklist(isPresented: $isPresented,
                       title: $title,
                       color: $color,
+                      itemId: $itemId,
                       selectedArray: $selectedArray,
                       updatedArray: $updatedChecklist)
     }

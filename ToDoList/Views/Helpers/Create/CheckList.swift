@@ -4,6 +4,7 @@ struct CheckList: View {
     @Binding var checklistArray: [ChecklistItemsModel]
     @State private var isCompleted = false
     @State private var title = ""
+    @State var action = {}
     private var item: ChecklistItemsModel {
         ChecklistItemsModel(content: title, isCompleted: isCompleted)
     }
@@ -11,8 +12,14 @@ struct CheckList: View {
     var body: some View {
         ScrollView {
             ForEach($checklistArray, id: \.self) { item  in
-                CheckView(title: item.content, isChecked: item.isCompleted )
-                    .padding(.vertical, 10)
+                CheckView(title: item.content,
+                          isChecked: item.isCompleted,
+                          deleteAction: {
+                    if let index = checklistArray.firstIndex(where: {$0.id == $0.id}) {
+                        checklistArray.remove(at: index)
+                    }
+                    action()
+                })
             }
             HStack {
                 //MARK: Add Button
@@ -23,24 +30,7 @@ struct CheckList: View {
                         .font(Font(Roboto.thinItalic(size: 16)))
                         .foregroundColor(.black)
                 }
-                .padding(.vertical, 10)
-                
-                //MARK: Delete Button
                 Spacer()
-                Button {
-                    if checklistArray.count == 0 {
-                        return
-                    } else {
-                        checklistArray.removeLast()
-                        }
-                } label: {
-                    Image(systemName: "trash")
-                        .resizable()
-                        .frame(width: 16, height: 18)
-                        .foregroundColor(.red)
-                        .offset(y: -6)
-                }
-                .padding()
             }
         }
         .frame(height: 192)
@@ -59,12 +49,15 @@ struct CheckList_Previews: PreviewProvider {
 struct CheckView: View {
     @Binding var title: String
     @Binding var isChecked: Bool
+    @State var id: String?
+    @State var deleteAction = {}
     
     func toggle() {
         isChecked = !isChecked
     }
     var body: some View {
         HStack{
+            //MARK: Check button
             Button(action: toggle) {
                 Image(systemName: isChecked ? "checkmark.square" : "square")
                     .foregroundColor(.secondary)
@@ -74,6 +67,29 @@ struct CheckView: View {
                 Text("List item")
             })
             .foregroundColor(isChecked ? Color.secondary : Color.black)
+            
+            //MARK: Delete Button
+            Button {
+                deleteAction()
+            } label: {
+                Image(systemName: "trash")
+                    .resizable()
+                    .frame(width: 16, height: 18)
+                    .foregroundColor(.red)
+                    .offset(y: -6)
+            }
+            .padding()
         }
     }
+}
+
+
+extension Array where Element: Equatable {
+
+    // Remove first collection element that is equal to the given `object`:
+    mutating func remove(object: Element) {
+        guard let index = firstIndex(of: object) else {return}
+        remove(at: index)
+    }
+
 }

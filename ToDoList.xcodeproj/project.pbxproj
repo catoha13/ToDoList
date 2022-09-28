@@ -95,7 +95,6 @@
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
 		ACF182F528DF92FD00DD3531 /* ChecklistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */; };
 		ACF182F728E198E100DD3531 /* EditChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F628E198E100DD3531 /* EditChecklist.swift */; };
-		ACF182FB28E2EBF200DD3531 /* EditableChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182FA28E2EBF200DD3531 /* EditableChecklist.swift */; };
 		ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */; };
 		ACF6F33228D9F92100665511 /* StatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33128D9F92100665511 /* StatCollectionCell.swift */; };
 		ACF6F33428D9FAE700665511 /* StatisticCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33328D9FAE700665511 /* StatisticCircle.swift */; };
@@ -218,7 +217,6 @@
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
 		ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCell.swift; sourceTree = "<group>"; };
 		ACF182F628E198E100DD3531 /* EditChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChecklist.swift; sourceTree = "<group>"; };
-		ACF182FA28E2EBF200DD3531 /* EditableChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableChecklist.swift; sourceTree = "<group>"; };
 		ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCollection.swift; sourceTree = "<group>"; };
 		ACF6F33128D9F92100665511 /* StatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCollectionCell.swift; sourceTree = "<group>"; };
 		ACF6F33328D9FAE700665511 /* StatisticCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCircle.swift; sourceTree = "<group>"; };
@@ -600,7 +598,6 @@
 			children = (
 				ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */,
 				ACF182F628E198E100DD3531 /* EditChecklist.swift */,
-				ACF182FA28E2EBF200DD3531 /* EditableChecklist.swift */,
 			);
 			path = Checklist;
 			sourceTree = "<group>";
@@ -761,7 +758,6 @@
 				AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */,
 				AC6406A328CA66A600D1D129 /* MenuViewModel.swift in Sources */,
 				AC9CC1A028CA0FEF005B4387 /* ProjectCell.swift in Sources */,
-				ACF182FB28E2EBF200DD3531 /* EditableChecklist.swift in Sources */,
 				AC4EF8B2289001AD0087E2FA /* CreateTaskView.swift in Sources */,
 				ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */,
 				AC9063FC28BFFE22002450A8 /* ImagePickerCoordinator.swift in Sources */,
