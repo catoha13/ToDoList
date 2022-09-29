@@ -47,6 +47,7 @@
 		AC676BCA288EBE7F001DDE34 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC3288EBE7F001DDE34 /* CustomTabBarView.swift */; };
 		AC676BCB288EBE7F001DDE34 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */; };
 		AC676BCC288EBE7F001DDE34 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */; };
+		AC67C83C28E5BFE100D48D11 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67C83B28E5BFE100D48D11 /* ChecklistItem.swift */; };
 		AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714D828856C6B00A0C804 /* ToDoListApp.swift */; };
 		AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714DA28856C6B00A0C804 /* ContentView.swift */; };
 		AC7714DD28856C6D00A0C804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7714DC28856C6D00A0C804 /* Assets.xcassets */; };
@@ -165,6 +166,7 @@
 		AC676BC3288EBE7F001DDE34 /* CustomTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		AC67C83B28E5BFE100D48D11 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		AC7714D528856C6B00A0C804 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7714D828856C6B00A0C804 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		AC7714DA28856C6B00A0C804 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 			children = (
 				ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */,
 				ACF182F628E198E100DD3531 /* EditChecklist.swift */,
+				AC67C83B28E5BFE100D48D11 /* ChecklistItem.swift */,
 			);
 			path = Checklist;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,
 				AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */,
+				AC67C83C28E5BFE100D48D11 /* ChecklistItem.swift in Sources */,
 				ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */,
 				AC66545828DDEC6000BF80F8 /* CheckListNetworkService.swift in Sources */,
 				AC925B82289855CE0098892A /* ChooseColor.swift in Sources */,

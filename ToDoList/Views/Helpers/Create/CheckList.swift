@@ -8,7 +8,7 @@ struct CheckList: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             ForEach($checklistArray, id: \.self) { item  in
-                CheckView(title: item.content,
+                ChecklistItem(title: item.content,
                           isChecked: item.isCompleted,
                           deleteAction: {
                     if let index = checklistArray.firstIndex(where: {$0.id == $0.id}) {
@@ -38,43 +38,5 @@ struct CheckList_Previews: PreviewProvider {
     @State static var array: [ChecklistItemsModel] = []
     static var previews: some View {
         CheckList(checklistArray: $array)
-    }
-}
-
-
-struct CheckView: View {
-    @Binding var title: String
-    @Binding var isChecked: Bool
-    @State var id: String?
-    @State var deleteAction = {}
-    
-    func toggle() {
-        isChecked = !isChecked
-    }
-    var body: some View {
-        HStack{
-            //MARK: Check button
-            Button(action: toggle) {
-                Image(systemName: isChecked ? "checkmark.square" : "square")
-                    .foregroundColor(.secondary)
-                    .background(Color.customBar)
-            }
-            TextField(text: $title, label: {
-                Text("List item")
-            })
-            .foregroundColor(isChecked ? Color.secondary : Color.black)
-            
-            //MARK: Delete Button
-            Button {
-                deleteAction()
-            } label: {
-                Image(systemName: "trash")
-                    .resizable()
-                    .frame(width: 16, height: 18)
-                    .foregroundColor(.red)
-                    .offset(y: -6)
-            }
-            .padding()
-        }
     }
 }

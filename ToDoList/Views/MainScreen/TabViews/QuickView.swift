@@ -62,6 +62,8 @@ struct QuickView: View {
                             }
                     }
                     .background(.white)
+                    .cornerRadius(Constants.radiusThree)
+                    .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                     
                     //MARK: Checklists
                     ForEach(viewModelChecklist.checklistResponseArray, id: \.self) { element  in
@@ -104,6 +106,10 @@ struct QuickView: View {
                                           })
                                       }
                     }
+                    .frame(width: 343)
+                    .background(.white)
+                    .cornerRadius(Constants.radiusThree)
+                    .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                 }
             }
             .frame(maxWidth: .infinity)
