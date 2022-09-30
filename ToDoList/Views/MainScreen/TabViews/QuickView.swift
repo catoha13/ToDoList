@@ -23,8 +23,8 @@ struct QuickView: View {
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {
                     //MARK: Notes
-                    ForEach(viewModelNote.notesArray, id: \.self) { item in
-                        NoteCell(color: item.color, text: item.description, isCompleted: item.isCompleted)
+                    ForEach(zip(viewModelNote.notesArray, viewModelChecklist.checklistResponseArray), id: \.0) { item in
+                        NoteCell(color: item.0.color, text: item.0.description, isCompleted: item.0.isCompleted)
                             .onLongPressGesture {
                                 withAnimation(.easeInOut(duration: 0.3)) {
                                     viewModelNote.selectedNote = item.id
