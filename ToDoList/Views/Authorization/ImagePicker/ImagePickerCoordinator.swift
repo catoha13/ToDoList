@@ -18,10 +18,6 @@ class ImagePickerCordinator : NSObject, UINavigationControllerDelegate, UIImageP
             let nsString: String = imageurl.absoluteString!
             let cut = nsString.components(separatedBy: "/")
             url = cut.last
-//            url?.removeLast()
-//            url?.removeLast()
-//            url?.removeLast()
-//            url?.removeLast()
             image = uiImage
             isShown = false
         }

@@ -125,11 +125,15 @@ final class NetworkMaganer: NetworkProtocol {
             data.append("\(userId ?? "")".data(using: .utf8)!)
             
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            data.append("Content-Disposition: form-data; name=\"file\"; filename=\(fileName ?? "some picture")\"\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName ?? "some picture")\"\r\n".data(using: .utf8)!)
             data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
             
-            data.append(image!.pngData() ?? Data())
+            let compressedImage = image?.jpegData(compressionQuality: 0.1) ?? Data()
+            let imageData = UIImage(data: compressedImage)
             
+            data.append(imageData?.pngData() ?? Data())
+            
+            request.setValue("\(String(describing: data.count))", forHTTPHeaderField: "Content-Length")
             request.httpBody = data
         }
         

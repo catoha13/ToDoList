@@ -14,7 +14,6 @@ final class ProfileNetworkService {
     
     func uploadUserAvatar<U>(image: UIImage, imageName: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
         let path = Path.userAvatar.rawValue
-//        let uiImage = image.asUIImage()
         let params = [
             "file" : imageName,
             "user_id" : userId
