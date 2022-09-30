@@ -89,8 +89,7 @@ final class SignUpViewModel: ObservableObject {
         uploadAvatarRequest
             .sink(receiveCompletion: { _ in
             },
-                  receiveValue: {
-                print("upload avatar \($0)")
+                  receiveValue: { _ in
             })
             .store(in: &cancellables)
     }
