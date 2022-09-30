@@ -14,7 +14,7 @@ struct SignUpView: View {
                 .padding(.top, 66)
                 
                 ZStack {
-                    viewModel.avatar?
+                    Image(uiImage: (viewModel.avatar ?? UIImage(named: "background"))!)
                         .resizable()
                         .frame(width: 107, height: 104)
                         .background(.secondary)

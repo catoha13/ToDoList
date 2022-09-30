@@ -11,7 +11,7 @@ final class SignUpViewModel: ObservableObject {
     @Published var isPasswordValid = false
     @Published var isCredentialsValid = false
     @Published var isPresented = false
-    @Published var avatar : Image? = nil
+    @Published var avatar : UIImage? = nil
     @Published var url: String? = nil
     
     private var authService = AuthService()
@@ -28,7 +28,7 @@ final class SignUpViewModel: ObservableObject {
     }
     
     private var uploadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
-        return profileService.uploadUserAvatar(image: avatar ?? Image(""),
+        return profileService.uploadUserAvatar(image: (avatar ?? UIImage(named: "background"))!,
                                                imageName: url ?? "")
     }
     

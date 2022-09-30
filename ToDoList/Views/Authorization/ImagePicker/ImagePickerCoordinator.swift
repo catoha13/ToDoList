@@ -3,10 +3,10 @@ import SwiftUI
 class ImagePickerCordinator : NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
     @Binding var isShown: Bool
-    @Binding var image: Image?
+    @Binding var image: UIImage?
     @Binding var url: String?
     
-    init(isShown: Binding<Bool>, image: Binding<Image?>,url: Binding<String?> ) {
+    init(isShown: Binding<Bool>, image: Binding<UIImage?>,url: Binding<String?> ) {
         _isShown = isShown
         _image = image
         _url = url
@@ -18,7 +18,11 @@ class ImagePickerCordinator : NSObject, UINavigationControllerDelegate, UIImageP
             let nsString: String = imageurl.absoluteString!
             let cut = nsString.components(separatedBy: "/")
             url = cut.last
-            image = Image(uiImage: uiImage)
+//            url?.removeLast()
+//            url?.removeLast()
+//            url?.removeLast()
+//            url?.removeLast()
+            image = uiImage
             isShown = false
         }
     }

@@ -115,20 +115,23 @@ final class NetworkMaganer: NetworkProtocol {
         request.setValue(header, forHTTPHeaderField: "Authorization")
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        var data = Data()
-        let userId = parameters["user_id"]
-        let fileName = parameters["file"]
-
-        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"user_id\"\r\n\r\n".data(using: .utf8)!)
-        data.append("\(userId ?? "")".data(using: .utf8)!)
-
-        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"file\"; filename=\(fileName ?? "some picture")\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-        data.append(image!.pngData()!)
-        
-        request.httpBody = data
+        if image != nil {
+            var data = Data()
+            let userId = parameters["user_id"]
+            let fileName = parameters["file"]
+            
+            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"user_id\"\r\n\r\n".data(using: .utf8)!)
+            data.append("\(userId ?? "")".data(using: .utf8)!)
+            
+            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"file\"; filename=\(fileName ?? "some picture")\"\r\n".data(using: .utf8)!)
+            data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+            
+            data.append(image!.pngData() ?? Data())
+            
+            request.httpBody = data
+        }
         
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
@@ -138,16 +141,6 @@ final class NetworkMaganer: NetworkProtocol {
                 return NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
-    }
-    
-    private func getPostString(params:[String:Any]) -> String
-    {
-        var data = [String]()
-        for(key, value) in params
-        {
-            data.append(key + ": \(value)")
-        }
-        return data.map { String($0) }.joined(separator: "\n")
     }
 }
 

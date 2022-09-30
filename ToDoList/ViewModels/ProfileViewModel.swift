@@ -61,7 +61,8 @@ final class ProfileViewModel: ObservableObject {
         downloadAvatarRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                self?.avatarUrl = item.data.avatarUrl ?? ""
+//                self?.avatarUrl = item.data.avatarUrl ?? ""
+                print(item)
             })
             .store(in: &cancellables)
     }

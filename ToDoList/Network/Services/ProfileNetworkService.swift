@@ -12,15 +12,15 @@ final class ProfileNetworkService {
         user.userId ?? "no data"
     }
     
-    func uploadUserAvatar<U>(image: Image, imageName: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func uploadUserAvatar<U>(image: UIImage, imageName: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
         let path = Path.userAvatar.rawValue
-        let uiImage = image.asUIImage()
+//        let uiImage = image.asUIImage()
         let params = [
             "file" : imageName,
             "user_id" : userId
         ] as [String : Any]
         
-       return networkManager.uploadAvatar(path: path, header: header,image: uiImage ,parameters: params)
+       return networkManager.uploadAvatar(path: path, header: header,image: image ,parameters: params)
     }
     
     func fetchUser<U>() -> AnyPublisher<U,NetworkError> where U: Decodable {
