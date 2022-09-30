@@ -79,7 +79,7 @@ final class NetworkMaganer: NetworkProtocol {
             .eraseToAnyPublisher()
     }
     
-    func post<T, U>(body: T?, path: String, header: String?, parameters: [String:Any]?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
+    func post<T, U>(body: T, path: String, header: String?) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
@@ -90,19 +90,45 @@ final class NetworkMaganer: NetworkProtocol {
         var request = URLRequest(url: url!)
         request.httpMethod = Method.post.rawValue
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
         if header != nil {
             request.setValue(header, forHTTPHeaderField: "Authorization")
         }
-        if body == nil || parameters != nil {
-            if let params = parameters {
-                let postString = self.getPostString(params: params)
-                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-                request.httpBody = postString.data(using: .utf8)
+        
+        return session.dataTaskPublisher(for: request)
+            .receive(on: DispatchQueue.main)
+            .map { $0.data }
+            .decode(type: U.self, decoder: decoder )
+            .mapError { error -> NetworkError in
+                return NetworkError.requestFailed(error.localizedDescription)
             }
-        } else {
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-        }
+            .eraseToAnyPublisher()
+    }
+    
+    func uploadAvatar<U>(path: String, header: String, image: UIImage?, parameters: [String : Any]) -> AnyPublisher<U, NetworkError> where U : Decodable {
+        
+        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        var request = URLRequest(url: url!)
+        request.httpMethod = Method.post.rawValue
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        let userId = parameters["user_id"]
+        let fileName = parameters["file"]
+
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"user_id\"\r\n\r\n".data(using: .utf8)!)
+        data.append("\(userId ?? "")".data(using: .utf8)!)
+
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"file\"; filename=\(fileName ?? "some picture")\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image!.pngData()!)
+        
+        request.httpBody = data
         
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
@@ -124,3 +150,6 @@ final class NetworkMaganer: NetworkProtocol {
         return data.map { String($0) }.joined(separator: "\n")
     }
 }
+
+
+

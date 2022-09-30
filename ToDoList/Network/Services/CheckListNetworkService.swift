@@ -15,7 +15,7 @@ final class CheckListNetworkService {
     
     func createChecklist<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
         let path = Path.checklists.rawValue
-        return networkManager.post(body: model, path: path, header: header, parameters: nil)
+        return networkManager.post(body: model, path: path, header: header)
     }
     
     func updateChecklist<T, U>(model: T, checklistId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {

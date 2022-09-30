@@ -11,7 +11,6 @@ final class SignUpViewModel: ObservableObject {
     @Published var isPasswordValid = false
     @Published var isCredentialsValid = false
     @Published var isPresented = false
-    @Published var showImagePicker : Bool = false
     @Published var avatar : Image? = nil
     @Published var url: String? = nil
     
@@ -24,14 +23,12 @@ final class SignUpViewModel: ObservableObject {
     private var  model: RequestBodyModel {
         RequestBodyModel(email: email, password: password, username: username)
     }
-    private  var publisher: AnyPublisher<SignUpResponceModel, NetworkError>  {
+    private  var signUpRequest: AnyPublisher<SignUpResponceModel, NetworkError>  {
         authService.signUp(model: model)
     }
     
-    private var emptyModel: String? = nil
-    private var uploadAvatarPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
-        return profileService.uploadUserAvatar(body: emptyModel,
-                                               image: avatar ?? Image(""),
+    private var uploadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
+        return profileService.uploadUserAvatar(image: avatar ?? Image(""),
                                                imageName: url ?? "")
     }
     
@@ -61,7 +58,7 @@ final class SignUpViewModel: ObservableObject {
     }
     
     func signUp() {
-        publisher
+        signUpRequest
             .sink(receiveCompletion: {
                 switch $0 {
                 case .finished:
@@ -89,7 +86,7 @@ final class SignUpViewModel: ObservableObject {
     }
     
     func uploadAvatar() {
-        uploadAvatarPublisher
+        uploadAvatarRequest
             .sink(receiveCompletion: { _ in
             },
                   receiveValue: {

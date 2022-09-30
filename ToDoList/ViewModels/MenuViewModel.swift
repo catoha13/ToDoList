@@ -23,51 +23,51 @@ final class MenuViewModel: ObservableObject {
     private var model: ProjectModel {
         return ProjectModel(title: projectName, color: chosenColor, ownerId: ownerId)
     }
-    private var publisher: AnyPublisher<ProjectResponceModel, NetworkError> {
+    private var createRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.createProject(model: model, header: header)
     }
-    private var fetchPublisher: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
+    private var fetchRequest: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
         return projectService.fetchProjects(header: header)
     }
-    private var updatePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
+    private var updateRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.updateProject(model: model, header: header, projectId: selectedProject)
     }
-    private var deletePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
+    private var deleteRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.deletePost(header: header, projectId: selectedProject)
     }
     
     func createProject() {
-        publisher
+        createRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchProjects()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }
     
     func fetchProjects() {
-        fetchPublisher
+        fetchRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: {
-                self.projectsArray = $0.data
+            }, receiveValue: { [weak self] item in
+                self?.projectsArray = item.data
             })
             .store(in: &cancellables)
     }
     
     func updateProject() {
-        updatePublisher
+        updateRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchProjects()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }
     
     func deleteProject() {
-        deletePublisher
+        deleteRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchProjects()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }

@@ -18,18 +18,18 @@ final class ProfileViewModel: ObservableObject {
     private var profileService = ProfileNetworkService()
     private var cancellables = Set<AnyCancellable>()
     
-    private var fetchUserPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
+    private var fetchUserRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
         return profileService.fetchUser()
     }
-    private var fetchUserStatisticsPublisher: AnyPublisher<FetchUserStatisticsModel, NetworkError> {
+    private var fetchUserStatisticsRequest: AnyPublisher<FetchUserStatisticsModel, NetworkError> {
         return profileService.fetchUserStatistics()
     }
-    private var downloadAvatarPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
+    private var downloadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
         return profileService.downloadUserAvatar()
     }
     
     func fetchUser() {
-        fetchUserPublisher
+        fetchUserRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.username = item.data.username ?? ""
@@ -42,7 +42,7 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func fetchStatistics() {
-        fetchUserStatisticsPublisher
+        fetchUserStatisticsRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.createdTask = item.data.createdTasks ?? 0
@@ -58,8 +58,8 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func downloadAvatar() {
-        downloadAvatarPublisher
-            .sink(receiveCompletion: { _z in
+        downloadAvatarRequest
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.avatarUrl = item.data.avatarUrl ?? ""
             })

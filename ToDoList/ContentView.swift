@@ -4,8 +4,8 @@ import CoreData
 struct ContentView: View {
 @State var isPresented = true
     var body: some View {
-       CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
-//        LogoView()
+//       CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
+        LogoView()
     }
 }
 

@@ -19,24 +19,24 @@ final class CreateNoteViewModel: ObservableObject {
     private var model: NotesModel {
         return NotesModel(description: noteText, color: selectedColor, ownerId: ownerId, isCompleted: isCompleted)
     }
-    private var createPublisher: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var createRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.createNote(model: model)
     }
-    private var deletePublisher: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var deleteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.deleteNote(noteId: selectedNote)
     }
-    private var fetchOnePublisher: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var fetchOneRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.fetchOneNote(noteId: selectedNote)
     }
-    private var fetchAllPublisher: AnyPublisher<FetchAllNotesResponseModel, NetworkError> {
+    private var fetchAllRequest: AnyPublisher<FetchAllNotesResponseModel, NetworkError> {
         return notesService.fetchAllNotes()
     }
-    private var updatePublisher: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var updateRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.updateNotes(model: model, noteId: selectedNote)
     }
     
     func createNote() {
-        createPublisher
+        createRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.fetchAllNotes()
@@ -45,7 +45,7 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     func deleteNote() {
-        deletePublisher
+        deleteRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchAllNotes()
@@ -54,7 +54,7 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     func fetchOneNote() {
-        fetchOnePublisher
+        fetchOneRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchAllNotes()
@@ -62,7 +62,7 @@ final class CreateNoteViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     func fetchAllNotes() {
-        fetchAllPublisher
+        fetchAllRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 let array = item.data
@@ -74,19 +74,11 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     func updateNote() {
-        updatePublisher
+        updateRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchOneNote()
             })
             .store(in: &cancellables)
-    }
-    
-    func convertColor(color: Color) -> String {
-        var stringColor = color.description
-        stringColor.removeLast()
-        stringColor.removeLast()
-        return stringColor
-    }
-    
+    }    
 }

@@ -14,12 +14,12 @@ final class SignInViewModel: ObservableObject {
     private var model: RequestBodyModel {
         return RequestBodyModel(email: email, password: password, username: email)
     }
-    private var publisher: AnyPublisher<SignInResponceModel, NetworkError> {
+    private var signInRequest: AnyPublisher<SignInResponceModel, NetworkError> {
         authService.signIn(model: model)
     }
     
     func signIn() {
-        publisher
+        signInRequest
             .sink(
                 receiveCompletion: {
                     switch $0 {

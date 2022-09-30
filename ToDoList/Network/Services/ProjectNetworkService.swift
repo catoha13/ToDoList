@@ -6,7 +6,7 @@ final class ProjectNetworkService {
     
     func createProject<T, U>(model: T, header: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
         let path = Path.projects.rawValue
-        return networkManager.post(body: model, path: path, header: header, parameters: nil)
+        return networkManager.post(body: model, path: path, header: header)
     }
     
     func fetchProjects<U>( header: String) -> AnyPublisher<U, NetworkError> where  U: Decodable {
