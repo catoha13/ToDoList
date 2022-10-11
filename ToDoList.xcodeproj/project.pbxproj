@@ -39,7 +39,6 @@
 		AC6601712892D5B6005A7B02 /* SearchUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6601702892D5B6005A7B02 /* SearchUserView.swift */; };
 		AC66545628DDEC4100BF80F8 /* ChekListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66545528DDEC4100BF80F8 /* ChekListModel.swift */; };
 		AC66545828DDEC6000BF80F8 /* CheckListNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66545728DDEC6000BF80F8 /* CheckListNetworkService.swift */; };
-		AC66545A28DDECB700BF80F8 /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */; };
 		AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BBF288EBE7F001DDE34 /* ProfileView.swift */; };
 		AC676BC7288EBE7F001DDE34 /* QuickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC0288EBE7F001DDE34 /* QuickView.swift */; };
 		AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */; };
@@ -91,7 +90,6 @@
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
 		ACDC76B528D2101E00B4C5F9 /* CreateNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */; };
-		ACDC76B728D21D2D00B4C5F9 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B628D21D2D00B4C5F9 /* NoteViewModel.swift */; };
 		ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */; };
 		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
@@ -157,7 +155,6 @@
 		AC6601702892D5B6005A7B02 /* SearchUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserView.swift; sourceTree = "<group>"; };
 		AC66545528DDEC4100BF80F8 /* ChekListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChekListModel.swift; sourceTree = "<group>"; };
 		AC66545728DDEC6000BF80F8 /* CheckListNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListNetworkService.swift; sourceTree = "<group>"; };
-		AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
 		AC676BBF288EBE7F001DDE34 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AC676BC0288EBE7F001DDE34 /* QuickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickView.swift; sourceTree = "<group>"; };
 		AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaskView.swift; sourceTree = "<group>"; };
@@ -213,7 +210,6 @@
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
 		ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteView.swift; sourceTree = "<group>"; };
-		ACDC76B628D21D2D00B4C5F9 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
 		ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
 		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
@@ -541,22 +537,13 @@
 			path = Task;
 			sourceTree = "<group>";
 		};
-		ACD4570128F5605600E27411 /* QuickViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				ACDC76B628D21D2D00B4C5F9 /* NoteViewModel.swift */,
-				AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */,
-			);
-			path = QuickViewModels;
-			sourceTree = "<group>";
-		};
-		ACD4570228F5606A00E27411 /* AuthModels */ = {
+		ACD4570228F5606A00E27411 /* AuthViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
 				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
 			);
-			path = AuthModels;
+			path = AuthViewModels;
 			sourceTree = "<group>";
 		};
 		ACD6C560288F14D30033D732 /* Create */ = {
@@ -599,9 +586,8 @@
 		ACD8F67A28A27F9F009A4A6E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				ACD4570228F5606A00E27411 /* AuthModels */,
+				ACD4570228F5606A00E27411 /* AuthViewModels */,
 				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
-				ACD4570128F5605600E27411 /* QuickViewModels */,
 				ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */,
 				ACD4570328F5642000E27411 /* QuickViewModel.swift */,
 			);
@@ -819,7 +805,6 @@
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
 				ACD4570428F5642000E27411 /* QuickViewModel.swift in Sources */,
-				ACDC76B728D21D2D00B4C5F9 /* NoteViewModel.swift in Sources */,
 				AC7714E528856C6D00A0C804 /* ToDoList.xcdatamodeld in Sources */,
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,
 				ACD6C562288F14F90033D732 /* CreateView.swift in Sources */,
@@ -831,7 +816,6 @@
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */,
-				AC66545A28DDECB700BF80F8 /* CheckListViewModel.swift in Sources */,
 				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
 				ACFD4DC128D2360A004EB8D3 /* NoteCell.swift in Sources */,

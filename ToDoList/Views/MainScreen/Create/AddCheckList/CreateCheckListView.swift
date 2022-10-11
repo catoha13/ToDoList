@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateCheckListView: View {
-    @StateObject private var viewModel = CheckListViewModel()
+    @StateObject private var viewModel = QuickViewModel()
     @State private var title = ""
     @State var selectedColor: Color = .clear
     @Binding var isPresented: Bool

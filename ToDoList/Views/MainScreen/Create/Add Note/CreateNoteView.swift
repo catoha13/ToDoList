@@ -3,7 +3,7 @@ import SwiftUI
 struct CreateNoteView: View {
     @Binding var isPresented: Bool
     
-    @StateObject private var viewModel = NoteViewModel()
+    @StateObject private var viewModel = QuickViewModel()
     @State private var selectedColor: Color = .clear
     
     var body: some View {

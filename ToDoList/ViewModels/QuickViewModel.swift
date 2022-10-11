@@ -93,7 +93,7 @@ final class QuickViewModel: ObservableObject {
         fetchNotesAndChecklists()
     }
     
-    private func fetchAllNotesAndChecklists() {
+    private func fetchNotesAndChecklists() {
         fetchAllNotesRequest.zip(fetchAllChecklistsRequest)
             .sink(receiveCompletion: {
                 switch $0 {
