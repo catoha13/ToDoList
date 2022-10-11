@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-final class CreateNoteViewModel: ObservableObject {
+final class NoteViewModel: ObservableObject {
     @Published var noteText = ""
     @Published var selectedColor = ""
     @Published var selectedNote = ""
@@ -10,6 +10,7 @@ final class CreateNoteViewModel: ObservableObject {
     
     private let user = User()
     private var notesService = NotesNetworkService()
+    private var networkService = CheckListNetworkService()
     private var cancellables = Set<AnyCancellable>()
     
     private var ownerId: String {
@@ -19,24 +20,24 @@ final class CreateNoteViewModel: ObservableObject {
     private var model: NotesModel {
         return NotesModel(description: noteText, color: selectedColor, ownerId: ownerId, isCompleted: isCompleted)
     }
-    private var createRequest: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var createNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.createNote(model: model)
     }
-    private var deleteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var deleteNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.deleteNote(noteId: selectedNote)
     }
-    private var fetchOneRequest: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var fetchOneNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.fetchOneNote(noteId: selectedNote)
     }
-    private var fetchAllRequest: AnyPublisher<FetchAllNotesResponseModel, NetworkError> {
+    private var fetchAllNotesRequest: AnyPublisher<FetchAllNotesResponseModel, NetworkError> {
         return notesService.fetchAllNotes()
     }
-    private var updateRequest: AnyPublisher<NotesResponseModel, NetworkError> {
+    private var updateNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         return notesService.updateNotes(model: model, noteId: selectedNote)
     }
     
     func createNote() {
-        createRequest
+        createNoteRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.fetchAllNotes()
@@ -45,7 +46,7 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     func deleteNote() {
-        deleteRequest
+        deleteNoteRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchAllNotes()
@@ -54,7 +55,7 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     func fetchOneNote() {
-        fetchOneRequest
+        fetchOneNoteRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchAllNotes()
@@ -62,7 +63,7 @@ final class CreateNoteViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     func fetchAllNotes() {
-        fetchAllRequest
+        fetchAllNotesRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 let array = item.data
@@ -74,11 +75,11 @@ final class CreateNoteViewModel: ObservableObject {
     }
     
     func updateNote() {
-        updateRequest
+        updateNoteRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
                 self?.fetchOneNote()
             })
             .store(in: &cancellables)
-    }    
+    }
 }

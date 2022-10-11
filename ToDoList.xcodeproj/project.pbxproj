@@ -86,11 +86,12 @@
 		ACADC52B28C774D800289409 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52A28C774D800289409 /* TaskList.swift */; };
 		ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */; };
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
+		ACD4570428F5642000E27411 /* QuickViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD4570328F5642000E27411 /* QuickViewModel.swift */; };
 		ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
 		ACDC76B528D2101E00B4C5F9 /* CreateNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */; };
-		ACDC76B728D21D2D00B4C5F9 /* CreateNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */; };
+		ACDC76B728D21D2D00B4C5F9 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B628D21D2D00B4C5F9 /* NoteViewModel.swift */; };
 		ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */; };
 		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
@@ -207,11 +208,12 @@
 		ACADC52A28C774D800289409 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarModel.swift; sourceTree = "<group>"; };
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		ACD4570328F5642000E27411 /* QuickViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickViewModel.swift; sourceTree = "<group>"; };
 		ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
 		ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteView.swift; sourceTree = "<group>"; };
-		ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewModel.swift; sourceTree = "<group>"; };
+		ACDC76B628D21D2D00B4C5F9 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
 		ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
 		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
@@ -539,6 +541,24 @@
 			path = Task;
 			sourceTree = "<group>";
 		};
+		ACD4570128F5605600E27411 /* QuickViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				ACDC76B628D21D2D00B4C5F9 /* NoteViewModel.swift */,
+				AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */,
+			);
+			path = QuickViewModels;
+			sourceTree = "<group>";
+		};
+		ACD4570228F5606A00E27411 /* AuthModels */ = {
+			isa = PBXGroup;
+			children = (
+				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
+				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
+			);
+			path = AuthModels;
+			sourceTree = "<group>";
+		};
 		ACD6C560288F14D30033D732 /* Create */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,12 +599,11 @@
 		ACD8F67A28A27F9F009A4A6E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */,
-				ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */,
+				ACD4570228F5606A00E27411 /* AuthModels */,
 				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
-				ACDC76B628D21D2D00B4C5F9 /* CreateNoteViewModel.swift */,
+				ACD4570128F5605600E27411 /* QuickViewModels */,
 				ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */,
-				AC66545928DDECB700BF80F8 /* CheckListViewModel.swift */,
+				ACD4570328F5642000E27411 /* QuickViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -799,7 +818,8 @@
 				ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */,
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
-				ACDC76B728D21D2D00B4C5F9 /* CreateNoteViewModel.swift in Sources */,
+				ACD4570428F5642000E27411 /* QuickViewModel.swift in Sources */,
+				ACDC76B728D21D2D00B4C5F9 /* NoteViewModel.swift in Sources */,
 				AC7714E528856C6D00A0C804 /* ToDoList.xcdatamodeld in Sources */,
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,
 				ACD6C562288F14F90033D732 /* CreateView.swift in Sources */,

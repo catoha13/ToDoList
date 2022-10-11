@@ -52,7 +52,7 @@ final class CheckListViewModel: ObservableObject {
         return networkService.deleteChecklist(checklistId: checklistId)
     }
     
-    private var fetchAllChecklistsRequest: AnyPublisher<FetchAllChecklistsModel, NetworkError> {
+    private var fetchAllChecklistsRequest: AnyPublisher<FetchAllChecklistsResponseModel, NetworkError> {
         return networkService.fetchAllChecklists()
     }
     

@@ -37,7 +37,7 @@ struct DeleteChecklistData: Codable {
     var id: String
 }
 
-struct FetchAllChecklistsModel: Codable {
+struct FetchAllChecklistsResponseModel: Codable {
     var data: [ChecklistData]
 }
 

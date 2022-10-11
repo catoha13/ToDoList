@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct QuickView: View {
-    @StateObject private var viewModelNote = CreateNoteViewModel()
+    @StateObject private var viewModelNote = NoteViewModel()
     @StateObject private var viewModelChecklist = CheckListViewModel()
     
     @State private var showNoteAlert = false
@@ -22,15 +22,16 @@ struct QuickView: View {
                     .font(.RobotoThinItalicHeader)
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {
-                    //MARK: Notes
-                    ForEach(viewModelNote.notesArray, id: \.self) { item in
-                        NoteCell(color: item.color, text: item.description, isCompleted: item.isCompleted)
+                    //MARK: List
+                    ForEach(Array(zip(viewModelNote.notesArray, viewModelChecklist.checklistResponseArray)), id: \.0) { notes, checklists in
+                        //MARK: Notes
+                        NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted)
                             .onLongPressGesture {
                                 withAnimation(.easeInOut(duration: 0.3)) {
-                                    viewModelNote.selectedNote = item.id
-                                    viewModelNote.noteText = item.description
-                                    viewModelNote.selectedColor = item.color
-                                    isNoteCompleted = item.isCompleted
+                                    viewModelNote.selectedNote = notes.id
+                                    viewModelNote.noteText = notes.description
+                                    viewModelNote.selectedColor = notes.color
+                                    isNoteCompleted = notes.isCompleted
                                     showNoteEdit.toggle()
                                 }
                             }
@@ -60,29 +61,24 @@ struct QuickView: View {
                                     viewModelNote.deleteNote()
                                 })
                             }
-                    }
-                    .background(.white)
-                    .cornerRadius(Constants.radiusThree)
-                    .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
-                    
-                    //MARK: Checklists
-                    ForEach(viewModelChecklist.checklistResponseArray, id: \.self) { element  in
-                        ChecklistCell(content: element.items,
-                                      title: element.title,
-                                      color: element.color,
+                        
+                        //MARK: Checklists
+                        ChecklistCell(content: checklists.items,
+                                      title: checklists.title,
+                                      color: checklists.color,
                                       itemContent: $viewModelChecklist.newItemContent,
                                       itemId: $viewModelChecklist.itemId,
                                       itemIsCompleted: $viewModelChecklist.isCompleted) {
-                            viewModelChecklist.title = element.title
-                            viewModelChecklist.color = element.color
-                            viewModelChecklist.checklistId = element.id
+                            viewModelChecklist.title = checklists.title
+                            viewModelChecklist.color = checklists.color
+                            viewModelChecklist.checklistId = checklists.id
                             viewModelChecklist.isCompleted.toggle()
                             viewModelChecklist.updateChecklist()
                         }
                                       .onLongPressGesture {
-                                          viewModelChecklist.checklistId = element.id
-                                          viewModelChecklist.title = element.title
-                                          selectedChecklist = element.items
+                                          viewModelChecklist.checklistId = checklists.id
+                                          viewModelChecklist.title = checklists.title
+                                          selectedChecklist = checklists.items
                                           showChecklistEdit.toggle()
                                       }
                                       .confirmationDialog("What do you want?", isPresented: $showChecklistEdit) {

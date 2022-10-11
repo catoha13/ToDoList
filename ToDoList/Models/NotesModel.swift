@@ -22,7 +22,7 @@ struct NotesResponseData: Codable {
     var code: Int?
 }
 
-struct FetchAllNotesResponseModel: Codable {
+struct FetchAllNotesResponseModel: Codable, Hashable {
     var data: [FetchAllNotesResponseData]
 }
 
