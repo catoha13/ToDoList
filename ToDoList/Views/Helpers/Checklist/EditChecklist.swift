@@ -2,12 +2,13 @@ import SwiftUI
 
 struct EditChecklist: View {
     @Binding var isPresented: Bool
+    @Binding var isEditable: Bool
     @Binding var title: String
     @Binding var color: String
     @Binding var itemId: String
     @Binding var selectedArray: [ChecklistItemsModel]
     @Binding var updatedArray: [ChecklistItemsModel]
-    @State private var selectedColor: Color = .clear
+    @State private var selectedColor: Color = .customBlue
     @State var updateAction = {}
     @State var deleteAction = {}
     @State var createChecklist = {}
@@ -35,7 +36,8 @@ struct EditChecklist: View {
                         .padding(.trailing, 24)
                     
                     //MARK: CheckList
-                    CheckList(checklistArray: $selectedArray) {
+                    CheckList(checklistArray: $selectedArray,
+                              isEditable: $isEditable) {
                         deleteAction()
                     }
                     
@@ -66,6 +68,7 @@ struct EditChecklist: View {
 
 struct EditChecklist_Previews: PreviewProvider {
     @State static var isPresented = false
+    @State static var isEditable = false
     @State static var title = ""
     @State static var color = ""
     @State static var itemId = ""
@@ -73,6 +76,7 @@ struct EditChecklist_Previews: PreviewProvider {
     @State static var updatedChecklist = [ChecklistItemsModel]()
     static var previews: some View {
         EditChecklist(isPresented: $isPresented,
+                      isEditable: $isEditable,
                       title: $title,
                       color: $color,
                       itemId: $itemId,

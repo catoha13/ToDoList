@@ -2,9 +2,11 @@ import SwiftUI
 
 struct CreateCheckListView: View {
     @StateObject private var viewModel = QuickViewModel()
-    @State private var title = ""
-    @State var selectedColor: Color = .clear
     @Binding var isPresented: Bool
+    @State private var title = ""
+    @State private var placeholder = "Name the checklist"
+    @State var selectedColor: Color = .customBlue
+    @State private var isAddItemEnabled = true
     
     var body: some View {
         VStack {
@@ -21,14 +23,15 @@ struct CreateCheckListView: View {
                     Spacer()
                 }
                 .padding(.bottom, 6)
-                TextField("Name the checklist", text: $title)
+                TextField(placeholder, text: $title)
                     .font(Font(Roboto.medium(size: 16)))
                     .padding(.vertical, 10)
                     .frame(width: 308, height: 68)
                     .padding(.trailing, 24)
                 
                 //MARK: CheckList
-                CheckList(checklistArray: $viewModel.checklistRequestArray)
+                CheckList(checklistArray: $viewModel.checklistRequestArray,
+                          isEditable: $isAddItemEnabled)
                 
                 //MARK: Choose Color
                 ChooseColor(selectedColor: $selectedColor)
@@ -36,10 +39,14 @@ struct CreateCheckListView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.color = selectedColor.convertToHex()
-                    viewModel.title = title
-                    viewModel.createChecklist()
-                    isPresented.toggle()
+                    if title.isEmpty && viewModel.checklistRequestArray.isEmpty {
+                        placeholder = "Enter the title and add some checklists"
+                    } else {
+                        viewModel.checklistColor = selectedColor.convertToHex()
+                        viewModel.checklistTitle = title
+                        viewModel.createChecklist()
+                        isPresented.toggle()
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 40)

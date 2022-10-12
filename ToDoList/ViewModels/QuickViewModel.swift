@@ -7,19 +7,29 @@ final class QuickViewModel: ObservableObject {
     
     //MARK: Note
     @Published var noteText = ""
-    @Published var selectedColor = ""
+    @Published var selectedNoteColor = ""
     @Published var selectedNote = ""
     @Published var isNoteCompleted = false
     
+    @Published var showNoteEdit = false
+    @Published var showNoteEditView = false
+    @Published var showNoteAlert = false
+
     //MARK: Checklist
     @Published var checklistRequestArray: [ChecklistItemsModel] = []
     @Published var checklistResponseItems: [ChecklistItemsModel] = []
-    @Published var title = ""
-    @Published var color = ""
-    @Published var itemId = ""
+    @Published var checklistTitle = ""
+    @Published var checklistColor = ""
+    @Published var checklistItemId = ""
     @Published var newItemContent = ""
     @Published var isChecklistItemCompleted = false
     @Published var checklistId = ""
+    
+    @Published var selectedChecklist = [ChecklistItemsModel]()
+    @Published var showChecklistEdit = false
+    @Published var showChecklistEditView = false
+    @Published var showChecklistAlert = false
+    @Published var isAddItemEnabled = false
     
     private let user = User()
     private var notesNetworkService = NotesNetworkService()
@@ -30,10 +40,12 @@ final class QuickViewModel: ObservableObject {
         return user.userId ?? "no data"
     }
     
-    //MARK: Note Publishers & Models
+    //MARK: Note Models
     private var noteModel: NotesModel {
-        NotesModel(description: noteText, color: selectedColor, ownerId: ownerId, isCompleted: isNoteCompleted)
+        NotesModel(description: noteText, color: selectedNoteColor, ownerId: ownerId, isCompleted: isNoteCompleted)
     }
+    
+    //MARK: Note Models
     private var createNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
         notesNetworkService.createNote(model: noteModel)
     }
@@ -50,20 +62,21 @@ final class QuickViewModel: ObservableObject {
         notesNetworkService.updateNotes(model: noteModel, noteId: selectedNote)
     }
     
-    //MARK: Checklist Publishers & Models
+    //MARK: Checklist Models
     private var updateItemsModel: [ChecklistItemsModel] {
-        [ChecklistItemsModel(id: itemId,content: newItemContent, isCompleted: isChecklistItemCompleted)]
+        [ChecklistItemsModel(id: checklistItemId,content: newItemContent, isCompleted: isChecklistItemCompleted)]
     }
     private var updateChecklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: updateItemsModel)
+        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: updateItemsModel)
     }
     private var editChecklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: checklistResponseItems)
+        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: checklistResponseItems)
     }
     private var checklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: title, color: color, ownerId: ownerId, items: checklistRequestArray)
+        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: checklistRequestArray)
     }
     
+    //MARK: Checklist Publishers
     private var createChecklistRequest: AnyPublisher<ChecklistUpdateRequestModel, NetworkError> {
         checklistsNetworkService.createChecklist(model: checklistModel)
     }
@@ -76,7 +89,7 @@ final class QuickViewModel: ObservableObject {
     }
     
     private var deleteChecklistItemRequest: AnyPublisher<DeleteChecklistData, NetworkError> {
-        checklistsNetworkService.deleteChecklistItem(checklistItemId: itemId)
+        checklistsNetworkService.deleteChecklistItem(checklistItemId: checklistItemId)
     }
     
     private var deleteChecklistRequest: AnyPublisher<DeleteChecklistModel, NetworkError> {
@@ -95,6 +108,7 @@ final class QuickViewModel: ObservableObject {
         fetchNotesAndChecklists()
     }
     
+    //MARK: Fetch Notes & Checklists
     private func fetchNotesAndChecklists() {
         fetchAllNotesRequest.zip(fetchAllChecklistsRequest)
             .sink(receiveCompletion: { _ in
@@ -169,7 +183,7 @@ final class QuickViewModel: ObservableObject {
         editChecklistRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                self?.fetchNotesAndChecklists()
+                self?.fetchOneChecklist()
             })
             .store(in: &cancellables)
     }

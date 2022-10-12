@@ -3,8 +3,8 @@ import Combine
 
 final class ProfileViewModel: ObservableObject {
     
-    @Published var username = ""
-    @Published var email = ""
+    @Published var username = " "
+    @Published var email = " "
     @Published var avatarUrl = ""
     @Published var createdTask = 0
     @Published var completedTask = 0
@@ -28,7 +28,12 @@ final class ProfileViewModel: ObservableObject {
         return profileService.downloadUserAvatar()
     }
     
-    func fetchUser() {
+    init() {
+        fetchUser()
+        fetchStatistics()
+    }
+    
+    private func fetchUser() {
         fetchUserRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
@@ -41,7 +46,7 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchStatistics() {
+    private func fetchStatistics() {
         fetchUserStatisticsRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
@@ -57,12 +62,17 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func downloadAvatar() {
+    private func downloadAvatar() {
         downloadAvatarRequest
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
             }, receiveValue: { [weak self] item in
-                self?.avatarUrl = item.data.avatarUrl ?? ""
-                print(item)
+                
             })
             .store(in: &cancellables)
     }

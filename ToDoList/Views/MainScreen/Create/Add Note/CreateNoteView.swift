@@ -4,7 +4,7 @@ struct CreateNoteView: View {
     @Binding var isPresented: Bool
     
     @StateObject private var viewModel = QuickViewModel()
-    @State private var selectedColor: Color = .clear
+    @State private var selectedColor: Color = .customBlue
     
     var body: some View {
         VStack {
@@ -32,7 +32,7 @@ struct CreateNoteView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.selectedColor = selectedColor.convertToHex()
+                    viewModel.selectedNoteColor = selectedColor.convertToHex()
                     viewModel.createNote()
                     isPresented.toggle()
                 }
