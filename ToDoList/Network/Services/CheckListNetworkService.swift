@@ -33,8 +33,13 @@ final class CheckListNetworkService {
         return networkManager.delete(path: path, header: header)
     }
     
+    func fetchOneChecklist<U>(checklistId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.checklists.rawValue + "/" + checklistId
+        return networkManager.get(path: path, header: header)
+    }
+    
     func fetchAllChecklists<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
-        let path = Path.usersChecklists.rawValue + "/" + userId
+        let path = Path.usersChecklists.rawValue + userId
         return networkManager.get(path: path, header: header)
     }
 }

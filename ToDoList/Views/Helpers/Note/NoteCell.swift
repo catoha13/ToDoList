@@ -19,12 +19,11 @@ struct NoteCell: View {
                     .strikethrough(isCompleted)
                     .foregroundColor(.black)
                     .multilineTextAlignment(.leading)
-                    .padding(.top, -10)
                    
                 Spacer()
             }
         }
-        .padding(.vertical, 30)
+        .padding(.vertical, 20)
         .padding(.horizontal, 10)
         .frame(width: 343)
     }

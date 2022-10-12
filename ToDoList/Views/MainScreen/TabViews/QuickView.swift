@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct QuickView: View {
-    @StateObject private var viewModel = QuickViewModel()
+    @ObservedObject private var viewModel = QuickViewModel()
 
     @State private var showNoteAlert = false
     @State private var showChecklistAlert = false
@@ -22,7 +22,7 @@ struct QuickView: View {
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {
                     //MARK: List
-                    ForEach(viewModel.mergedResponseArray, id: \.0) { notes, checklists in
+                    ForEach(viewModel.mergedResponseArray, id: \.1) { notes, checklists in
                         //MARK: Notes
                         NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted)
                             .onLongPressGesture {
@@ -60,6 +60,10 @@ struct QuickView: View {
                                     viewModel.deleteNote()
                                 })
                             }
+                            .padding(.horizontal, 10)
+                            .background(.white)
+                            .cornerRadius(Constants.radiusThree)
+                            .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                         
                         //MARK: Checklists
                         ChecklistCell(content: checklists.items,
@@ -75,14 +79,14 @@ struct QuickView: View {
                             viewModel.updateChecklist()
                         }
                                       .onLongPressGesture {
-                                          viewModel.checklistId = checklists.id
-                                          viewModel.title = checklists.title
-                                          selectedChecklist = checklists.items
                                           showChecklistEdit.toggle()
                                       }
                                       .confirmationDialog("What do you want?", isPresented: $showChecklistEdit) {
                                           Button("Edit", role: .none) {
                                               withAnimation(.easeInOut(duration: 0.3)) {
+                                                  viewModel.checklistId = checklists.id
+                                                  viewModel.title = checklists.title
+                                                  selectedChecklist = checklists.items
                                                   showEditView.toggle()
                                               }
                                           }
@@ -100,11 +104,11 @@ struct QuickView: View {
                                               viewModel.deleteChecklist()
                                           })
                                       }
+                                      .padding(.horizontal, 10)
+                                      .background(.white)
+                                      .cornerRadius(Constants.radiusThree)
+                                      .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                     }
-                    .frame(width: 343)
-                    .background(.white)
-                    .cornerRadius(Constants.radiusThree)
-                    .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                 }
             }
             .frame(maxWidth: .infinity)
