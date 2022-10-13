@@ -87,6 +87,7 @@
 		ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0537428887CF900F7FF1D /* OnboardingView.swift */; };
 		ACD4570428F5642000E27411 /* QuickViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD4570328F5642000E27411 /* QuickViewModel.swift */; };
 		ACD4570828F76ED600E27411 /* EditNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD4570728F76ED600E27411 /* EditNote.swift */; };
+		ACD4570A28F863AF00E27411 /* Zip3Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD4570928F863AF00E27411 /* Zip3Sequence.swift */; };
 		ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */; };
 		ACD6C562288F14F90033D732 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6C561288F14F90033D732 /* CreateView.swift */; };
 		ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */; };
@@ -208,6 +209,7 @@
 		ACD0537428887CF900F7FF1D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		ACD4570328F5642000E27411 /* QuickViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickViewModel.swift; sourceTree = "<group>"; };
 		ACD4570728F76ED600E27411 /* EditNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNote.swift; sourceTree = "<group>"; };
+		ACD4570928F863AF00E27411 /* Zip3Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zip3Sequence.swift; sourceTree = "<group>"; };
 		ACD5AD5528B80E25003F7614 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ACD6C561288F14F90033D732 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureTextField.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 		AC7715112885898E00A0C804 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				ACD4570928F863AF00E27411 /* Zip3Sequence.swift */,
 				AC771512288589A100A0C804 /* Font+Extension.swift */,
 				AC77151728858EC300A0C804 /* Color+Extension.swift */,
 			);
@@ -826,6 +829,7 @@
 				ACADC52B28C774D800289409 /* TaskList.swift in Sources */,
 				ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */,
 				ACADC52928C76F7400289409 /* TaskCell.swift in Sources */,
+				ACD4570A28F863AF00E27411 /* Zip3Sequence.swift in Sources */,
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextAndTextfield.swift in Sources */,
