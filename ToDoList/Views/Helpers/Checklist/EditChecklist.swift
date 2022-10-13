@@ -8,7 +8,9 @@ struct EditChecklist: View {
     @Binding var itemId: String
     @Binding var selectedArray: [ChecklistItemsModel]
     @Binding var updatedArray: [ChecklistItemsModel]
+    
     @State private var selectedColor: Color = .customBlue
+    
     @State var updateAction = {}
     @State var deleteAction = {}
     @State var createChecklist = {}

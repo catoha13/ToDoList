@@ -11,46 +11,48 @@ struct QuickView: View {
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {
                     //MARK: List
-                    ForEach(viewModel.mergedResponseArray, id: \.1) { notes, checklists in
+                    ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, id in
                         //MARK: Notes
-                        NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted)
-                            .onLongPressGesture {
-                                viewModel.selectedNote = notes.id
-                                viewModel.noteText = notes.description
-                                viewModel.selectedNoteColor = notes.color
-                                viewModel.isNoteCompleted = notes.isCompleted
-                                viewModel.showNoteEdit.toggle()
+                        NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted) {
+                            viewModel.selectedNote = notes.id
+                            viewModel.noteText = notes.description
+                            viewModel.selectedNoteColor = notes.color
+                            viewModel.isNoteCompleted = notes.isCompleted
+                            if viewModel.isNoteCompleted {
+                                viewModel.isNoteCompleted.toggle()
+                                viewModel.isNoteCompleted = false
+                            } else {
+                                viewModel.isNoteCompleted.toggle()
+                                viewModel.isNoteCompleted = true
                             }
-                            .confirmationDialog("Delete this note?",
-                                                isPresented: $viewModel.showNoteEdit) {
-                                Button(viewModel.isNoteCompleted ? "Unmark" : "Mark as done") {
-                                    if viewModel.isNoteCompleted {
-                                        viewModel.isNoteCompleted.toggle()
-                                        viewModel.isNoteCompleted = false
-                                    } else {
-                                        viewModel.isNoteCompleted.toggle()
-                                        viewModel.isNoteCompleted = true
-                                    }
-                                    viewModel.updateNote()
-                                }
-                                Button("Delete", role: .destructive) {
-                                    viewModel.showNoteAlert.toggle()
-                                }
-                            } message: {
-                                Text("What do you want to do?")
+                            viewModel.updateNote()
+                        }
+                        .onLongPressGesture {
+                            viewModel.isNoteEditing.toggle()
+                        }
+                        .confirmationDialog("Delete this note?",
+                                            isPresented: $viewModel.isNoteEditing) {
+                            Button("Edit") {
+                                viewModel.showNoteEditView.toggle()
                             }
-                            .alert(isPresented: $viewModel.showNoteAlert) {
-                                Alert(title: Text("You want to delete «\(viewModel.noteText)»?"),
-                                      message: Text("You cannot undone this action."),
-                                      primaryButton: .cancel(),
-                                      secondaryButton: .destructive(Text("Delete")) {
-                                    viewModel.deleteNote()
-                                })
+                            Button("Delete", role: .destructive) {
+                                viewModel.showNoteAlert.toggle()
                             }
-                            .padding(.horizontal, 10)
-                            .background(.white)
-                            .cornerRadius(Constants.radiusThree)
-                            .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
+                        } message: {
+                            Text("What do you want to do?")
+                        }
+                        .alert(isPresented: $viewModel.showNoteAlert) {
+                            Alert(title: Text("You want to delete «\(viewModel.noteText)»?"),
+                                  message: Text("You cannot undone this action."),
+                                  primaryButton: .destructive(Text("Delete")),
+                                  secondaryButton: .cancel() {
+                                viewModel.deleteNote()
+                            })
+                        }
+                        .padding(.horizontal, 10)
+                        .background(.white)
+                        .cornerRadius(Constants.radiusThree)
+                        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                         
                         //MARK: Checklists
                         ChecklistCell(content: checklists.items,
@@ -69,9 +71,9 @@ struct QuickView: View {
                                           viewModel.checklistId = checklists.id
                                           viewModel.checklistTitle = checklists.title
                                           viewModel.selectedChecklist = checklists.items
-                                          viewModel.showChecklistEdit.toggle()
+                                          viewModel.isChecklistEditing.toggle()
                                       }
-                                      .confirmationDialog("What do you want?", isPresented: $viewModel.showChecklistEdit) {
+                                      .confirmationDialog("What do you want?", isPresented: $viewModel.isChecklistEditing) {
                                           Button("Edit", role: .none) {
                                               viewModel.showChecklistEditView.toggle()
                                           }
@@ -116,7 +118,12 @@ struct QuickView: View {
             }
             
             if viewModel.showNoteEditView {
-                
+                EditNote(isPresented: $viewModel.showNoteEditView,
+                         title: $viewModel.noteText,
+                         color: $viewModel.selectedNoteColor,
+                         updateAction: {
+                    viewModel.updateNote()
+                })
             }
         }
     }

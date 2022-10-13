@@ -4,6 +4,7 @@ struct NoteCell: View {
     @State var color: String = Color.customPink.description
     @State var text: String = "Some action to do at 10:00 AM with my friends"
     @State var isCompleted: Bool = false
+    @State var updateAction: () -> ()
     
     var body: some View {
         
@@ -14,12 +15,17 @@ struct NoteCell: View {
                 .offset(y: -20)
             
             HStack {
-                Text(text)
-                    .font(.RobotoThinItalicSmall)
-                    .strikethrough(isCompleted)
-                    .foregroundColor(.black)
-                    .multilineTextAlignment(.leading)
-                   
+                Button {
+                    updateAction()
+                    isCompleted.toggle()
+                } label: {
+                    Text(text)
+                        .font(.RobotoThinItalicSmall)
+                        .strikethrough(isCompleted)
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.leading)
+                       
+                }
                 Spacer()
             }
         }
@@ -31,6 +37,6 @@ struct NoteCell: View {
 
 struct NoteCell_Previews: PreviewProvider {
     static var previews: some View {
-        NoteCell()
+        NoteCell(updateAction: {})
     }
 }
