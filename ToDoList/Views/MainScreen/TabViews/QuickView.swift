@@ -26,8 +26,7 @@ struct QuickView: View {
                                 viewModel.isNoteCompleted = true
                             }
                             viewModel.updateNote()
-                        }
-                        .onLongPressGesture {
+                        } longTap: {
                             viewModel.isNoteEditing.toggle()
                         }
                         .confirmationDialog("Delete this note?",

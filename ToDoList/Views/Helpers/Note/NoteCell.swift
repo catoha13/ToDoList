@@ -5,6 +5,7 @@ struct NoteCell: View {
     @State var text: String = "Some action to do at 10:00 AM with my friends"
     @State var isCompleted: Bool = false
     @State var updateAction: () -> ()
+    @State var longTap: () -> ()
     
     var body: some View {
         
@@ -16,15 +17,21 @@ struct NoteCell: View {
             
             HStack {
                 Button {
-                    updateAction()
-                    isCompleted.toggle()
                 } label: {
                     Text(text)
                         .font(.RobotoThinItalicSmall)
                         .strikethrough(isCompleted)
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
-                       
+                        .onTapGesture {
+                            withAnimation {
+                                updateAction()
+                                isCompleted.toggle()
+                            }
+                        }
+                        .onLongPressGesture {
+                            longTap()
+                        }
                 }
                 Spacer()
             }
@@ -37,6 +44,6 @@ struct NoteCell: View {
 
 struct NoteCell_Previews: PreviewProvider {
     static var previews: some View {
-        NoteCell(updateAction: {})
+        NoteCell(updateAction: {}, longTap: {})
     }
 }

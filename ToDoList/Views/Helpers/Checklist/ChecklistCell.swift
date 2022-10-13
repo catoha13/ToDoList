@@ -29,10 +29,12 @@ struct ChecklistCell: View {
             ForEach(content, id: \.self) { item in
                 HStack {
                     Button {
-                        itemContent = item.content
-                        itemId = item.id ?? ""
-                        itemIsCompleted = item.isCompleted
-                        self.action()
+                        withAnimation {
+                            itemContent = item.content
+                            itemId = item.id ?? ""
+                            itemIsCompleted = item.isCompleted
+                            self.action()
+                        }
                     } label: {
                         Image(systemName: item.isCompleted ? "checkmark.square" : "square")
                             .foregroundColor(.secondary)
