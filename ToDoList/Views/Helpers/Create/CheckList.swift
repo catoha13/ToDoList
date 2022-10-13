@@ -3,6 +3,7 @@ import SwiftUI
 struct CheckList: View {
     @Binding var checklistArray: [ChecklistItemsModel]
     @Binding var isEditable: Bool
+    @State var isMaxLenght = false
     @State var deleteAction = {}
     
     @State private var emptyItem = ChecklistItemsModel(content: "", isCompleted: false)
@@ -11,8 +12,9 @@ struct CheckList: View {
         ScrollView(showsIndicators: false) {
             ForEach($checklistArray, id: \.self) { item  in
                 ChecklistItem(title: item.content,
-                          isChecked: item.isCompleted,
-                          deleteAction: {
+                              isChecked: item.isCompleted,
+                              isMaxLength: isMaxLenght,
+                              deleteAction: {
                     if let index = checklistArray.firstIndex(where: {$0.id == $0.id}) {
                         checklistArray.remove(at: index)
                     }

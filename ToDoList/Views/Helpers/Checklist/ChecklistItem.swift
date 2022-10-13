@@ -4,6 +4,7 @@ struct ChecklistItem: View {
     @Binding var title: String
     @Binding var isChecked: Bool
     @State var id: String?
+    @State var isMaxLength = false
     @State var deleteAction = {}
     
     func toggle() {
@@ -21,6 +22,13 @@ struct ChecklistItem: View {
                 Text("List item")
             })
             .foregroundColor(isChecked ? Color.secondary : Color.black)
+            .onChange(of: title) { _ in
+                if title.count > Constants.maxChecklistLenght {
+                    isMaxLength = true
+                } else {
+                    isMaxLength = false
+                }
+            }
             
             //MARK: Delete Button
             Button {

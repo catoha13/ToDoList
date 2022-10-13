@@ -6,7 +6,9 @@ struct CreateCheckListView: View {
     @State private var title = ""
     @State private var placeholder = "Name the checklist"
     @State var selectedColor: Color = .customBlue
+    
     @State private var isAddItemEnabled = true
+    @State private var isMaxLength = false
     
     var body: some View {
         VStack {
@@ -29,9 +31,20 @@ struct CreateCheckListView: View {
                     .frame(width: 308, height: 68)
                     .padding(.trailing, 24)
                 
+                if isMaxLength {
+                    HStack {
+                        Text("Item name is too long")
+                            .foregroundColor(.red)
+                            .font(.RobotoThinItalicSmall)
+                            .padding(.leading, 30)
+                        Spacer()
+                    }
+                }
+                
                 //MARK: CheckList
                 CheckList(checklistArray: $viewModel.checklistRequestArray,
-                          isEditable: $isAddItemEnabled)
+                          isEditable: $isAddItemEnabled,
+                          isMaxLenght: isMaxLength)
                 
                 //MARK: Choose Color
                 ChooseColor(selectedColor: $selectedColor)
@@ -48,6 +61,8 @@ struct CreateCheckListView: View {
                         isPresented.toggle()
                     }
                 }
+                .disabled(isMaxLength)
+                .opacity(isMaxLength ? 0.75 : 1)
                 .padding(.horizontal)
                 .padding(.vertical, 40)
             }
