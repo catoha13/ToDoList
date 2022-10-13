@@ -5,9 +5,10 @@ struct EditNote: View {
     @Binding var title: String
     @Binding var color: String
     @State var updateAction: () -> ()
+    @State private var isMaxLength = false
     
     @State private var selectedColor: Color = .customBlue
-
+    
     var body: some View {
         ZStack {
             Text("")
@@ -29,6 +30,23 @@ struct EditNote: View {
                         .padding()
                         .frame(width: 308, height: 151)
                         .padding(.trailing, 42)
+                        .onChange(of: title) { _ in
+                            if title.count > Constants.maxNoteLenght {
+                                isMaxLength = true
+                            } else {
+                                isMaxLength = false
+                            }
+                        }
+                    
+                    if isMaxLength {
+                        HStack {
+                            Text("Note is too long")
+                                .foregroundColor(.red)
+                                .font(.RobotoThinItalicSmall)
+                                .padding(.leading, 30)
+                            Spacer()
+                        }
+                    }
                     
                     //MARK: Choose Color
                     ChooseColor(selectedColor: $selectedColor)
@@ -40,6 +58,8 @@ struct EditNote: View {
                         updateAction()
                         isPresented.toggle()
                     }
+                    .disabled(isMaxLength)
+                    .opacity(isMaxLength ? 0.75 : 1)
                     .padding(.horizontal)
                     .padding(.vertical, 40)
                 }

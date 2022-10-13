@@ -27,6 +27,10 @@ struct QuickView: View {
                             }
                             viewModel.updateNote()
                         } longTap: {
+                            viewModel.selectedNote = notes.id
+                            viewModel.noteText = notes.description
+                            viewModel.selectedNoteColor = notes.color
+                            viewModel.isNoteCompleted = notes.isCompleted
                             viewModel.isNoteEditing.toggle()
                         }
                         .confirmationDialog("Delete this note?",
