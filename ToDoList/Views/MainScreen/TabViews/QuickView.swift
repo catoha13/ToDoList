@@ -47,10 +47,10 @@ struct QuickView: View {
                         .alert(isPresented: $viewModel.showNoteAlert) {
                             Alert(title: Text("You want to delete «\(viewModel.noteText)»?"),
                                   message: Text("You cannot undone this action."),
-                                  primaryButton: .destructive(Text("Delete")),
-                                  secondaryButton: .cancel() {
+                                  primaryButton: .destructive(Text("Delete")) {
                                 viewModel.deleteNote()
-                            })
+                            },
+                                  secondaryButton: .cancel())
                         }
                         .padding(.horizontal, 10)
                         .background(.white)

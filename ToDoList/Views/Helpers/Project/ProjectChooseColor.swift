@@ -5,8 +5,9 @@ struct ProjectChooseColor: View {
     @Binding var extracedColor: String
     @Binding var projectName: String
     @State var action: () -> ()
-    @State private var selectedColor: Color = .red
-
+    
+    @State private var isMaxLength = false
+    @State private var selectedColor: Color = .customBlue
     
     var body: some View {
         VStack {
@@ -22,11 +23,27 @@ struct ProjectChooseColor: View {
             TextField(text: $projectName) {
                 Text("Project Name")
                     .font(.RobotoThinItalicSmall)
+                    .onChange(of: projectName) { _ in
+                        if projectName.count > Constants.maxProjectLenght {
+                            isMaxLength = true
+                        } else {
+                            isMaxLength = false
+                        }
+                    }
             }
             .font(.RobotoRegularSmall)
             .padding(.horizontal, 50)
             .padding(.bottom, 60)
             
+            if isMaxLength {
+                HStack {
+                    Text("Title is too long")
+                        .foregroundColor(.red)
+                    .font(.RobotoThinItalicSmall)
+                    .padding(.leading, 30)
+                    Spacer()
+                }
+            }
             ChooseColor(selectedColor: $selectedColor)
             
             ColorConfirmButton {

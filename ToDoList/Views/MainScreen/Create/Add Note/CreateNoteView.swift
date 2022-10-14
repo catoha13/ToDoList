@@ -32,7 +32,6 @@ struct CreateNoteView: View {
                         } else {
                             isMaxLength = false
                         }
-                        
                     }
                 
                 if isMaxLength {

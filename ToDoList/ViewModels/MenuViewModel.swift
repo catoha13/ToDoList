@@ -3,10 +3,17 @@ import Combine
 
 final class MenuViewModel: ObservableObject {
     
+    @Published var isPresented = false
+    @Published var isEditing = false
+    @Published var showAlert = false
+    @Published var selectedColor = ""
+    
     @Published var projectName = ""
     @Published var chosenColor = ""
     @Published var projectsArray: [FetchProjectsData] = []
     @Published var selectedProject = ""
+    
+    @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
     private var token = Token()
     private let user = User()
@@ -36,6 +43,10 @@ final class MenuViewModel: ObservableObject {
         return projectService.deletePost(header: header, projectId: selectedProject)
     }
     
+    init() {
+        fetchProjects()
+    }
+    
     func createProject() {
         createRequest
             .sink(receiveCompletion: { _ in
@@ -45,7 +56,7 @@ final class MenuViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchProjects() {
+    private func fetchProjects() {
         fetchRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
