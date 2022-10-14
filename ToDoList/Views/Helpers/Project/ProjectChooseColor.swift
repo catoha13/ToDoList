@@ -24,10 +24,12 @@ struct ProjectChooseColor: View {
                 Text("Project Name")
                     .font(.RobotoThinItalicSmall)
                     .onChange(of: projectName) { _ in
-                        if projectName.count > Constants.maxProjectLenght {
-                            isMaxLength = true
-                        } else {
-                            isMaxLength = false
+                        withAnimation {
+                            if projectName.count > Constants.maxProjectLenght {
+                                isMaxLength = true
+                            } else {
+                                isMaxLength = false
+                            }
                         }
                     }
             }
@@ -53,6 +55,8 @@ struct ProjectChooseColor: View {
                 isPresented.toggle()
                 self.action()
             }
+            .disabled(isMaxLength)
+            .opacity(isMaxLength ? 0.75 : 1)
         }
         .background(.white)
     }

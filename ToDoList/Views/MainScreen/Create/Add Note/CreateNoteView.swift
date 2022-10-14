@@ -27,10 +27,12 @@ struct CreateNoteView: View {
                     .frame(width: 308, height: 151)
                     .padding(.trailing, 42)
                     .onChange(of: viewModel.noteText) { _ in
-                        if viewModel.noteText.count > Constants.maxNoteLenght {
-                            isMaxLength = true
-                        } else {
-                            isMaxLength = false
+                        withAnimation {
+                            if viewModel.noteText.count > Constants.maxNoteLenght {
+                                isMaxLength = true
+                            } else {
+                                isMaxLength = false
+                            }
                         }
                     }
                 

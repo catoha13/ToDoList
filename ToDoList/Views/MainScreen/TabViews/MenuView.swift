@@ -15,7 +15,7 @@ struct MenuView: View {
                         ForEach(viewModel.projectsArray, id: \.self) { data in
                             ProjectCell(color: data.color, text: data.title, taskCounter: 8)
                                 .onLongPressGesture {
-                                    viewModel.selectedProject = data.id
+                                    viewModel.selectedProjectId = data.id
                                     viewModel.projectName = data.title
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         viewModel.isEditing.toggle()
@@ -40,7 +40,7 @@ struct MenuView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
                     ProjectChooseColor(isPresented: $viewModel.isPresented,
-                                       extracedColor: $viewModel.selectedColor,
+                                       extracedColor: $viewModel.chosenColor,
                                        projectName: $viewModel.projectName) {
                         viewModel.createProject()
                         viewModel.projectName = ""
@@ -78,7 +78,7 @@ struct MenuView: View {
                         .font(.RobotoThinItalicSmall)
                         
                         ProjectChooseColor(isPresented: $viewModel.isEditing,
-                                           extracedColor: $viewModel.selectedColor,
+                                           extracedColor: $viewModel.chosenColor,
                                            projectName: $viewModel.projectName) {
                             viewModel.updateProject()
                             viewModel.projectName = ""

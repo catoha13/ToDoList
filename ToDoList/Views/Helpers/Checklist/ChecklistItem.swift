@@ -23,10 +23,12 @@ struct ChecklistItem: View {
             })
             .foregroundColor(isChecked ? Color.secondary : Color.black)
             .onChange(of: title) { _ in
-                if title.count > Constants.maxChecklistLenght {
-                    isMaxLength = true
-                } else {
-                    isMaxLength = false
+                withAnimation {
+                    if title.count > Constants.maxChecklistLenght {
+                        isMaxLength = true
+                    } else {
+                        isMaxLength = false
+                    }
                 }
             }
             

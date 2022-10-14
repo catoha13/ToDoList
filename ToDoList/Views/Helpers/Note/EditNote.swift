@@ -31,10 +31,12 @@ struct EditNote: View {
                         .frame(width: 308, height: 151)
                         .padding(.trailing, 42)
                         .onChange(of: title) { _ in
-                            if title.count > Constants.maxNoteLenght {
-                                isMaxLength = true
-                            } else {
-                                isMaxLength = false
+                            withAnimation {
+                                if title.count > Constants.maxNoteLenght {
+                                    isMaxLength = true
+                                } else {
+                                    isMaxLength = false
+                                }
                             }
                         }
                     

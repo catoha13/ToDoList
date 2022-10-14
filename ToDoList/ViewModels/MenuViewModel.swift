@@ -11,7 +11,7 @@ final class MenuViewModel: ObservableObject {
     @Published var projectName = ""
     @Published var chosenColor = ""
     @Published var projectsArray: [FetchProjectsData] = []
-    @Published var selectedProject = ""
+    @Published var selectedProjectId = ""
     
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -37,10 +37,10 @@ final class MenuViewModel: ObservableObject {
         return projectService.fetchProjects(header: header)
     }
     private var updateRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.updateProject(model: model, header: header, projectId: selectedProject)
+        return projectService.updateProject(model: model, header: header, projectId: selectedProjectId)
     }
     private var deleteRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.deletePost(header: header, projectId: selectedProject)
+        return projectService.deleteProject(header: header, projectId: selectedProjectId)
     }
     
     init() {
