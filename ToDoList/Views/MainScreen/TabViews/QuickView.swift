@@ -6,7 +6,7 @@ struct QuickView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
-                Text("Notes")
+                Text("Quick Notes")
                     .font(.RobotoThinItalicHeader)
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {

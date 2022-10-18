@@ -27,7 +27,7 @@ struct TaskEditableList: View {
         
     ]
     @State var tomorrowTasks = [
-        Tasks(task: "Meeting", time: "4:00 PMM", color: .customCoral),
+        Tasks(task: "Meeting", time: "4:00 PM", color: .customCoral),
         Tasks(task: "Rest", time: "9:00 PM", color: .customCoral)
     ]
     

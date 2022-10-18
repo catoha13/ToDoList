@@ -1,41 +1,17 @@
 import SwiftUI
 
 struct MyTaskView: View {
-    @State private var selected = true
-    @State var selection: Int = 0
-    
+    @ObservedObject var viewModel = TaskViewModel()
     
     var body: some View {
         VStack {
+            TaskHeader(action: {})
             
-            //MARK: Header
-            HStack {
-                Spacer()
-                Text("Work List")
-                    .font(Font(Roboto.thinItalic(size: 20)))
-                    .foregroundColor(.white)
-                    .padding(.trailing, -40)
-                    .padding(.top, 40)
-                Spacer()
-                Button {
-                    
-                } label: {
-                    Image(systemName: "slider.horizontal.3")
-                        .resizable()
-                        .frame(width: 20, height: 21)
-                        .padding(.trailing, 24)
-                        .padding(.top, 40)
-                        .foregroundColor(.white)
-                }
-            }
-            .frame(height: 107)
-            .background(Color.customCoral)
-            .padding(.top, -10)
+            SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selected)
             
             TaskEditableList()
-                .frame(height: 500)
            
-//            Spacer()
+            Spacer()
         }
     }
 }

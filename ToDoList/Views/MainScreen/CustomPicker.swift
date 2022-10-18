@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SegmentedPickerExample: View {
     let titles: [String]
-    @State var selectedIndex: Int = 0
+    @Binding var selectedIndex: Int
 
     var body: some View {
         SegmentedPicker(
@@ -12,7 +12,8 @@ struct SegmentedPickerExample: View {
                 set: { selectedIndex = $0 ?? 0 }),
             content: { item, isSelected in
                 Text(item)
-                    .foregroundColor(isSelected ? Color.black : Color.gray )
+                    .foregroundColor(isSelected ? Color.white : Color.white.opacity(0.5) )
+                    .font(.RobotoRegularSmall)
                     .padding(.horizontal, 50)
                     .padding(.vertical, 8)
             },
@@ -20,10 +21,13 @@ struct SegmentedPickerExample: View {
                 VStack(spacing: 0) {
                     Spacer()
                     Rectangle()
-                        .fill(Color.black)
-                        .frame(height: 1)
+                        .fill(Color.white)
+                        .frame(height: 3)
+                        .padding(.top, 33)
                 }
             })
+            .background(Color.customCoral)
+            .padding(.top, -8)
             .animation(.easeInOut(duration: 0.3))
     }
 }
@@ -61,7 +65,7 @@ public struct SegmentedPicker<Element, Content, Selection>: View
 
             if let selectedIndex = selectedIndex {
                 selection()
-                    .frame(width: frames[selectedIndex].width,
+                    .frame(width: frames[selectedIndex].width / 1.5,
                            height: frames[selectedIndex].height)
                     .alignmentGuide(.horizontalCenterAlignment) { dimensions in
                         dimensions[HorizontalAlignment.center]
@@ -75,7 +79,7 @@ public struct SegmentedPicker<Element, Content, Selection>: View
                     )
                     .buttonStyle(PlainButtonStyle())
                     .background(GeometryReader { proxy in
-                        Color.clear.onAppear { frames[index] = proxy.frame(in: .global) }
+                        Color.customCoral.onAppear { frames[index] = proxy.frame(in: .global) }
                     })
                     .alignmentGuide(.horizontalCenterAlignment,
                                     isActive: selectedIndex == index) { dimensions in
@@ -83,7 +87,10 @@ public struct SegmentedPicker<Element, Content, Selection>: View
                     }
                 }
             }
+            .padding(.top, -10)
         }
+                                    .frame(maxWidth: .infinity, maxHeight: 44)
+                                    .padding(.top, 10)
     }
 }
 
