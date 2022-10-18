@@ -3,13 +3,6 @@ import SwiftUI
 struct MenuView: View {
     @StateObject private var viewModel = MenuViewModel()
     
-    @State private var isPresented = false
-    @State private var isEditing = false
-    @State private var showAlert = false
-    @State private var selectedColor = ""
-    @State private var projectName = ""
-    private var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
-    
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
@@ -18,14 +11,14 @@ struct MenuView: View {
                         .font(.RobotoThinItalicHeader)
                         .padding(.vertical, 50)
                     
-                    LazyVGrid(columns: flexibleLayout) {
+                    LazyVGrid(columns: viewModel.flexibleLayout) {
                         ForEach(viewModel.projectsArray, id: \.self) { data in
                             ProjectCell(color: data.color, text: data.title, taskCounter: 8)
                                 .onLongPressGesture {
-                                    viewModel.selectedProject = data.id
-                                    projectName = data.title
+                                    viewModel.selectedProjectId = data.id
+                                    viewModel.projectName = data.title
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        isEditing.toggle()
+                                        viewModel.isEditing.toggle()
                                     }
                                 }
                         }
@@ -33,7 +26,7 @@ struct MenuView: View {
                     
                     AddProjectButton() {
                         withAnimation {
-                            self.isPresented.toggle()
+                            self.viewModel.isPresented.toggle()
                         }
                     }
                 }
@@ -41,16 +34,16 @@ struct MenuView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.customWhiteBackground)
             
-            if isPresented {
+            if viewModel.isPresented {
                 ZStack {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
-                    ProjectChooseColor(isPresented: $isPresented, extracedColor: $selectedColor, projectName: $projectName) {
-                        viewModel.chosenColor = selectedColor
-                        viewModel.projectName = projectName
+                    ProjectChooseColor(isPresented: $viewModel.isPresented,
+                                       extracedColor: $viewModel.chosenColor,
+                                       projectName: $viewModel.projectName) {
                         viewModel.createProject()
-                        projectName = ""
+                        viewModel.projectName = ""
                     }
                     .frame(width: 338)
                     .cornerRadius(Constants.radiusFive)
@@ -58,22 +51,24 @@ struct MenuView: View {
                 }
             }
             
-            if isEditing {
+            if viewModel.isEditing {
                 ZStack {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
                     VStack(spacing: 0) {
                         Button("Delete project") {
-                            showAlert.toggle()
+                            viewModel.showAlert.toggle()
                         }
                         .foregroundColor(.red)
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Are you sure?"), message: Text("This action is irreversible.") , primaryButton: .destructive(Text("Delete")) {
+                        .alert(isPresented: $viewModel.showAlert) {
+                            Alert(title: Text("You want to delete «\(viewModel.projectName)»?"), message: Text("You cannot undone this action."),
+                                  primaryButton: .cancel(),
+                                  secondaryButton: .destructive(Text("Delete")) {
                                 viewModel.deleteProject()
-                                isEditing = false
-                                showAlert = false
-                            }, secondaryButton: .default(Text("Go back")))
+                                viewModel.isEditing.toggle()
+                                viewModel.showAlert.toggle()
+                            })
                         }
                         
                         .frame(maxWidth: .infinity)
@@ -82,13 +77,11 @@ struct MenuView: View {
                         .background(.white)
                         .font(.RobotoThinItalicSmall)
                         
-                        ProjectChooseColor(isPresented: $isEditing,
-                                           extracedColor: $selectedColor,
-                                           projectName: $projectName) {
-                            viewModel.chosenColor = selectedColor
-                            viewModel.projectName = projectName
+                        ProjectChooseColor(isPresented: $viewModel.isEditing,
+                                           extracedColor: $viewModel.chosenColor,
+                                           projectName: $viewModel.projectName) {
                             viewModel.updateProject()
-                            projectName = ""
+                            viewModel.projectName = ""
                         }
                     }
                     .frame(width: 338)
@@ -96,10 +89,6 @@ struct MenuView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.fetchProjects()
-        }
-        
     }
 }
 

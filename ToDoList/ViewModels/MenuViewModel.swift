@@ -3,10 +3,17 @@ import Combine
 
 final class MenuViewModel: ObservableObject {
     
+    @Published var isPresented = false
+    @Published var isEditing = false
+    @Published var showAlert = false
+    @Published var selectedColor = ""
+    
     @Published var projectName = ""
     @Published var chosenColor = ""
     @Published var projectsArray: [FetchProjectsData] = []
-    @Published var selectedProject = ""
+    @Published var selectedProjectId = ""
+    
+    @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
     private var token = Token()
     private let user = User()
@@ -23,51 +30,55 @@ final class MenuViewModel: ObservableObject {
     private var model: ProjectModel {
         return ProjectModel(title: projectName, color: chosenColor, ownerId: ownerId)
     }
-    private var publisher: AnyPublisher<ProjectResponceModel, NetworkError> {
+    private var createRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.createProject(model: model, header: header)
     }
-    private var fetchPublisher: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
+    private var fetchRequest: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
         return projectService.fetchProjects(header: header)
     }
-    private var updatePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.updateProject(model: model, header: header, projectId: selectedProject)
+    private var updateRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
+        return projectService.updateProject(model: model, header: header, projectId: selectedProjectId)
     }
-    private var deletePublisher: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.deletePost(header: header, projectId: selectedProject)
+    private var deleteRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
+        return projectService.deleteProject(header: header, projectId: selectedProjectId)
+    }
+    
+    init() {
+        fetchProjects()
     }
     
     func createProject() {
-        publisher
+        createRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchProjects()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }
     
-    func fetchProjects() {
-        fetchPublisher
+    private func fetchProjects() {
+        fetchRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: {
-                self.projectsArray = $0.data
+            }, receiveValue: { [weak self] item in
+                self?.projectsArray = item.data
             })
             .store(in: &cancellables)
     }
     
     func updateProject() {
-        updatePublisher
+        updateRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchProjects()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }
     
     func deleteProject() {
-        deletePublisher
+        deleteRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { _ in
-                self.fetchProjects()
+            }, receiveValue: { [weak self] _ in
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }

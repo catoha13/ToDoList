@@ -1,19 +1,26 @@
 import SwiftUI
 
-struct CreateCheckListView: View {
-    @StateObject private var viewModel = QuickViewModel()
+struct EditChecklist: View {
     @Binding var isPresented: Bool
-    @State private var title = ""
-    @State private var placeholder = "Name the checklist"
-    @State var selectedColor: Color = .customBlue
+    @Binding var isEditable: Bool
+    @Binding var title: String
+    @Binding var color: String
+    @Binding var itemId: String
+    @Binding var selectedArray: [ChecklistItemsModel]
+    @Binding var updatedArray: [ChecklistItemsModel]
     
-    @State private var isAddItemEnabled = true
+    @State var updateAction = {}
+    @State var deleteAction = {}
+    @State var createChecklist = {}
+    
+    @State private var selectedColor: Color = .customBlue
     @State private var isMaxLength = false
     
     var body: some View {
-        VStack {
-            //MARK: Header
-            Header(text: "Add CheckList", isPresented: $isPresented)
+        ZStack {
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.secondary)
             //MARK: View
             VStack(alignment: .trailing) {
                 //MARK: Description
@@ -25,11 +32,18 @@ struct CreateCheckListView: View {
                     Spacer()
                 }
                 .padding(.bottom, 6)
-                TextField(placeholder, text: $title)
+                TextField("Enter new name for checklist", text: $title)
                     .font(Font(Roboto.medium(size: 16)))
                     .padding(.vertical, 10)
                     .frame(width: 308, height: 68)
                     .padding(.trailing, 24)
+                
+                //MARK: CheckList
+                CheckList(checklistArray: $selectedArray,
+                          isEditable: $isEditable,
+                          isMaxLenght: isMaxLength) {
+                    deleteAction()
+                }
                 
                 if isMaxLength {
                     HStack {
@@ -41,25 +55,19 @@ struct CreateCheckListView: View {
                     }
                 }
                 
-                //MARK: CheckList
-                CheckList(checklistArray: $viewModel.checklistRequestArray,
-                          isEditable: $isAddItemEnabled,
-                          isMaxLenght: isMaxLength)
-                
                 //MARK: Choose Color
                 ChooseColor(selectedColor: $selectedColor)
                     .padding(.trailing, 48)
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    if title.isEmpty && viewModel.checklistRequestArray.isEmpty {
-                        placeholder = "Enter the title and add some checklists"
-                    } else {
-                        viewModel.checklistColor = selectedColor.convertToHex()
-                        viewModel.checklistTitle = title
-                        viewModel.createChecklist()
-                        isPresented.toggle()
+                    updatedArray = selectedArray
+                    for item in selectedArray {
+                        itemId = item.id ?? ""
                     }
+                    color = selectedColor.convertToHex()
+                    updateAction()
+                    isPresented.toggle()
                 }
                 .disabled(isMaxLength)
                 .opacity(isMaxLength ? 0.75 : 1)
@@ -69,20 +77,26 @@ struct CreateCheckListView: View {
             .frame(width: 343, height: 576)
             .background(.white)
             .cornerRadius(Constants.radiusFive)
-            .offset(y: -40)
             .shadow(radius: 4)
-            
-            Spacer()
         }
-        .ignoresSafeArea()
-        .navigationBarHidden(true)
     }
 }
 
-struct CreateCheckListView_Previews: PreviewProvider {
+struct EditChecklist_Previews: PreviewProvider {
     @State static var isPresented = false
-    
+    @State static var isEditable = false
+    @State static var title = ""
+    @State static var color = ""
+    @State static var itemId = ""
+    @State static var selectedArray = [ChecklistItemsModel]()
+    @State static var updatedChecklist = [ChecklistItemsModel]()
     static var previews: some View {
-        CreateCheckListView(isPresented: $isPresented)
+        EditChecklist(isPresented: $isPresented,
+                      isEditable: $isEditable,
+                      title: $title,
+                      color: $color,
+                      itemId: $itemId,
+                      selectedArray: $selectedArray,
+                      updatedArray: $updatedChecklist)
     }
 }

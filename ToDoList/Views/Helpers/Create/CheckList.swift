@@ -1,37 +1,38 @@
 import SwiftUI
 
 struct CheckList: View {
-    @ObservedObject var data = CheckListData()
+    @Binding var checklistArray: [ChecklistItemsModel]
+    @Binding var isEditable: Bool
+    @State var isMaxLenght = false
+    @State var deleteAction = {}
+    
+    @State private var emptyItem = ChecklistItemsModel(content: "", isCompleted: false)
     
     var body: some View {
-        ScrollView {
-            ForEach(data.checkListData, id: \.self) { item in
-                CheckView(isChecked: item.isChecked, title: item.title)
-                    .padding(.vertical, 10)
+        ScrollView(showsIndicators: false) {
+            ForEach($checklistArray, id: \.self) { item  in
+                ChecklistItem(title: item.content,
+                              isChecked: item.isCompleted,
+                              isMaxLength: isMaxLenght,
+                              deleteAction: {
+                    if let index = checklistArray.firstIndex(where: {$0.id == $0.id}) {
+                        checklistArray.remove(at: index)
+                    }
+                    deleteAction()
+                })
             }
             HStack {
                 //MARK: Add Button
-                Button {
-                    data.checkListData.append(CheckListItem(id: UUID(), isChecked: false, title: ""))
-                } label: {
-                    Text("+ Add new item")
-                        .font(Font(Roboto.thinItalic(size: 16)))
-                        .foregroundColor(.black)
+                if isEditable {
+                    Button {
+                        checklistArray.append(emptyItem)
+                    } label: {
+                        Text("+ Add new item")
+                            .font(Font(Roboto.thinItalic(size: 16)))
+                            .foregroundColor(.black)
+                    }
+                    Spacer()
                 }
-                .padding(.vertical, 10)
-                
-                //MARK: Delete Button
-                Spacer()
-                Button {
-                    data.checkListData.removeLast()
-                } label: {
-                    Image(systemName: "trash")
-                        .resizable()
-                        .frame(width: 16, height: 18)
-                        .foregroundColor(.red)
-                        .offset(y: -6)
-                }
-                .padding()
             }
         }
         .frame(height: 192)
@@ -40,41 +41,9 @@ struct CheckList: View {
 }
 
 struct CheckList_Previews: PreviewProvider {
+    @State static var array: [ChecklistItemsModel] = []
+    @State static var isEditable = false
     static var previews: some View {
-        CheckList()
-    }
-}
-class CheckListData: ObservableObject {
-    @Published var checkListData = [
-        CheckListItem(title: "")
-    ]
-}
-
-struct CheckListItem: Identifiable, Hashable {
-    var id = UUID()
-    var isChecked: Bool = false
-    var title: String
-}
-
-struct CheckView: View {
-    @State var isChecked: Bool = false
-    @State var title: String
-    func toggle() {
-        isChecked = !isChecked
-    }
-    
-    var body: some View {
-        HStack{
-            Button(action: toggle) {
-                Image(systemName: isChecked ? "checkmark.square" : "square")
-                    .foregroundColor(.secondary)
-                    .background(Color.customBar)
-            }
-            TextField(text: $title, label: {
-                Text("List item")
-            })
-            
-            
-        }
+        CheckList(checklistArray: $array, isEditable: $isEditable)
     }
 }

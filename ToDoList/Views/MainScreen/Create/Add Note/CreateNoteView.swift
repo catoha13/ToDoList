@@ -3,8 +3,9 @@ import SwiftUI
 struct CreateNoteView: View {
     @Binding var isPresented: Bool
     
-    @StateObject private var viewModel = CreateNoteViewModel()
-    @State private var selectedColor: Color = .clear
+    @StateObject private var viewModel = QuickViewModel()
+    @State private var selectedColor: Color = .customBlue
+    @State private var isMaxLength = false
     
     var body: some View {
         VStack {
@@ -25,6 +26,25 @@ struct CreateNoteView: View {
                     .padding()
                     .frame(width: 308, height: 151)
                     .padding(.trailing, 42)
+                    .onChange(of: viewModel.noteText) { _ in
+                        withAnimation {
+                            if viewModel.noteText.count > Constants.maxNoteLenght {
+                                isMaxLength = true
+                            } else {
+                                isMaxLength = false
+                            }
+                        }
+                    }
+                
+                if isMaxLength {
+                    HStack {
+                        Text("Note is too long")
+                            .foregroundColor(.red)
+                        .font(.RobotoThinItalicSmall)
+                        .padding(.leading, 30)
+                        Spacer()
+                    }
+                }
                 
                 //MARK: Choose Color
                 ChooseColor(selectedColor: $selectedColor)
@@ -32,10 +52,12 @@ struct CreateNoteView: View {
                 
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.selectedColor = viewModel.convertColor(color: selectedColor)
+                    viewModel.selectedNoteColor = selectedColor.convertToHex()
                     viewModel.createNote()
                     isPresented.toggle()
                 }
+                .disabled(isMaxLength)
+                .opacity(isMaxLength ? 0.75 : 1)
                 .padding(.horizontal)
                 .padding(.vertical, 40)
             }

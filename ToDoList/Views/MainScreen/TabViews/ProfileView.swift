@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject var viewModel = ProfileViewModel()
+    @ObservedObject var viewModel = ProfileViewModel()
     
     var body: some View {
         VStack {
@@ -11,7 +11,7 @@ struct ProfileView: View {
             
             AboutUser(userName: $viewModel.username,
                       userEmail: $viewModel.email,
-                      userAvatar: viewModel.avatarUrl,
+                      userAvatar: $viewModel.avatarUrl,
                       createdTask: $viewModel.createdTask,
                       completedTasks: $viewModel.completedTask) {
                 
@@ -33,23 +33,18 @@ struct ProfileView: View {
                 StatisticCircle(percentage: $viewModel.eventsPercentage,
                                 text: "Events",
                                 color: .customCoral,
-                                progress: viewModel.eventsProgress)
+                                progress: $viewModel.eventsProgress)
                 StatisticCircle(percentage: $viewModel.quickNotesPercentage,
                                 text: "To do",
                                 color: .customBlue,
-                                progress: viewModel.quickNoteProgress)
+                                progress: $viewModel.quickNoteProgress)
                 StatisticCircle(percentage: $viewModel.toDotsPercentage,
                                 text: "Quick notes",
                                 color: .customPurple,
-                                progress: viewModel.eventsProgress)
+                                progress: $viewModel.eventsProgress)
             }
         }
         .background(Color.customWhiteBackground)
-        .onAppear {
-            viewModel.downloadAvatar()
-            viewModel.fetchUser()
-            viewModel.fetchStatistics()
-        }
     }
 }
 

@@ -3,6 +3,7 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     @Binding var isPresented: Bool
+    @State private var showImagePicker : Bool = false
     
     var body: some View {
         
@@ -13,7 +14,7 @@ struct SignUpView: View {
                 .padding(.top, 66)
                 
                 ZStack {
-                    viewModel.avatar?
+                    Image(uiImage: (viewModel.avatar ?? UIImage(named: "background"))!)
                         .resizable()
                         .frame(width: 107, height: 104)
                         .background(.secondary)
@@ -22,10 +23,10 @@ struct SignUpView: View {
                         .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))
                     
                     CustomAvatarButton() {
-                        viewModel.showImagePicker.toggle()
+                        showImagePicker.toggle()
                     }
-                    .sheet(isPresented: $viewModel.showImagePicker) {
-                        ImagePicker(isShown: $viewModel.showImagePicker,
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(isShown: $showImagePicker,
                                     image: $viewModel.avatar,
                                     url: $viewModel.url)
                         .onDisappear {

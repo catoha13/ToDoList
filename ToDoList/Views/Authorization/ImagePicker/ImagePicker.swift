@@ -3,7 +3,7 @@ import SwiftUI
 struct ImagePicker : UIViewControllerRepresentable {
     
     @Binding var isShown: Bool
-    @Binding var image: Image?
+    @Binding var image: UIImage?
     @Binding var url: String?
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {

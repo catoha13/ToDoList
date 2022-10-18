@@ -3,8 +3,8 @@ import Combine
 
 final class ProfileViewModel: ObservableObject {
     
-    @Published var username = ""
-    @Published var email = ""
+    @Published var username = " "
+    @Published var email = " "
     @Published var avatarUrl = ""
     @Published var createdTask = 0
     @Published var completedTask = 0
@@ -18,18 +18,23 @@ final class ProfileViewModel: ObservableObject {
     private var profileService = ProfileNetworkService()
     private var cancellables = Set<AnyCancellable>()
     
-    private var fetchUserPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
+    private var fetchUserRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
         return profileService.fetchUser()
     }
-    private var fetchUserStatisticsPublisher: AnyPublisher<FetchUserStatisticsModel, NetworkError> {
+    private var fetchUserStatisticsRequest: AnyPublisher<FetchUserStatisticsModel, NetworkError> {
         return profileService.fetchUserStatistics()
     }
-    private var downloadAvatarPublisher: AnyPublisher<ProfileResponseModel, NetworkError> {
+    private var downloadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
         return profileService.downloadUserAvatar()
     }
     
-    func fetchUser() {
-        fetchUserPublisher
+    init() {
+        fetchUser()
+        fetchStatistics()
+    }
+    
+    private func fetchUser() {
+        fetchUserRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.username = item.data.username ?? ""
@@ -41,8 +46,8 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchStatistics() {
-        fetchUserStatisticsPublisher
+    private func fetchStatistics() {
+        fetchUserStatisticsRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.createdTask = item.data.createdTasks ?? 0
@@ -57,18 +62,27 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func downloadAvatar() {
-        downloadAvatarPublisher
-            .sink(receiveCompletion: { _z in
+    private func downloadAvatar() {
+        downloadAvatarRequest
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
             }, receiveValue: { [weak self] item in
-                self?.avatarUrl = item.data.avatarUrl ?? ""
+                
             })
             .store(in: &cancellables)
     }
     
     private func convertProgress(percentage: String) -> Double {
         var string = percentage
-        string.removeLast()
+        if string.isEmpty {
+        } else {
+            string.removeLast()
+        }
         let number = Double(string)
         return (number ?? 0.4) / 100
     }
