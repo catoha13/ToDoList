@@ -61,8 +61,14 @@ final class TaskNetworkService {
         
     }
     
-    func taskMembersSearch() {
-        
+    func taskMembersSearch<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.membersSearch.rawValue
+        return networkManager.get(path: path, header: header)
+    }
+    
+    func downloadMembersAvatars(url: String) -> AnyPublisher<UIImage, NetworkError> {
+        let path = url
+        return networkManager.downloadAvatar(path: path, header: header)
     }
     
     func deleteTaskComment() {

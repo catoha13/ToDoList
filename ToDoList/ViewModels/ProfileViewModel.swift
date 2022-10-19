@@ -6,6 +6,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var username = " "
     @Published var email = " "
     @Published var avatarUrl = ""
+    @Published var avatarImage: UIImage?
     @Published var createdTask = 0
     @Published var completedTask = 0
     @Published var eventsPercentage = ""
@@ -24,8 +25,8 @@ final class ProfileViewModel: ObservableObject {
     private var fetchUserStatisticsRequest: AnyPublisher<FetchUserStatisticsModel, NetworkError> {
         return profileService.fetchUserStatistics()
     }
-    private var downloadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
-        return profileService.downloadUserAvatar()
+    private var downloadAvatarRequest: AnyPublisher<UIImage, NetworkError> {
+        return profileService.downloadUserAvatar(url: avatarUrl)
     }
     
     init() {
@@ -40,7 +41,6 @@ final class ProfileViewModel: ObservableObject {
                 self?.username = item.data.username ?? ""
                 self?.email = item.data.email ?? ""
                 self?.avatarUrl = item.data.avatarUrl ?? ""
-                print(self!.avatarUrl)
                 self?.downloadAvatar()
             })
             .store(in: &cancellables)
@@ -64,15 +64,9 @@ final class ProfileViewModel: ObservableObject {
     
     private func downloadAvatar() {
         downloadAvatarRequest
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                
+                self?.avatarImage = item
             })
             .store(in: &cancellables)
     }

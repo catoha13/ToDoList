@@ -15,6 +15,16 @@ enum Path: String {
     case checklists = "/checklists"
     case checklistsItems = "/checklists-items"
     case usersChecklists = "/user-checklists/"
+    case tasks = "/tasks"
+    case projectTasks = "/project-tasks/"
+    case userTasks = "/user-tasks/"
+    case assignedTasks = "/assigned-tasks/"
+    case participateInTasks = "/participate-in-tasks/"
+    case tasksAttachments = "/tasks-attachments"
+    case comments = "/comments"
+    case taskComments = "/tasks-comments/"
+    case membersSearch = "/task-members-search?query=kas"
+    case commentsAttachments = "/comments-attachments"
 }
 
 //MARK: Endpoint

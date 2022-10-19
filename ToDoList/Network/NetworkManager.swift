@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import Combine
 
@@ -141,6 +140,21 @@ final class NetworkMaganer: NetworkProtocol {
             .receive(on: DispatchQueue.main)
             .map { $0.data }
             .decode(type: U.self, decoder: decoder )
+            .mapError { error -> NetworkError in
+                return NetworkError.requestFailed(error.localizedDescription)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func downloadAvatar(path: String, header: String) -> AnyPublisher<UIImage, NetworkError> {
+        let url = URL(string: path)
+        var request = URLRequest(url: url!)
+        request.httpMethod = Method.get.rawValue
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+
+        return session.dataTaskPublisher(for: request)
+            .receive(on: DispatchQueue.main)
+            .map { UIImage(data: $0.data)!}
             .mapError { error -> NetworkError in
                 return NetworkError.requestFailed(error.localizedDescription)
             }

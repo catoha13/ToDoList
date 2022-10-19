@@ -3,7 +3,7 @@ import SwiftUI
 struct AboutUser: View {
     @Binding var userName: String
     @Binding var userEmail: String
-    @Binding var userAvatar: String
+    @Binding var userAvatar: UIImage?
     @Binding var createdTask: Int
     @Binding var completedTasks: Int
     @State var showEditView: () -> ()
@@ -11,7 +11,7 @@ struct AboutUser: View {
     var body: some View {
         VStack {
             HStack {
-                CircleImageView(imageUrl: $userAvatar, width: 64, height: 64)
+                CircleImageView(image: $userAvatar, width: 64, height: 64)
                 VStack(alignment: .leading) {
                     Text(userName)
                         .font(.RobotoThinItalicSmall)
@@ -60,7 +60,7 @@ struct AboutUser: View {
 struct AboutUser_Previews: PreviewProvider {
     @State static var username = "Stephen Chow"
     @State static var email  = "some23098@mail.com"
-    @State static var avatar = "person"
+    @State static var avatar: UIImage?
     @State static var createdTask = 0
     @State static var completedTask = 0
     

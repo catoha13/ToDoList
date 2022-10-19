@@ -11,7 +11,7 @@ struct ProfileView: View {
             
             AboutUser(userName: $viewModel.username,
                       userEmail: $viewModel.email,
-                      userAvatar: $viewModel.avatarUrl,
+                      userAvatar: $viewModel.avatarImage,
                       createdTask: $viewModel.createdTask,
                       completedTasks: $viewModel.completedTask) {
                 

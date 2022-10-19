@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct SearchUserView: View {
-    @State var users = ["first user", "second user", "third user"]
+    @Binding var selectedUsers: [Members]
+    @Binding var users: [Members]
     @Binding var filteredText: String
     @Binding var searchedUser: String
     @State var action: () -> Void
@@ -11,30 +12,32 @@ struct SearchUserView: View {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
-                
-            VStack(alignment: .leading) {
-                ForEach(0..<users.count, id: \.self) {element in
-                    if !filteredText.isEmpty && users[element].contains(filteredText.lowercased()) {
+            
+            ScrollView(showsIndicators: false) {
+                ForEach(users, id: \.id) { user in
+                    if !filteredText.isEmpty &&
+                        (user.username.contains(filteredText.lowercased()) || user.email.contains(filteredText.lowercased())) {
                         Button {
-                            searchedUser = users[element]
-                            action()
+                            searchedUser = user.username
+                            self.selectedUsers.append(user)
                         } label: {
-                            Text(users[element])
-                                .padding()
+                            HStack {
+                               
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(user.username)
+                                        .font(.RobotoThinItalicSmall)
+                                    Text(user.email)
+                                        .font(.RobotoRegularExtraSmall)
+                                }
+                                Spacer()
+                            }
+                            .padding(.horizontal)
                         }
-                    } else if filteredText.isEmpty {
-                        Button {
-                            searchedUser = users[element]
-                            action()
-                        } label: {
-                            Text(users[element])
-                                .padding()
-                        }
+
                     }
+                   
                 }
-                Spacer()
             }
-            .padding(.trailing, 140)
         }
         .frame(width: 343, height: 600)
         .cornerRadius(Constants.radiusFive)
@@ -42,12 +45,13 @@ struct SearchUserView: View {
 }
 
 struct SearchUserView_Previews: PreviewProvider {
-    @State static var users = ["first user", "second user", "third user"]
+//    @State static var users = ["first user", "second user", "third user"]
+    @State static var users = [Members]()
     @State static var filteredText = ""
     @State static var searchedUser = ""
     @State static var action = {}
     
     static var previews: some View {
-        SearchUserView(users: users, filteredText: $filteredText,searchedUser: $searchedUser, action: action)
+        SearchUserView(selectedUsers: $users, users: $users, filteredText: $filteredText,searchedUser: $searchedUser, action: action)
     }
 }

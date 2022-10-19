@@ -32,8 +32,8 @@ final class ProfileNetworkService {
         return networkManager.get(path: path, header: header)
     }
     
-    func downloadUserAvatar<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
-        let path = Path.userAvatar.rawValue + "/" + userId
-        return networkManager.get(path: path, header: header)
+    func downloadUserAvatar(url: String) -> AnyPublisher<UIImage, NetworkError> {
+        let path = url
+        return networkManager.downloadAvatar(path: path, header: header)
     }
 }

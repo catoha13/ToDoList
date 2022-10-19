@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct CircleImageView: View {
-    @Binding var imageUrl: String
+    @Binding var image: UIImage?
     var width: CGFloat
     var height: CGFloat
     
     var body: some View {
-        AsyncImage(url: URL(string: imageUrl))
+        Image(uiImage: image ?? UIImage(named: "background")!)
+            .resizable()
             .frame(width: width, height: height)
             .clipShape(Circle())
     }

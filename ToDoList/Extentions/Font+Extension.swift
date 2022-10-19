@@ -8,6 +8,9 @@ extension Font {
     static var RobotoRegularSmall: Font {
             Font.custom("Roboto-Regular", size: 18, relativeTo: .title3)
         }
+    static var RobotoRegularExtraSmall: Font {
+            Font.custom("Roboto-Regular", size: 14, relativeTo: .title3)
+        }
     static var RobotoThinItalicTabBar: Font {
         Font.custom("Roboto-ThinItalic", size: 12, relativeTo: .subheadline)
         }

@@ -6,7 +6,7 @@ struct TextAndTextfield: View {
     var body: some View {
         HStack {
             Text("For")
-                .font(Font(Roboto.thinItalic(size: 18)))
+                .font(Font(Roboto.thinItalic(size: 14)))
             TextField(text: $text) {
                 Text(description)
             }

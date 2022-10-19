@@ -7,7 +7,7 @@ struct MyTaskView: View {
         VStack {
             TaskHeader(action: {})
             
-            SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selected)
+            SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selectedIndex)
             
             TaskEditableList()
            

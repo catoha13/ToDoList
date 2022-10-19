@@ -50,6 +50,7 @@
 		AC6AD07728FE84A00032F486 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6AD07628FE84A00032F486 /* TaskViewModel.swift */; };
 		AC6AD07928FE88560032F486 /* TaskNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6AD07828FE88560032F486 /* TaskNetworkService.swift */; };
 		AC6AD07D28FE96D20032F486 /* TaskHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6AD07C28FE96D20032F486 /* TaskHeader.swift */; };
+		AC6AD07F28FE9AF20032F486 /* TasksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6AD07E28FE9AF20032F486 /* TasksModel.swift */; };
 		AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714D828856C6B00A0C804 /* ToDoListApp.swift */; };
 		AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714DA28856C6B00A0C804 /* ContentView.swift */; };
 		AC7714DD28856C6D00A0C804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7714DC28856C6D00A0C804 /* Assets.xcassets */; };
@@ -171,6 +172,7 @@
 		AC6AD07628FE84A00032F486 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		AC6AD07828FE88560032F486 /* TaskNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNetworkService.swift; sourceTree = "<group>"; };
 		AC6AD07C28FE96D20032F486 /* TaskHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeader.swift; sourceTree = "<group>"; };
+		AC6AD07E28FE9AF20032F486 /* TasksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksModel.swift; sourceTree = "<group>"; };
 		AC7714D528856C6B00A0C804 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7714D828856C6B00A0C804 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		AC7714DA28856C6B00A0C804 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 				ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */,
 				ACF6F33728DA05C400665511 /* ProfileModel.swift */,
 				AC66545528DDEC4100BF80F8 /* ChekListModel.swift */,
+				AC6AD07E28FE9AF20032F486 /* TasksModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */,
+				AC6AD07F28FE9AF20032F486 /* TasksModel.swift in Sources */,
 				AC20A02E28BD689300E7B718 /* Token.swift in Sources */,
 				ACDC76B528D2101E00B4C5F9 /* CreateNoteView.swift in Sources */,
 				AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */,
