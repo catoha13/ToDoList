@@ -6,7 +6,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var username = " "
     @Published var email = " "
     @Published var avatarUrl = ""
-    @Published var avatarImage: UIImage?
+    @Published var avatarImage: UIImage = UIImage(named: "background")!
     @Published var createdTask = 0
     @Published var completedTask = 0
     @Published var eventsPercentage = ""

@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct TextAndTextfield: View {
+struct TextFieldAndText: View {
     @Binding var text: String
     @State var description: String
     var body: some View {
         HStack {
             Text("For")
-                .font(Font(Roboto.thinItalic(size: 14)))
+                .font(Font(Roboto.thinItalic(size: 18)))
             TextField(text: $text) {
                 Text(description)
             }
@@ -21,6 +21,6 @@ struct TextAndTextfield_Previews: PreviewProvider {
     @State static var text = ""
     @State static var descriprtion = "Assignee"
     static var previews: some View {
-        TextAndTextfield(text: $text, description: descriprtion)
+        TextFieldAndText(text: $text, description: descriprtion)
     }
 }

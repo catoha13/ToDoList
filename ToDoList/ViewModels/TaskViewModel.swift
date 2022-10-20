@@ -9,16 +9,16 @@ final class TaskViewModel: ObservableObject {
     @Published var title = ""
     @Published var description = ""
     @Published var getDate = "Anytime"
-    @Published var addTaskPressed = false
-    @Published var showSideView = false
-    @Published var searchedUser = ""
-    @Published var selectedUsers: [Members] = []
+    @Published var selectedUser = ""
+    @Published var selectedUserAvatar: UIImage?
+    @Published var members: [Members] = []
     
     //MARK: TaskView
     @Published var selectedIndex = 0
-    @Published var membersUrls: [String] = []
     @Published var membersUrl = ""
+    @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
+    @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
     
     //MARK: var
     @Published var searchUsersArray: [Members] = []
@@ -64,33 +64,29 @@ final class TaskViewModel: ObservableObject {
     //MARK: Funcs
     private func search() {
         searchMembers
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.searchUsersArray = item.data
                 for member in item.data {
                     self?.membersUrls.append(member.avatarUrl)
                 }
+                self?.loadAvatars()
             })
             .store(in: &cancellables)
     }
+    
     private func loadAvatars() {
-        for _ in 0...membersUrls.count {
+        for count in 0..<membersUrls.count {
+            membersUrl = membersUrls[count]
             downloadUsersAvatars
-                .sink { item in
-                    switch item {
-                    case .finished:
-                        return
-                    case .failure(let error):
-                        print(error)
-                    }
+                .sink { _ in
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item)
+                    var id = [UUID]()
+                    for _ in 0...(self?.membersAvatars.count ?? 0) + (self?.members.count ?? 0) {
+                        id.append(UUID())
+                    }
+                    self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersArray ?? [], self?.membersAvatars ?? [], id))
                 }
                 .store(in: &cancellables)
         }

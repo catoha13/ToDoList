@@ -3,7 +3,7 @@ import SwiftUI
 struct AboutUser: View {
     @Binding var userName: String
     @Binding var userEmail: String
-    @Binding var userAvatar: UIImage?
+    @Binding var userAvatar: UIImage
     @Binding var createdTask: Int
     @Binding var completedTasks: Int
     @State var showEditView: () -> ()
@@ -60,7 +60,7 @@ struct AboutUser: View {
 struct AboutUser_Previews: PreviewProvider {
     @State static var username = "Stephen Chow"
     @State static var email  = "some23098@mail.com"
-    @State static var avatar: UIImage?
+    @State static var avatar: UIImage = UIImage(named: "background")!
     @State static var createdTask = 0
     @State static var completedTask = 0
     

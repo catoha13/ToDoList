@@ -13,12 +13,12 @@ struct SideView: View {
                 .background(.secondary)
             
             VStack(alignment: .leading, spacing: 20) {
-                    Button {
-                        
-                    } label: {
-                        Text(firstText)
-                        Spacer()
-                    }
+                Button {
+                    
+                } label: {
+                    Text(firstText)
+                    Spacer()
+                }
                 Button {
                     
                 } label: {

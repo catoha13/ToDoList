@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ViewTask: View {
+struct CompleteTask: View {
     //MARK: Assigned
     @State var title = "Meeting according with design team in Central Park"
     @State var image = "superhero"
@@ -218,10 +218,10 @@ struct ViewTask: View {
     }
 }
 
-struct ViewTask_Previews: PreviewProvider {
+struct CompleteTask_Previews: PreviewProvider {
     @State static var showSideView = false
     @State static var closeViewTask = false
     static var previews: some View {
-        ViewTask(showSideView: $showSideView, closeViewTask: $closeViewTask)
+        CompleteTask(showSideView: $showSideView, closeViewTask: $closeViewTask)
     }
 }

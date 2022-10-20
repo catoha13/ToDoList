@@ -154,7 +154,7 @@ final class NetworkMaganer: NetworkProtocol {
 
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
-            .map { UIImage(data: $0.data)!}
+            .map { UIImage(data: $0.data) ?? UIImage(named: "background")!}
             .mapError { error -> NetworkError in
                 return NetworkError.requestFailed(error.localizedDescription)
             }

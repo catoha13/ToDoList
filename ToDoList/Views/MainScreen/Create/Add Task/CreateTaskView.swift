@@ -15,10 +15,12 @@ struct CreateTaskView: View {
                     VStack(alignment: .center) {
                         HStack {
                             //MARK: Assignee
-                            TextAndTextfield(text: $viewModel.assignee, description: "Assignee")
+                            TextFieldAndImage(image: $viewModel.selectedUserAvatar,
+                                              text: $viewModel.assignee,
+                                              description: "Assignee")
                             Spacer()
                             //MARK: Project
-                            TextAndTextfield(text: $viewModel.projectName, description: "Project")
+                            TextFieldAndText(text: $viewModel.projectName, description: "Project")
                         }
                         .padding(.top, -10)
                         .padding(.bottom, 10)
@@ -101,14 +103,14 @@ struct CreateTaskView: View {
                             }
                             .padding(.horizontal)
                             HStack {
-                                if viewModel.selectedUsers.isEmpty {
+                                if viewModel.members.isEmpty {
                                     Text("Anyone")
                                         .frame(width: 90, height: 58)
                                         .multilineTextAlignment(.center)
                                         .background(Color.customBar)
                                         .cornerRadius(Constants.raidiusFifty)
                                 } else {
-                                    ForEach(viewModel.selectedUsers, id: \.id) { user in
+                                    ForEach(viewModel.members, id: \.id) { user in
                                         Text(user.email)
                                     }
                                 }
@@ -133,7 +135,7 @@ struct CreateTaskView: View {
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
                             withAnimation {
-                                viewModel.addTaskPressed.toggle()
+                                
                             }
                         }
                     }
@@ -143,45 +145,18 @@ struct CreateTaskView: View {
                     .offset(y: -40)
                     .shadow(radius: 4)
                     
-                    if viewModel.assignee != viewModel.searchedUser {
-                        //MARK: SearchUser View
-                        SearchUserView(selectedUsers: $viewModel.selectedUsers,
-                                       users: $viewModel.searchUsersArray,
+                    //MARK: SearchUser View
+                    if viewModel.assignee != viewModel.selectedUser {
+                        SearchUserView(mergedArray: $viewModel.mergedUsersAndAvatars,
                                        filteredText: $viewModel.assignee,
-                                       searchedUser: $viewModel.assignee) {
-                            viewModel.searchedUser = viewModel.assignee
+                                       searchedUser: $viewModel.assignee,
+                                       searchedUserAvatar: $viewModel.selectedUserAvatar) {
+                            viewModel.selectedUser = viewModel.assignee
                         }
                     }
                 }
             }
             .frame(height: 669)
-            
-            //MARK: Show ViewTask
-            if viewModel.addTaskPressed {
-                ViewTask(title: viewModel.title,
-                         image: "pathFirst",
-                         username: viewModel.assignee,
-                         dueDate: "Jul 13, 2022",
-                         description: viewModel.description,
-                         tag: viewModel.projectName,
-                         color: .customBlue,
-                         showSideView: $viewModel.showSideView,
-                         closeViewTask: $viewModel.addTaskPressed)
-                .offset(y: -10)
-            }
-            //MARK: Show SideView
-            if viewModel.showSideView {
-                SideView(isPresented: $viewModel.showSideView,
-                         firstText: "Add Member",
-                         secondText: "Edit Task",
-                         thirdText: "Delete Task")
-                .onTapGesture {
-                    if viewModel.showSideView {
-                        viewModel.showSideView.toggle()
-                    }
-                }
-                
-            }
         }
         .navigationBarHidden(true)
     }

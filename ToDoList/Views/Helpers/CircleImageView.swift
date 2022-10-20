@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct CircleImageView: View {
-    @Binding var image: UIImage?
+    @Binding var image: UIImage
     var width: CGFloat
     var height: CGFloat
     
     var body: some View {
-        Image(uiImage: image ?? UIImage(named: "background")!)
+        Image(uiImage: image )
             .resizable()
             .frame(width: width, height: height)
             .clipShape(Circle())

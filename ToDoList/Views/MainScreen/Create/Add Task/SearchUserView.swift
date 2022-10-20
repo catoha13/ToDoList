@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SearchUserView: View {
-    @Binding var selectedUsers: [Members]
-    @Binding var users: [Members]
+    @Binding var mergedArray: [(Members, UIImage, id: UUID)]
     @Binding var filteredText: String
     @Binding var searchedUser: String
+    @Binding var searchedUserAvatar: UIImage?
     @State var action: () -> Void
     
     var body: some View {
@@ -14,15 +14,21 @@ struct SearchUserView: View {
                 .background(.white)
             
             ScrollView(showsIndicators: false) {
-                ForEach(users, id: \.id) { user in
+                ForEach(mergedArray, id: \.id) { user, avatar, id in
                     if !filteredText.isEmpty &&
                         (user.username.contains(filteredText.lowercased()) || user.email.contains(filteredText.lowercased())) {
                         Button {
                             searchedUser = user.username
-                            self.selectedUsers.append(user)
+                            searchedUserAvatar = avatar
+                            action()
                         } label: {
                             HStack {
-                               
+                                Image(uiImage: avatar)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipShape(Circle())
+                                    .frame(width: 44, height: 44)
+                                
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(user.username)
                                         .font(.RobotoThinItalicSmall)
@@ -33,9 +39,10 @@ struct SearchUserView: View {
                             }
                             .padding(.horizontal)
                         }
-
+                        .foregroundColor(.black)
+                    } else {
+                        
                     }
-                   
                 }
             }
         }
@@ -45,13 +52,17 @@ struct SearchUserView: View {
 }
 
 struct SearchUserView_Previews: PreviewProvider {
-//    @State static var users = ["first user", "second user", "third user"]
-    @State static var users = [Members]()
+    @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
     @State static var filteredText = ""
     @State static var searchedUser = ""
+    @State static var searchedUserAvatar = UIImage(named: "background")
     @State static var action = {}
     
     static var previews: some View {
-        SearchUserView(selectedUsers: $users, users: $users, filteredText: $filteredText,searchedUser: $searchedUser, action: action)
+        SearchUserView(mergedArray: $mergedArray,
+                       filteredText: $filteredText,
+                       searchedUser: $searchedUser,
+                       searchedUserAvatar: $searchedUserAvatar,
+                       action: action)
     }
 }
