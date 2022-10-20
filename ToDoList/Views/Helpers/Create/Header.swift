@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct Header: View {
-//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var text: String
     @Binding var isPresented: Bool
+    
     var body: some View {
         HStack {
             BackButton(isPresented: $isPresented)
@@ -12,7 +12,7 @@ struct Header: View {
             Text(text)
                 .font(Font(Roboto.thinItalic(size: 20)))
                 .foregroundColor(.white)
-                .padding(.leading, -70)
+            Spacer()
             Spacer()
         }
         .frame(height: 161)

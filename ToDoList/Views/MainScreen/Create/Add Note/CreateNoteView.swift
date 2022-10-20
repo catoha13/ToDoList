@@ -69,7 +69,6 @@ struct CreateNoteView: View {
             
             Spacer()
         }
-        .ignoresSafeArea()
         .navigationBarHidden(true)
     }
 }

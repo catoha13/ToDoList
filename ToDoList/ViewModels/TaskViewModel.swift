@@ -20,8 +20,12 @@ final class TaskViewModel: ObservableObject {
     @Published var membersAvatars: [UIImage] = []
     @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
     
-    //MARK: var
+    //MARK: Search
     @Published var searchUsersArray: [Members] = []
+    
+    //MARK: Add members
+    @Published var showAddMemberView = false
+    @Published var addedMembersAvatars: [UIImage] = []
     
     private var token = Token()
     private let user = User()
@@ -40,7 +44,7 @@ final class TaskViewModel: ObservableObject {
         CreateTaskModel(title: title,
                         dueDate: getDate,
                         description: description,
-                        assigned_to: "some project", // ????
+                        assigned_to: "some user", // ????
                         isCompleted: false,
                         projectId: "", // project id
                         ownerId: ownerId,
@@ -58,11 +62,11 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Initialization
     init() {
-        search()
+        loadMembers()
     }
     
     //MARK: Funcs
-    private func search() {
+    private func loadMembers() {
         searchMembers
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in

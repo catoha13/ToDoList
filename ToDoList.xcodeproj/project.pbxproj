@@ -23,6 +23,7 @@
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
 		AC46295329008E8500523745 /* TextFieldAndImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC46295229008E8500523745 /* TextFieldAndImage.swift */; };
+		AC4629552901814400523745 /* AddMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4629542901814400523745 /* AddMembersView.swift */; };
 		AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */; };
 		AC49149528A6EEF80030E852 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149428A6EEF80030E852 /* NetworkManager.swift */; };
 		AC49149A28AA8ECC0030E852 /* WebServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149928AA8ECC0030E852 /* WebServiceModel.swift */; };
@@ -146,6 +147,7 @@
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		AC46295229008E8500523745 /* TextFieldAndImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAndImage.swift; sourceTree = "<group>"; };
+		AC4629542901814400523745 /* AddMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMembersView.swift; sourceTree = "<group>"; };
 		AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIgnInViewModel.swift; sourceTree = "<group>"; };
 		AC49149428A6EEF80030E852 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AC49149928AA8ECC0030E852 /* WebServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceModel.swift; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 			children = (
 				AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */,
 				AC6601702892D5B6005A7B02 /* SearchUserView.swift */,
+				AC4629542901814400523745 /* AddMembersView.swift */,
 			);
 			path = "Add Task";
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				AC397782289C68CA0007BEBB /* CheckList.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
 				AC46295329008E8500523745 /* TextFieldAndImage.swift in Sources */,
+				AC4629552901814400523745 /* AddMembersView.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
 				AC5E2E9E289310CA005B48BD /* CompleteTask.swift in Sources */,
 				ACA623F628D9E4E30038888E /* AboutUser.swift in Sources */,

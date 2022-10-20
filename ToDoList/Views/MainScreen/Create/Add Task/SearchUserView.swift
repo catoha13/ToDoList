@@ -9,7 +9,7 @@ struct SearchUserView: View {
     
     var body: some View {
         ZStack {
-            Text("")
+            EmptyView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
             
@@ -29,7 +29,7 @@ struct SearchUserView: View {
                                     .clipShape(Circle())
                                     .frame(width: 44, height: 44)
                                 
-                                VStack(alignment: .leading, spacing: 10) {
+                                VStack(alignment: .leading, spacing: 1) {
                                     Text(user.username)
                                         .font(.RobotoThinItalicSmall)
                                     Text(user.email)
@@ -39,14 +39,15 @@ struct SearchUserView: View {
                             }
                             .padding(.horizontal)
                         }
+                        .padding(.top, 12)
                         .foregroundColor(.black)
-                    } else {
-                        
                     }
                 }
             }
+            .background(Color.customBar)
+            .padding(.top, 20)
         }
-        .frame(width: 343, height: 600)
+        .frame(width: 343, height: 590)
         .cornerRadius(Constants.radiusFive)
     }
 }

@@ -6,7 +6,6 @@ struct CreateTaskView: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        ZStack {
             VStack {
                 //MARK: Header
                 Header(text: "New Task", isPresented: $isPresented)
@@ -75,6 +74,7 @@ struct CreateTaskView: View {
                             .foregroundColor(.customGray))
                         .cornerRadius(Constants.radiusFive)
                         
+                        //MARK: Due date
                         HStack {
                             Text("Due Date")
                             Button {
@@ -110,12 +110,29 @@ struct CreateTaskView: View {
                                         .background(Color.customBar)
                                         .cornerRadius(Constants.raidiusFifty)
                                 } else {
-                                    ForEach(viewModel.members, id: \.id) { user in
-                                        Text(user.email)
+                                    Text("")
+                                        .padding(.leading, 6)
+                                    ForEach(viewModel.addedMembersAvatars, id: \.self) { image in
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .clipShape(Circle())
+                                            .frame(width: 32, height: 32)
+                                            .padding(.vertical, 13)
+                                            .onLongPressGesture {
+                                                withAnimation {
+                                                    if let index = viewModel.addedMembersAvatars.firstIndex(where: { $0 == image}) {
+                                                        viewModel.addedMembersAvatars.remove(at: index)
+                                                    }
+                                                }
+                                                
+                                            }
                                     }
                                 }
                                 Button {
-                                    
+                                    withAnimation {
+                                        viewModel.showAddMemberView.toggle()
+                                    }
                                 } label: {
                                     Text("+")
                                         .frame(width: 32, height: 32)
@@ -123,12 +140,13 @@ struct CreateTaskView: View {
                                         .background(Color.secondary)
                                         .foregroundColor(.white)
                                         .clipShape(Circle())
+                                        .padding(.vertical, 13)
                                     
                                 }
                                 Spacer()
                             }
+                            .animation(.easeInOut, value: viewModel.members.isEmpty)
                         }
-                        .padding(.top, 20)
                         .padding(.bottom, 30)
                         .padding(.leading, 10)
                         
@@ -139,7 +157,7 @@ struct CreateTaskView: View {
                             }
                         }
                     }
-                    .frame(width: 343, height: 672)
+                    .frame(width: 343, height: 682)
                     .background(.white)
                     .cornerRadius(Constants.radiusFive)
                     .offset(y: -40)
@@ -154,11 +172,19 @@ struct CreateTaskView: View {
                             viewModel.selectedUser = viewModel.assignee
                         }
                     }
+                    //MARK: AddMember View
+                    if viewModel.showAddMemberView {
+                        AddMembersView(isPresented: $viewModel.showAddMemberView,
+                                       mergedArray: $viewModel.mergedUsersAndAvatars,
+                                       members: $viewModel.members,
+                                       membersAvatars: $viewModel.addedMembersAvatars) {
+                            viewModel.showAddMemberView.toggle()
+                        }
+                    }
                 }
             }
             .frame(height: 669)
-        }
-        .navigationBarHidden(true)
+            .navigationBarHidden(true)
     }
 }
 
