@@ -23,6 +23,9 @@
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
 		AC43EAA7290281D5001D7B31 /* SearchProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */; };
+		AC43EAAA2902B007001D7B31 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAA92902B007001D7B31 /* CustomCalendar.swift */; };
+		AC43EAAF2902BB30001D7B31 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAAE2902BB30001D7B31 /* Date+Extension.swift */; };
+		AC43EAB12902BC4D001D7B31 /* DateValueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAB02902BC4D001D7B31 /* DateValueModel.swift */; };
 		AC46295329008E8500523745 /* TextFieldAndImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC46295229008E8500523745 /* TextFieldAndImage.swift */; };
 		AC4629552901814400523745 /* AddMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4629542901814400523745 /* AddMembersView.swift */; };
 		AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */; };
@@ -148,6 +151,9 @@
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProjectsView.swift; sourceTree = "<group>"; };
+		AC43EAA92902B007001D7B31 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
+		AC43EAAE2902BB30001D7B31 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		AC43EAB02902BC4D001D7B31 /* DateValueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValueModel.swift; sourceTree = "<group>"; };
 		AC46295229008E8500523745 /* TextFieldAndImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAndImage.swift; sourceTree = "<group>"; };
 		AC4629542901814400523745 /* AddMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMembersView.swift; sourceTree = "<group>"; };
 		AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIgnInViewModel.swift; sourceTree = "<group>"; };
@@ -298,6 +304,14 @@
 			path = AddCheckList;
 			sourceTree = "<group>";
 		};
+		AC43EAAB2902B4ED001D7B31 /* CustomCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				AC43EAA92902B007001D7B31 /* CustomCalendar.swift */,
+			);
+			path = CustomCalendar;
+			sourceTree = "<group>";
+		};
 		AC462951290074C400523745 /* CompleteTask */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +443,7 @@
 				AC77150828857E4A00A0C804 /* Onboarding */,
 				AC2F6901288AF6C3007D78E0 /* Authorization */,
 				AC676BBD288EBE7F001DDE34 /* MainScreen */,
+				AC43EAAB2902B4ED001D7B31 /* CustomCalendar */,
 				AC7715372885984900A0C804 /* Helpers */,
 			);
 			path = Views;
@@ -449,6 +464,7 @@
 				ACD4570928F863AF00E27411 /* Zip3Sequence.swift */,
 				AC771512288589A100A0C804 /* Font+Extension.swift */,
 				AC77151728858EC300A0C804 /* Color+Extension.swift */,
+				AC43EAAE2902BB30001D7B31 /* Date+Extension.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -612,6 +628,7 @@
 				ACF6F33728DA05C400665511 /* ProfileModel.swift */,
 				AC66545528DDEC4100BF80F8 /* ChekListModel.swift */,
 				AC6AD07E28FE9AF20032F486 /* TasksModel.swift */,
+				AC43EAB02902BC4D001D7B31 /* DateValueModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -836,6 +853,7 @@
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
 				AC46295329008E8500523745 /* TextFieldAndImage.swift in Sources */,
 				AC4629552901814400523745 /* AddMembersView.swift in Sources */,
+				AC43EAB12902BC4D001D7B31 /* DateValueModel.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
 				AC5E2E9E289310CA005B48BD /* CompleteTask.swift in Sources */,
 				ACA623F628D9E4E30038888E /* AboutUser.swift in Sources */,
@@ -856,6 +874,7 @@
 				ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */,
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
+				AC43EAAF2902BB30001D7B31 /* Date+Extension.swift in Sources */,
 				AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */,
 				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,
@@ -875,6 +894,7 @@
 				AC6AD07D28FE96D20032F486 /* TaskHeader.swift in Sources */,
 				AC925B82289855CE0098892A /* ChooseColor.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
+				AC43EAAA2902B007001D7B31 /* CustomCalendar.swift in Sources */,
 				AC676BCB288EBE7F001DDE34 /* CustomPicker.swift in Sources */,
 				AC676BC7288EBE7F001DDE34 /* QuickView.swift in Sources */,
 			);

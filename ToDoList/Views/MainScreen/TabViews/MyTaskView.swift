@@ -9,10 +9,16 @@ struct MyTaskView: View {
             
             SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selectedIndex)
             
+            
+            if viewModel.selectedIndex == 1 {
+                CustomCalendar()
+            }
+            
             TaskEditableList()
            
             Spacer()
         }
+        .animation(.default, value: viewModel.selectedIndex)
     }
 }
 

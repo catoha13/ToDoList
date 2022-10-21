@@ -28,7 +28,7 @@ struct SegmentedPickerExample: View {
             })
             .background(Color.customCoral)
             .padding(.top, -8)
-            .animation(.easeInOut(duration: 0.3))
+            .animation(.easeOut(duration: 0.3), value: selectedIndex)
     }
 }
 
