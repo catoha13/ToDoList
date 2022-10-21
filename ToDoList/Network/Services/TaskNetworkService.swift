@@ -71,6 +71,11 @@ final class TaskNetworkService {
         return networkManager.downloadAvatar(path: path, header: header)
     }
     
+    func projectsSearch<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.projectSearch.rawValue
+        return networkManager.get(path: path, header: header)
+    }
+    
     func deleteTaskComment() {
         
     }

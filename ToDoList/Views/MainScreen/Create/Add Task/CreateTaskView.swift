@@ -175,6 +175,16 @@ struct CreateTaskView: View {
                             viewModel.selectedUser = viewModel.assigneeName
                         }
                     }
+                    
+                    //MARK: SearchProject View
+                    if viewModel.projectName != viewModel.selectedProjectName {
+                        SearchProjectsView(projects: $viewModel.searchProjectsResoponseArray,
+                                           projectName: $viewModel.selectedProjectName,
+                                           projectId: $viewModel.selectedProjectId) {
+                            viewModel.projectName = viewModel.selectedProjectName
+                        }
+                    }
+                    
                     //MARK: AddMember View
                     if viewModel.showAddMemberView {
                         AddMembersView(isPresented: $viewModel.showAddMemberView,

@@ -22,6 +22,7 @@
 		AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39777F289C670F0007BEBB /* CreateCheckListView.swift */; };
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
+		AC43EAA7290281D5001D7B31 /* SearchProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */; };
 		AC46295329008E8500523745 /* TextFieldAndImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC46295229008E8500523745 /* TextFieldAndImage.swift */; };
 		AC4629552901814400523745 /* AddMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4629542901814400523745 /* AddMembersView.swift */; };
 		AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */; };
@@ -146,6 +147,7 @@
 		AC39777F289C670F0007BEBB /* CreateCheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCheckListView.swift; sourceTree = "<group>"; };
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProjectsView.swift; sourceTree = "<group>"; };
 		AC46295229008E8500523745 /* TextFieldAndImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAndImage.swift; sourceTree = "<group>"; };
 		AC4629542901814400523745 /* AddMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMembersView.swift; sourceTree = "<group>"; };
 		AC49149028A6EEC90030E852 /* SIgnInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIgnInViewModel.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 				AC4EF8B1289001AD0087E2FA /* CreateTaskView.swift */,
 				AC6601702892D5B6005A7B02 /* SearchUserView.swift */,
 				AC4629542901814400523745 /* AddMembersView.swift */,
+				AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */,
 			);
 			path = "Add Task";
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */,
 				AC2F690C288B2A9A007D78E0 /* ForgotPasswordView.swift in Sources */,
 				AC66016F2892D370005A7B02 /* TextFieldAndText.swift in Sources */,
+				AC43EAA7290281D5001D7B31 /* SearchProjectsView.swift in Sources */,
 				AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */,
 				AC67C83C28E5BFE100D48D11 /* ChecklistItem.swift in Sources */,
 				ACD8F67828A2514E009A4A6E /* CustomSecureTextField.swift in Sources */,

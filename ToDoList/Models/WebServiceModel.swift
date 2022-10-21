@@ -24,6 +24,7 @@ enum Path: String {
     case comments = "/comments"
     case taskComments = "/tasks-comments/"
     case membersSearch = "/task-members-search?query=kas"
+    case projectSearch = "/projects-search?query=roj"
     case commentsAttachments = "/comments-attachments"
 }
 

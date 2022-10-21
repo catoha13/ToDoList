@@ -6,13 +6,19 @@ final class TaskViewModel: ObservableObject {
     //MARK: Create task
     @Published var assigneeName = ""
     @Published var assigneeId = ""
-    @Published var projectName = "Personal"
+    @Published var projectName = ""
     @Published var title = ""
     @Published var description = ""
     @Published var getDate = "Anytime"
+    @Published var members: [Members]? = []
+    
+    //MARK: Search
+    @Published var searchUsersResponseArray: [Members] = []
+    @Published var searchProjectsResoponseArray: [ProjectResponceData] = []
     @Published var selectedUser = ""
     @Published var selectedUserAvatar: UIImage?
-    @Published var members: [Members]? = []
+    @Published var selectedProjectName = ""
+    @Published var selectedProjectId = ""
     
     //MARK: TaskView
     @Published var selectedIndex = 0
@@ -20,9 +26,6 @@ final class TaskViewModel: ObservableObject {
     @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
     @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
-    
-    //MARK: Search
-    @Published var searchUsersArray: [Members] = []
     
     //MARK: Add members
     @Published var showAddMemberView = false
@@ -61,9 +64,14 @@ final class TaskViewModel: ObservableObject {
         taskService.downloadMembersAvatars(url: membersUrl)
     }
     
+    private var searchProjects: AnyPublisher<SearchProjects, NetworkError> {
+        taskService.projectsSearch()
+    }
+    
     //MARK: Initialization
     init() {
         loadMembers()
+        loadProjects()
     }
     
     //MARK: Funcs
@@ -71,7 +79,7 @@ final class TaskViewModel: ObservableObject {
         searchMembers
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                self?.searchUsersArray = item.data
+                self?.searchUsersResponseArray = item.data
                 for member in item.data {
                     self?.membersUrls.append(member.avatarUrl)
                 }
@@ -91,9 +99,18 @@ final class TaskViewModel: ObservableObject {
                     for _ in 0...(self?.membersAvatars.count ?? 0) {
                         id.append(UUID())
                     }
-                    self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersArray ?? [], self?.membersAvatars ?? [], id))
+                    self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersResponseArray ?? [], self?.membersAvatars ?? [], id))
                 }
                 .store(in: &cancellables)
         }
+    }
+    
+    private func loadProjects() {
+        searchProjects
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.searchProjectsResoponseArray = item.data
+            })
+            .store(in: &cancellables)
     }
 }

@@ -52,6 +52,10 @@ struct SearchUsers: Codable {
     var data: [Members]
 }
 
+struct SearchProjects: Codable {
+    var data: [ProjectResponceData]
+}
+
 struct DeleteModel: Codable {
     var data: DeleteData
 }

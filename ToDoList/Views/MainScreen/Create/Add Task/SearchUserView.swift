@@ -8,45 +8,39 @@ struct SearchUserView: View {
     @State var action: () -> Void
     
     var body: some View {
-        ZStack {
-            EmptyView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.white)
-            
-            ScrollView(showsIndicators: false) {
-                ForEach(mergedArray, id: \.id) { user, avatar, id in
-                    if !filteredText.isEmpty &&
-                        (user.username.contains(filteredText.lowercased()) || user.email.contains(filteredText.lowercased())) {
-                        Button {
-                            searchedUser = user.username
-                            searchedUserAvatar = avatar
-                            action()
-                        } label: {
-                            HStack {
-                                Image(uiImage: avatar)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipShape(Circle())
-                                    .frame(width: 44, height: 44)
-                                
-                                VStack(alignment: .leading, spacing: 1) {
-                                    Text(user.username)
-                                        .font(.RobotoThinItalicSmall)
-                                    Text(user.email)
-                                        .font(.RobotoRegularExtraSmall)
-                                }
-                                Spacer()
+        ScrollView(showsIndicators: false) {
+            ForEach(mergedArray, id: \.id) { user, avatar, id in
+                if !filteredText.isEmpty &&
+                    (user.username.contains(filteredText.lowercased()) || user.email.contains(filteredText.lowercased())) {
+                    Button {
+                        searchedUser = user.username
+                        searchedUserAvatar = avatar
+                        action()
+                    } label: {
+                        HStack {
+                            Image(uiImage: avatar)
+                                .resizable()
+                                .scaledToFill()
+                                .clipShape(Circle())
+                                .frame(width: 44, height: 44)
+                            
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(user.username)
+                                    .font(.RobotoThinItalicSmall)
+                                Text(user.email)
+                                    .font(.RobotoRegularExtraSmall)
                             }
-                            .padding(.horizontal)
+                            Spacer()
                         }
-                        .padding(.top, 12)
-                        .foregroundColor(.black)
+                        .padding(.horizontal)
                     }
+                    .padding(.top, 12)
+                    .foregroundColor(.black)
                 }
             }
-            .background(Color.customBar)
-            .padding(.top, 20)
         }
+        .background(Color.customBar)
+        .padding(.top, 20)
         .frame(width: 343, height: 590)
         .cornerRadius(Constants.radiusFive)
     }
