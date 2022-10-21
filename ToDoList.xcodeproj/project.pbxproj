@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC0AECD028CB351800505181 /* ProjectChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */; };
+		AC109114290330ED009DC40E /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC109113290330ED009DC40E /* CustomDatePicker.swift */; };
 		AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */; };
 		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
@@ -136,6 +137,7 @@
 
 /* Begin PBXFileReference section */
 		AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectChooseColor.swift; sourceTree = "<group>"; };
+		AC109113290330ED009DC40E /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModels.swift; sourceTree = "<group>"; };
 		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				AC43EAA92902B007001D7B31 /* CustomCalendar.swift */,
+				AC109113290330ED009DC40E /* CustomDatePicker.swift */,
 			);
 			path = CustomCalendar;
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */,
 				ACF6F33828DA05C400665511 /* ProfileModel.swift in Sources */,
 				AC676BCA288EBE7F001DDE34 /* CustomTabBarView.swift in Sources */,
+				AC109114290330ED009DC40E /* CustomDatePicker.swift in Sources */,
 				ACF6F33428D9FAE700665511 /* StatisticCircle.swift in Sources */,
 				ACD5AD5628B80E25003F7614 /* SignUpViewModel.swift in Sources */,
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,

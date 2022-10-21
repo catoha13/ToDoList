@@ -11,6 +11,8 @@ final class TaskViewModel: ObservableObject {
     @Published var description = ""
     @Published var getDate = "Anytime"
     @Published var members: [Members]? = []
+    @Published var showDatePicker = false
+    @Published var selectedDate: Date?
     
     //MARK: Search
     @Published var searchUsersResponseArray: [Members] = []
@@ -112,5 +114,11 @@ final class TaskViewModel: ObservableObject {
                 self?.searchProjectsResoponseArray = item.data
             })
             .store(in: &cancellables)
+    }
+    
+    func formatDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: date)
     }
 }
