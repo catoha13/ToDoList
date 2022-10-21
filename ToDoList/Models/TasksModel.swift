@@ -40,7 +40,7 @@ struct CreateTaskModel: Codable {
     var isCompleted: Bool
     var projectId: String
     var ownerId: String
-    var members: [String]?
+    var members: [Members]?
     var attachments: [Attachments]?
 }
 

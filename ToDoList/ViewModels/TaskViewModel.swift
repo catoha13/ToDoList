@@ -4,14 +4,15 @@ import SwiftUI
 final class TaskViewModel: ObservableObject {
     
     //MARK: Create task
-    @Published var assignee = ""
+    @Published var assigneeName = ""
+    @Published var assigneeId = ""
     @Published var projectName = "Personal"
     @Published var title = ""
     @Published var description = ""
     @Published var getDate = "Anytime"
     @Published var selectedUser = ""
     @Published var selectedUserAvatar: UIImage?
-    @Published var members: [Members] = []
+    @Published var members: [Members]? = []
     
     //MARK: TaskView
     @Published var selectedIndex = 0
@@ -44,12 +45,12 @@ final class TaskViewModel: ObservableObject {
         CreateTaskModel(title: title,
                         dueDate: getDate,
                         description: description,
-                        assigned_to: "some user", // ????
+                        assigned_to: assigneeId,
                         isCompleted: false,
                         projectId: "", // project id
                         ownerId: ownerId,
-                        members: nil, // model??
-                        attachments: nil) // model??
+                        members: members,
+                        attachments: nil)
     }
     
     //MARK: Publishers
@@ -87,7 +88,7 @@ final class TaskViewModel: ObservableObject {
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item)
                     var id = [UUID]()
-                    for _ in 0...(self?.membersAvatars.count ?? 0) + (self?.members.count ?? 0) {
+                    for _ in 0...(self?.membersAvatars.count ?? 0) {
                         id.append(UUID())
                     }
                     self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersArray ?? [], self?.membersAvatars ?? [], id))

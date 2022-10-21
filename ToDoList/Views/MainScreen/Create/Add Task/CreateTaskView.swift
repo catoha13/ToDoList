@@ -15,7 +15,7 @@ struct CreateTaskView: View {
                         HStack {
                             //MARK: Assignee
                             TextFieldAndImage(image: $viewModel.selectedUserAvatar,
-                                              text: $viewModel.assignee,
+                                              text: $viewModel.assigneeName,
                                               description: "Assignee")
                             Spacer()
                             //MARK: Project
@@ -103,7 +103,7 @@ struct CreateTaskView: View {
                             }
                             .padding(.horizontal)
                             HStack {
-                                if viewModel.members.isEmpty {
+                                if viewModel.members == nil {
                                     Text("Anyone")
                                         .frame(width: 90, height: 58)
                                         .multilineTextAlignment(.center)
@@ -123,6 +123,9 @@ struct CreateTaskView: View {
                                                 withAnimation {
                                                     if let index = viewModel.addedMembersAvatars.firstIndex(where: { $0 == image}) {
                                                         viewModel.addedMembersAvatars.remove(at: index)
+                                                    }
+                                                    if let index = viewModel.members?.firstIndex(where: { $0.id == $0.id}) {
+                                                        viewModel.members?.remove(at: index)
                                                     }
                                                 }
                                                 
@@ -145,7 +148,7 @@ struct CreateTaskView: View {
                                 }
                                 Spacer()
                             }
-                            .animation(.easeInOut, value: viewModel.members.isEmpty)
+                            .animation(.easeInOut, value: viewModel.members == nil)
                         }
                         .padding(.bottom, 30)
                         .padding(.leading, 10)
@@ -164,12 +167,12 @@ struct CreateTaskView: View {
                     .shadow(radius: 4)
                     
                     //MARK: SearchUser View
-                    if viewModel.assignee != viewModel.selectedUser {
+                    if viewModel.assigneeName != viewModel.selectedUser {
                         SearchUserView(mergedArray: $viewModel.mergedUsersAndAvatars,
-                                       filteredText: $viewModel.assignee,
-                                       searchedUser: $viewModel.assignee,
+                                       filteredText: $viewModel.assigneeName,
+                                       searchedUser: $viewModel.assigneeName,
                                        searchedUserAvatar: $viewModel.selectedUserAvatar) {
-                            viewModel.selectedUser = viewModel.assignee
+                            viewModel.selectedUser = viewModel.assigneeName
                         }
                     }
                     //MARK: AddMember View

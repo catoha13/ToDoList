@@ -3,7 +3,7 @@ import SwiftUI
 struct AddMembersView: View {
     @Binding var isPresented: Bool
     @Binding var mergedArray: [(Members, UIImage, id: UUID)]
-    @Binding var members: [Members]
+    @Binding var members: [Members]?
     @Binding var membersAvatars: [UIImage]
     @State var action: () -> ()
     
@@ -17,7 +17,7 @@ struct AddMembersView: View {
                 ForEach(mergedArray, id: \.id) { user, avatar, id in
                     Button {
                         withAnimation(.default) {
-                            members.append(user)
+                            members?.append(user)
                             membersAvatars.append(avatar)
                             action()
                         }
@@ -54,7 +54,7 @@ struct AddMembersView: View {
 struct AddMembersView_Previews: PreviewProvider {
     @State static var isPresented = false
     @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
-    @State static var members: [Members] = []
+    @State static var members: [Members]? = []
     @State static var membersAvatars: [UIImage] = []
     
     static var previews: some View {
