@@ -38,6 +38,9 @@ extension Font {
     static var RobotoMediumSmall: Font {
         Font.custom("Roboto-Medium", size: 16, relativeTo: .title3)
     }
+    static var RobotoMediumExtraSmall: Font {
+        Font.custom("Roboto-Medium", size: 14, relativeTo: .title3)
+    }
     static var RobotoMediumItalic: Font {
             Font.custom("Roboto-MediumItalic", size: 18, relativeTo: .title3)
         }

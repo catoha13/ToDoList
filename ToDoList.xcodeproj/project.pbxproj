@@ -23,6 +23,7 @@
 		AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39777F289C670F0007BEBB /* CreateCheckListView.swift */; };
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
+		AC3F7C652903C9D1001E9F2D /* SwipeGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3F7C642903C9D1001E9F2D /* SwipeGestures.swift */; };
 		AC43EAA7290281D5001D7B31 /* SearchProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */; };
 		AC43EAAA2902B007001D7B31 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAA92902B007001D7B31 /* CustomCalendar.swift */; };
 		AC43EAAF2902BB30001D7B31 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC43EAAE2902BB30001D7B31 /* Date+Extension.swift */; };
@@ -152,6 +153,7 @@
 		AC39777F289C670F0007BEBB /* CreateCheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCheckListView.swift; sourceTree = "<group>"; };
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		AC3F7C642903C9D1001E9F2D /* SwipeGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeGestures.swift; sourceTree = "<group>"; };
 		AC43EAA6290281D5001D7B31 /* SearchProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProjectsView.swift; sourceTree = "<group>"; };
 		AC43EAA92902B007001D7B31 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		AC43EAAE2902BB30001D7B31 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -304,6 +306,14 @@
 				AC39777F289C670F0007BEBB /* CreateCheckListView.swift */,
 			);
 			path = AddCheckList;
+			sourceTree = "<group>";
+		};
+		AC3F7C632903C9BE001E9F2D /* Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				AC3F7C642903C9D1001E9F2D /* SwipeGestures.swift */,
+			);
+			path = Gestures;
 			sourceTree = "<group>";
 		};
 		AC43EAAB2902B4ED001D7B31 /* CustomCalendar */ = {
@@ -511,6 +521,7 @@
 		AC7715372885984900A0C804 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AC3F7C632903C9BE001E9F2D /* Gestures */,
 				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
 				AC4EF8B328900CB10087E2FA /* BackButton.swift */,
@@ -855,6 +866,7 @@
 				AC397782289C68CA0007BEBB /* CheckList.swift in Sources */,
 				AC771513288589A100A0C804 /* Font+Extension.swift in Sources */,
 				AC46295329008E8500523745 /* TextFieldAndImage.swift in Sources */,
+				AC3F7C652903C9D1001E9F2D /* SwipeGestures.swift in Sources */,
 				AC4629552901814400523745 /* AddMembersView.swift in Sources */,
 				AC43EAB12902BC4D001D7B31 /* DateValueModel.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,

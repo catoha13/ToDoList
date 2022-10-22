@@ -9,46 +9,54 @@ struct CustomDatePicker: View {
     @State var currentMonth: Int  = 0
     
     var body: some View {
-        VStack(spacing: 20) {
-            //MARK: Month and Year
-            HStack(alignment: .center, spacing: 6) {
-                Text(getYearAndMonth()[0].uppercased())
-                    .font(.RobotoThinItalicExtraSmall)
-                    .foregroundColor(.black)
+        ZStack {
+            SwipeGesture(selector: $currentMonth)
+            VStack(spacing: 20) {
+                //MARK: Month and Year
+                HStack(alignment: .center, spacing: 6) {
+                    Text(getYearAndMonth()[0].uppercased())
+                        .font(.RobotoThinItalicExtraSmall)
+                        .foregroundColor(.black)
+                    
+                    Text(getYearAndMonth()[1])
+                        .font(.RobotoThinItalicExtraSmall)
+                        .foregroundColor(.black)
+                }
+                .padding(.top, 20)
                 
-                Text(getYearAndMonth()[1])
-                    .font(.RobotoThinItalicExtraSmall)
-                    .foregroundColor(.black)
-            }
-            .padding(.top)
-            
-            //MARK: Days of the week
-            HStack(spacing: 0) {
-                ForEach(days, id: \.self) { day in
-                    Text(day)
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity)
+                //MARK: Days of the week
+                HStack(spacing: 0) {
+                    ForEach(days, id: \.self) { day in
+                        Text(day)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                
+                //MARK: Dates
+                ZStack {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        //MARK: Month
+                        ForEach(extractDate()) { value in
+                            CardView(value: value)
+                        }
+                    }
+                    .padding(.bottom)
+                    .onChange(of: currentMonth, perform: { _ in
+                        withAnimation {
+                            currentDate = getCurrentMonth()
+                        }
+                    })
                 }
             }
-            
-            //MARK: Dates
-            LazyVGrid(columns: columns, spacing: 20) {
-                //MARK: Month
-                ForEach(extractDate()) { value in
-                    CardView(value: value)
-                }
-            }
-            .padding(.bottom)
-            .onChange(of: currentMonth, perform: { _ in
-                currentDate = getCurrentMonth()
-            })
         }
-        .background(.white)
-        .cornerRadius(Constants.radiusFive)
-        .shadow(radius: 5)
-        .padding(.horizontal, 40)
-        .padding(.bottom, 340)
+            .background(.white)
+            .cornerRadius(Constants.radiusFive)
+            .shadow(radius: 5)
+            .padding(.horizontal, 40)
+            .padding(.bottom, 340)
         .animation(.spring(), value: selectedDate)
+        
     }
     
     func CardView(value: DateValue) -> some View {
@@ -76,6 +84,9 @@ struct CustomDatePicker: View {
                                 Text("\(value.day)")
                                     .font(.RobotoMediumSmall)
                                     .foregroundColor(.white)
+                                    .padding(.vertical, 2)
+                                    .padding(.horizontal, 9)
+                                
                             }
                         }
                     } else {
@@ -85,6 +96,8 @@ struct CustomDatePicker: View {
                             Text("\(value.day)")
                                 .font(.RobotoMediumSmall)
                                 .foregroundColor(.black)
+                                .padding(.vertical, 2)
+                                .padding(.horizontal, 9)
                         }
                     }
                 }
@@ -103,7 +116,7 @@ struct CustomDatePicker: View {
         }
         
         let firstWeekDay = calendar.component(.weekday, from: days.first?.date ?? Date())
-        for _ in 0..<firstWeekDay - 2 {
+        for _ in 0..<firstWeekDay + 5 {
             days.insert(DateValue(day: -1, date: Date()), at: 0)
         }
         

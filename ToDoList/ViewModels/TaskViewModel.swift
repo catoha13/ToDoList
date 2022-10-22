@@ -12,7 +12,7 @@ final class TaskViewModel: ObservableObject {
     @Published var getDate = "Anytime"
     @Published var members: [Members]? = []
     @Published var showDatePicker = false
-    @Published var selectedDate: Date?
+    @Published var dueDate: Date?
     
     //MARK: Search
     @Published var searchUsersResponseArray: [Members] = []
@@ -28,6 +28,7 @@ final class TaskViewModel: ObservableObject {
     @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
     @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
+    @Published var selectedDate: Date?
     
     //MARK: Add members
     @Published var showAddMemberView = false
@@ -52,7 +53,7 @@ final class TaskViewModel: ObservableObject {
                         description: description,
                         assigned_to: assigneeId,
                         isCompleted: false,
-                        projectId: "", // project id
+                        projectId: selectedProjectId,
                         ownerId: ownerId,
                         members: members,
                         attachments: nil)

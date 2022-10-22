@@ -11,7 +11,7 @@ struct MyTaskView: View {
             
             
             if viewModel.selectedIndex == 1 {
-                CustomCalendar()
+                CustomCalendar(selectedDate: $viewModel.selectedDate)
             }
             
             TaskEditableList()

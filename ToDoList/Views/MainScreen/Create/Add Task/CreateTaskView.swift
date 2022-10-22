@@ -74,29 +74,19 @@ struct CreateTaskView: View {
                             .foregroundColor(.customGray))
                         .cornerRadius(Constants.radiusFive)
                         
-                       
-//                        DatePicker(selection: $selectedDate,
-//                                   displayedComponents: [.date]) {
-//                            Text("Due date")
-//                                .padding(.leading, 24)
-//                                .frame(height: 20)
-//                                .padding(.vertical)
-//                        }
-//                        .padding(.trailing, 120)
-//                        .accentColor(.customCoral)
-                        
                         //MARK: Due date
                         HStack {
                             Text("Due Date")
+                                .font(.RobotoMediumSmall)
                             Button {
                                 withAnimation() {
                                     viewModel.showDatePicker.toggle()
                                 }
                             } label: {
-                                Text(viewModel.selectedDate != nil ? viewModel.formatDate(date: viewModel.selectedDate ?? Date()) : viewModel.getDate)
+                                Text(viewModel.dueDate != nil ? viewModel.formatDate(date: viewModel.dueDate ?? Date()) : viewModel.getDate)
                                     .font(.RobotoMediumSmall)
                             }
-                            .frame(width: 90, height: 32)
+                            .frame(width: 105, height: 32)
                             .background(Color.customBlue)
                             .foregroundColor(.white)
                             .cornerRadius(Constants.radiusFive)
@@ -111,7 +101,7 @@ struct CreateTaskView: View {
                         VStack {
                             HStack {
                                 Text("Add Member")
-                                    .font(Font(Roboto.regular(size: 16)))
+                                    .font(.RobotoMediumSmall)
                                 Spacer()
                             }
                             .padding(.horizontal)
@@ -210,10 +200,10 @@ struct CreateTaskView: View {
                     
                     //MARK: Custom DatePicker
                     if viewModel.showDatePicker {
-                        CustomDatePicker(selectedDate: $viewModel.selectedDate)
-                            .onTapGesture {
-                                viewModel.showDatePicker.toggle()
-                            }
+                        CustomDatePicker(selectedDate: $viewModel.dueDate)
+//                            .onTapGesture {
+//                                viewModel.showDatePicker.toggle()
+//                            }
                     }
                 }
             }
