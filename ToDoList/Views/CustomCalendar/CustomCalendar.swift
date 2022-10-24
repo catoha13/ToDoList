@@ -21,7 +21,7 @@ struct CustomCalendar: View {
                 
                 //MARK: Show/hide calendar button
                 Button {
-                    withAnimation(.default) {
+                    withAnimation(.easeIn) {
                         showFullCalendar.toggle()
                     }
                 } label: {
@@ -60,43 +60,43 @@ struct CustomCalendar: View {
                     } else {
                         //MARK: Week
                         ForEach(currentWeek, id: \.self) { value in
-                            if isSameDay(firstDate: value, secondDate: Date()) {
-                                ZStack {
-                                    Capsule()
-                                        .frame(width: 40, height: 20)
-                                        .foregroundColor(.customCoral)
-                                        .opacity(0.55)
-                                    Text(formatDate(date: value))
-                                        .font(.RobotoMediumSmall)
+                            ZStack {
+                                if isSameDay(firstDate: value, secondDate: Date()) {
+                                    ZStack {
+                                        Text(formatDate(date: value))
+                                            .font(.RobotoMediumSmall)
+                                        Circle()
+                                            .frame(width: 30, height: 30)
+                                            .foregroundColor(.customBlue)
+                                            .opacity(0.35)
+                                    }
                                 }
+                                Text(formatDate(date: value))
+                                    .font(.RobotoMediumSmall)
                             }
-                            Text(formatDate(date: value))
-                                .font(.RobotoMediumSmall)
                         }
                     }
                 }
-                .animation(.default, value: currentMonth)
+                .animation(.easeIn, value: currentMonth)
                 .onChange(of: currentMonth, perform: { _ in
-                    withAnimation(.default) {
-                        currentDate = getCurrentMonth()
-                    }
+                    currentDate = getCurrentMonth()
                 })
             }
             .onAppear {
                 getCurrentWeek()
             }
         }
+        .padding(.top, 10)
     }
     
-    @ViewBuilder
     func CardView(value: DateValue) -> some View {
         ZStack {
             //MARK: Selected Day
             if value.day != -1 {
                 if isSameDay(firstDate: value.date, secondDate: selectedDate ?? Date()) {
-                    Capsule()
-                        .frame(width: 40, height: 20)
-                        .foregroundColor(.customCoral)
+                    Circle()
+                        .frame(width: 26, height: 26)
+                        .foregroundColor(.customBlue)
                         .opacity(0.35)
                 }
             }
@@ -105,9 +105,9 @@ struct CustomCalendar: View {
                 if value.day != -1 {
                     if isSameDay(firstDate: value.date, secondDate: Date()) {
                         ZStack {
-                            Capsule()
-                                .frame(width: 40, height: 20)
-                                .foregroundColor(.customCoral)
+                            Circle()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.customBlue)
                             Button {
                                 selectedDate = value.date
                             } label: {
@@ -142,7 +142,7 @@ struct CustomCalendar: View {
         let week = calendar.dateInterval(of: .weekOfMonth, for: currentDate)
         guard let firstWeek = week?.start else { return }
         
-        for day in 0..<6 {
+        for day in 1...7  {
             if let weekDay = calendar.date(byAdding: .day, value: day, to: firstWeek) {
                 currentWeek.append(weekDay)
             }
@@ -166,7 +166,7 @@ struct CustomCalendar: View {
         }
         
         let firstWeekDay = calendar.component(.weekday, from: days.first?.date ?? Date())
-        for _ in 0..<firstWeekDay - 1 {
+        for _ in 1..<firstWeekDay + 5 {
             days.insert(DateValue(day: -1, date: Date()), at: 0)
         }
         

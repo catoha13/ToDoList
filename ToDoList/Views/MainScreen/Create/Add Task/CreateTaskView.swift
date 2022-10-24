@@ -6,6 +6,7 @@ struct CreateTaskView: View {
     @Binding var isPresented: Bool
     
     var body: some View {
+        ZStack {
             VStack {
                 //MARK: Header
                 Header(text: "New Task", isPresented: $isPresented)
@@ -197,18 +198,17 @@ struct CreateTaskView: View {
                             viewModel.showAddMemberView.toggle()
                         }
                     }
-                    
-                    //MARK: Custom DatePicker
-                    if viewModel.showDatePicker {
-                        CustomDatePicker(selectedDate: $viewModel.dueDate)
-//                            .onTapGesture {
-//                                viewModel.showDatePicker.toggle()
-//                            }
-                    }
                 }
             }
             .frame(height: 669)
             .navigationBarHidden(true)
+            
+            //MARK: Custom DatePicker
+            if viewModel.showDatePicker {
+                CustomDatePicker(isPresented: $viewModel.showDatePicker,
+                                 selectedDate: $viewModel.dueDate)
+            }
+        }
     }
 }
 

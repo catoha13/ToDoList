@@ -1,6 +1,6 @@
 import SwiftUI
 
-//MARK: Custom Filled Button
+//MARK: Custom Coral Button
 struct CustomCoralFilledButton: View {
     var text: String
     var action: () -> Void
@@ -13,6 +13,22 @@ struct CustomCoralFilledButton: View {
             Text(text)
         })
         .buttonStyle(CustomButtonStyle())
+    }
+}
+
+//MARK: Custom Coral Small Button
+struct CustomCoralFilledButtonSmall: View {
+    var text: String
+    var action: () -> Void
+    
+    var body: some View {
+        
+        Button(action: {
+            self.action()
+        }, label: {
+            Text(text)
+        })
+        .buttonStyle(CustomSmallButtonStyle())
     }
 }
 

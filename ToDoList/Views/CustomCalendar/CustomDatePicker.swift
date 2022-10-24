@@ -1,16 +1,18 @@
 import SwiftUI
 
 struct CustomDatePicker: View {
-    @State var currentDate: Date = Date()
+    @Binding var isPresented: Bool
     @Binding var selectedDate: Date?
     
-    @State var days = ["M","T", "W", "T", "F", "S", "S"]
-    @State var columns = Array(repeating: GridItem(.flexible()), count: 7)
-    @State var currentMonth: Int  = 0
+    @State private var currentDate: Date = Date()
+    @State private var days = ["M","T", "W", "T", "F", "S", "S"]
+    @State private var columns = Array(repeating: GridItem(.flexible()), count: 7)
+    @State private var currentMonth: Int  = 0
     
     var body: some View {
         ZStack {
             SwipeGesture(selector: $currentMonth)
+            
             VStack(spacing: 20) {
                 //MARK: Month and Year
                 HStack(alignment: .center, spacing: 6) {
@@ -28,6 +30,7 @@ struct CustomDatePicker: View {
                 HStack(spacing: 0) {
                     ForEach(days, id: \.self) { day in
                         Text(day)
+                            .font(.RobotoThinItalicExtraSmall)
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity)
                     }
@@ -35,27 +38,34 @@ struct CustomDatePicker: View {
                 
                 //MARK: Dates
                 ZStack {
-                    LazyVGrid(columns: columns, spacing: 20) {
+                    LazyVGrid(columns: columns, spacing: 16) {
                         //MARK: Month
                         ForEach(extractDate()) { value in
                             CardView(value: value)
                         }
                     }
-                    .padding(.bottom)
+                    .frame(height: 230)
+                    .padding(.bottom, 20)
                     .onChange(of: currentMonth, perform: { _ in
                         withAnimation {
                             currentDate = getCurrentMonth()
                         }
                     })
                 }
+                CustomCoralFilledButtonSmall(text: "Done") {
+                    withAnimation {
+                        isPresented.toggle()
+                    }
+                }
+                .padding(.bottom, 40)
             }
         }
             .background(.white)
             .cornerRadius(Constants.radiusFive)
             .shadow(radius: 5)
-            .padding(.horizontal, 40)
-            .padding(.bottom, 340)
-        .animation(.spring(), value: selectedDate)
+            .padding(.horizontal, 20)
+            .frame(height: 340)
+            .animation(.default, value: selectedDate)
         
     }
     
@@ -64,10 +74,10 @@ struct CustomDatePicker: View {
             //MARK: Selected Day
             if value.day != -1 {
                 if isSameDay(firstDate: value.date, secondDate: selectedDate ?? Date()) {
-                    Capsule()
-                        .frame(width: 40, height: 20)
-                        .foregroundColor(.customCoral)
-                        .opacity(0.35)
+                    Circle()
+                        .frame(width: 26, height: 26)
+                        .foregroundColor(.customBlue)
+                        .opacity(0.45)
                 }
             }
             //MARK: Regular
@@ -75,18 +85,17 @@ struct CustomDatePicker: View {
                 if value.day != -1 {
                     if isSameDay(firstDate: value.date, secondDate: Date()) {
                         ZStack {
-                            Capsule()
-                                .frame(width: 40, height: 20)
-                                .foregroundColor(.customCoral)
+                            Circle()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.customBlue)
                             Button {
                                 selectedDate = value.date
                             } label: {
                                 Text("\(value.day)")
                                     .font(.RobotoMediumSmall)
                                     .foregroundColor(.white)
-                                    .padding(.vertical, 2)
+                                    .padding(.vertical, 4)
                                     .padding(.horizontal, 9)
-                                
                             }
                         }
                     } else {
@@ -96,7 +105,7 @@ struct CustomDatePicker: View {
                             Text("\(value.day)")
                                 .font(.RobotoMediumSmall)
                                 .foregroundColor(.black)
-                                .padding(.vertical, 2)
+                                .padding(.vertical, 4)
                                 .padding(.horizontal, 9)
                         }
                     }
@@ -148,7 +157,8 @@ struct CustomDatePicker: View {
 
 struct CustomDatePicker_Previews: PreviewProvider {
     @State static var selectedDate: Date? = Date()
+    @State static var isPresented = false
     static var previews: some View {
-        CustomDatePicker(selectedDate: $selectedDate)
+        CustomDatePicker(isPresented: $isPresented, selectedDate: $selectedDate)
     }
 }
