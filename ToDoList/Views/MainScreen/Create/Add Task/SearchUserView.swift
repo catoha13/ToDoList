@@ -4,6 +4,7 @@ struct SearchUserView: View {
     @Binding var mergedArray: [(Members, UIImage, id: UUID)]
     @Binding var filteredText: String
     @Binding var searchedUser: String
+    @Binding var searchedUserId: String
     @Binding var searchedUserAvatar: UIImage?
     @State var action: () -> Void
     
@@ -14,6 +15,7 @@ struct SearchUserView: View {
                     (user.username.contains(filteredText.lowercased()) || user.email.contains(filteredText.lowercased())) {
                     Button {
                         searchedUser = user.username
+                        searchedUserId = user.id
                         searchedUserAvatar = avatar
                         action()
                     } label: {
@@ -50,6 +52,7 @@ struct SearchUserView_Previews: PreviewProvider {
     @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
     @State static var filteredText = ""
     @State static var searchedUser = ""
+    @State static var searchedUserId = ""
     @State static var searchedUserAvatar = UIImage(named: "background")
     @State static var action = {}
     
@@ -57,6 +60,7 @@ struct SearchUserView_Previews: PreviewProvider {
         SearchUserView(mergedArray: $mergedArray,
                        filteredText: $filteredText,
                        searchedUser: $searchedUser,
+                       searchedUserId: $searchedUserId,
                        searchedUserAvatar: $searchedUserAvatar,
                        action: action)
     }

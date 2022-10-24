@@ -159,9 +159,8 @@ struct CreateTaskView: View {
                         
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
-                            withAnimation {
-                                
-                            }
+                            viewModel.getDate = viewModel.formatDueDate(date: viewModel.dueDate ?? Date())
+                            viewModel.createTask()
                         }
                     }
                     .frame(width: 343, height: 682)
@@ -175,6 +174,7 @@ struct CreateTaskView: View {
                         SearchUserView(mergedArray: $viewModel.mergedUsersAndAvatars,
                                        filteredText: $viewModel.assigneeName,
                                        searchedUser: $viewModel.assigneeName,
+                                       searchedUserId: $viewModel.assigneeId,
                                        searchedUserAvatar: $viewModel.selectedUserAvatar) {
                             viewModel.selectedUser = viewModel.assigneeName
                         }
@@ -194,6 +194,7 @@ struct CreateTaskView: View {
                         AddMembersView(isPresented: $viewModel.showAddMemberView,
                                        mergedArray: $viewModel.mergedUsersAndAvatars,
                                        members: $viewModel.members,
+                                       membersId: $viewModel.membersId,
                                        membersAvatars: $viewModel.addedMembersAvatars) {
                             viewModel.showAddMemberView.toggle()
                         }

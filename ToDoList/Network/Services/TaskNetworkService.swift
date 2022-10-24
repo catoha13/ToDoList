@@ -13,8 +13,9 @@ final class TaskNetworkService {
         user.userId ?? "no data"
     }
     
-    func createTask() {
-        
+    func createTask<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        let path = Path.tasks.rawValue
+        return networkManager.post(body: model, path: path, header: header)
     }
     
     func updateTask() {

@@ -3,16 +3,19 @@ import SwiftUI
 
 final class TaskViewModel: ObservableObject {
     
-    //MARK: Create task
+    //MARK: Create task model
     @Published var assigneeName = ""
     @Published var assigneeId = ""
     @Published var projectName = ""
     @Published var title = ""
     @Published var description = ""
     @Published var getDate = "Anytime"
-    @Published var members: [Members]? = []
+    @Published var membersId: [String]? = []
     @Published var showDatePicker = false
     @Published var dueDate: Date?
+    
+    //MARK: Create Task
+    @Published var members: [Members]? = []
     
     //MARK: Search
     @Published var searchUsersResponseArray: [Members] = []
@@ -22,17 +25,17 @@ final class TaskViewModel: ObservableObject {
     @Published var selectedProjectName = ""
     @Published var selectedProjectId = ""
     
-    //MARK: TaskView
+    //MARK: Add members
+    @Published var showAddMemberView = false
+    @Published var addedMembersAvatars: [UIImage] = []
+    
+    //MARK: MyTaskView
     @Published var selectedIndex = 0
     @Published var membersUrl = ""
     @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
     @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
     @Published var selectedDate: Date?
-    
-    //MARK: Add members
-    @Published var showAddMemberView = false
-    @Published var addedMembersAvatars: [UIImage] = []
     
     private var token = Token()
     private let user = User()
@@ -55,11 +58,15 @@ final class TaskViewModel: ObservableObject {
                         isCompleted: false,
                         projectId: selectedProjectId,
                         ownerId: ownerId,
-                        members: members,
+                        members: membersId,
                         attachments: nil)
     }
     
     //MARK: Publishers
+    private var createTaskRequest: AnyPublisher<TaskResponseModel, NetworkError> {
+        taskService.createTask(model: createTaskModel)
+    }
+    
     private var searchMembers: AnyPublisher<SearchUsers, NetworkError> {
         taskService.taskMembersSearch()
     }
@@ -78,6 +85,21 @@ final class TaskViewModel: ObservableObject {
     }
     
     //MARK: Funcs
+    func createTask() {
+        createTaskRequest
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
+            }, receiveValue: { item in
+                print(item)
+            })
+            .store(in: &cancellables)
+    }
+    
     private func loadMembers() {
         searchMembers
             .sink(receiveCompletion: { _ in
@@ -120,6 +142,12 @@ final class TaskViewModel: ObservableObject {
     func formatDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: date)
+    }
+    
+    func formatDueDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
         return formatter.string(from: date)
     }
 }

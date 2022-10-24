@@ -166,7 +166,7 @@ struct CustomCalendar: View {
         }
         
         let firstWeekDay = calendar.component(.weekday, from: days.first?.date ?? Date())
-        for _ in 1..<firstWeekDay + 5 {
+        for _ in 0..<firstWeekDay + 5 {
             days.insert(DateValue(day: -1, date: Date()), at: 0)
         }
         

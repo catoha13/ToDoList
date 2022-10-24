@@ -4,6 +4,7 @@ struct AddMembersView: View {
     @Binding var isPresented: Bool
     @Binding var mergedArray: [(Members, UIImage, id: UUID)]
     @Binding var members: [Members]?
+    @Binding var membersId: [String]?
     @Binding var membersAvatars: [UIImage]
     @State var action: () -> ()
     
@@ -18,6 +19,7 @@ struct AddMembersView: View {
                     Button {
                         withAnimation(.default) {
                             members?.append(user)
+                            membersId?.append(user.id)
                             membersAvatars.append(avatar)
                             action()
                         }
@@ -55,12 +57,14 @@ struct AddMembersView_Previews: PreviewProvider {
     @State static var isPresented = false
     @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
     @State static var members: [Members]? = []
+    @State static var membersId: [String]? = []
     @State static var membersAvatars: [UIImage] = []
     
     static var previews: some View {
         AddMembersView(isPresented: $isPresented,
                        mergedArray: $mergedArray,
                        members: $members,
+                       membersId: $membersId,
                        membersAvatars: $membersAvatars,
                        action: {})
     }
