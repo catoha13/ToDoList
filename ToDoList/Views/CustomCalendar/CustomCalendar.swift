@@ -142,7 +142,7 @@ struct CustomCalendar: View {
         let week = calendar.dateInterval(of: .weekOfMonth, for: currentDate)
         guard let firstWeek = week?.start else { return }
         
-        for day in 1..<7 {
+        for day in 0..<6 {
             if let weekDay = calendar.date(byAdding: .day, value: day, to: firstWeek) {
                 currentWeek.append(weekDay)
             }

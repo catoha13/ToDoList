@@ -9,7 +9,6 @@ struct MyTaskView: View {
             
             SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selectedIndex)
             
-            
             if viewModel.selectedIndex == 1 {
                 CustomCalendar(selectedDate: $viewModel.selectedDate)
             }
