@@ -106,6 +106,7 @@
 		ACDC76B528D2101E00B4C5F9 /* CreateNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */; };
 		ACDC76B928D21D5800B4C5F9 /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */; };
 		ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */; };
+		ACE1E454290842EF004F660C /* TaskSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1E453290842EF004F660C /* TaskSettings.swift */; };
 		ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */; };
 		ACF182F528DF92FD00DD3531 /* ChecklistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */; };
 		ACF182F728E198E100DD3531 /* EditChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF182F628E198E100DD3531 /* EditChecklist.swift */; };
@@ -240,6 +241,7 @@
 		ACDC76B428D2101E00B4C5F9 /* CreateNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteView.swift; sourceTree = "<group>"; };
 		ACDC76B828D21D5800B4C5F9 /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
 		ACDC76BA28D21E6C00B4C5F9 /* NotesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesNetworkService.swift; sourceTree = "<group>"; };
+		ACE1E453290842EF004F660C /* TaskSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettings.swift; sourceTree = "<group>"; };
 		ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithErrorDecsription.swift; sourceTree = "<group>"; };
 		ACF182F428DF92FD00DD3531 /* ChecklistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCell.swift; sourceTree = "<group>"; };
 		ACF182F628E198E100DD3531 /* EditChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChecklist.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 				ACADC52828C76F7400289409 /* TaskCell.swift */,
 				ACADC52A28C774D800289409 /* TaskList.swift */,
 				AC6AD07C28FE96D20032F486 /* TaskHeader.swift */,
+				ACE1E453290842EF004F660C /* TaskSettings.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				AC2F6910288B2D2E007D78E0 /* HeaderAndDescription.swift in Sources */,
 				AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */,
 				AC43EAAF2902BB30001D7B31 /* Date+Extension.swift in Sources */,
+				ACE1E454290842EF004F660C /* TaskSettings.swift in Sources */,
 				AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */,
 				AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */,
 				AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */,

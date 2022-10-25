@@ -1,32 +1,28 @@
 import SwiftUI
 import Foundation
 
-struct TaskEditableList: View {
+struct TaskList: View {
     @Binding var userTasks: [TaskResponseData]
     
-    @State var showTaskCompletion: Bool
-    @State var showEditView = false
+    @Binding var showTaskCompletion: Bool
+    @State private var showEditView = false
     
     var body: some View {
         List($userTasks, id: \.self) { task in
             
             TaskCell(title: task.title, time: task.dueDate, isDone: task.isCompleted,
-                     updateAction: {
+                     editAction: {
                 withAnimation(.default) {
                     showTaskCompletion.toggle()
                 }
-            }, editAction: {
-                
             },
                      deleteAction: {
                 
             })
             .listRowSeparator(.hidden)
             .listRowBackground(Color.white)
-            .border(.black)
             .frame(width: 343, height: 70)
             .cornerRadius(Constants.radiusFive)
-            .shadow(radius: 2)
             
         }
         .background(Color.customWhiteBackground.ignoresSafeArea())
@@ -47,7 +43,7 @@ struct TaskList_Previews: PreviewProvider {
     @State static var userTasks: [TaskResponseData] = []
     @State static var showTaskCompletion = false
     static var previews: some View {
-        TaskEditableList(userTasks: $userTasks,
-                         showTaskCompletion: showTaskCompletion)
+        TaskList(userTasks: $userTasks,
+                 showTaskCompletion: $showTaskCompletion)
     }
 }

@@ -14,8 +14,8 @@ struct MyTaskView: View {
                     CustomCalendar(selectedDate: $viewModel.selectedDate)
                 }
                 
-                TaskEditableList(userTasks: $viewModel.fetchTasksResponse,
-                                 showTaskCompletion: viewModel.showTaskCompletionView)
+                TaskList(userTasks: $viewModel.fetchTasksResponse,
+                                 showTaskCompletion: $viewModel.showTaskCompletionView)
                
             }
             .animation(.default, value: viewModel.selectedIndex)
