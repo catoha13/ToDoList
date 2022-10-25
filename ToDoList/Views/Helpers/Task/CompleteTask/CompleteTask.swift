@@ -13,16 +13,17 @@ struct CompleteTask: View {
     @State var color: Color = .customBlue
     //MARK: comment
     @State private var showComments = false
-    @Binding var showSideView: Bool
-    @Binding var closeViewTask: Bool
+    
+    @State private var showSideView: Bool = false
+    @Binding var isPresented: Bool
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
                 //MARK: Buttons
                 HStack {
                     Button {
-                        closeViewTask.toggle()
+                        isPresented.toggle()
                     } label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -206,22 +207,19 @@ struct CompleteTask: View {
                 }
                 .padding()
                 .foregroundColor(.secondary)
-                
-                
             }
-            
         }
-        .frame(width: 343, height: 716)
+        .frame(width: 343, height: 646)
+        .padding(.top, 20)
         .background(.white)
         .cornerRadius(Constants.radiusFive)
-
+        .shadow(radius: 4)
     }
 }
 
 struct CompleteTask_Previews: PreviewProvider {
-    @State static var showSideView = false
     @State static var closeViewTask = false
     static var previews: some View {
-        CompleteTask(showSideView: $showSideView, closeViewTask: $closeViewTask)
+        CompleteTask( isPresented: $closeViewTask)
     }
 }

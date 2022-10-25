@@ -13,10 +13,7 @@ final class TaskViewModel: ObservableObject {
     @Published var membersId: [String]? = []
     @Published var showDatePicker = false
     @Published var dueDate: Date?
-    
-    //MARK: Create Task
-    @Published var members: [Members]? = []
-    
+        
     //MARK: Search
     @Published var searchUsersResponseArray: [Members] = []
     @Published var searchProjectsResoponseArray: [ProjectResponceData] = []
@@ -27,15 +24,22 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Add members
     @Published var showAddMemberView = false
+    @Published var members: [Members]? = []
     @Published var addedMembersAvatars: [UIImage] = []
     
-    //MARK: MyTaskView
-    @Published var selectedIndex = 0
+    //MARK: CreateTaskView
     @Published var membersUrl = ""
     @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
     @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
     @Published var selectedDate: Date?
+    
+    //MARK: MyTaskView
+    @Published var selectedIndex = 0
+    @Published var fetchTasksResponse: [TaskResponseData] = []
+    
+    //MARK: Update Task
+    @Published var showTaskCompletionView = false
     
     private var token = Token()
     private let user = User()
@@ -67,6 +71,10 @@ final class TaskViewModel: ObservableObject {
         taskService.createTask(model: createTaskModel)
     }
     
+    private var fetchUserTasksRequest: AnyPublisher<FetchTasks, NetworkError> {
+        taskService.fetchUserTasks()
+    }
+    
     private var searchMembers: AnyPublisher<SearchUsers, NetworkError> {
         taskService.taskMembersSearch()
     }
@@ -80,6 +88,7 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Initialization
     init() {
+        fetchUserTasks()
         loadMembers()
         loadProjects()
     }
@@ -87,6 +96,15 @@ final class TaskViewModel: ObservableObject {
     //MARK: Funcs
     func createTask() {
         createTaskRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self ]item in
+                self?.fetchUserTasks()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchUserTasks() {
+        fetchUserTasksRequest
             .sink(receiveCompletion: {
                 switch $0 {
                 case .finished:
@@ -94,8 +112,8 @@ final class TaskViewModel: ObservableObject {
                 case .failure(let error):
                     print(error)
                 }
-            }, receiveValue: { item in
-                print(item)
+            }, receiveValue: { [weak self] item in
+                self?.fetchTasksResponse = item.data
             })
             .store(in: &cancellables)
     }

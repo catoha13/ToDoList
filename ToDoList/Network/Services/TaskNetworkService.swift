@@ -34,8 +34,9 @@ final class TaskNetworkService {
         
     }
     
-    func fetchUserTasks() {
-        
+    func fetchUserTasks<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.userTasks.rawValue + userId 
+        return networkManager.get(path: path, header: header)
     }
     
     func fetchAssignToTasks() {

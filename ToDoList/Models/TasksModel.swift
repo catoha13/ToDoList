@@ -3,11 +3,11 @@ import Foundation
 struct TaskResponseModel: Codable {
     var data: TaskResponseData
 }
-struct TaskResponseData: Codable {
+struct TaskResponseData: Codable, Hashable {
     var title: String
     var dueDate: String
     var description: String
-    var assigned_to: String
+    var assignedTo: String
     var isCompleted: Bool
     var projectId: String
     var ownerId: String
@@ -16,7 +16,7 @@ struct TaskResponseData: Codable {
     var createdAt: String
 }
 
-struct Members: Codable {
+struct Members: Codable, Hashable {
     var id: String
     var email: String
     var username: String
@@ -24,7 +24,7 @@ struct Members: Codable {
     var createdAt: String
 }
 
-struct Attachments: Codable {
+struct Attachments: Codable, Hashable {
     var id: String
     var url: String
     var type: String
@@ -44,7 +44,7 @@ struct CreateTaskModel: Codable {
     var attachments: [Attachments]?
 }
 
-struct FetchProjectTasks: Codable {
+struct FetchTasks: Codable {
     var data: [TaskResponseData]
 }
 

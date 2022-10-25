@@ -1,83 +1,53 @@
 import SwiftUI
-
-struct Tasks: Identifiable {
-    var id = UUID()
-    var task: String
-    var time: String
-    var color: Color
-}
-struct TasksDate: Identifiable {
-    var id = UUID()
-    var date: String
-}
-//------------
+import Foundation
 
 struct TaskEditableList: View {
+    @Binding var userTasks: [TaskResponseData]
     
-    @State var editMode = false
-    
-    @State var taskDate = [
-        Text("Today, Aug 4/2018"),
-        Text("Tomorrow, Aug 5/2018")
-    ]
-    
-    @State var tasks = [
-        Tasks(task: "Fishing", time: "9:00 AM", color: .customCoral),
-        Tasks(task: "Dinner", time: "11:00 AM", color: .blue),
-        
-    ]
-    @State var tomorrowTasks = [
-        Tasks(task: "Meeting", time: "4:00 PM", color: .customCoral),
-        Tasks(task: "Rest", time: "9:00 PM", color: .customCoral)
-    ]
+    @State var showTaskCompletion: Bool
+    @State var showEditView = false
     
     var body: some View {
-        List {
-            Section {
-                ForEach($tasks, content: { item in
-                    TaskCell(task: item.task,
-                         time: item.time,
-                         color: item.color,
-                         deleteAction: {})
-                })
-                .listRowSeparator(.hidden)
-            } header: {
-                taskDate.first
-                    .font(.RobotoThinItalicTaskHeader)
-            }
+        List($userTasks, id: \.self) { task in
             
-            Section(content: {
-                ForEach($tomorrowTasks, content: { item in
-                    TaskCell(task: item.task,
-                         time: item.time,
-                         color: item.color) {
-//                        let indexSet = IndexSet(arrayLiteral: <#T##IndexSet.ArrayLiteralElement...##IndexSet.ArrayLiteralElement#>)
-                        
-                    }
-                })
-                .onDelete(perform: delete)
-                .listRowSeparator(.hidden)
-            }, header: {
-                taskDate.last
-                    .font(.RobotoThinItalicTaskHeader)
+            TaskCell(title: task.title, time: task.dueDate, isDone: task.isCompleted,
+                     updateAction: {
+                withAnimation(.default) {
+                    showTaskCompletion.toggle()
+                }
+            }, editAction: {
+                
+            },
+                     deleteAction: {
+                
             })
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.white)
+            .border(.black)
+            .frame(width: 343, height: 70)
+            .cornerRadius(Constants.radiusFive)
+            .shadow(radius: 2)
+            
         }
-        .environment(\.editMode, .constant(self.editMode ? EditMode.active : EditMode.inactive))
+        .background(Color.customWhiteBackground.ignoresSafeArea())
+        .scrollContentBackground(.hidden)
+        .padding(.top, -8)
     }
-    func delete(at offsets: IndexSet) {
-           tasks.remove(atOffsets: offsets)
-       }
+    private func delete(at offsets: IndexSet) {
+        userTasks.remove(atOffsets: offsets)
+    }
+    private func formatter(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = ", MMM d/yyyy"
+        return formatter.string(from: date)
+    }
 }
-
-
 
 struct TaskList_Previews: PreviewProvider {
-
+    @State static var userTasks: [TaskResponseData] = []
+    @State static var showTaskCompletion = false
     static var previews: some View {
-        TaskEditableList()
+        TaskEditableList(userTasks: $userTasks,
+                         showTaskCompletion: showTaskCompletion)
     }
 }
-
-
-
-

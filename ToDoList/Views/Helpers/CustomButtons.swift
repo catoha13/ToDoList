@@ -124,7 +124,7 @@ struct DeleteCustomButton: View {
         Button {
             self.action()
         } label: {
-            Image(systemName: "trash")
+            Image(uiImage: UIImage(named: "delete")!)
         }
     }
 }
@@ -136,7 +136,7 @@ struct EditCustomButton: View {
         Button {
             self.action()
         } label: {
-            Image(systemName: "pencil")
+            Image(uiImage: UIImage(named: "edit")!)
         }
     }
 }

@@ -4,20 +4,26 @@ struct MyTaskView: View {
     @ObservedObject var viewModel = TaskViewModel()
     
     var body: some View {
-        VStack {
-            TaskHeader(action: {})
-            
-            SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selectedIndex)
-            
-            if viewModel.selectedIndex == 1 {
-                CustomCalendar(selectedDate: $viewModel.selectedDate)
+        ZStack {
+            VStack {
+                TaskHeader(action: {})
+                
+                SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selectedIndex)
+                
+                if viewModel.selectedIndex == 1 {
+                    CustomCalendar(selectedDate: $viewModel.selectedDate)
+                }
+                
+                TaskEditableList(userTasks: $viewModel.fetchTasksResponse,
+                                 showTaskCompletion: viewModel.showTaskCompletionView)
+               
             }
+            .animation(.default, value: viewModel.selectedIndex)
             
-            TaskEditableList()
-           
-            Spacer()
+            if viewModel.showTaskCompletionView {
+                CompleteTask(isPresented: $viewModel.showTaskCompletionView)
+            }
         }
-        .animation(.default, value: viewModel.selectedIndex)
     }
 }
 

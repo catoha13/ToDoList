@@ -17,7 +17,7 @@ struct CustomCalendar: View {
             if showFullCalendar {
                 SwipeGesture(selector: $currentMonth)
             }
-            VStack(spacing: 20) {
+            VStack(spacing: 10) {
                 
                 //MARK: Show/hide calendar button
                 Button {
@@ -51,7 +51,7 @@ struct CustomCalendar: View {
                 }
                 
                 //MARK: Dates
-                LazyVGrid(columns: columns, spacing: 30) {
+                LazyVGrid(columns: columns, spacing: 20) {
                     if showFullCalendar {
                         //MARK: Month
                         ForEach(extractDate()) { value in
@@ -86,7 +86,7 @@ struct CustomCalendar: View {
                 getCurrentWeek()
             }
         }
-        .padding(.top, 10)
+        .padding(.vertical, 10)
     }
     
     func CardView(value: DateValue) -> some View {
@@ -117,7 +117,6 @@ struct CustomCalendar: View {
                                     .padding(.vertical, 4)
                                     .padding(.horizontal, 12)
                             }
-                            
                         }
                     } else {
                         Button {
