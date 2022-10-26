@@ -4,6 +4,7 @@ struct TaskResponseModel: Codable {
     var data: TaskResponseData
 }
 struct TaskResponseData: Codable, Hashable {
+    var id: String
     var title: String
     var dueDate: String
     var description: String

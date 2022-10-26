@@ -15,7 +15,12 @@ struct MyTaskView: View {
                 }
                 
                 TaskList(userTasks: $viewModel.fetchTasksResponse,
-                                 showTaskCompletion: $viewModel.showTaskCompletionView)
+                         taskTitle: $viewModel.title,
+                         taskId: $viewModel.taskId,
+                         showTask: $viewModel.showTaskCompletionView,
+                         deteleAction: {
+                    viewModel.deleteTask()
+                })
                
             }
             .animation(.default, value: viewModel.selectedIndex)

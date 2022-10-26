@@ -41,6 +41,9 @@ final class TaskViewModel: ObservableObject {
     //MARK: Update Task
     @Published var showTaskCompletionView = false
     
+    //MARK: Delete Task
+    @Published var taskId = ""
+    
     private var token = Token()
     private let user = User()
     private var taskService = TaskNetworkService()
@@ -71,6 +74,10 @@ final class TaskViewModel: ObservableObject {
         taskService.createTask(model: createTaskModel)
     }
     
+    private var deleteTaskRequest: AnyPublisher<DeleteModel, NetworkError> {
+        taskService.deleteTask(taskId: taskId)
+    }
+    
     private var fetchUserTasksRequest: AnyPublisher<FetchTasks, NetworkError> {
         taskService.fetchUserTasks()
     }
@@ -98,6 +105,22 @@ final class TaskViewModel: ObservableObject {
         createTaskRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self ]item in
+                self?.fetchUserTasks()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func deleteTask() {
+        deleteTaskRequest
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
+            }, receiveValue: { [weak self] item in
+                print(item)
                 self?.fetchUserTasks()
             })
             .store(in: &cancellables)

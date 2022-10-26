@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct TaskCell: View {
-    @Binding var title: String
-    @Binding var time: String
-    @Binding var isDone: Bool
+    @State var title: String
+    @State var time: String
+    @State var isDone: Bool
     
     @State var editAction: () -> ()
     @State var deleteAction: () -> ()
@@ -28,7 +28,7 @@ struct TaskCell: View {
                 .frame(width: 4, height: 21)
                 .offset(x: 5)
         }
-        .swipeActions {
+        .swipeActions(allowsFullSwipe: false) {
             HStack {
                 DeleteCustomButton {
                     self.deleteAction()
@@ -41,7 +41,10 @@ struct TaskCell: View {
                 .tint(.white)
             }
         }
-        .padding(.horizontal)
+        .padding()
+        .background(.white)
+        .cornerRadius(Constants.radiusFive)
+        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
         .frame(width: 343, height: 70)
 
     }

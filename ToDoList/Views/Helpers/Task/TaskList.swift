@@ -3,27 +3,42 @@ import Foundation
 
 struct TaskList: View {
     @Binding var userTasks: [TaskResponseData]
+    @Binding var taskTitle: String
+    @Binding var taskId: String
+    @Binding var showTask: Bool
     
-    @Binding var showTaskCompletion: Bool
-    @State private var showEditView = false
+    @State var deteleAction: () -> ()
+    
+    @State private var showAlert = false
     
     var body: some View {
-        List($userTasks, id: \.self) { task in
-            
-            TaskCell(title: task.title, time: task.dueDate, isDone: task.isCompleted,
-                     editAction: {
-                withAnimation(.default) {
-                    showTaskCompletion.toggle()
+        List {
+            ForEach(userTasks, id: \.self) { task in
+                TaskCell(title: task.title,
+                         time: task.dueDate,
+                         isDone: task.isCompleted,
+                         editAction: {
+                    withAnimation(.default) {
+                        taskId = task.id
+                        taskTitle = task.title
+                        showTask.toggle()
+                    }
+                },
+                         deleteAction: {
+                    taskId = task.id
+                    taskTitle = task.title
+                    showAlert.toggle()
+                })
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Delete «\(taskTitle)»?"),
+                          message: Text("You cannot undo this action"),
+                          primaryButton: .cancel(),
+                          secondaryButton: .destructive(Text("Delete")) {
+                        deteleAction()
+                    })
                 }
-            },
-                     deleteAction: {
-                
-            })
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.white)
-            .frame(width: 343, height: 70)
-            .cornerRadius(Constants.radiusFive)
-            
+                .listRowSeparator(.hidden)
+            }
         }
         .background(Color.customWhiteBackground.ignoresSafeArea())
         .scrollContentBackground(.hidden)
@@ -42,8 +57,12 @@ struct TaskList: View {
 struct TaskList_Previews: PreviewProvider {
     @State static var userTasks: [TaskResponseData] = []
     @State static var showTaskCompletion = false
+    @State static var taskTitle = ""
+    @State static var taskId = ""
     static var previews: some View {
         TaskList(userTasks: $userTasks,
-                 showTaskCompletion: $showTaskCompletion)
+                 taskTitle: $taskTitle,
+                 taskId: $taskId,
+                 showTask: $showTaskCompletion, deteleAction: {})
     }
 }

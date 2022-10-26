@@ -68,7 +68,9 @@ struct TaskSettings: View {
             .padding(.horizontal, 40)
         }
         .onTapGesture {
-            isPresented.toggle()
+            withAnimation(.default) {
+                isPresented.toggle()
+            }
         }
     }
 }

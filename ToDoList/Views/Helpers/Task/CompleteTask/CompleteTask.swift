@@ -40,7 +40,7 @@ struct CompleteTask: View {
                         } label: {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
-                                .rotationEffect(Angle(degrees: 45))
+                                .rotationEffect(showSettingsView ? .degrees(180) : .degrees(0))
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.black)
                         }

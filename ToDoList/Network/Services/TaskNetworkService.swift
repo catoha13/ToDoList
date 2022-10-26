@@ -22,8 +22,9 @@ final class TaskNetworkService {
         
     }
     
-    func deleteTask() {
-        
+    func deleteTask<U>(taskId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.tasks.rawValue + "/" + taskId
+        return networkManager.delete(path: path, header: header)
     }
     
     func fetchOneTask() {
