@@ -20,6 +20,7 @@
 		AC2F6914288B31F5007D78E0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6913288B31F5007D78E0 /* CustomButtons.swift */; };
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
 		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
+		AC3719EA2909A92100DBE9C9 /* Dots.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3719E92909A92100DBE9C9 /* Dots.swift */; };
 		AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39777F289C670F0007BEBB /* CreateCheckListView.swift */; };
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
@@ -151,6 +152,7 @@
 		AC2F6913288B31F5007D78E0 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
+		AC3719E92909A92100DBE9C9 /* Dots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dots.swift; sourceTree = "<group>"; };
 		AC39777F289C670F0007BEBB /* CreateCheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCheckListView.swift; sourceTree = "<group>"; };
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -300,6 +302,14 @@
 				AC9063F628BFFD03002450A8 /* ImagePicker */,
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		AC3719E82909A91600DBE9C9 /* sdf */ = {
+			isa = PBXGroup;
+			children = (
+				AC3719E92909A92100DBE9C9 /* Dots.swift */,
+			);
+			path = sdf;
 			sourceTree = "<group>";
 		};
 		AC39777E289C66EF0007BEBB /* AddCheckList */ = {
@@ -467,6 +477,7 @@
 		AC77150828857E4A00A0C804 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				AC3719E82909A91600DBE9C9 /* sdf */,
 				AC77150928857E9B00A0C804 /* LogoView.swift */,
 				ACD0537428887CF900F7FF1D /* OnboardingView.swift */,
 			);
@@ -864,6 +875,7 @@
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC49149C28AAE5350030E852 /* NetworkProtocol.swift in Sources */,
 				ACF6F33A28DA05F800665511 /* ProfileNetworkService.swift in Sources */,
+				AC3719EA2909A92100DBE9C9 /* Dots.swift in Sources */,
 				AC676BC6288EBE7F001DDE34 /* ProfileView.swift in Sources */,
 				AC6AD07928FE88560032F486 /* TaskNetworkService.swift in Sources */,
 				AC397782289C68CA0007BEBB /* CheckList.swift in Sources */,

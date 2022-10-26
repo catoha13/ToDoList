@@ -22,39 +22,42 @@ struct LogoView: View {
             }
         }
         .fullScreenCover(isPresented: $isPresented, content: {
-            TabView(selection: $selectedTab) {
-                OnboardingView(isPresented: isPresented,
-                               image: "events",
-                               text: "Welcome to todo list",
-                               description: "Whats going to happen tomorrow?",
-                               backgroundFirst: "pathFirst",
-                               backgroundSecond: "pathFirstBack",
-                               buttonAction: self.nextScreen)
-                .tag(0)
-                
-                OnboardingView(isPresented: isPresented,
-                               image: "superhero",
-                               text: "Work happens",
-                               description: "Get notified when work happens.",
-                               backgroundFirst: "pathSecond",
-                               backgroundSecond: "pathSecondBack",
-                               buttonAction: self.nextScreen)
-                .tag(1)
-                
-                OnboardingView(isPresented: isPresented,
-                               image: "analysis",
-                               text: "Tasks and assign",
-                               description: "Task and assign them to colleagues.",
-                               backgroundFirst: "pathThird",
-                               backgroundSecond: "pathThirdBack",
-                               buttonAction: self.showMainScreen)
-                .tag(2)
-                .fullScreenCover(isPresented: $isSingUpPresented) {
-                    SignUpView(isPresented: $isSingUpPresented)
+            ZStack {
+                Dots(selectedDot: $selectedTab)
+                TabView(selection: $selectedTab) {
+                    OnboardingView(isPresented: isPresented,
+                                   image: "events",
+                                   text: "Welcome to todo list",
+                                   description: "Whats going to happen tomorrow?",
+                                   backgroundFirst: "pathFirst",
+                                   backgroundSecond: "pathFirstBack",
+                                   buttonAction: self.nextScreen)
+                    .tag(0)
+                    
+                    OnboardingView(isPresented: isPresented,
+                                   image: "superhero",
+                                   text: "Work happens",
+                                   description: "Get notified when work happens.",
+                                   backgroundFirst: "pathSecond",
+                                   backgroundSecond: "pathSecondBack",
+                                   buttonAction: self.nextScreen)
+                    .tag(1)
+                    
+                    OnboardingView(isPresented: isPresented,
+                                   image: "analysis",
+                                   text: "Tasks and assign",
+                                   description: "Task and assign them to colleagues.",
+                                   backgroundFirst: "pathThird",
+                                   backgroundSecond: "pathThirdBack",
+                                   buttonAction: self.showMainScreen)
+                    .tag(2)
+                    .fullScreenCover(isPresented: $isSingUpPresented) {
+                        SignUpView(isPresented: $isSingUpPresented)
+                    }
                 }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .ignoresSafeArea(edges: .bottom)
             }
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
-            .ignoresSafeArea(.all, edges: .bottom)
         })
     }
     
