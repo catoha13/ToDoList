@@ -69,9 +69,25 @@ final class TaskViewModel: ObservableObject {
                         attachments: nil)
     }
     
+    private var updateTaskModel: CreateTaskModel {
+        CreateTaskModel(title: title,
+                        dueDate: getDate,
+                        description: description,
+                        assigned_to: assigneeId,
+                        isCompleted: true,
+                        projectId: selectedProjectId,
+                        ownerId: ownerId,
+                        members: membersId,
+                        attachments: nil)
+    }
+    
     //MARK: Publishers
     private var createTaskRequest: AnyPublisher<TaskResponseModel, NetworkError> {
         taskService.createTask(model: createTaskModel)
+    }
+    
+    private var updateTaskRequest: AnyPublisher<TaskResponseModel, NetworkError> {
+        taskService.updateTask(model: updateTaskModel, taskId: taskId)
     }
     
     private var deleteTaskRequest: AnyPublisher<DeleteModel, NetworkError> {
@@ -105,6 +121,22 @@ final class TaskViewModel: ObservableObject {
         createTaskRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self ]item in
+                self?.fetchUserTasks()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func updateTask() {
+        updateTaskRequest
+            .sink(receiveCompletion: {
+                switch $0 {
+                    
+                case .finished:
+                    return
+                case .failure(let error):
+                    print(error)
+                }
+            }, receiveValue: { [weak self] item in
                 self?.fetchUserTasks()
             })
             .store(in: &cancellables)

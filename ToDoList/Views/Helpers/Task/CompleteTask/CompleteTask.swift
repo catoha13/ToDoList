@@ -1,21 +1,21 @@
 import SwiftUI
 
 struct CompleteTask: View {
-    //MARK: Assigned
-    @State var title = "Meeting according with design team in Central Park"
+    @Binding var isPresented: Bool
+    
+    @Binding var title: String
     @State var image = "superhero"
-    @State var username = "Stephen Chow"
-    //MARK: Due
-    @State var dueDate = "Aug 4, 2020"
-    @State var description = "Lorem ipsum dolor sit amet, consectetur adipiscing. "
+    @Binding var assigneeName: String
+    @Binding var dueDate: String
+    @Binding var description: String
     //MARK: Tag
     @State var tag = "Personal"
     @State var color: Color = .customBlue
     
+    @State var updateAction: () -> ()
+    
     @State private var showComments = false
     @State private var showSettingsView: Bool = false
-    
-    @Binding var isPresented: Bool
     
     var body: some View {
         ZStack {
@@ -49,9 +49,12 @@ struct CompleteTask: View {
                     .padding(.vertical, 10)
                     
                     //MARK: Title
-                    Text(title)
-                        .font(Font(Roboto.thinItalic(size: 18)))
-                    
+                    HStack {
+                        Text(title)
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .padding(.horizontal, 26)
+                        Spacer()
+                    }
                     //MARK: Assigned to
                     VStack {
                         HStack {
@@ -65,7 +68,7 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 01)
-                                Text(username)
+                                Text(assigneeName)
                                     .font(Font(Roboto.thinItalic(size: 16)))
                             }
                             Spacer()
@@ -186,7 +189,7 @@ struct CompleteTask: View {
                     }
 
                     CustomBlueFilledButton(text: "Complete Task") {
-                        
+                        updateAction()
                     }
                     .padding(.top, 10)
                     
@@ -235,7 +238,20 @@ struct CompleteTask: View {
 
 struct CompleteTask_Previews: PreviewProvider {
     @State static var closeViewTask = false
+    @State static var title = ""
+    @State static var assigneeName = ""
+    @State static var dueDate = ""
+    @State static var description = ""
+//    @State static var title =
+//    @State static var title =
+//    @State static var title =
+    
     static var previews: some View {
-        CompleteTask( isPresented: $closeViewTask)
+        CompleteTask( isPresented: $closeViewTask,
+                      title: $title,
+                      assigneeName: $assigneeName,
+                      dueDate: $dueDate,
+                      description: $description,
+                      updateAction: {})
     }
 }

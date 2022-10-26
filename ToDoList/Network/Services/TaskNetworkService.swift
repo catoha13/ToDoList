@@ -18,8 +18,9 @@ final class TaskNetworkService {
         return networkManager.post(body: model, path: path, header: header)
     }
     
-    func updateTask() {
-        
+    func updateTask<T, U>(model: T, taskId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        let path = Path.tasks.rawValue + "/" + taskId
+        return networkManager.put(body: model, path: path, header: header)
     }
     
     func deleteTask<U>(taskId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {

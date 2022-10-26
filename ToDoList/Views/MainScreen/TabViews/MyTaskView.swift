@@ -15,9 +15,14 @@ struct MyTaskView: View {
                 }
                 
                 TaskList(userTasks: $viewModel.fetchTasksResponse,
+                         showTask: $viewModel.showTaskCompletionView,
                          taskTitle: $viewModel.title,
                          taskId: $viewModel.taskId,
-                         showTask: $viewModel.showTaskCompletionView,
+                         taskDueDate: $viewModel.getDate,
+                         taskDescription: $viewModel.description,
+                         taskAssigned_to: $viewModel.assigneeId,
+                         taskProjectId: $viewModel.selectedProjectId,
+                         members: $viewModel.members,
                          deteleAction: {
                     viewModel.deleteTask()
                 })
@@ -26,7 +31,14 @@ struct MyTaskView: View {
             .animation(.default, value: viewModel.selectedIndex)
             
             if viewModel.showTaskCompletionView {
-                CompleteTask(isPresented: $viewModel.showTaskCompletionView)
+                CompleteTask(isPresented: $viewModel.showTaskCompletionView,
+                             title: $viewModel.title,
+                             assigneeName: $viewModel.assigneeName,
+                             dueDate: $viewModel.getDate,
+                             description: $viewModel.description,
+                             updateAction: {
+                    viewModel.updateTask()
+                })
             }
         }
     }

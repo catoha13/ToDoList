@@ -3,14 +3,20 @@ import Foundation
 
 struct TaskList: View {
     @Binding var userTasks: [TaskResponseData]
+    @Binding var showTask: Bool
+
     @Binding var taskTitle: String
     @Binding var taskId: String
-    @Binding var showTask: Bool
-    
-    @State var deteleAction: () -> ()
+    @Binding var taskDueDate: String
+    @Binding var taskDescription: String
+    @Binding var taskAssigned_to: String
+    @Binding var taskProjectId: String
+//    @Binding var attachments:
+    @Binding var members: [Members]?
     
     @State private var showAlert = false
-    
+
+    @State var deteleAction: () -> ()
     var body: some View {
         List {
             ForEach(userTasks, id: \.self) { task in
@@ -21,6 +27,10 @@ struct TaskList: View {
                     withAnimation(.default) {
                         taskId = task.id
                         taskTitle = task.title
+                        taskDueDate = task.dueDate
+                        taskDescription = task.description
+                        taskAssigned_to = task.assignedTo
+                        taskProjectId = task.projectId
                         showTask.toggle()
                     }
                 },
@@ -61,10 +71,22 @@ struct TaskList_Previews: PreviewProvider {
     @State static var showTaskCompletion = false
     @State static var taskTitle = ""
     @State static var taskId = ""
+    @State static var dueDate = ""
+    @State static var description = ""
+    @State static var assigned_to = ""
+    @State static var projectId = ""
+    @State static var members: [Members]? = []
+    
     static var previews: some View {
         TaskList(userTasks: $userTasks,
+                 showTask: $showTaskCompletion,
                  taskTitle: $taskTitle,
                  taskId: $taskId,
-                 showTask: $showTaskCompletion, deteleAction: {})
+                 taskDueDate: $dueDate,
+                 taskDescription: $description,
+                 taskAssigned_to: $assigned_to,
+                 taskProjectId: $projectId,
+                 members: $members,
+                 deteleAction: {})
     }
 }
