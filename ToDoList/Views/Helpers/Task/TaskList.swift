@@ -34,12 +34,14 @@ struct TaskList: View {
                           message: Text("You cannot undo this action"),
                           primaryButton: .cancel(),
                           secondaryButton: .destructive(Text("Delete")) {
+                        userTasks.removeAll(where: {$0.id == taskId})
                         deteleAction()
                     })
                 }
                 .listRowSeparator(.hidden)
             }
         }
+        .animation(.default, value: userTasks)
         .background(Color.customWhiteBackground.ignoresSafeArea())
         .scrollContentBackground(.hidden)
         .padding(.top, -8)

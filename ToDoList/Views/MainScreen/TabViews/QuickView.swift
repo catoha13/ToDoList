@@ -45,8 +45,8 @@ struct QuickView: View {
                             Text("What do you want to do?")
                         }
                         .alert(isPresented: $viewModel.showNoteAlert) {
-                            Alert(title: Text("You want to delete «\(viewModel.noteText)»?"),
-                                  message: Text("You cannot undone this action."),
+                            Alert(title: Text("Delete «\(viewModel.noteText)» note?"),
+                                  message: Text("You cannot undo this action."),
                                   primaryButton: .destructive(Text("Delete")) {
                                 viewModel.deleteNote()
                             },
@@ -87,8 +87,8 @@ struct QuickView: View {
                                           Text("What do you want to do?")
                                       }
                                       .alert(isPresented: $viewModel.showChecklistAlert) {
-                                          Alert(title: Text("You want to delete «\(viewModel.checklistTitle)» checklist?"),
-                                                message: Text("You cannot undone this action."),
+                                          Alert(title: Text("Delete «\(viewModel.checklistTitle)» checklist?"),
+                                                message: Text("You cannot undo this action."),
                                                 primaryButton: .cancel(),
                                                 secondaryButton: .destructive(Text("Delete")) {
                                               viewModel.deleteChecklist()
