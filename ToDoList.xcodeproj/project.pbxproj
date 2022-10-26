@@ -304,14 +304,6 @@
 			path = Authorization;
 			sourceTree = "<group>";
 		};
-		AC3719E82909A91600DBE9C9 /* sdf */ = {
-			isa = PBXGroup;
-			children = (
-				AC3719E92909A92100DBE9C9 /* Dots.swift */,
-			);
-			path = sdf;
-			sourceTree = "<group>";
-		};
 		AC39777E289C66EF0007BEBB /* AddCheckList */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,7 +469,6 @@
 		AC77150828857E4A00A0C804 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				AC3719E82909A91600DBE9C9 /* sdf */,
 				AC77150928857E9B00A0C804 /* LogoView.swift */,
 				ACD0537428887CF900F7FF1D /* OnboardingView.swift */,
 			);
@@ -534,7 +525,7 @@
 		AC7715372885984900A0C804 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AC3F7C632903C9BE001E9F2D /* Gestures */,
+				AC3719E92909A92100DBE9C9 /* Dots.swift */,
 				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
 				AC4EF8B328900CB10087E2FA /* BackButton.swift */,
@@ -543,6 +534,7 @@
 				ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */,
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
 				ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */,
+				AC3F7C632903C9BE001E9F2D /* Gestures */,
 				AC66016D2892D31E005A7B02 /* Create */,
 				AC9CC19E28CA0FDB005B4387 /* Project */,
 				ACADC52728C76F5900289409 /* Task */,
