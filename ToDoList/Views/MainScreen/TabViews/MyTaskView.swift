@@ -44,10 +44,6 @@ struct MyTaskView: View {
                 .onAppear {
                     viewModel.loadAvatars()
                 }
-                .onDisappear {
-                    viewModel.membersUrls = []
-                    viewModel.membersAvatars = []
-                }
             }
         }
     }

@@ -4,7 +4,6 @@ struct CompleteTask: View {
     @Binding var isPresented: Bool
     
     @Binding var title: String
-    @State var image = "superhero"
     @Binding var members: [Members]?
     @Binding var membersAvatars: [UIImage]
     @Binding var dueDate: String
@@ -33,7 +32,6 @@ struct CompleteTask: View {
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.black)
                         }
-                        .border(.black)
                         Spacer()
                         Button {
                             withAnimation(.default) {
