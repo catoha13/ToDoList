@@ -3,8 +3,10 @@ import SwiftUI
 struct CustomDatePicker: View {
     @Binding var isPresented: Bool
     @Binding var selectedDate: Date?
+    @Binding var selectedTime: Date?
     
     @State private var currentDate: Date = Date()
+    @State private var currentTime: Date = Date()
     @State private var days = ["M","T", "W", "T", "F", "S", "S"]
     @State private var columns = Array(repeating: GridItem(.flexible()), count: 7)
     @State private var currentMonth: Int  = 0
@@ -52,6 +54,10 @@ struct CustomDatePicker: View {
                         }
                     })
                 }
+                DatePicker("", selection: $currentTime, displayedComponents: .hourAndMinute)
+                    .padding(.trailing, 130)
+                    .padding(.bottom)
+                
                 CustomCoralFilledButtonSmall(text: "Done") {
                     withAnimation {
                         isPresented.toggle()
@@ -157,8 +163,9 @@ struct CustomDatePicker: View {
 
 struct CustomDatePicker_Previews: PreviewProvider {
     @State static var selectedDate: Date? = Date()
+    @State static var selectedTime: Date? = Date()
     @State static var isPresented = false
     static var previews: some View {
-        CustomDatePicker(isPresented: $isPresented, selectedDate: $selectedDate)
+        CustomDatePicker(isPresented: $isPresented, selectedDate: $selectedDate, selectedTime: $selectedTime)
     }
 }

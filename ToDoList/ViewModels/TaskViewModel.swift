@@ -32,10 +32,11 @@ final class TaskViewModel: ObservableObject {
     @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
     @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
-    @Published var selectedDate: Date?
+    @Published var selectedTime: Date?
     
     //MARK: MyTaskView
     @Published var selectedIndex = 0
+    @Published var selectedDate: Date?
     @Published var fetchTasksResponse: [TaskResponseData] = []
     
     //MARK: Update Task
@@ -101,6 +102,7 @@ final class TaskViewModel: ObservableObject {
     private var searchMembers: AnyPublisher<SearchUsers, NetworkError> {
         taskService.taskMembersSearch()
     }
+    
     private var downloadUsersAvatars: AnyPublisher<UIImage, NetworkError> {
         taskService.downloadMembersAvatars(url: membersUrl)
     }
@@ -112,8 +114,6 @@ final class TaskViewModel: ObservableObject {
     //MARK: Initialization
     init() {
         fetchUserTasks()
-        loadMembers()
-        loadProjects()
     }
     
     //MARK: Funcs
@@ -128,14 +128,7 @@ final class TaskViewModel: ObservableObject {
     
     func updateTask() {
         updateTaskRequest
-            .sink(receiveCompletion: {
-                switch $0 {
-                    
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.fetchUserTasks()
             })
@@ -144,13 +137,7 @@ final class TaskViewModel: ObservableObject {
     
     func deleteTask() {
         deleteTaskRequest
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 print(item)
                 self?.fetchUserTasks()
@@ -160,20 +147,14 @@ final class TaskViewModel: ObservableObject {
     
     func fetchUserTasks() {
         fetchUserTasksRequest
-            .sink(receiveCompletion: {
-                switch $0 {
-                case .finished:
-                    return
-                case .failure(let error):
-                    print(error)
-                }
+            .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.fetchTasksResponse = item.data
             })
             .store(in: &cancellables)
     }
     
-    private func loadMembers() {
+    func loadMembers() {
         searchMembers
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
@@ -186,7 +167,7 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func loadAvatars() {
+    func loadAvatars() {
         for count in 0..<membersUrls.count {
             membersUrl = membersUrls[count]
             downloadUsersAvatars
@@ -203,7 +184,7 @@ final class TaskViewModel: ObservableObject {
         }
     }
     
-    private func loadProjects() {
+    func loadProjects() {
         searchProjects
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
@@ -218,9 +199,12 @@ final class TaskViewModel: ObservableObject {
         return formatter.string(from: date)
     }
     
-    func formatDueDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
-        return formatter.string(from: date)
+    func formatDueDate(date: Date, time: Date) -> String {
+        let dayFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        dayFormatter.dateFormat = "YYYY-MM-dd"
+        timeFormatter.dateFormat = "hh:mm:ss.ssssss"
+        return "\(dayFormatter.string(from: date))T\(timeFormatter.string(from: time))"
+        
     }
 }

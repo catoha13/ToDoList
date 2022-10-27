@@ -159,7 +159,7 @@ struct CreateTaskView: View {
                         
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
-                            viewModel.getDate = viewModel.formatDueDate(date: viewModel.dueDate ?? Date())
+                            viewModel.getDate = viewModel.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
                             viewModel.createTask()
                             isPresented.toggle()
                         }
@@ -176,7 +176,8 @@ struct CreateTaskView: View {
                                        filteredText: $viewModel.assigneeName,
                                        searchedUser: $viewModel.assigneeName,
                                        searchedUserId: $viewModel.assigneeId,
-                                       searchedUserAvatar: $viewModel.selectedUserAvatar) {
+                                       searchedUserAvatar: $viewModel.selectedUserAvatar,
+                                       memberId: $viewModel.membersId) {
                             viewModel.selectedUser = viewModel.assigneeName
                         }
                     }
@@ -208,8 +209,14 @@ struct CreateTaskView: View {
             //MARK: Custom DatePicker
             if viewModel.showDatePicker {
                 CustomDatePicker(isPresented: $viewModel.showDatePicker,
-                                 selectedDate: $viewModel.dueDate)
+                                 selectedDate: $viewModel.dueDate,
+                                 selectedTime: $viewModel.selectedTime)
             }
+        }
+        .onAppear {
+            viewModel.loadMembers()
+            viewModel.loadAvatars()
+            viewModel.loadProjects()
         }
     }
 }

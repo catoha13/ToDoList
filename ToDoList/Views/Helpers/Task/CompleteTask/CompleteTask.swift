@@ -92,7 +92,7 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                Text(dueDate)
+                                Text(trimDate(date: dueDate))
                                     .font(Font(Roboto.thinItalic(size: 16)))
                             }
                             Spacer()
@@ -233,6 +233,13 @@ struct CompleteTask: View {
                 })
             }
         }
+    }
+    private func trimDate(date: String) -> String {
+        var trimmedDate = date
+        for _ in 0..<16 {
+            trimmedDate.removeLast()
+        }
+        return trimmedDate
     }
 }
 

@@ -6,6 +6,7 @@ struct SearchUserView: View {
     @Binding var searchedUser: String
     @Binding var searchedUserId: String
     @Binding var searchedUserAvatar: UIImage?
+    @Binding var memberId: [String]?
     @State var action: () -> Void
     
     var body: some View {
@@ -17,6 +18,7 @@ struct SearchUserView: View {
                         searchedUser = user.username
                         searchedUserId = user.id
                         searchedUserAvatar = avatar
+                        memberId?.append(user.id)
                         action()
                     } label: {
                         HStack {
@@ -54,6 +56,7 @@ struct SearchUserView_Previews: PreviewProvider {
     @State static var searchedUser = ""
     @State static var searchedUserId = ""
     @State static var searchedUserAvatar = UIImage(named: "background")
+    @State static var member: [String]? = []
     @State static var action = {}
     
     static var previews: some View {
@@ -62,6 +65,7 @@ struct SearchUserView_Previews: PreviewProvider {
                        searchedUser: $searchedUser,
                        searchedUserId: $searchedUserId,
                        searchedUserAvatar: $searchedUserAvatar,
+                       memberId: $member,
                        action: action)
     }
 }
