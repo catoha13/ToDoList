@@ -46,7 +46,8 @@ struct TaskSettings: View {
                     //MARK: Delete task
                     Button(action: {
                         withAnimation(.default) {
-                            addMemberAction()
+                            deleteAction()
+                            isPresented.toggle()
                         }
                     }, label: {
                         HStack {

@@ -13,9 +13,11 @@ struct CompleteTask: View {
     @State var color: Color = .customBlue
     
     @State var updateAction: () -> ()
+    @State var deleteAction: () -> ()
     
     @State private var showComments = false
     @State private var showSettingsView: Bool = false
+    @State private var showAlert = false
     
     var body: some View {
         ZStack {
@@ -151,16 +153,6 @@ struct CompleteTask: View {
                                             .clipShape(Circle())
                                     }
                                 }
-//                                HStack {
-//                                    Image(image)
-//                                        .resizable()
-//                                        .frame(width: 32, height: 32)
-//                                        .clipShape(Circle())
-//                                    Image(image)
-//                                        .resizable()
-//                                        .frame(width: 32, height: 32)
-//                                        .clipShape(Circle())
-//                                }
                             }
                             Spacer()
                         }
@@ -239,10 +231,23 @@ struct CompleteTask: View {
                 }, editAction: {
                     
                 }, deleteAction: {
-                    
+                    showAlert.toggle()
                 })
             }
+
         }
+        .alert("Delete «\(title)» task?", isPresented: $showAlert) {
+            Button("Delete", role: .destructive) {
+                deleteAction()
+                isPresented.toggle()
+            }
+            Button("Cancel", role: .cancel) {
+                showAlert.toggle()
+            }
+        } message: {
+            Text("You cannot undo this action")
+        }
+
     }
     private func trimDate(date: String) -> String {
         var trimmedDate = date
@@ -260,9 +265,6 @@ struct CompleteTask_Previews: PreviewProvider {
     @State static var membersAvatars: [UIImage] = []
     @State static var dueDate = ""
     @State static var description = ""
-//    @State static var title =
-//    @State static var title =
-//    @State static var title =
     
     static var previews: some View {
         CompleteTask( isPresented: $closeViewTask,
@@ -271,6 +273,7 @@ struct CompleteTask_Previews: PreviewProvider {
                       membersAvatars: $membersAvatars,
                       dueDate: $dueDate,
                       description: $description,
-                      updateAction: {})
+                      updateAction: {},
+                      deleteAction: {})
     }
 }

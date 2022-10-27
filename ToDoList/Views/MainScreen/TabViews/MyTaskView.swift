@@ -40,6 +40,8 @@ struct MyTaskView: View {
                              description: $viewModel.description,
                              updateAction: {
                     viewModel.updateTask()
+                }, deleteAction: {
+                    viewModel.deleteTask()
                 })
                 .onAppear {
                     viewModel.loadAvatars()
