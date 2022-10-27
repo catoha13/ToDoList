@@ -23,6 +23,7 @@ struct MyTaskView: View {
                          taskAssigned_to: $viewModel.assigneeId,
                          taskProjectId: $viewModel.selectedProjectId,
                          members: $viewModel.members,
+                         membersUrl: $viewModel.membersUrls,
                          deteleAction: {
                     viewModel.deleteTask()
                 })
@@ -33,12 +34,20 @@ struct MyTaskView: View {
             if viewModel.showTaskCompletionView {
                 CompleteTask(isPresented: $viewModel.showTaskCompletionView,
                              title: $viewModel.title,
-                             assigneeName: $viewModel.assigneeName,
+                             members: $viewModel.members,
+                             membersAvatars: $viewModel.membersAvatars,
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
                              updateAction: {
                     viewModel.updateTask()
                 })
+                .onAppear {
+                    viewModel.loadAvatars()
+                }
+                .onDisappear {
+                    viewModel.membersUrls = []
+                    viewModel.membersAvatars = []
+                }
             }
         }
     }

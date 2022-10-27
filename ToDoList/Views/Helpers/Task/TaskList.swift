@@ -14,6 +14,8 @@ struct TaskList: View {
 //    @Binding var attachments:
     @Binding var members: [Members]?
     
+    @Binding var membersUrl: [String]
+    
     @State private var showAlert = false
 
     @State var deteleAction: () -> ()
@@ -31,6 +33,10 @@ struct TaskList: View {
                         taskDescription = task.description
                         taskAssigned_to = task.assignedTo
                         taskProjectId = task.projectId
+                        members = task.members
+                        for user in task.members ?? [] {
+                            membersUrl.append(user.avatarUrl)
+                        }
                         showTask.toggle()
                     }
                 },
@@ -69,6 +75,7 @@ struct TaskList: View {
 struct TaskList_Previews: PreviewProvider {
     @State static var userTasks: [TaskResponseData] = []
     @State static var showTaskCompletion = false
+    
     @State static var taskTitle = ""
     @State static var taskId = ""
     @State static var dueDate = ""
@@ -76,6 +83,8 @@ struct TaskList_Previews: PreviewProvider {
     @State static var assigned_to = ""
     @State static var projectId = ""
     @State static var members: [Members]? = []
+    
+    @State static var membersUrls: [String] = []
     
     static var previews: some View {
         TaskList(userTasks: $userTasks,
@@ -87,6 +96,7 @@ struct TaskList_Previews: PreviewProvider {
                  taskAssigned_to: $assigned_to,
                  taskProjectId: $projectId,
                  members: $members,
+                 membersUrl: $membersUrls,
                  deteleAction: {})
     }
 }

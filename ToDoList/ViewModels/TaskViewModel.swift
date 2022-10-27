@@ -175,7 +175,7 @@ final class TaskViewModel: ObservableObject {
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item)
                     var id = [UUID]()
-                    for _ in 0...(self?.membersAvatars.count ?? 0) {
+                    for _ in 0...(self?.membersUrls.count ?? 0) {
                         id.append(UUID())
                     }
                     self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersResponseArray ?? [], self?.membersAvatars ?? [], id))

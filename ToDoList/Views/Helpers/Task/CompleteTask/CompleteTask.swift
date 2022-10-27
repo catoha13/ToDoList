@@ -5,7 +5,8 @@ struct CompleteTask: View {
     
     @Binding var title: String
     @State var image = "superhero"
-    @Binding var assigneeName: String
+    @Binding var members: [Members]?
+    @Binding var membersAvatars: [UIImage]
     @Binding var dueDate: String
     @Binding var description: String
     //MARK: Tag
@@ -32,6 +33,7 @@ struct CompleteTask: View {
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.black)
                         }
+                        .border(.black)
                         Spacer()
                         Button {
                             withAnimation(.default) {
@@ -58,8 +60,9 @@ struct CompleteTask: View {
                     //MARK: Assigned to
                     VStack {
                         HStack {
-                            Image(image)
+                            Image(uiImage: membersAvatars.last ?? UIImage(named: "background")!)
                                 .resizable()
+                                .scaledToFit()
                                 .frame(width: 44, height: 44)
                                 .clipShape(Circle())
                                 .padding()
@@ -68,7 +71,7 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 01)
-                                Text(assigneeName)
+                                Text(members?.last?.username ?? " ")
                                     .font(Font(Roboto.thinItalic(size: 16)))
                             }
                             Spacer()
@@ -142,15 +145,24 @@ struct CompleteTask: View {
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
                                 HStack {
-                                    Image(image)
-                                        .resizable()
-                                        .frame(width: 32, height: 32)
-                                        .clipShape(Circle())
-                                    Image(image)
-                                        .resizable()
-                                        .frame(width: 32, height: 32)
-                                        .clipShape(Circle())
+                                    ForEach(membersAvatars, id: \.self) { avatar in
+                                        Image(uiImage: avatar)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 32, height: 32)
+                                            .clipShape(Circle())
+                                    }
                                 }
+//                                HStack {
+//                                    Image(image)
+//                                        .resizable()
+//                                        .frame(width: 32, height: 32)
+//                                        .clipShape(Circle())
+//                                    Image(image)
+//                                        .resizable()
+//                                        .frame(width: 32, height: 32)
+//                                        .clipShape(Circle())
+//                                }
                             }
                             Spacer()
                         }
@@ -246,7 +258,8 @@ struct CompleteTask: View {
 struct CompleteTask_Previews: PreviewProvider {
     @State static var closeViewTask = false
     @State static var title = ""
-    @State static var assigneeName = ""
+    @State static var members: [Members]? = []
+    @State static var membersAvatars: [UIImage] = []
     @State static var dueDate = ""
     @State static var description = ""
 //    @State static var title =
@@ -256,7 +269,8 @@ struct CompleteTask_Previews: PreviewProvider {
     static var previews: some View {
         CompleteTask( isPresented: $closeViewTask,
                       title: $title,
-                      assigneeName: $assigneeName,
+                      members: $members,
+                      membersAvatars: $membersAvatars,
                       dueDate: $dueDate,
                       description: $description,
                       updateAction: {})
