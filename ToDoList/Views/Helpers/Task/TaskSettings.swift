@@ -32,7 +32,7 @@ struct TaskSettings: View {
                     //MARK: Edit task
                     Button(action: {
                         withAnimation(.default) {
-                            addMemberAction()
+                            editAction()
                         }
                     }, label: {
                         HStack {

@@ -6,6 +6,7 @@ final class TaskViewModel: ObservableObject {
     //MARK: Create task model
     @Published var assigneeName = ""
     @Published var assigneeId = ""
+    @Published var isCompleted = false
     @Published var projectName = ""
     @Published var title = ""
     @Published var description = ""
@@ -75,7 +76,7 @@ final class TaskViewModel: ObservableObject {
                         dueDate: getDate,
                         description: description,
                         assigned_to: assigneeId,
-                        isCompleted: true,
+                        isCompleted: isCompleted,
                         projectId: selectedProjectId,
                         ownerId: ownerId,
                         members: membersId,

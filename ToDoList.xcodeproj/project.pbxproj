@@ -21,6 +21,7 @@
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
 		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
 		AC3719EA2909A92100DBE9C9 /* Dots.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3719E92909A92100DBE9C9 /* Dots.swift */; };
+		AC3719EF290AE22100DBE9C9 /* EditTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3719EE290AE22100DBE9C9 /* EditTaskView.swift */; };
 		AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39777F289C670F0007BEBB /* CreateCheckListView.swift */; };
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
@@ -153,6 +154,7 @@
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
 		AC3719E92909A92100DBE9C9 /* Dots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dots.swift; sourceTree = "<group>"; };
+		AC3719EE290AE22100DBE9C9 /* EditTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskView.swift; sourceTree = "<group>"; };
 		AC39777F289C670F0007BEBB /* CreateCheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCheckListView.swift; sourceTree = "<group>"; };
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -302,6 +304,14 @@
 				AC9063F628BFFD03002450A8 /* ImagePicker */,
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		AC3719ED290AE20B00DBE9C9 /* EditTask */ = {
+			isa = PBXGroup;
+			children = (
+				AC3719EE290AE22100DBE9C9 /* EditTaskView.swift */,
+			);
+			path = EditTask;
 			sourceTree = "<group>";
 		};
 		AC39777E289C66EF0007BEBB /* AddCheckList */ = {
@@ -597,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				AC462951290074C400523745 /* CompleteTask */,
+				AC3719ED290AE20B00DBE9C9 /* EditTask */,
 				ACADC52828C76F7400289409 /* TaskCell.swift */,
 				ACADC52A28C774D800289409 /* TaskList.swift */,
 				AC6AD07C28FE96D20032F486 /* TaskHeader.swift */,
@@ -859,6 +870,7 @@
 				AC5E2EA428932E18005B48BD /* SideView.swift in Sources */,
 				ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */,
 				AC676BCC288EBE7F001DDE34 /* ViewRouter.swift in Sources */,
+				AC3719EF290AE22100DBE9C9 /* EditTaskView.swift in Sources */,
 				AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */,
 				ACF6F33228D9F92100665511 /* StatCollectionCell.swift in Sources */,
 				AC6406A828CA67E400D1D129 /* ProjectNetworkService.swift in Sources */,

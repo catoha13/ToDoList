@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CompleteTask: View {
+struct EditTaskView: View {
     @Binding var isPresented: Bool
     
     @Binding var title: String
@@ -8,18 +8,13 @@ struct CompleteTask: View {
     @Binding var membersAvatars: [UIImage]
     @Binding var dueDate: String
     @Binding var description: String
-    //MARK: Tag
+    
     @State var tag = "Personal"
     @State var color: Color = .customBlue
     
     @State var updateAction: () -> ()
-    @State var editAction: () -> ()
-    @State var deleteAction: () -> ()
     
     @State private var showComments = false
-    @State private var showSettingsView: Bool = false
-    @State private var showAlert = false
-    @State private var showEditView = false
     
     var body: some View {
         ZStack {
@@ -37,24 +32,17 @@ struct CompleteTask: View {
                                 .foregroundColor(.black)
                         }
                         Spacer()
-                        Button {
-                            withAnimation(.default) {
-                                showSettingsView.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "gearshape.fill")
-                                .resizable()
-                                .rotationEffect(showSettingsView ? .degrees(180) : .degrees(0))
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(.black)
-                        }
+                        Text("Task Edit")
+                            .font(.RobotoThinItalicSmall)
+                            .padding(.trailing, 22)
+                        Spacer()
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 10)
                     
                     //MARK: Title
                     HStack {
-                        Text(title)
+                        TextField("Enter new title", text: $title)
                             .font(Font(Roboto.thinItalic(size: 18)))
                             .padding(.horizontal, 26)
                         Spacer()
@@ -83,7 +71,7 @@ struct CompleteTask: View {
                             .frame(width: 295)
                             .padding(.top, -10)
                     }
-                    .padding(.vertical, -10)
+                    .padding(.vertical, -5)
                     
                     //MARK: Due Date
                     VStack {
@@ -122,9 +110,10 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                Text(description)
+                                TextField("Enter description", text: $description)
                                     .font(Font(Roboto.regular(size: 16)))
                                     .lineLimit(2)
+                                    .padding(.trailing, 10)
                                 Spacer()
                             }
                             Spacer()
@@ -132,6 +121,7 @@ struct CompleteTask: View {
                         Divider()
                             .frame(width: 295)
                             .padding(.vertical, -10)
+                            .padding(.leading, -10)
                     }
                     .padding(.top, -10)
                     
@@ -194,7 +184,7 @@ struct CompleteTask: View {
                             .padding(.vertical)
                     }
 
-                    CustomBlueFilledButton(text: "Complete Task") {
+                    CustomBlueFilledButton(text: "Done") {
                         updateAction()
                     }
                     .padding(.top, 10)
@@ -228,45 +218,7 @@ struct CompleteTask: View {
             .cornerRadius(Constants.radiusFive)
             .shadow(radius: 4)
             
-            if showSettingsView {
-                TaskSettings(isPresented: $showSettingsView,
-                             addMemberAction: {
-                    
-                }, editAction: {
-                    showEditView.toggle()
-                    showSettingsView.toggle()
-                }, deleteAction: {
-                    showAlert.toggle()
-                })
-            }
-
-            if showEditView {
-                EditTaskView(isPresented: $showEditView,
-                             title: $title,
-                             members: $members,
-                             membersAvatars: $membersAvatars,
-                             dueDate: $dueDate,
-                             description: $description,
-                             tag: tag,
-                             color: color,
-                             updateAction: {
-                    
-                })
-            }
-            
         }
-        .alert("Delete «\(title)» task?", isPresented: $showAlert) {
-            Button("Delete", role: .destructive) {
-                deleteAction()
-                isPresented.toggle()
-            }
-            Button("Cancel", role: .cancel) {
-                showAlert.toggle()
-            }
-        } message: {
-            Text("You cannot undo this action")
-        }
-
     }
     private func trimDate(date: String) -> String {
         var trimmedDate = date
@@ -277,23 +229,26 @@ struct CompleteTask: View {
     }
 }
 
-struct CompleteTask_Previews: PreviewProvider {
-    @State static var closeViewTask = false
-    @State static var title = ""
-    @State static var members: [Members]? = []
-    @State static var membersAvatars: [UIImage] = []
+struct EditTaskView_Previews: PreviewProvider {
+    @State static var isPresented = false
+    @State static var taskTitle = ""
+    @State static var taskId = ""
     @State static var dueDate = ""
     @State static var description = ""
+    @State static var assigned_to = ""
+    @State static var projectId = ""
+    @State static var members: [Members]? = []
+    
+    @State static var membersUrls: [String] = []
+    @State static var membersAvatars: [UIImage] = []
     
     static var previews: some View {
-        CompleteTask( isPresented: $closeViewTask,
-                      title: $title,
-                      members: $members,
-                      membersAvatars: $membersAvatars,
-                      dueDate: $dueDate,
-                      description: $description,
-                      updateAction: {},
-                      editAction: {},
-                      deleteAction: {})
+        EditTaskView(isPresented: $isPresented,
+                     title: $taskTitle,
+                     members: $members,
+                     membersAvatars: $membersAvatars,
+                     dueDate: $dueDate,
+                     description: $description,
+                     updateAction: {})
     }
 }

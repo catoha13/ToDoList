@@ -40,11 +40,18 @@ struct MyTaskView: View {
                              description: $viewModel.description,
                              updateAction: {
                     viewModel.updateTask()
+                }, editAction: {
+                    
                 }, deleteAction: {
                     viewModel.deleteTask()
                 })
                 .onAppear {
                     viewModel.loadAvatars()
+                   
+                }
+                .onDisappear {
+                    viewModel.membersAvatars = []
+                    viewModel.membersUrls = []
                 }
             }
         }
