@@ -146,7 +146,7 @@ final class NetworkMaganer: NetworkProtocol {
             .eraseToAnyPublisher()
     }
     
-    func downloadAvatar(path: String, header: String) -> AnyPublisher<UIImage, NetworkError> {
+    func downloadAvatar(path: String, header: String) -> AnyPublisher<UIImage?, NetworkError> {
         let url = URL(string: path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.get.rawValue

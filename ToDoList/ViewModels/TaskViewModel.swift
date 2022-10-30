@@ -22,6 +22,7 @@ final class TaskViewModel: ObservableObject {
     @Published var selectedUserAvatar: UIImage?
     @Published var selectedProjectName = ""
     @Published var selectedProjectId = ""
+    private var id = [UUID]()
     
     //MARK: Add members
     @Published var showAddMemberView = false
@@ -104,7 +105,7 @@ final class TaskViewModel: ObservableObject {
         taskService.taskMembersSearch()
     }
     
-    private var downloadUsersAvatars: AnyPublisher<UIImage, NetworkError> {
+    private var downloadUsersAvatars: AnyPublisher<UIImage?, NetworkError> {
         taskService.downloadMembersAvatars(url: membersUrl)
     }
     
@@ -155,14 +156,15 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func loadMembers() {
-        searchMembers
+    func loadSearch() {
+        searchMembers.zip(searchProjects)
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] item in
-                self?.searchUsersResponseArray = item.data
-                for member in item.data {
+            }, receiveValue: { [weak self] users, project in
+                self?.searchUsersResponseArray = users.data.sorted(by: {$0.username < $1.username})
+                for member in users.data.sorted(by: {$0.username < $1.username}) {
                     self?.membersUrls.append(member.avatarUrl)
                 }
+                self?.searchProjectsResoponseArray = project.data
                 self?.loadAvatars()
             })
             .store(in: &cancellables)
@@ -174,24 +176,14 @@ final class TaskViewModel: ObservableObject {
             downloadUsersAvatars
                 .sink { _ in
                 } receiveValue: { [weak self] item in
-                    self?.membersAvatars.append(item)
-                    var id = [UUID]()
-                    for _ in 0...(self?.membersUrls.count ?? 0) {
-                        id.append(UUID())
+                    self?.membersAvatars.append(item ?? UIImage(named: "background")!)
+                    for _ in 0...(self?.membersAvatars.count ?? 0) {
+                        self?.id.append(UUID())
                     }
-                    self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersResponseArray ?? [], self?.membersAvatars ?? [], id))
+                    self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersResponseArray ?? [], self?.membersAvatars ?? [], self?.id ?? []))
                 }
                 .store(in: &cancellables)
         }
-    }
-    
-    func loadProjects() {
-        searchProjects
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] item in
-                self?.searchProjectsResoponseArray = item.data
-            })
-            .store(in: &cancellables)
     }
     
     func formatDate(date: Date) -> String {

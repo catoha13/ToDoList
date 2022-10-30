@@ -214,9 +214,7 @@ struct CreateTaskView: View {
             }
         }
         .onAppear {
-            viewModel.loadMembers()
-            viewModel.loadAvatars()
-            viewModel.loadProjects()
+            viewModel.loadSearch()
         }
     }
 }

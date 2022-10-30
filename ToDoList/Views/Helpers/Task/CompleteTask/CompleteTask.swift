@@ -6,6 +6,7 @@ struct CompleteTask: View {
     @Binding var title: String
     @Binding var members: [Members]?
     @Binding var membersAvatars: [UIImage]
+    @Binding var membersId: [String]?
     @Binding var dueDate: String
     @Binding var description: String
     //MARK: Tag
@@ -19,7 +20,7 @@ struct CompleteTask: View {
     @State private var showComments = false
     @State private var showSettingsView: Bool = false
     @State private var showAlert = false
-    @State private var showEditView = false
+    @State private var isEditOn = false
     
     var body: some View {
         ZStack {
@@ -28,13 +29,24 @@ struct CompleteTask: View {
                     //MARK: Buttons
                     HStack {
                         Button {
-                            isPresented.toggle()
+                            if isEditOn {
+                                withAnimation {
+                                    isEditOn.toggle()
+                                }
+                            } else {
+                                isPresented.toggle()
+                            }
                         } label: {
                             Image(systemName: "plus")
                                 .resizable()
                                 .rotationEffect(Angle(degrees: 45))
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.black)
+                        }
+                        Spacer()
+                        if isEditOn {
+                            Text("Editing")
+                                .font(.RobotoRegularSmall)
                         }
                         Spacer()
                         Button {
@@ -54,11 +66,15 @@ struct CompleteTask: View {
                     
                     //MARK: Title
                     HStack {
-                        Text(title)
-                            .font(Font(Roboto.thinItalic(size: 18)))
-                            .padding(.horizontal, 26)
-                        Spacer()
+                        if isEditOn {
+                            TextField("Enter new title", text: $title)
+                        } else {
+                            Text(title)
+                            Spacer()
+                        }
                     }
+                    .font(Font(Roboto.thinItalic(size: 18)))
+                    .padding(.horizontal, 26)
                     
                     //MARK: Assigned to
                     VStack {
@@ -122,10 +138,17 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                Text(description)
-                                    .font(Font(Roboto.regular(size: 16)))
-                                    .lineLimit(2)
-                                Spacer()
+                                if isEditOn {
+                                    TextField("Enter new description", text: $description)
+                                        .font(Font(Roboto.regular(size: 16)))
+                                        .lineLimit(2)
+                                    Spacer()
+                                } else {
+                                    Text(description)
+                                        .font(Font(Roboto.regular(size: 16)))
+                                        .lineLimit(2)
+                                    Spacer()
+                                }
                             }
                             Spacer()
                         }
@@ -194,32 +217,47 @@ struct CompleteTask: View {
                             .padding(.vertical)
                     }
 
-                    CustomBlueFilledButton(text: "Complete Task") {
-                        updateAction()
+                    if isEditOn {
+                        CustomBlueFilledButton(text: "Done") {
+                            withAnimation {
+                                for user in members ?? [] {
+                                    membersId?.append(user.id)
+                                }
+                                isEditOn.toggle()
+                                updateAction()
+                            }
+                        }
+                        .padding(.top, 10)
+                    } else {
+                        CustomBlueFilledButton(text: "Complete Task") {
+                            updateAction()
+                        }
+                        .padding(.top, 10)
                     }
-                    .padding(.top, 10)
                     
                     //MARK: Comment Button
-                    Button {
-                        withAnimation {
-                            showComments.toggle()
-                        }
-                    } label: {
-                        HStack {
-                            Text("Comment")
-                                .font(Font(Roboto.thinItalic(size: 17)))
-                            VStack {
-                                Image(systemName: "chevron.down")
-                                    .offset(y: 4)
-                                    .foregroundColor(Color.customGray)
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(.black)
+                    if !isEditOn {
+                        Button {
+                            withAnimation {
+                                showComments.toggle()
                             }
-                            .rotationEffect(Angle(degrees: showComments ? -180 : 0))
+                        } label: {
+                            HStack {
+                                Text("Comment")
+                                    .font(Font(Roboto.thinItalic(size: 17)))
+                                VStack {
+                                    Image(systemName: "chevron.down")
+                                        .offset(y: 4)
+                                        .foregroundColor(Color.customGray)
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.black)
+                                }
+                                .rotationEffect(Angle(degrees: showComments ? -180 : 0))
+                            }
                         }
+                        .padding()
+                        .foregroundColor(.secondary)
                     }
-                    .padding()
-                    .foregroundColor(.secondary)
                 }
             }
             .frame(width: 343, height: 646)
@@ -233,27 +271,12 @@ struct CompleteTask: View {
                              addMemberAction: {
                     
                 }, editAction: {
-                    showEditView.toggle()
                     showSettingsView.toggle()
+                    isEditOn.toggle()
                 }, deleteAction: {
                     showAlert.toggle()
                 })
             }
-
-            if showEditView {
-                EditTaskView(isPresented: $showEditView,
-                             title: $title,
-                             members: $members,
-                             membersAvatars: $membersAvatars,
-                             dueDate: $dueDate,
-                             description: $description,
-                             tag: tag,
-                             color: color,
-                             updateAction: {
-                    
-                })
-            }
-            
         }
         .alert("Delete «\(title)» task?", isPresented: $showAlert) {
             Button("Delete", role: .destructive) {
@@ -282,6 +305,7 @@ struct CompleteTask_Previews: PreviewProvider {
     @State static var title = ""
     @State static var members: [Members]? = []
     @State static var membersAvatars: [UIImage] = []
+    @State static var membersId: [String]? = []
     @State static var dueDate = ""
     @State static var description = ""
     
@@ -290,6 +314,7 @@ struct CompleteTask_Previews: PreviewProvider {
                       title: $title,
                       members: $members,
                       membersAvatars: $membersAvatars,
+                      membersId: $membersId,
                       dueDate: $dueDate,
                       description: $description,
                       updateAction: {},

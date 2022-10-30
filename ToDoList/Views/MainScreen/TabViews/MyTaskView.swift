@@ -36,6 +36,7 @@ struct MyTaskView: View {
                              title: $viewModel.title,
                              members: $viewModel.members,
                              membersAvatars: $viewModel.membersAvatars,
+                             membersId: $viewModel.membersId,
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
                              updateAction: {

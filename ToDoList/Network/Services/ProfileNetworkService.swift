@@ -32,7 +32,7 @@ final class ProfileNetworkService {
         return networkManager.get(path: path, header: header)
     }
     
-    func downloadUserAvatar(url: String) -> AnyPublisher<UIImage, NetworkError> {
+    func downloadUserAvatar(url: String) -> AnyPublisher<UIImage?, NetworkError> {
         let path = url
         return networkManager.downloadAvatar(path: path, header: header)
     }

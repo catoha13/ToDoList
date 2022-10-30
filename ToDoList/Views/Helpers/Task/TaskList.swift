@@ -35,9 +35,7 @@ struct TaskList: View {
                         taskProjectId = task.projectId
                         members = task.members
                         for user in members ?? [] {
-//                            if membersUrl.count < members?.count ?? 0 {
-                                membersUrl.append(user.avatarUrl)
-//                            }
+                            membersUrl.append(user.avatarUrl)
                         }
                         showTask.toggle()
                     }

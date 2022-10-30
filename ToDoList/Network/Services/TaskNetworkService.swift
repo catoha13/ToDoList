@@ -70,7 +70,7 @@ final class TaskNetworkService {
         return networkManager.get(path: path, header: header)
     }
     
-    func downloadMembersAvatars(url: String) -> AnyPublisher<UIImage, NetworkError> {
+    func downloadMembersAvatars(url: String) -> AnyPublisher<UIImage?, NetworkError> {
         let path = url
         return networkManager.downloadAvatar(path: path, header: header)
     }
