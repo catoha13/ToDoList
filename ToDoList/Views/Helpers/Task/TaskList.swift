@@ -62,14 +62,6 @@ struct TaskList: View {
         .scrollContentBackground(.hidden)
         .padding(.top, -8)
     }
-    private func delete(at offsets: IndexSet) {
-        userTasks.remove(atOffsets: offsets)
-    }
-    private func formatter(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = ", MMM d/yyyy"
-        return formatter.string(from: date)
-    }
 }
 
 struct TaskList_Previews: PreviewProvider {

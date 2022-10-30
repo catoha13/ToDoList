@@ -48,7 +48,7 @@ struct TaskCell: View {
         .frame(width: 343, height: 70)
 
     }
-    func trimDate(date: String) -> String {
+    private func trimDate(date: String) -> String {
         let firstTrim = date.components(separatedBy: "T")
         let secondTrim = firstTrim.last?.components(separatedBy: ".")
         var trimSeconds = secondTrim?.first

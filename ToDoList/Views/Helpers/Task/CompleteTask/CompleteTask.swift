@@ -24,6 +24,9 @@ struct CompleteTask: View {
     
     var body: some View {
         ZStack {
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.secondary)
             ScrollView(showsIndicators: false) {
                 VStack {
                     //MARK: Buttons

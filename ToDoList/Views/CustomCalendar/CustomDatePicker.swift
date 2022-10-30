@@ -13,66 +13,70 @@ struct CustomDatePicker: View {
     
     var body: some View {
         ZStack {
-            SwipeGesture(selector: $currentMonth)
-            
-            VStack(spacing: 20) {
-                //MARK: Month and Year
-                HStack(alignment: .center, spacing: 6) {
-                    Text(getYearAndMonth()[0].uppercased())
-                        .font(.RobotoThinItalicExtraSmall)
-                        .foregroundColor(.black)
-                    
-                    Text(getYearAndMonth()[1])
-                        .font(.RobotoThinItalicExtraSmall)
-                        .foregroundColor(.black)
-                }
-                .padding(.top, 20)
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.secondary)
+            ZStack {
+                SwipeGesture(selector: $currentMonth)
                 
-                //MARK: Days of the week
-                HStack(spacing: 0) {
-                    ForEach(days, id: \.self) { day in
-                        Text(day)
+                VStack(spacing: 20) {
+                    //MARK: Month and Year
+                    HStack(alignment: .center, spacing: 6) {
+                        Text(getYearAndMonth()[0].uppercased())
                             .font(.RobotoThinItalicExtraSmall)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.black)
+                        
+                        Text(getYearAndMonth()[1])
+                            .font(.RobotoThinItalicExtraSmall)
+                            .foregroundColor(.black)
                     }
-                }
-                
-                //MARK: Dates
-                ZStack {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        //MARK: Month
-                        ForEach(extractDate()) { value in
-                            CardView(value: value)
+                    .padding(.top, 20)
+                    
+                    //MARK: Days of the week
+                    HStack(spacing: 0) {
+                        ForEach(days, id: \.self) { day in
+                            Text(day)
+                                .font(.RobotoThinItalicExtraSmall)
+                                .foregroundColor(.secondary)
+                                .frame(maxWidth: .infinity)
                         }
                     }
-                    .frame(height: 230)
-                    .padding(.bottom, 20)
-                    .onChange(of: currentMonth, perform: { _ in
+                    
+                    //MARK: Dates
+                    ZStack {
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            //MARK: Month
+                            ForEach(extractDate()) { value in
+                                CardView(value: value)
+                            }
+                        }
+                        .frame(height: 230)
+                        .padding(.bottom, 20)
+                        .onChange(of: currentMonth, perform: { _ in
+                            withAnimation {
+                                currentDate = getCurrentMonth()
+                            }
+                        })
+                    }
+                    DatePicker("", selection: $currentTime, displayedComponents: .hourAndMinute)
+                        .padding(.trailing, 130)
+                        .padding(.bottom)
+                    
+                    CustomCoralFilledButtonSmall(text: "Done") {
                         withAnimation {
-                            currentDate = getCurrentMonth()
+                            isPresented.toggle()
                         }
-                    })
-                }
-                DatePicker("", selection: $currentTime, displayedComponents: .hourAndMinute)
-                    .padding(.trailing, 130)
-                    .padding(.bottom)
-                
-                CustomCoralFilledButtonSmall(text: "Done") {
-                    withAnimation {
-                        isPresented.toggle()
                     }
+                    .padding(.bottom, 40)
                 }
-                .padding(.bottom, 40)
             }
-        }
             .background(.white)
             .cornerRadius(Constants.radiusFive)
             .shadow(radius: 5)
             .padding(.horizontal, 20)
             .frame(height: 340)
             .animation(.default, value: selectedDate)
-        
+        }
     }
     
     func CardView(value: DateValue) -> some View {
