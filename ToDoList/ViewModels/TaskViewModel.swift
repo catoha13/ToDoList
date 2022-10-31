@@ -40,6 +40,10 @@ final class TaskViewModel: ObservableObject {
     @Published var selectedIndex = 0
     @Published var selectedDate: Date?
     @Published var fetchTasksResponse: [TaskResponseData] = []
+    @Published var filterCompletedTasks: Bool? = false
+    @Published var filterIndex = 1
+    @Published var showFilter = false
+
     
     //MARK: Update Task
     @Published var showTaskCompletionView = false

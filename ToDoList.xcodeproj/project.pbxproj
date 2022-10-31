@@ -94,6 +94,7 @@
 		AC925B842898594F0098892A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B832898594F0098892A /* ColorButton.swift */; };
 		AC9CC1A028CA0FEF005B4387 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */; };
 		ACA623F628D9E4E30038888E /* AboutUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA623F528D9E4E30038888E /* AboutUser.swift */; };
+		ACA83DAA29105C2800E3C152 /* TaskFilterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA83DA929105C2800E3C152 /* TaskFilterSettings.swift */; };
 		ACADC52928C76F7400289409 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52828C76F7400289409 /* TaskCell.swift */; };
 		ACADC52B28C774D800289409 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC52A28C774D800289409 /* TaskList.swift */; };
 		ACB7525228C0AADD0015B77B /* UploadAvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */; };
@@ -230,6 +231,7 @@
 		AC925B832898594F0098892A /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		AC9CC19F28CA0FEF005B4387 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		ACA623F528D9E4E30038888E /* AboutUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUser.swift; sourceTree = "<group>"; };
+		ACA83DA929105C2800E3C152 /* TaskFilterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilterSettings.swift; sourceTree = "<group>"; };
 		ACADC52828C76F7400289409 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		ACADC52A28C774D800289409 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		ACB7525128C0AADC0015B77B /* UploadAvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAvatarModel.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				ACADC52A28C774D800289409 /* TaskList.swift */,
 				AC6AD07C28FE96D20032F486 /* TaskHeader.swift */,
 				ACE1E453290842EF004F660C /* TaskSettings.swift */,
+				ACA83DA929105C2800E3C152 /* TaskFilterSettings.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -919,6 +922,7 @@
 				AC925B82289855CE0098892A /* ChooseColor.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
 				AC43EAAA2902B007001D7B31 /* CustomCalendar.swift in Sources */,
+				ACA83DAA29105C2800E3C152 /* TaskFilterSettings.swift in Sources */,
 				AC676BCB288EBE7F001DDE34 /* CustomPicker.swift in Sources */,
 				AC676BC7288EBE7F001DDE34 /* QuickView.swift in Sources */,
 			);

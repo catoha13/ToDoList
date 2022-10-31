@@ -6,7 +6,11 @@ struct MyTaskView: View {
     var body: some View {
         ZStack {
             VStack {
-                TaskHeader(action: {})
+                TaskHeader() {
+                    withAnimation(.default) {
+                        viewModel.showFilter.toggle()
+                    }
+                }
                 
                 SegmentedPickerExample(titles: ["Today", "Month"], selectedIndex: $viewModel.selectedIndex)
                 
@@ -15,6 +19,7 @@ struct MyTaskView: View {
                 }
                 
                 TaskList(userTasks: $viewModel.fetchTasksResponse,
+                         filterCompletedTasks: $viewModel.filterCompletedTasks,
                          showTask: $viewModel.showTaskCompletionView,
                          taskTitle: $viewModel.title,
                          taskId: $viewModel.taskId,
@@ -56,6 +61,20 @@ struct MyTaskView: View {
                     viewModel.membersAvatars = []
                     viewModel.membersUrls = []
                 }
+            }
+            
+            if viewModel.showFilter {
+                TaskFilterSettings(isPresented: $viewModel.showFilter,
+                                   isSelected: $viewModel.filterIndex,
+                                   showIncpomlete: {
+                    viewModel.filterCompletedTasks = true
+                },
+                                   showComplete: {
+                    viewModel.filterCompletedTasks = false
+                },
+                                   showAll: {
+                    viewModel.filterCompletedTasks = nil
+                })
             }
         }
     }
