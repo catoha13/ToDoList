@@ -13,12 +13,12 @@ struct TaskList: View {
     @Binding var taskProjectId: String
 //    @Binding var attachments:
     @Binding var members: [Members]?
-    
     @Binding var membersUrl: [String]
     
-    @State private var showAlert = false
-
     @State var deteleAction: () -> ()
+    
+    @State private var showAlert = false
+    
     var body: some View {
         List {
             ForEach(userTasks, id: \.self) { task in

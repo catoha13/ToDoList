@@ -9,18 +9,23 @@ struct CompleteTask: View {
     @Binding var membersId: [String]?
     @Binding var dueDate: String
     @Binding var description: String
-    //MARK: Tag
     @State var tag = "Personal"
     @State var color: Color = .customBlue
+    @Binding var mergedArray: [(Members, UIImage, id: UUID)]
     
     @State var updateAction: () -> ()
-    @State var editAction: () -> ()
+    @State var addMemberAction: () -> ()
     @State var deleteAction: () -> ()
     
+    @State private var addedMebers: [Members]? = []
+    @State private var addedMembersAvatars: [UIImage] = []
+    @State private var addedMembersId: [String]? = []
+    
+    @State private var isEditOn = false
     @State private var showComments = false
     @State private var showSettingsView: Bool = false
     @State private var showAlert = false
-    @State private var isEditOn = false
+    @State private var showAddMembers = false
     
     var body: some View {
         ZStack {
@@ -175,12 +180,14 @@ struct CompleteTask: View {
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
                                 HStack {
-                                    ForEach(membersAvatars, id: \.self) { avatar in
-                                        Image(uiImage: avatar)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 32, height: 32)
-                                            .clipShape(Circle())
+                                    ScrollView(.horizontal) {
+                                        ForEach(membersAvatars, id: \.self) { avatar in
+                                            Image(uiImage: avatar)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 32, height: 32)
+                                                .clipShape(Circle())
+                                        }
                                     }
                                 }
                             }
@@ -220,6 +227,7 @@ struct CompleteTask: View {
                             .padding(.vertical)
                     }
 
+                    //MARK: Confirm button
                     if isEditOn {
                         CustomBlueFilledButton(text: "Done") {
                             withAnimation {
@@ -272,13 +280,24 @@ struct CompleteTask: View {
             if showSettingsView {
                 TaskSettings(isPresented: $showSettingsView,
                              addMemberAction: {
-                    
+                    showAddMembers.toggle()
+                    addMemberAction()
                 }, editAction: {
                     showSettingsView.toggle()
                     isEditOn.toggle()
                 }, deleteAction: {
                     showAlert.toggle()
                 })
+            }
+            
+            if showAddMembers {
+                AddMembersView(isPresented: $showAddMembers,
+                               mergedArray: $mergedArray,
+                               members: $addedMebers,
+                               membersId: $addedMembersId,
+                               membersAvatars: $addedMembersAvatars) {
+                    showAddMembers.toggle()
+                }
             }
         }
         .alert("Delete «\(title)» task?", isPresented: $showAlert) {
@@ -311,6 +330,7 @@ struct CompleteTask_Previews: PreviewProvider {
     @State static var membersId: [String]? = []
     @State static var dueDate = ""
     @State static var description = ""
+    @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
     
     static var previews: some View {
         CompleteTask( isPresented: $closeViewTask,
@@ -320,8 +340,9 @@ struct CompleteTask_Previews: PreviewProvider {
                       membersId: $membersId,
                       dueDate: $dueDate,
                       description: $description,
+                      mergedArray: $mergedArray,
                       updateAction: {},
-                      editAction: {},
+                      addMemberAction: {},
                       deleteAction: {})
     }
 }

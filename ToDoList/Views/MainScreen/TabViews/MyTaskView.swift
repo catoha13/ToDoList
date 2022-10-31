@@ -39,16 +39,16 @@ struct MyTaskView: View {
                              membersId: $viewModel.membersId,
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
+                             mergedArray: $viewModel.mergedUsersAndAvatars,
                              updateAction: {
                     viewModel.updateTask()
-                }, editAction: {
-                    
+                }, addMemberAction: {
+                    viewModel.loadSearch()
                 }, deleteAction: {
                     viewModel.deleteTask()
                 })
                 .onAppear {
                     viewModel.loadAvatars()
-                   
                 }
                 .onDisappear {
                     viewModel.membersAvatars = []

@@ -19,6 +19,7 @@ struct TaskSettings: View {
                     Button(action: {
                         withAnimation(.default) {
                             addMemberAction()
+                            isPresented.toggle()
                         }
                     }, label: {
                         HStack {

@@ -131,8 +131,7 @@ struct CreateTaskView: View {
                                                     if let index = viewModel.members?.firstIndex(where: { $0.id == $0.id}) {
                                                         viewModel.members?.remove(at: index)
                                                     }
-                                                }
-                                                
+                                                }   
                                             }
                                     }
                                 }
