@@ -11,7 +11,7 @@ struct QuickView: View {
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {
                     //MARK: List
-                    ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, id in
+                    ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, _ in
                         //MARK: Notes
                         NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted) {
                             viewModel.selectedNote = notes.id

@@ -196,7 +196,7 @@ final class QuickViewModel: ObservableObject {
         deleteChecklistRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
-                self?.fetchOneChecklist()
+                self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
