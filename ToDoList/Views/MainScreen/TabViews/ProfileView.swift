@@ -16,7 +16,7 @@ struct ProfileView: View {
                       completedTasks: $viewModel.completedTask) {
                 
             }
-            StatisticCollection(tasksCount: 2,
+            StatisticCollection(tasksCount: $viewModel.createdTask,
                                 toDoCount: 13,
                                 eventsCount: 9)
                 .padding()
@@ -34,14 +34,16 @@ struct ProfileView: View {
                                 text: "Events",
                                 color: .customCoral,
                                 progress: $viewModel.eventsProgress)
-                StatisticCircle(percentage: $viewModel.quickNotesPercentage,
+                
+                StatisticCircle(percentage: $viewModel.toDotsPercentage,
                                 text: "To do",
                                 color: .customBlue,
-                                progress: $viewModel.quickNoteProgress)
-                StatisticCircle(percentage: $viewModel.toDotsPercentage,
+                                progress: $viewModel.toDoProgress)
+                
+                StatisticCircle(percentage: $viewModel.quickNotesPercentage,
                                 text: "Quick notes",
                                 color: .customPurple,
-                                progress: $viewModel.eventsProgress)
+                                progress: $viewModel.quickNoteProgress)
             }
         }
         .background(Color.customWhiteBackground)

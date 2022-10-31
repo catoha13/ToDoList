@@ -27,12 +27,13 @@ struct MyTaskView: View {
                          deteleAction: {
                     viewModel.deleteTask()
                 })
-               
+                
             }
             .animation(.default, value: viewModel.selectedIndex)
             
             if viewModel.showTaskCompletionView {
                 CompleteTask(isPresented: $viewModel.showTaskCompletionView,
+                             isCompleted: $viewModel.isCompleted,
                              title: $viewModel.title,
                              members: $viewModel.members,
                              membersAvatars: $viewModel.membersAvatars,
@@ -41,9 +42,10 @@ struct MyTaskView: View {
                              description: $viewModel.description,
                              mergedArray: $viewModel.mergedUsersAndAvatars,
                              updateAction: {
+                    viewModel.isCompleted.toggle()
                     viewModel.updateTask()
                 }, addMemberAction: {
-                    viewModel.loadSearch()
+                    //                    viewModel.loadSearch()
                 }, deleteAction: {
                     viewModel.deleteTask()
                 })

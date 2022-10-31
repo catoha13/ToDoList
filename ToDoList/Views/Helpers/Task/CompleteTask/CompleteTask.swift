@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CompleteTask: View {
     @Binding var isPresented: Bool
+    @Binding var isCompleted: Bool
     
     @Binding var title: String
     @Binding var members: [Members]?
@@ -179,8 +180,8 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                HStack {
-                                    ScrollView(.horizontal) {
+                                ScrollView(.horizontal) {
+                                    HStack {
                                         ForEach(membersAvatars, id: \.self) { avatar in
                                             Image(uiImage: avatar)
                                                 .resizable()
@@ -240,8 +241,9 @@ struct CompleteTask: View {
                         }
                         .padding(.top, 10)
                     } else {
-                        CustomBlueFilledButton(text: "Complete Task") {
+                        CustomBlueFilledButton(text: isCompleted ? "Undo completion" : "Complete Task") {
                             updateAction()
+                            isPresented.toggle()
                         }
                         .padding(.top, 10)
                     }
@@ -324,6 +326,7 @@ struct CompleteTask: View {
 
 struct CompleteTask_Previews: PreviewProvider {
     @State static var closeViewTask = false
+    @State static var isCompleted = false
     @State static var title = ""
     @State static var members: [Members]? = []
     @State static var membersAvatars: [UIImage] = []
@@ -334,6 +337,7 @@ struct CompleteTask_Previews: PreviewProvider {
     
     static var previews: some View {
         CompleteTask( isPresented: $closeViewTask,
+                      isCompleted: $isCompleted,
                       title: $title,
                       members: $members,
                       membersAvatars: $membersAvatars,

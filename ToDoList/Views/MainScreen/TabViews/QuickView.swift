@@ -36,7 +36,9 @@ struct QuickView: View {
                         .confirmationDialog("Delete this note?",
                                             isPresented: $viewModel.isNoteEditing) {
                             Button("Edit") {
-                                viewModel.showNoteEditView.toggle()
+                                withAnimation(.default) {
+                                    viewModel.showNoteEditView.toggle()
+                                }
                             }
                             Button("Delete", role: .destructive) {
                                 viewModel.showNoteAlert.toggle()
@@ -78,7 +80,9 @@ struct QuickView: View {
                                       }
                                       .confirmationDialog("What do you want?", isPresented: $viewModel.isChecklistEditing) {
                                           Button("Edit", role: .none) {
-                                              viewModel.showChecklistEditView.toggle()
+                                              withAnimation(.default) {
+                                                  viewModel.showChecklistEditView.toggle()
+                                              }
                                           }
                                           Button("Delete Checklist", role: .destructive) {
                                               viewModel.showChecklistAlert.toggle()
