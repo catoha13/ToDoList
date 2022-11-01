@@ -23,6 +23,7 @@ struct MenuView: View {
                                 }
                         }
                     }
+                    .animation(.default, value: viewModel.projectsArray)
                     
                     AddProjectButton() {
                         withAnimation {

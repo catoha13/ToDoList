@@ -5,14 +5,14 @@ struct TaskList: View {
     @Binding var userTasks: [TaskResponseData]
     @Binding var filterCompletedTasks: Bool?
     @Binding var showTask: Bool
-
+    
     @Binding var taskTitle: String
     @Binding var taskId: String
     @Binding var taskDueDate: String
     @Binding var taskDescription: String
     @Binding var taskAssigned_to: String
     @Binding var taskProjectId: String
-//    @Binding var attachments:
+    //    @Binding var attachments:
     @Binding var members: [Members]?
     @Binding var membersUrl: [String]
     
@@ -22,80 +22,43 @@ struct TaskList: View {
     
     var body: some View {
         List {
-            ForEach(userTasks, id: \.self) { task in
-                if task.isCompleted == filterCompletedTasks {
-                    TaskCell(title: task.title,
-                             time: task.dueDate,
-                             isDone: task.isCompleted,
-                             editAction: {
-                        withAnimation(.default) {
-                            taskId = task.id
-                            taskTitle = task.title
-                            taskDueDate = task.dueDate
-                            taskDescription = task.description
-                            taskAssigned_to = task.assignedTo
-                            taskProjectId = task.projectId
-                            members = task.members
-                            for user in members ?? [] {
-                                membersUrl.append(user.avatarUrl)
-                            }
-                            showTask.toggle()
-                        }
-                    },
-                             deleteAction: {
+            ForEach(userTasks.filter{filterCompletedTasks == $0.isCompleted} , id: \.self) { task in
+                TaskCell(title: task.title,
+                         time: task.dueDate,
+                         isDone: task.isCompleted,
+                         editAction: {
+                    withAnimation(.default) {
                         taskId = task.id
                         taskTitle = task.title
-                        showAlert.toggle()
-                    })
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Delete «\(taskTitle)»?"),
-                              message: Text("You cannot undo this action"),
-                              primaryButton: .cancel(),
-                              secondaryButton: .destructive(Text("Delete")) {
-                            userTasks.removeAll(where: {$0.id == taskId})
-                            deteleAction()
-                        })
-                    }
-                    .listRowSeparator(.hidden)
-                    
-                } else if filterCompletedTasks == nil {
-                    TaskCell(title: task.title,
-                             time: task.dueDate,
-                             isDone: task.isCompleted,
-                             editAction: {
-                        withAnimation(.default) {
-                            taskId = task.id
-                            taskTitle = task.title
-                            taskDueDate = task.dueDate
-                            taskDescription = task.description
-                            taskAssigned_to = task.assignedTo
-                            taskProjectId = task.projectId
-                            members = task.members
-                            for user in members ?? [] {
-                                membersUrl.append(user.avatarUrl)
-                            }
-                            showTask.toggle()
+                        taskDueDate = task.dueDate
+                        taskDescription = task.description
+                        taskAssigned_to = task.assignedTo
+                        taskProjectId = task.projectId
+                        members = task.members
+                        for user in members ?? [] {
+                            membersUrl.append(user.avatarUrl)
                         }
-                    },
-                             deleteAction: {
-                        taskId = task.id
-                        taskTitle = task.title
-                        showAlert.toggle()
-                    })
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Delete «\(taskTitle)»?"),
-                              message: Text("You cannot undo this action"),
-                              primaryButton: .cancel(),
-                              secondaryButton: .destructive(Text("Delete")) {
-                            userTasks.removeAll(where: {$0.id == taskId})
-                            deteleAction()
-                        })
+                        showTask.toggle()
                     }
-                    .listRowSeparator(.hidden)
+                },
+                         deleteAction: {
+                    taskId = task.id
+                    taskTitle = task.title
+                    showAlert.toggle()
+                })
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Delete «\(taskTitle)»?"),
+                          message: Text("You cannot undo this action"),
+                          primaryButton: .cancel(),
+                          secondaryButton: .destructive(Text("Delete")) {
+                        userTasks.removeAll(where: {$0.id == taskId})
+                        deteleAction()
+                    })
                 }
+                .listRowSeparator(.hidden)
             }
-  
         }
+        .scrollIndicators(.never)
         .animation(.default, value: userTasks)
         .background(Color.customWhiteBackground.ignoresSafeArea())
         .scrollContentBackground(.hidden)

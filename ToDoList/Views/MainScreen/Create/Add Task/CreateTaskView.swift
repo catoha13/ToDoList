@@ -5,6 +5,8 @@ struct CreateTaskView: View {
     
     @Binding var isPresented: Bool
     
+    @State private var isMaxLength = false
+    
     var body: some View {
         ZStack {
             VStack {
@@ -34,6 +36,25 @@ struct CreateTaskView: View {
                         .font(Font(Roboto.thinItalic(size: 18)))
                         .frame(height: 66)
                         .background(Color.customBar)
+                        .onChange(of: viewModel.title) { _ in
+                            withAnimation {
+                                if viewModel.title.count > Constants.maxTaskLenght {
+                                    isMaxLength = true
+                                } else {
+                                    isMaxLength = false
+                                }
+                            }
+                        }
+                        
+                        if isMaxLength {
+                            HStack {
+                                Text("Title is too long")
+                                    .foregroundColor(.red)
+                                .font(.RobotoThinItalicSmall)
+                                .padding(.leading, 30)
+                                Spacer()
+                            }
+                        }
                         
                         //MARK: Description Label
                         HStack {
@@ -47,11 +68,10 @@ struct CreateTaskView: View {
                         
                         //MARK: Description Text
                         VStack {
-                            TextField(text: $viewModel.description) {
-                                Text("Text here")
-                                    .font(Font(Roboto.regular(size: 16)))
-                            }
-                            .padding(.horizontal, 10)
+                            TextEditor(text: $viewModel.description)
+                                .font(Font(Roboto.regular(size: 16)))
+                                .lineLimit(3)
+                                .padding(.horizontal, 10)
                             Spacer()
                             HStack {
                                 //MARK: Attachments

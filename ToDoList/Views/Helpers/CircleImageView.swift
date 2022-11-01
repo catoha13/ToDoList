@@ -10,5 +10,6 @@ struct CircleImageView: View {
             .resizable()
             .frame(width: width, height: height)
             .clipShape(Circle())
+            .animation(.default, value: image)
     }
 }

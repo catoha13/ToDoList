@@ -26,6 +26,7 @@ struct StatisticCircle: View {
             Text(text)
                 .font(.RobotoMediumSmall)
         }
+        .animation(.default, value: progress)
     }
 }
 
