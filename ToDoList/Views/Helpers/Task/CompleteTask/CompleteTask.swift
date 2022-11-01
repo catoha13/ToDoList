@@ -12,15 +12,16 @@ struct CompleteTask: View {
     @Binding var description: String
     @State var tag = "Personal"
     @State var color: Color = .customBlue
+    
     @Binding var mergedArray: [(Members, UIImage, id: UUID)]
     
     @State var updateAction: () -> ()
-    @State var addMemberAction: () -> ()
+    @State var addMembersAction: () -> ()
     @State var deleteAction: () -> ()
     
-    @State private var addedMebers: [Members]? = []
+    @State private var addedMembers: [Members]? = []
     @State private var addedMembersAvatars: [UIImage] = []
-    @State private var addedMembersId: [String]? = []
+    @State private var addedMmembersId: [String]? = []
     
     @State private var isEditOn = false
     @State private var showComments = false
@@ -283,7 +284,6 @@ struct CompleteTask: View {
                 TaskSettings(isPresented: $showSettingsView,
                              addMemberAction: {
                     showAddMembers.toggle()
-                    addMemberAction()
                 }, editAction: {
                     showSettingsView.toggle()
                     isEditOn.toggle()
@@ -295,9 +295,16 @@ struct CompleteTask: View {
             if showAddMembers {
                 AddMembersView(isPresented: $showAddMembers,
                                mergedArray: $mergedArray,
-                               members: $addedMebers,
-                               membersId: $addedMembersId,
+                               members: $addedMembers,
+                               membersId: $addedMmembersId,
                                membersAvatars: $addedMembersAvatars) {
+                    members?.insert(contentsOf: addedMembers ?? [], at: 0)
+                    membersAvatars.insert(contentsOf: addedMembersAvatars, at: 0)
+                    membersId?.insert(contentsOf: addedMmembersId ?? [], at: 0)
+                    addedMembers = []
+                    addedMembersAvatars = []
+                    addedMmembersId = []
+                    addMembersAction()
                     showAddMembers.toggle()
                 }
             }
@@ -346,7 +353,7 @@ struct CompleteTask_Previews: PreviewProvider {
                       description: $description,
                       mergedArray: $mergedArray,
                       updateAction: {},
-                      addMemberAction: {},
+                      addMembersAction: {},
                       deleteAction: {})
     }
 }

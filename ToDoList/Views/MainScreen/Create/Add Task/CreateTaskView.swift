@@ -171,7 +171,7 @@ struct CreateTaskView: View {
                     
                     //MARK: SearchUser View
                     if viewModel.assigneeName != viewModel.selectedUser {
-                        SearchUserView(mergedArray: $viewModel.mergedUsersAndAvatars,
+                        SearchUserView(mergedArray: $viewModel.mergedMebmersAndAvatars,
                                        filteredText: $viewModel.assigneeName,
                                        searchedUser: $viewModel.assigneeName,
                                        searchedUserId: $viewModel.assigneeId,
@@ -193,7 +193,7 @@ struct CreateTaskView: View {
                     //MARK: AddMember View
                     if viewModel.showAddMemberView {
                         AddMembersView(isPresented: $viewModel.showAddMemberView,
-                                       mergedArray: $viewModel.mergedUsersAndAvatars,
+                                       mergedArray: $viewModel.mergedMebmersAndAvatars,
                                        members: $viewModel.members,
                                        membersId: $viewModel.membersId,
                                        membersAvatars: $viewModel.addedMembersAvatars) {

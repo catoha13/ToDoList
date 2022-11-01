@@ -35,7 +35,7 @@ struct MyTaskView: View {
                 
             }
             .animation(.default, value: viewModel.selectedIndex)
-            
+
             if viewModel.showTaskCompletionView {
                 CompleteTask(isPresented: $viewModel.showTaskCompletionView,
                              isCompleted: $viewModel.isCompleted,
@@ -45,17 +45,18 @@ struct MyTaskView: View {
                              membersId: $viewModel.membersId,
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
-                             mergedArray: $viewModel.mergedUsersAndAvatars,
+                             mergedArray: $viewModel.usersAndAvatars,
                              updateAction: {
                     viewModel.isCompleted.toggle()
                     viewModel.updateTask()
-                }, addMemberAction: {
-                    //                    viewModel.loadSearch()
+                }, addMembersAction: {
+                    viewModel.updateTask()
                 }, deleteAction: {
                     viewModel.deleteTask()
                 })
                 .onAppear {
                     viewModel.loadAvatars()
+                    viewModel.loadUsers()
                 }
                 .onDisappear {
                     viewModel.membersAvatars = []
@@ -67,10 +68,10 @@ struct MyTaskView: View {
                 TaskFilterSettings(isPresented: $viewModel.showFilter,
                                    isSelected: $viewModel.filterIndex,
                                    showIncpomlete: {
-                    viewModel.filterCompletedTasks = true
+                    viewModel.filterCompletedTasks = false
                 },
                                    showComplete: {
-                    viewModel.filterCompletedTasks = false
+                    viewModel.filterCompletedTasks = true
                 },
                                    showAll: {
                     viewModel.filterCompletedTasks = nil

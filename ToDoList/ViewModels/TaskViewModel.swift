@@ -3,6 +3,32 @@ import SwiftUI
 
 final class TaskViewModel: ObservableObject {
     
+    //MARK: MyTaskView
+    @Published var selectedIndex = 0
+    @Published var selectedDate: Date?
+    @Published var fetchTasksResponse: [TaskResponseData] = []
+    @Published var filterCompletedTasks: Bool? = false
+    @Published var filterIndex = 0
+    @Published var showFilter = false
+    @Published var users: [Members] = []
+    @Published var usersUrls: [String] = []
+    @Published var userUrl = ""
+    @Published var usersAvatars: [UIImage] = []
+    @Published var usersAndAvatars: [(Members, UIImage, id: UUID)] = []
+    
+    //MARK: Update Task
+    @Published var showTaskCompletionView = false
+    
+    //MARK: Delete Task
+    @Published var taskId = ""
+    
+    //MARK: CreateTaskView
+    @Published var membersUrl = ""
+    @Published var membersUrls: [String] = []
+    @Published var membersAvatars: [UIImage] = []
+    @Published var mergedMebmersAndAvatars: [(Members, UIImage, id: UUID)] = []
+    @Published var selectedTime: Date?
+    
     //MARK: Create task model
     @Published var assigneeName = ""
     @Published var assigneeId = ""
@@ -29,32 +55,10 @@ final class TaskViewModel: ObservableObject {
     @Published var members: [Members]? = []
     @Published var addedMembersAvatars: [UIImage] = []
     
-    //MARK: CreateTaskView
-    @Published var membersUrl = ""
-    @Published var membersUrls: [String] = []
-    @Published var membersAvatars: [UIImage] = []
-    @Published var mergedUsersAndAvatars: [(Members, UIImage, id: UUID)] = []
-    @Published var selectedTime: Date?
-    
-    //MARK: MyTaskView
-    @Published var selectedIndex = 0
-    @Published var selectedDate: Date?
-    @Published var fetchTasksResponse: [TaskResponseData] = []
-    @Published var filterCompletedTasks: Bool? = false
-    @Published var filterIndex = 1
-    @Published var showFilter = false
-
-    
-    //MARK: Update Task
-    @Published var showTaskCompletionView = false
-    
-    //MARK: Delete Task
-    @Published var taskId = ""
-    
     private var token = Token()
     private let user = User()
     private var taskService = TaskNetworkService()
-    private var cancellables = Set<AnyCancellable>()
+     var cancellables = Set<AnyCancellable>()
     
     private var header: String {
         return (token.tokenType ?? "") + " " + (token.savedToken ?? "")
@@ -109,10 +113,14 @@ final class TaskViewModel: ObservableObject {
         taskService.taskMembersSearch()
     }
     
-    private var downloadUsersAvatars: AnyPublisher<UIImage?, NetworkError> {
+    private var downloadMembersAvatars: AnyPublisher<UIImage?, NetworkError> {
         taskService.downloadMembersAvatars(url: membersUrl)
     }
-    
+
+    private var downloadUsersAvatars: AnyPublisher<UIImage?, NetworkError> {
+        taskService.downloadMembersAvatars(url: userUrl)
+    }
+
     private var searchProjects: AnyPublisher<SearchProjects, NetworkError> {
         taskService.projectsSearch()
     }
@@ -177,15 +185,43 @@ final class TaskViewModel: ObservableObject {
     func loadAvatars() {
         for count in 0..<membersUrls.count {
             membersUrl = membersUrls[count]
-            downloadUsersAvatars
+            downloadMembersAvatars
                 .sink { _ in
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item ?? UIImage(named: "background")!)
                     for _ in 0...(self?.membersAvatars.count ?? 0) {
                         self?.id.append(UUID())
                     }
-                    self?.mergedUsersAndAvatars = Array(zip(self?.searchUsersResponseArray ?? [], self?.membersAvatars ?? [], self?.id ?? []))
+                    self?.mergedMebmersAndAvatars = Array(zip(self?.searchUsersResponseArray ?? [], self?.membersAvatars ?? [], self?.id ?? []))
                 }
+                .store(in: &cancellables)
+        }
+    }
+    
+    func loadUsers() {
+        searchMembers
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.users = item.data.sorted(by: { $0.username < $1.username})
+                for user in item.data.sorted(by: { $0.username < $1.username}) {
+                    self?.usersUrls.append(user.avatarUrl)
+                }
+                self?.loadUserAvatars()
+            })
+            .store(in: &cancellables)
+    }
+    private func loadUserAvatars() {
+        for count in 0..<usersUrls.count {
+            userUrl = usersUrls[count]
+            downloadUsersAvatars
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { [weak self] item in
+                    self?.usersAvatars.append(item ?? UIImage(named: "background")!)
+                    for _ in 0...(self?.usersAvatars.count ?? 0) {
+                        self?.id.append(UUID())
+                    }
+                    self?.usersAndAvatars = Array(zip(self?.users ?? [], self?.usersAvatars ?? [], self?.id ?? []))
+                })
                 .store(in: &cancellables)
         }
     }
