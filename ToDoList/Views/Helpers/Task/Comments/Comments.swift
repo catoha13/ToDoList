@@ -5,7 +5,10 @@ struct Comments: View {
     @Binding var commentContent: String
     @Binding var commentId: String
     
+    @State var loadAvatars: () -> ()
     @State var deleteComment: () -> ()
+    
+    @State private var showAlert = false
     
     var body: some View {
         ForEach(comments, id: \.self) { comment in
@@ -19,7 +22,7 @@ struct Comments: View {
                     VStack(alignment: .leading) {
                         Text(comment.commentator?.username ?? " ")
                             .font(.RobotoThinItalicExtraSmall)
-                        Text(comment.createdAt)
+                        Text(convertDate(comment.createdAt))
                             .font(.RobotoRegularExtraSmall)
                             .foregroundColor(.secondary)
                     }
@@ -31,13 +34,32 @@ struct Comments: View {
             .onLongPressGesture {
                 commentId = comment.id
                 commentContent = comment.content
-                deleteComment()
+                showAlert.toggle()
             }
         }
         .padding(.horizontal, 30)
         .padding(.vertical, 10)
         .animation(.default, value: comments)
+        .alert("Delete comment«\(commentContent)»?", isPresented: $showAlert) {
+            Button("Delete", role: .destructive) {
+                comments.removeAll(where: {$0.id == commentId })
+            }
+            Button("Cancel", role: .cancel) {
+                deleteComment()
+                showAlert.toggle()
+            }
+        } message: {
+            Text("You cannot undo this action")
+        }
     }
+}
+
+private func convertDate(_ strDate: String) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+    let newDate = formatter.date(from: strDate) ?? Date()
+    formatter.dateFormat = "dd.MM.yyyy"
+    return formatter.string(from: newDate)
 }
 
 struct Comments_Previews: PreviewProvider {
@@ -49,6 +71,7 @@ struct Comments_Previews: PreviewProvider {
         Comments(comments: $comment,
                  commentContent: $commentContent,
                  commentId: $commentId,
+                 loadAvatars: {},
                  deleteComment: {})
     }
 }

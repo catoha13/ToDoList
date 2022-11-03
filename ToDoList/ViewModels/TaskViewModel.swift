@@ -10,11 +10,11 @@ final class TaskViewModel: ObservableObject {
     @Published var filterCompletedTasks: Bool? = false
     @Published var filterIndex = 0
     @Published var showFilter = false
-    @Published var users: [Members] = []
+    @Published var users: [Member] = []
     @Published var usersUrls: [String] = []
     @Published var userUrl = ""
     @Published var usersAvatars: [UIImage] = []
-    @Published var usersAndAvatars: [(Members, UIImage, id: UUID)] = []
+    @Published var usersAndAvatars: [(Member, UIImage, id: UUID)] = []
     
     //MARK: Update Task
     @Published var showTaskCompletionView = false
@@ -27,7 +27,7 @@ final class TaskViewModel: ObservableObject {
     @Published var membersUrl = ""
     @Published var membersUrls: [String] = []
     @Published var membersAvatars: [UIImage] = []
-    @Published var mergedMebmersAndAvatars: [(Members, UIImage, id: UUID)] = []
+    @Published var mergedMebmersAndAvatars: [(Member, UIImage, id: UUID)] = []
     @Published var selectedTime: Date?
     
     //MARK: Create task model
@@ -50,7 +50,7 @@ final class TaskViewModel: ObservableObject {
     @Published var commentId = ""
     
     //MARK: Search
-    @Published var searchUsersResponseArray: [Members] = []
+    @Published var searchUsersResponseArray: [Member] = []
     @Published var searchProjectsResoponseArray: [ProjectResponceData] = []
     @Published var selectedUser = ""
     @Published var selectedUserAvatar: UIImage?
@@ -60,17 +60,13 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Add members
     @Published var showAddMemberView = false
-    @Published var members: [Members]? = []
+    @Published var members: [Member]? = []
     @Published var addedMembersAvatars: [UIImage] = []
     
-    private var token = Token()
     private let user = User()
     private var taskService = TaskNetworkService()
-     var cancellables = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     
-    private var header: String {
-        return (token.tokenType ?? "") + " " + (token.savedToken ?? "")
-    }
     private var ownerId: String {
         return user.userId ?? "no data"
     }

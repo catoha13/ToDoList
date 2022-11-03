@@ -13,7 +13,7 @@ struct TaskList: View {
     @Binding var taskAssigned_to: String
     @Binding var taskProjectId: String
     //    @Binding var attachments:
-    @Binding var members: [Members]?
+    @Binding var members: [Member]?
     @Binding var membersUrl: [String]
     
     @State var deteleAction: () -> ()
@@ -77,7 +77,7 @@ struct TaskList_Previews: PreviewProvider {
     @State static var description = ""
     @State static var assigned_to = ""
     @State static var projectId = ""
-    @State static var members: [Members]? = []
+    @State static var members: [Member]? = []
     
     @State static var membersUrls: [String] = []
     

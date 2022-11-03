@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SearchUserView: View {
-    @Binding var mergedArray: [(Members, UIImage, id: UUID)]
+    @Binding var mergedArray: [(Member, UIImage, id: UUID)]
     @Binding var filteredText: String
     @Binding var searchedUser: String
     @Binding var searchedUserId: String
@@ -51,7 +51,7 @@ struct SearchUserView: View {
 }
 
 struct SearchUserView_Previews: PreviewProvider {
-    @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
+    @State static var mergedArray: [(Member, UIImage, id: UUID)] = []
     @State static var filteredText = ""
     @State static var searchedUser = ""
     @State static var searchedUserId = ""

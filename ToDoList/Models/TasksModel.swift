@@ -12,12 +12,12 @@ struct TaskResponseData: Codable, Hashable {
     var isCompleted: Bool
     var projectId: String
     var ownerId: String
-    var members: [Members]?
+    var members: [Member]?
     var attachments: [Attachments]?
     var createdAt: String
 }
 
-struct Members: Codable, Hashable {
+struct Member: Codable, Hashable {
     var id: String
     var email: String
     var username: String
@@ -50,7 +50,7 @@ struct FetchTasks: Codable {
 }
 
 struct SearchUsers: Codable {
-    var data: [Members]
+    var data: [Member]
 }
 
 struct SearchProjects: Codable {
@@ -79,7 +79,7 @@ struct FetchCommentsData: Codable, Hashable {
     var content: String
     var taskId: String
     var ownerId: String
-    var commentator: Commentator?
+    var commentator: Member?
     var attachments: [Attachments]?
     var createdAt: String
 }
@@ -90,12 +90,4 @@ struct DeleteCommentModel: Codable {
 
 struct DeleteCommentData: Codable {
     var id: String
-}
-
-struct Commentator: Codable, Hashable {
-    var id: String
-    var email: String
-    var username: String
-    var avatarUrl: String
-    var createdAt: String
 }

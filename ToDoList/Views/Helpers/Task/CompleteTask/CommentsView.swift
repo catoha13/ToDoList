@@ -3,7 +3,7 @@ import SwiftUI
 struct CommentsView: View {
     @Binding var text: String
     
-    @State var sendAction: () -> ()
+    @State var createAction: () -> ()
     
     var body: some View {
         VStack {
@@ -38,7 +38,7 @@ struct CommentsView: View {
                     Spacer()
                     
                     Button {
-                        sendAction()
+                        createAction()
                     } label: {
                         Text("Send")
                             .padding(.trailing)
@@ -61,6 +61,6 @@ struct CommentsView: View {
 struct CommentsView_Previews: PreviewProvider {
     @State static var text = ""
     static var previews: some View {
-        CommentsView(text: $text, sendAction: {})
+        CommentsView(text: $text, createAction: {})
     }
 }

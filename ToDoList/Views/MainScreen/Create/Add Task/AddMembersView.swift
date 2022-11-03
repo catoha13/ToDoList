@@ -2,8 +2,8 @@ import SwiftUI
 
 struct AddMembersView: View {
     @Binding var isPresented: Bool
-    @Binding var mergedArray: [(Members, UIImage, id: UUID)]
-    @Binding var members: [Members]?
+    @Binding var mergedArray: [(Member, UIImage, id: UUID)]
+    @Binding var members: [Member]?
     @Binding var membersId: [String]?
     @Binding var membersAvatars: [UIImage]
     @State var action: () -> ()
@@ -55,8 +55,8 @@ struct AddMembersView: View {
 
 struct AddMembersView_Previews: PreviewProvider {
     @State static var isPresented = false
-    @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
-    @State static var members: [Members]? = []
+    @State static var mergedArray: [(Member, UIImage, id: UUID)] = []
+    @State static var members: [Member]? = []
     @State static var membersId: [String]? = []
     @State static var membersAvatars: [UIImage] = []
     

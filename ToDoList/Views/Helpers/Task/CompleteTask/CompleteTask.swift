@@ -5,7 +5,7 @@ struct CompleteTask: View {
     @Binding var isCompleted: Bool
     
     @Binding var title: String
-    @Binding var members: [Members]?
+    @Binding var members: [Member]?
     @Binding var membersAvatars: [UIImage]
     @Binding var membersId: [String]?
     @Binding var dueDate: String
@@ -17,7 +17,7 @@ struct CompleteTask: View {
     @Binding var comments: [FetchCommentsData]
     @Binding var commentId : String
     
-    @Binding var mergedArray: [(Members, UIImage, id: UUID)]
+    @Binding var mergedArray: [(Member, UIImage, id: UUID)]
     
     @State var updateAction: () -> ()
     @State var addMembersAction: () -> ()
@@ -25,7 +25,7 @@ struct CompleteTask: View {
     @State var createCommentAction: () -> ()
     @State var deleteCommentAction: () -> ()
     
-    @State private var addedMembers: [Members]? = []
+    @State private var addedMembers: [Member]? = []
     @State private var addedMembersAvatars: [UIImage] = []
     @State private var addedMmembersId: [String]? = []
     @State private var commentContent = ""
@@ -35,7 +35,6 @@ struct CompleteTask: View {
     @State private var showSettingsView: Bool = false
     @State private var showTaskAlert = false
     @State private var showAddMembers = false
-    @State private var showCommentAlert = false
     
     var body: some View {
         ZStack {
@@ -132,7 +131,7 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                Text(trimDate(date: dueDate))
+                                Text(convertDate(dueDate))
                                     .font(Font(Roboto.thinItalic(size: 16)))
                             }
                             Spacer()
@@ -235,7 +234,7 @@ struct CompleteTask: View {
                     if showComments {
                         VStack {
                             CommentsView(text: $commentText,
-                                         sendAction: {
+                                         createAction: {
                                 createCommentAction()
                             })
                             .padding(.vertical)
@@ -243,11 +242,14 @@ struct CompleteTask: View {
                             Comments(comments: $comments,
                                      commentContent: $commentContent,
                                      commentId: $commentId,
+                                     loadAvatars: {
+                                
+                            },
                                      deleteComment: {
                                 deleteCommentAction()
-                                showCommentAlert.toggle()
                             })
                         }
+                        .animation(.default, value: comments)
                     }
                     
                     //MARK: Confirm button
@@ -341,25 +343,14 @@ struct CompleteTask: View {
         } message: {
             Text("You cannot undo this action")
         }
-        .alert("Delete comment«\(commentContent)»?", isPresented: $showCommentAlert) {
-            Button("Delete", role: .destructive) {
-                //                deleteAction()
-                //                isPresented.toggle()
-            }
-            Button("Cancel", role: .cancel) {
-                showCommentAlert.toggle()
-            }
-        } message: {
-            Text("You cannot undo this action")
-        }
         
     }
-    private func trimDate(date: String) -> String {
-        var trimmedDate = date
-        for _ in 0..<16 {
-            trimmedDate.removeLast()
-        }
-        return trimmedDate
+    private func convertDate(_ strDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        let newDate = formatter.date(from: strDate) ?? Date()
+        formatter.dateFormat = "MMM dd,yyyy"
+        return formatter.string(from: newDate)
     }
 }
 
@@ -367,7 +358,7 @@ struct CompleteTask_Previews: PreviewProvider {
     @State static var closeViewTask = false
     @State static var isCompleted = false
     @State static var title = ""
-    @State static var members: [Members]? = []
+    @State static var members: [Member]? = []
     @State static var membersAvatars: [UIImage] = []
     @State static var membersId: [String]? = []
     @State static var dueDate = ""
@@ -375,7 +366,7 @@ struct CompleteTask_Previews: PreviewProvider {
     @State static var commentText = ""
     @State static var comments: [FetchCommentsData] = []
     @State static var commentId = ""
-    @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
+    @State static var mergedArray: [(Member, UIImage, id: UUID)] = []
     
     static var previews: some View {
         CompleteTask( isPresented: $closeViewTask,

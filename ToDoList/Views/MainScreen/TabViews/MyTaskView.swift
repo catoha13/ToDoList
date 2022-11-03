@@ -61,6 +61,7 @@ struct MyTaskView: View {
                 createCommentAction: {
                     viewModel.createComment()
                     viewModel.commentText = ""
+                    viewModel.fetchComments()
                 },
                 deleteCommentAction: {
                     viewModel.deleteComment()
