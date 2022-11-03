@@ -1,17 +1,16 @@
 import SwiftUI
 
 struct CommentsView: View {
-    @State var text = ""
+    @Binding var text: String
+    
+    @State var sendAction: () -> ()
     
     var body: some View {
         VStack {
             VStack {
-                TextField(text: $text) {
-                    Text("Text here")
-                        .font(Font(Roboto.regular(size: 16)))
-                        
-                }
-                .padding(.horizontal, 10)
+                TextEditor(text: $text)
+                    .font(Font(Roboto.regular(size: 16)))
+                    .padding(.horizontal, 10)
                 Spacer()
                 HStack {
                     //MARK: Attachments
@@ -39,7 +38,7 @@ struct CommentsView: View {
                     Spacer()
                     
                     Button {
-                        
+                        sendAction()
                     } label: {
                         Text("Send")
                             .padding(.trailing)
@@ -60,7 +59,8 @@ struct CommentsView: View {
 }
 
 struct CommentsView_Previews: PreviewProvider {
+    @State static var text = ""
     static var previews: some View {
-        CommentsView()
+        CommentsView(text: $text, sendAction: {})
     }
 }

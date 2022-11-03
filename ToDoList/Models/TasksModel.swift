@@ -57,9 +57,45 @@ struct SearchProjects: Codable {
     var data: [ProjectResponceData]
 }
 
-struct DeleteModel: Codable {
-    var data: DeleteData
+struct DeleteTaskModel: Codable {
+    var data: DeleteTaskData
 }
-struct DeleteData: Codable {
+struct DeleteTaskData: Codable {
     var id: String
+}
+
+struct CreateCommentModel: Codable {
+    var content: String
+    var taskId: String
+    var ownerId: String
+}
+
+struct FetchComments: Codable, Hashable {
+    var data: [FetchCommentsData]
+}
+
+struct FetchCommentsData: Codable, Hashable {
+    var id: String
+    var content: String
+    var taskId: String
+    var ownerId: String
+    var commentator: Commentator?
+    var attachments: [Attachments]?
+    var createdAt: String
+}
+
+struct DeleteCommentModel: Codable {
+    var data: DeleteCommentData
+}
+
+struct DeleteCommentData: Codable {
+    var id: String
+}
+
+struct Commentator: Codable, Hashable {
+    var id: String
+    var email: String
+    var username: String
+    var avatarUrl: String
+    var createdAt: String
 }

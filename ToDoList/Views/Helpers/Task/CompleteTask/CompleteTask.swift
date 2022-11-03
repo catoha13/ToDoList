@@ -13,21 +13,29 @@ struct CompleteTask: View {
     @State var tag = "Personal"
     @State var color: Color = .customBlue
     
+    @Binding var commentText: String
+    @Binding var comments: [FetchCommentsData]
+    @Binding var commentId : String
+    
     @Binding var mergedArray: [(Members, UIImage, id: UUID)]
     
     @State var updateAction: () -> ()
     @State var addMembersAction: () -> ()
-    @State var deleteAction: () -> ()
+    @State var deleteTaskAction: () -> ()
+    @State var createCommentAction: () -> ()
+    @State var deleteCommentAction: () -> ()
     
     @State private var addedMembers: [Members]? = []
     @State private var addedMembersAvatars: [UIImage] = []
     @State private var addedMmembersId: [String]? = []
+    @State private var commentContent = ""
     
     @State private var isEditOn = false
     @State private var showComments = false
     @State private var showSettingsView: Bool = false
-    @State private var showAlert = false
+    @State private var showTaskAlert = false
     @State private var showAddMembers = false
+    @State private var showCommentAlert = false
     
     var body: some View {
         ZStack {
@@ -225,10 +233,23 @@ struct CompleteTask: View {
                     }
                     //MARK: Show Comments
                     if showComments {
-                        CommentsView()
+                        VStack {
+                            CommentsView(text: $commentText,
+                                         sendAction: {
+                                createCommentAction()
+                            })
                             .padding(.vertical)
+                            
+                            Comments(comments: $comments,
+                                     commentContent: $commentContent,
+                                     commentId: $commentId,
+                                     deleteComment: {
+                                deleteCommentAction()
+                                showCommentAlert.toggle()
+                            })
+                        }
                     }
-
+                    
                     //MARK: Confirm button
                     if isEditOn {
                         CustomBlueFilledButton(text: "Done") {
@@ -288,7 +309,7 @@ struct CompleteTask: View {
                     showSettingsView.toggle()
                     isEditOn.toggle()
                 }, deleteAction: {
-                    showAlert.toggle()
+                    showTaskAlert.toggle()
                 })
             }
             
@@ -309,18 +330,29 @@ struct CompleteTask: View {
                 }
             }
         }
-        .alert("Delete «\(title)» task?", isPresented: $showAlert) {
+        .alert("Delete «\(title)» task?", isPresented: $showTaskAlert) {
             Button("Delete", role: .destructive) {
-                deleteAction()
+                deleteTaskAction()
                 isPresented.toggle()
             }
             Button("Cancel", role: .cancel) {
-                showAlert.toggle()
+                showTaskAlert.toggle()
             }
         } message: {
             Text("You cannot undo this action")
         }
-
+        .alert("Delete comment«\(commentContent)»?", isPresented: $showCommentAlert) {
+            Button("Delete", role: .destructive) {
+                //                deleteAction()
+                //                isPresented.toggle()
+            }
+            Button("Cancel", role: .cancel) {
+                showCommentAlert.toggle()
+            }
+        } message: {
+            Text("You cannot undo this action")
+        }
+        
     }
     private func trimDate(date: String) -> String {
         var trimmedDate = date
@@ -340,6 +372,9 @@ struct CompleteTask_Previews: PreviewProvider {
     @State static var membersId: [String]? = []
     @State static var dueDate = ""
     @State static var description = ""
+    @State static var commentText = ""
+    @State static var comments: [FetchCommentsData] = []
+    @State static var commentId = ""
     @State static var mergedArray: [(Members, UIImage, id: UUID)] = []
     
     static var previews: some View {
@@ -351,9 +386,14 @@ struct CompleteTask_Previews: PreviewProvider {
                       membersId: $membersId,
                       dueDate: $dueDate,
                       description: $description,
+                      commentText: $commentText,
+                      comments: $comments,
+                      commentId: $commentId,
                       mergedArray: $mergedArray,
                       updateAction: {},
                       addMembersAction: {},
-                      deleteAction: {})
+                      deleteTaskAction: {},
+                      createCommentAction: {},
+                      deleteCommentAction: {})
     }
 }

@@ -87,6 +87,7 @@
 		AC7715312885922800A0C804 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771525288591AC00A0C804 /* Roboto-ThinItalic.ttf */; };
 		AC7715362885964E00A0C804 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715352885964E00A0C804 /* Constants.swift */; };
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
+		AC8B664F2911BBC400011E22 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B664E2911BBC400011E22 /* Comments.swift */; };
 		AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8CFFF728CF2DF200337AA2 /* User.swift */; };
 		AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063F928BFFDB3002450A8 /* ImagePicker.swift */; };
 		AC9063FC28BFFE22002450A8 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */; };
@@ -224,6 +225,7 @@
 		AC7715352885964E00A0C804 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC7715382885985F00A0C804 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AC8B664E2911BBC400011E22 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		AC8CFFF728CF2DF200337AA2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC9063F928BFFDB3002450A8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
@@ -547,6 +549,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		AC8B664D2911BBB600011E22 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				AC8B664E2911BBC400011E22 /* Comments.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
 		AC9063F628BFFD03002450A8 /* ImagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +609,7 @@
 			isa = PBXGroup;
 			children = (
 				AC462951290074C400523745 /* CompleteTask */,
+				AC8B664D2911BBB600011E22 /* Comments */,
 				ACADC52828C76F7400289409 /* TaskCell.swift */,
 				ACADC52A28C774D800289409 /* TaskList.swift */,
 				AC6AD07C28FE96D20032F486 /* TaskHeader.swift */,
@@ -880,6 +891,7 @@
 				AC4629552901814400523745 /* AddMembersView.swift in Sources */,
 				AC43EAB12902BC4D001D7B31 /* DateValueModel.swift in Sources */,
 				AC4EF8B428900CB10087E2FA /* BackButton.swift in Sources */,
+				AC8B664F2911BBC400011E22 /* Comments.swift in Sources */,
 				AC5E2E9E289310CA005B48BD /* CompleteTask.swift in Sources */,
 				ACA623F628D9E4E30038888E /* AboutUser.swift in Sources */,
 				AC2F690A288B0727007D78E0 /* SingInView.swift in Sources */,

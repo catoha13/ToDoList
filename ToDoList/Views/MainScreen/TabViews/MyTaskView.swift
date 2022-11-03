@@ -45,18 +45,30 @@ struct MyTaskView: View {
                              membersId: $viewModel.membersId,
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
+                             commentText: $viewModel.commentText,
+                             comments: $viewModel.commentsResponseArray,
+                             commentId: $viewModel.commentId,
                              mergedArray: $viewModel.usersAndAvatars,
                              updateAction: {
                     viewModel.isCompleted.toggle()
                     viewModel.updateTask()
-                }, addMembersAction: {
+                },
+                             addMembersAction: {
                     viewModel.updateTask()
-                }, deleteAction: {
+                }, deleteTaskAction: {
                     viewModel.deleteTask()
+                },
+                createCommentAction: {
+                    viewModel.createComment()
+                    viewModel.commentText = ""
+                },
+                deleteCommentAction: {
+                    viewModel.deleteComment()
                 })
                 .onAppear {
                     viewModel.loadAvatars()
                     viewModel.loadUsers()
+                    viewModel.fetchComments()
                 }
                 .onDisappear {
                     viewModel.membersAvatars = []

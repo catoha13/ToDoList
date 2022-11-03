@@ -57,8 +57,14 @@ final class TaskNetworkService {
         
     }
     
-    func createTaskComment() {
-        
+    func createTaskComment<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+        let path = Path.comments.rawValue
+        return networkManager.post(body: model, path: path, header: header)
+    }
+    
+    func fetchTaskComments<U>(taskId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.taskComments.rawValue + taskId
+        return networkManager.get(path: path, header: header)
     }
     
     func fetchTaskComponents() {
@@ -80,8 +86,9 @@ final class TaskNetworkService {
         return networkManager.get(path: path, header: header)
     }
     
-    func deleteTaskComment() {
-        
+    func deleteTaskComment<U>(commentId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+        let path = Path.comments.rawValue + "/" + commentId
+        return networkManager.delete(path: path, header: header)
     }
     
     func uploadTaskCommentAttachment() {

@@ -21,6 +21,7 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Delete Task
     @Published var taskId = ""
+    @Published var tasksResponseArray: [FetchComments] = []
     
     //MARK: CreateTaskView
     @Published var membersUrl = ""
@@ -40,7 +41,14 @@ final class TaskViewModel: ObservableObject {
     @Published var membersId: [String]? = []
     @Published var showDatePicker = false
     @Published var dueDate: Date?
-        
+    
+    //MARK: Create comment model
+    @Published var commentText = ""
+    @Published var commentsResponseArray: [FetchCommentsData] = []
+    
+    //MARK: Delete comment
+    @Published var commentId = ""
+    
     //MARK: Search
     @Published var searchUsersResponseArray: [Members] = []
     @Published var searchProjectsResoponseArray: [ProjectResponceData] = []
@@ -92,6 +100,12 @@ final class TaskViewModel: ObservableObject {
                         attachments: nil)
     }
     
+    private var createCommentModel: CreateCommentModel {
+        CreateCommentModel(content: commentText,
+                      taskId: taskId,
+                      ownerId: ownerId)
+    }
+    
     //MARK: Publishers
     private var createTaskRequest: AnyPublisher<TaskResponseModel, NetworkError> {
         taskService.createTask(model: createTaskModel)
@@ -101,7 +115,7 @@ final class TaskViewModel: ObservableObject {
         taskService.updateTask(model: updateTaskModel, taskId: taskId)
     }
     
-    private var deleteTaskRequest: AnyPublisher<DeleteModel, NetworkError> {
+    private var deleteTaskRequest: AnyPublisher<DeleteTaskModel, NetworkError> {
         taskService.deleteTask(taskId: taskId)
     }
     
@@ -123,6 +137,18 @@ final class TaskViewModel: ObservableObject {
 
     private var searchProjects: AnyPublisher<SearchProjects, NetworkError> {
         taskService.projectsSearch()
+    }
+    
+    private var createCommentRequest: AnyPublisher<FetchComments, NetworkError> {
+        taskService.createTaskComment(model: createCommentModel)
+    }
+    
+    private var fetchCommentsRequest: AnyPublisher<FetchComments, NetworkError> {
+        taskService.fetchTaskComments(taskId: taskId)
+    }
+    
+    private var deleteCommentRequest: AnyPublisher<DeleteCommentModel, NetworkError> {
+        taskService.deleteTaskComment(commentId: commentId)
     }
     
     //MARK: Initialization
@@ -224,6 +250,33 @@ final class TaskViewModel: ObservableObject {
                 })
                 .store(in: &cancellables)
         }
+    }
+    
+    func createComment() {
+        createCommentRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.fetchComments()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchComments() {
+        fetchCommentsRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.commentsResponseArray = item.data
+            })
+            .store(in: &cancellables)
+    }
+    
+    func deleteComment() {
+        deleteCommentRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                self?.fetchComments()
+            })
+            .store(in: &cancellables)
     }
     
     func formatDate(date: Date) -> String {
