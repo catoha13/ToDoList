@@ -23,6 +23,9 @@ struct TaskList: View {
     var body: some View {
         List {
             ForEach(userTasks.filter{filterCompletedTasks == $0.isCompleted} , id: \.self) { task in
+                Text(trimDate(task.dueDate))
+                    .font(.RobotoThinItalicSmall)
+                
                 TaskCell(title: task.title,
                          time: task.dueDate,
                          isDone: task.isCompleted,
@@ -63,6 +66,13 @@ struct TaskList: View {
         .background(Color.customWhiteBackground.ignoresSafeArea())
         .scrollContentBackground(.hidden)
         .padding(.top, -8)
+    }
+    private func trimDate(_ strDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        let newDate = formatter.date(from: strDate) ?? Date()
+        formatter.dateFormat = "MMM d/yyyy"
+        return formatter.string(from: newDate)
     }
 }
 

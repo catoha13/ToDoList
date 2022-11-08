@@ -77,11 +77,15 @@ struct CustomCalendar: View {
                         }
                     }
                 }
+                .padding(.bottom, 20)
                 .animation(.easeIn, value: currentMonth)
                 .onChange(of: currentMonth, perform: { _ in
                     currentDate = getCurrentMonth()
                 })
             }
+            .background(.white)
+            .cornerRadius(0)
+            .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
             .onAppear {
                 getCurrentWeek()
             }

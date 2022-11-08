@@ -15,7 +15,7 @@ struct TaskCell: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
                     .strikethrough(isDone, color: .secondary)
-                Text(trimDate(date: time))
+                Text(trimDate(time))
                     .foregroundColor(.secondary)
                     .strikethrough(isDone, color: .secondary)
             }
@@ -48,14 +48,11 @@ struct TaskCell: View {
         .frame(width: 343, height: 70)
 
     }
-    private func trimDate(date: String) -> String {
-        let firstTrim = date.components(separatedBy: "T")
-        let secondTrim = firstTrim.last?.components(separatedBy: ".")
-        var trimSeconds = secondTrim?.first
-        trimSeconds?.removeLast()
-        trimSeconds?.removeLast()
-        trimSeconds?.removeLast()
-        
-        return trimSeconds ?? ""
+    private func trimDate(_ strDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        let newDate = formatter.date(from: strDate) ?? Date()
+        formatter.dateFormat = "h:mm a"
+        return formatter.string(from: newDate)
     }
 }
