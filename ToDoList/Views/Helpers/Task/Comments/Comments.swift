@@ -16,7 +16,7 @@ struct Comments: View {
                 HStack {
                     Image(uiImage: UIImage(named: "superhero")!)
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                         .frame(width: 32, height: 32)
                         .clipShape(Circle())
                     VStack(alignment: .leading) {
@@ -43,9 +43,9 @@ struct Comments: View {
         .alert("Delete comment«\(commentContent)»?", isPresented: $showAlert) {
             Button("Delete", role: .destructive) {
                 comments.removeAll(where: {$0.id == commentId })
+                deleteComment()
             }
             Button("Cancel", role: .cancel) {
-                deleteComment()
                 showAlert.toggle()
             }
         } message: {

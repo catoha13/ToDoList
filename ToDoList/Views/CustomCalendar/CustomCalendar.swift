@@ -63,7 +63,7 @@ struct CustomCalendar: View {
                             ZStack {
                                 if isSameDay(firstDate: value, secondDate: Date()) {
                                     ZStack {
-                                        Text(formatDate(date: value))
+                                        Text(formatWeekDate(date: value))
                                             .font(.RobotoMediumSmall)
                                         Circle()
                                             .frame(width: 30, height: 30)
@@ -71,7 +71,7 @@ struct CustomCalendar: View {
                                             .opacity(0.35)
                                     }
                                 }
-                                Text(formatDate(date: value))
+                                Text(formatWeekDate(date: value))
                                     .font(.RobotoMediumSmall)
                             }
                         }
@@ -151,6 +151,12 @@ struct CustomCalendar: View {
     func formatDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd"
+        return formatter.string(from: date)
+    }
+    
+    func formatWeekDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
         return formatter.string(from: date)
     }
     

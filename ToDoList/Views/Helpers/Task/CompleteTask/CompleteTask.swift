@@ -98,7 +98,7 @@ struct CompleteTask: View {
                         HStack {
                             Image(uiImage: membersAvatars.last ?? UIImage(named: "background")!)
                                 .resizable()
-                                .scaledToFit()
+                                .scaledToFill()
                                 .frame(width: 44, height: 44)
                                 .clipShape(Circle())
                                 .padding()
@@ -193,7 +193,7 @@ struct CompleteTask: View {
                                         ForEach(membersAvatars, id: \.self) { avatar in
                                             Image(uiImage: avatar)
                                                 .resizable()
-                                                .scaledToFit()
+                                                .scaledToFill()
                                                 .frame(width: 32, height: 32)
                                                 .clipShape(Circle())
                                         }
@@ -273,28 +273,26 @@ struct CompleteTask: View {
                     }
                     
                     //MARK: Comment Button
-                    if !isEditOn {
-                        Button {
-                            withAnimation {
-                                showComments.toggle()
-                            }
-                        } label: {
-                            HStack {
-                                Text("Comment")
-                                    .font(Font(Roboto.thinItalic(size: 17)))
-                                VStack {
-                                    Image(systemName: "chevron.down")
-                                        .offset(y: 4)
-                                        .foregroundColor(Color.customGray)
-                                    Image(systemName: "chevron.down")
-                                        .foregroundColor(.black)
-                                }
-                                .rotationEffect(Angle(degrees: showComments ? -180 : 0))
-                            }
+                    Button {
+                        withAnimation {
+                            showComments.toggle()
                         }
-                        .padding()
-                        .foregroundColor(.secondary)
+                    } label: {
+                        HStack {
+                            Text("Comment")
+                                .font(Font(Roboto.thinItalic(size: 17)))
+                            VStack {
+                                Image(systemName: "chevron.down")
+                                    .offset(y: 4)
+                                    .foregroundColor(Color.customGray)
+                                Image(systemName: "chevron.down")
+                                    .foregroundColor(.black)
+                            }
+                            .rotationEffect(Angle(degrees: showComments ? -180 : 0))
+                        }
                     }
+                    .padding()
+                    .foregroundColor(.secondary)
                 }
             }
             .frame(width: 343, height: 646)
