@@ -89,6 +89,7 @@
 		AC7715392885985F00A0C804 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7715382885985F00A0C804 /* CustomButtonStyles.swift */; };
 		AC8B664F2911BBC400011E22 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B664E2911BBC400011E22 /* Comments.swift */; };
 		AC8CFFF828CF2DF200337AA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8CFFF728CF2DF200337AA2 /* User.swift */; };
+		AC9061CC291AB32C00EAB416 /* ProfileSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9061CB291AB32C00EAB416 /* ProfileSettings.swift */; };
 		AC9063FA28BFFDB3002450A8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063F928BFFDB3002450A8 /* ImagePicker.swift */; };
 		AC9063FC28BFFE22002450A8 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */; };
 		AC925B82289855CE0098892A /* ChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC925B81289855CE0098892A /* ChooseColor.swift */; };
@@ -227,6 +228,7 @@
 		AC77153A28859C4600A0C804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AC8B664E2911BBC400011E22 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		AC8CFFF728CF2DF200337AA2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AC9061CB291AB32C00EAB416 /* ProfileSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettings.swift; sourceTree = "<group>"; };
 		AC9063F928BFFDB3002450A8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		AC9063FB28BFFE22002450A8 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		AC925B81289855CE0098892A /* ChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColor.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 			isa = PBXGroup;
 			children = (
 				ACA623F528D9E4E30038888E /* AboutUser.swift */,
+				AC9061CB291AB32C00EAB416 /* ProfileSettings.swift */,
 				ACF6F32F28D9F4F500665511 /* StatisticCollection.swift */,
 				ACF6F33128D9F92100665511 /* StatCollectionCell.swift */,
 				ACF6F33328D9FAE700665511 /* StatisticCircle.swift */,
@@ -904,6 +907,7 @@
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,
 				ACD4570828F76ED600E27411 /* EditNote.swift in Sources */,
 				ACD6C562288F14F90033D732 /* CreateView.swift in Sources */,
+				AC9061CC291AB32C00EAB416 /* ProfileSettings.swift in Sources */,
 				ACF6F33028D9F4F600665511 /* StatisticCollection.swift in Sources */,
 				ACF6F33828DA05C400665511 /* ProfileModel.swift in Sources */,
 				AC676BCA288EBE7F001DDE34 /* CustomTabBarView.swift in Sources */,

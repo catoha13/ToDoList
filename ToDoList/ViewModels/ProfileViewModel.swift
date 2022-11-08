@@ -16,6 +16,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var quickNoteProgress = 0.0
     @Published var toDoProgress = 0.0
     
+    @Published var showSetting = false
+    
     private var profileService = ProfileNetworkService()
     private var cancellables = Set<AnyCancellable>()
     

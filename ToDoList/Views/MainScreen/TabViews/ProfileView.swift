@@ -4,49 +4,60 @@ struct ProfileView: View {
     @ObservedObject var viewModel = ProfileViewModel()
     
     var body: some View {
-        VStack {
-            Text("Profile")
-                .font(.RobotoThinItalicHeader)
-                .padding(.top, -30)
-            
-            AboutUser(userName: $viewModel.username,
-                      userEmail: $viewModel.email,
-                      userAvatar: $viewModel.avatarImage,
-                      createdTask: $viewModel.createdTask,
-                      completedTasks: $viewModel.completedTask) {
+        ZStack {
+            VStack {
+                Text("Profile")
+                    .font(.RobotoThinItalicHeader)
+                    .padding(.top, -30)
                 
-            }
-            StatisticCollection(tasksCount: $viewModel.createdTask,
-                                toDoCount: 13,
-                                eventsCount: 9)
+                AboutUser(userName: $viewModel.username,
+                          userEmail: $viewModel.email,
+                          userAvatar: $viewModel.avatarImage,
+                          createdTask: $viewModel.createdTask,
+                          completedTasks: $viewModel.completedTask) {
+                    viewModel.showSetting.toggle()
+                }
+                StatisticCollection(tasksCount: $viewModel.createdTask,
+                                    toDoCount: 13,
+                                    eventsCount: 9)
                 .padding()
-            
-            HStack {
-                Text("Statistic")
-                    .font(.RobotoThinItalicSmall)
-                    .padding(.top)
-                    .padding(.leading, 40)
-                Spacer()
+                
+                HStack {
+                    Text("Statistic")
+                        .font(.RobotoThinItalicSmall)
+                        .padding(.top)
+                        .padding(.leading, 40)
+                    Spacer()
+                }
+                
+                HStack {
+                    StatisticCircle(percentage: $viewModel.eventsPercentage,
+                                    text: "Events",
+                                    color: .customCoral,
+                                    progress: $viewModel.eventsProgress)
+                    
+                    StatisticCircle(percentage: $viewModel.toDotsPercentage,
+                                    text: "To do",
+                                    color: .customBlue,
+                                    progress: $viewModel.toDoProgress)
+                    
+                    StatisticCircle(percentage: $viewModel.quickNotesPercentage,
+                                    text: "Quick notes",
+                                    color: .customPurple,
+                                    progress: $viewModel.quickNoteProgress)
+                }
             }
+            .background(Color.customWhiteBackground)
             
-            HStack {
-                StatisticCircle(percentage: $viewModel.eventsPercentage,
-                                text: "Events",
-                                color: .customCoral,
-                                progress: $viewModel.eventsProgress)
+            if viewModel.showSetting {
+                ProfileSettings(isPresented: $viewModel.showSetting) {
+                    
+                } logOutAction: {
+                    
+                }
                 
-                StatisticCircle(percentage: $viewModel.toDotsPercentage,
-                                text: "To do",
-                                color: .customBlue,
-                                progress: $viewModel.toDoProgress)
-                
-                StatisticCircle(percentage: $viewModel.quickNotesPercentage,
-                                text: "Quick notes",
-                                color: .customPurple,
-                                progress: $viewModel.quickNoteProgress)
             }
         }
-        .background(Color.customWhiteBackground)
     }
 }
 

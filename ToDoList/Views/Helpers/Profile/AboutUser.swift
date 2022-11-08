@@ -7,6 +7,7 @@ struct AboutUser: View {
     @Binding var createdTask: Int
     @Binding var completedTasks: Int
     @State var showEditView: () -> ()
+    @State private var showEdit = false
     
     var body: some View {
         VStack {
@@ -20,11 +21,15 @@ struct AboutUser: View {
                 }
                 Spacer()
                 Button {
-                    showEditView()
+                    withAnimation {
+                        showEditView()
+                        showEdit.toggle()
+                    }
                 } label: {
                     Image(systemName: "gearshape.fill")
                         .resizable()
                         .foregroundColor(.black)
+                        .rotationEffect(showEdit ? .degrees(-180) : .degrees(180))
                 }
                 .frame(width: 20, height: 20)
                 .offset(x: 2, y: -42)
