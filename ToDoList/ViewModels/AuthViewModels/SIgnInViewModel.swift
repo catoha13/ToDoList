@@ -9,6 +9,7 @@ final class SignInViewModel: ObservableObject {
     @Published var credentialsChecked = false
     
     private var token = Token()
+    private var user = User()
     private var authService = AuthService()
     private var cancellables = Set<AnyCancellable>()
     private var model: RequestBodyModel {
@@ -28,18 +29,19 @@ final class SignInViewModel: ObservableObject {
                     case .failure(let error):
                         self.errorMessage = error.description
                     }
-                }, receiveValue: {
-                    if $0.data.message == nil {
-                        self.token.savedToken = $0.data.accessToken ?? "no data"
-                        self.token.refreshToken = $0.data.refreshToken ?? "no data"
-                        self.token.expireDate = $0.data.expiresIn ?? 0
-                        self.token.tokenType = $0.data.tokenType ?? "no data"
-                        self.token.checkToken
-                            .sink { self.credentialsChecked = $0
+                }, receiveValue: { [weak self] item in
+                    if item.data.message == nil {
+                        self?.user.userId = item.data.userId ?? "no data"
+                        self?.token.savedToken = item.data.accessToken ?? "no data"
+                        self?.token.refreshToken = item.data.refreshToken ?? "no data"
+                        self?.token.expireDate = item.data.expiresIn ?? 0
+                        self?.token.tokenType = item.data.tokenType ?? "no data"
+                        self?.token.checkToken
+                            .sink { self?.credentialsChecked = $0
                             }
-                            .store(in: &self.cancellables)
+                            .store(in: &self!.cancellables)
                     } else {
-                        self.errorMessage = $0.data.message ?? "no data"
+                        self?.errorMessage = item.data.message ?? "no data"
                     }
                 })
             .store(in: &cancellables)

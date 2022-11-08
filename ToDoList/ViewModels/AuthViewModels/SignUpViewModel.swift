@@ -64,23 +64,21 @@ final class SignUpViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-//                    self.errorMessage = error.description
-                    print(error.localizedDescription)
+                    self.errorMessage = error.description
                 }
                 print($0)
-            }, receiveValue: {
-                if $0.data.message == nil {
-                    self.isPresented.toggle()
-                    self.token.savedToken = $0.data.userSession?.accessToken ?? "no data"
-                    self.token.refreshToken = $0.data.userSession?.refreshToken ?? "no data"
-                    self.token.expireDate = $0.data.userSession?.expiresIn ?? 0
-                    self.token.tokenType = $0.data.userSession?.tokenType
-                    self.user.userId = $0.data.id ?? "no data"
-                    self.user.savedEmail = $0.data.email ?? "no data"
+            }, receiveValue: { [weak self] item in
+                if item.data.message == nil {
+                    self?.isPresented.toggle()
+                    self?.token.savedToken = item.data.userSession?.accessToken ?? "no data"
+                    self?.token.refreshToken = item.data.userSession?.refreshToken ?? "no data"
+                    self?.token.expireDate = item.data.userSession?.expiresIn ?? 0
+                    self?.token.tokenType = item.data.userSession?.tokenType
+                    self?.user.userId = item.data.id ?? "no data"
+                    self?.user.savedEmail = item.data.email ?? "no data"
                 } else {
-                    self.errorMessage = $0.data.message ?? "no data"
+                    self?.errorMessage = item.data.message ?? "no data"
                 }
-                print($0)
             })
             .store(in: &cancellables)
     }
