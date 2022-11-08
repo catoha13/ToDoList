@@ -4,6 +4,7 @@ import Foundation
 enum Path: String {
     case signIn = "/sign-in"
     case signUp = "/sign-up"
+    case signOut = "/sign-out"
     case refreshToken = "/refresh-token"
     case projects = "/projects"
     case fetchProjects = "/user-projects/"

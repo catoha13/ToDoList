@@ -7,6 +7,7 @@ final class Token: ObservableObject {
     @AppStorage("refreshToken") var refreshToken : String?
     @AppStorage("expireDate") var expireDate: Int?
     @AppStorage("tokenType") var tokenType: String?
+    @AppStorage("isValid") var isValid: Bool = false
     
     private var authService = AuthService()
     private var cancellables = Set<AnyCancellable>()
@@ -41,8 +42,7 @@ final class Token: ObservableObject {
     
     private func getNewToken() {
         publisher
-            .sink(receiveCompletion: {
-                print($0)
+            .sink(receiveCompletion: { _ in
             }, receiveValue: {
                 if $0.data.message == nil {
                     self.savedToken = $0.data.accessToken ?? "no data"

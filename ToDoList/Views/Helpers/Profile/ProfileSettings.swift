@@ -4,7 +4,7 @@ struct ProfileSettings: View {
     @Binding var isPresented: Bool
     
     @State var changeAvatarAction: () -> ()
-    @State var logOutAction: () -> ()
+    @State var signOutAction: () -> ()
     
     var body: some View {
         ZStack {
@@ -29,12 +29,12 @@ struct ProfileSettings: View {
                     
                     Button {
                         withAnimation {
-                            logOutAction()
+                            signOutAction()
                             isPresented.toggle()
                         }
                     } label: {
                         HStack {
-                            Text("Log Out")
+                            Text("Sign Out")
                             Spacer()
                         }
                     }
@@ -58,6 +58,6 @@ struct ProfileSettings: View {
 struct ProfileSettings_Previews: PreviewProvider {
     @State static var isPresented = false
     static var previews: some View {
-        ProfileSettings(isPresented: $isPresented ,changeAvatarAction: {}, logOutAction: {})
+        ProfileSettings(isPresented: $isPresented ,changeAvatarAction: {}, signOutAction: {})
     }
 }

@@ -16,11 +16,19 @@ final class ProfileViewModel: ObservableObject {
     @Published var quickNoteProgress = 0.0
     @Published var toDoProgress = 0.0
     
+    //MARK: Profile View
     @Published var showSetting = false
+    @Published var isSignedOut = false
     
     private var profileService = ProfileNetworkService()
     private var cancellables = Set<AnyCancellable>()
     
+    //MARK: Model
+    private var signOutModel: SignOutModel {
+        SignOutModel(email: email)
+    }
+    
+    //MARK: Publishers
     private var fetchUserRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
         return profileService.fetchUser()
     }
@@ -29,6 +37,9 @@ final class ProfileViewModel: ObservableObject {
     }
     private var downloadAvatarRequest: AnyPublisher<UIImage?, NetworkError> {
         return profileService.downloadUserAvatar(url: avatarUrl)
+    }
+    private var signOutRequest: AnyPublisher<SignOut, NetworkError> {
+        return profileService.signOut(model: signOutModel)
     }
     
     init() {
@@ -81,5 +92,15 @@ final class ProfileViewModel: ObservableObject {
         }
         let number = Double(string)
         return (number ?? 0.4) / 100
+    }
+    
+    func signOut() {
+        signOutRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] item in
+                print(item)
+                self?.isSignedOut.toggle()
+            })
+            .store(in: &cancellables)
     }
 }

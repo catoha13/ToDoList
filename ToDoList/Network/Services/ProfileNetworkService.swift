@@ -36,4 +36,9 @@ final class ProfileNetworkService {
         let path = url
         return networkManager.downloadAvatar(path: path, header: header)
     }
+    
+    func signOut<T, U>(model: T) -> AnyPublisher<U, NetworkError> where U: Decodable, T: Encodable {
+        let path = Path.signOut.rawValue
+        return networkManager.post(body: model, path: path, header: header)
+    }
 }

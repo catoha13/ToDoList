@@ -66,29 +66,22 @@ final class SignUpViewModel: ObservableObject {
                 case .failure(let error):
                     self.errorMessage = error.description
                 }
-                print($0)
             }, receiveValue: { [weak self] item in
-                if item.data.message == nil {
-                    self?.isPresented.toggle()
-                    self?.token.savedToken = item.data.userSession?.accessToken ?? "no data"
-                    self?.token.refreshToken = item.data.userSession?.refreshToken ?? "no data"
-                    self?.token.expireDate = item.data.userSession?.expiresIn ?? 0
-                    self?.token.tokenType = item.data.userSession?.tokenType
-                    self?.user.userId = item.data.id ?? "no data"
-                    self?.user.savedEmail = item.data.email ?? "no data"
-                } else {
-                    self?.errorMessage = item.data.message ?? "no data"
-                }
+                self?.isPresented.toggle()
+                self?.token.savedToken = item.data.userSession?.accessToken ?? "no data"
+                self?.token.refreshToken = item.data.userSession?.refreshToken ?? "no data"
+                self?.token.expireDate = item.data.userSession?.expiresIn ?? 0
+                self?.token.tokenType = item.data.userSession?.tokenType
+                self?.user.userId = item.data.id ?? "no data"
+                self?.user.savedEmail = item.data.email ?? "no data"
             })
             .store(in: &cancellables)
     }
     
     func uploadAvatar() {
         uploadAvatarRequest
-            .sink(receiveCompletion: { _ in
-            },
-                  receiveValue: { _ in
-            })
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { _ in })
             .store(in: &cancellables)
     }
     

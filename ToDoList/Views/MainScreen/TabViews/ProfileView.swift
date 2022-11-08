@@ -52,11 +52,14 @@ struct ProfileView: View {
             if viewModel.showSetting {
                 ProfileSettings(isPresented: $viewModel.showSetting) {
                     
-                } logOutAction: {
-                    
+                } signOutAction: {
+                    viewModel.signOut()
                 }
                 
             }
+        }
+        .fullScreenCover(isPresented: $viewModel.isSignedOut) {
+            SignUpView(isPresented: $viewModel.isSignedOut)
         }
     }
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SingInView: View {
+struct SignInView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @StateObject private var viewModel = SignInViewModel()
     
@@ -69,11 +69,11 @@ struct SingInView: View {
     }
 }
 
-struct SingInView_Previews: PreviewProvider {
+struct SignInView_Previews: PreviewProvider {
     @State static var isPresented = false
     
     static var previews: some View {
-        SingInView()
+        SignInView()
     }
 }
 

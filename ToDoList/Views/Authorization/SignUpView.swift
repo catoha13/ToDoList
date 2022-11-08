@@ -62,7 +62,7 @@ struct SignUpView: View {
                 }
                 
                 NavigationLink("Sign In") {
-                    SingInView()
+                    SignInView()
                 }
                 .font(.RobotoMediumItalic)
                 .foregroundColor(.customCoral)
