@@ -189,7 +189,7 @@ final class TaskViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
+        
     func loadSearch() {
         searchMembers.zip(searchProjects)
             .sink(receiveCompletion: { _ in

@@ -131,7 +131,7 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                Text(convertDate(dueDate))
+                                Text(DateFormatter.convertDate(dueDate))
                                     .font(Font(Roboto.thinItalic(size: 16)))
                             }
                             Spacer()
@@ -341,14 +341,6 @@ struct CompleteTask: View {
         } message: {
             Text("You cannot undo this action")
         }
-        
-    }
-    private func convertDate(_ strDate: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
-        let newDate = formatter.date(from: strDate) ?? Date()
-        formatter.dateFormat = "MMM dd,yyyy"
-        return formatter.string(from: newDate)
     }
 }
 
