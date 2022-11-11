@@ -51,7 +51,7 @@ struct ProfileView: View {
             
             if viewModel.showSetting {
                 ProfileSettings(isPresented: $viewModel.showSetting) {
-                    
+                    viewModel.showImagePicker.toggle()
                 } signOutAction: {
                     viewModel.signOut()
                 }
@@ -60,6 +60,14 @@ struct ProfileView: View {
         }
         .fullScreenCover(isPresented: $viewModel.isSignedOut) {
             SignUpView(isPresented: $viewModel.isSignedOut)
+        }
+        .sheet(isPresented: $viewModel.showImagePicker) {
+            ImagePicker(isShown: $viewModel.showImagePicker,
+                        image: $viewModel.avatarImage,
+                        url: $viewModel.avatarUrl)
+            .onDisappear {
+                viewModel.uploadAvatar()
+            }
         }
     }
 }

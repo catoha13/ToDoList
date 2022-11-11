@@ -14,10 +14,10 @@ final class SignUpViewModel: ObservableObject {
     @Published var avatar : UIImage? = nil
     @Published var url: String? = nil
     
-    private var authService = AuthService()
-    private var profileService = ProfileNetworkService()
-    private var token = Token()
-    private var user = User()
+    private let authService = AuthService()
+    private let profileService = ProfileNetworkService()
+    private let token = Token()
+    private let user = User()
     
     private var cancellables = Set<AnyCancellable>()
     private var  model: RequestBodyModel {

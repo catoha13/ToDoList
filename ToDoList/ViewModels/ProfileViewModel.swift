@@ -3,10 +3,11 @@ import Combine
 
 final class ProfileViewModel: ObservableObject {
     
+    //MARK: Profile View
     @Published var username = " "
     @Published var email = " "
-    @Published var avatarUrl = ""
-    @Published var avatarImage: UIImage = UIImage(named: "background")!
+    @Published var avatarUrl: String? = ""
+    @Published var avatarImage: UIImage? = UIImage(named: "background")!
     @Published var createdTask = 0
     @Published var completedTask = 0
     @Published var eventsPercentage = ""
@@ -16,9 +17,9 @@ final class ProfileViewModel: ObservableObject {
     @Published var quickNoteProgress = 0.0
     @Published var toDoProgress = 0.0
     
-    //MARK: Profile View
     @Published var showSetting = false
     @Published var isSignedOut = false
+    @Published var showImagePicker = false
     
     private var profileService = ProfileNetworkService()
     private var cancellables = Set<AnyCancellable>()
@@ -36,7 +37,11 @@ final class ProfileViewModel: ObservableObject {
         return profileService.fetchUserStatistics()
     }
     private var downloadAvatarRequest: AnyPublisher<UIImage?, NetworkError> {
-        return profileService.downloadUserAvatar(url: avatarUrl)
+        return profileService.downloadUserAvatar(url: avatarUrl ?? "")
+    }
+    
+    private var uploadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
+        return profileService.uploadUserAvatar(image: avatarImage!, imageName: avatarUrl!)
     }
     private var signOutRequest: AnyPublisher<SignOut, NetworkError> {
         return profileService.signOut(model: signOutModel)
@@ -47,6 +52,7 @@ final class ProfileViewModel: ObservableObject {
         fetchStatistics()
     }
     
+    //MARK: Funcs
     private func fetchUser() {
         fetchUserRequest
             .sink(receiveCompletion: { _ in
@@ -84,6 +90,15 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func uploadAvatar() {
+        uploadAvatarRequest
+            .sink(receiveCompletion: { _ in},
+                  receiveValue: { [weak self] item in
+                print(item)
+            })
+            .store(in: &cancellables)
+    }
+    
     private func convertProgress(percentage: String) -> Double {
         var string = percentage
         if string.isEmpty {
@@ -98,7 +113,6 @@ final class ProfileViewModel: ObservableObject {
         signOutRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                print(item)
                 self?.isSignedOut.toggle()
             })
             .store(in: &cancellables)
