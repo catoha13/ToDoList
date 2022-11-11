@@ -301,6 +301,7 @@ struct CompleteTask: View {
             .cornerRadius(Constants.radiusFive)
             .shadow(radius: 4)
             
+            //MARK: Settings
             if showSettingsView {
                 TaskSettings(isPresented: $showSettingsView,
                              addMemberAction: {
@@ -313,6 +314,7 @@ struct CompleteTask: View {
                 })
             }
             
+            //MARK: Add Members
             if showAddMembers {
                 AddMembersView(isPresented: $showAddMembers,
                                mergedArray: $mergedArray,

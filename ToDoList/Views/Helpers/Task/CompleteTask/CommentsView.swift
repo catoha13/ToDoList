@@ -19,7 +19,8 @@ struct CommentsView: View {
                     } label: {
                         Image(systemName: "photo.artframe")
                             .resizable()
-                            .frame(width: 19.61, height: 20.54)
+                            .scaledToFill()
+                            .frame(width: 20, height: 20)
                             .foregroundColor(.secondary)
                             .padding(.all, 10)
                             .padding(.leading, 2)
@@ -30,7 +31,8 @@ struct CommentsView: View {
                     } label: {
                         Image(systemName: "paperclip")
                             .resizable()
-                            .frame(width: 19.61, height: 20.54)
+                            .scaledToFill()
+                            .frame(width: 20, height: 20)
                             .foregroundColor(.secondary)
                             .padding(.all, 10)
                         
