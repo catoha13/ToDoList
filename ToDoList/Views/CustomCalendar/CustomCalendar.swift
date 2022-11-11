@@ -78,18 +78,20 @@ struct CustomCalendar: View {
                     }
                 }
                 .padding(.bottom, 20)
-                .animation(.easeIn, value: currentMonth)
+                
                 .onChange(of: currentMonth, perform: { _ in
                     currentDate = getCurrentMonth()
                 })
             }
-            .background(.white)
-            .cornerRadius(0)
-            .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
             .onAppear {
                 getCurrentWeek()
             }
         }
+        .animation(.easeIn, value: currentMonth)
+        .animation(.easeIn, value: currentDate)
+        .background(.white)
+        .cornerRadius(0)
+        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
         .padding(.vertical, 10)
     }
     
@@ -152,11 +154,11 @@ struct CustomCalendar: View {
         }
     }
     
-    func formatDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        return formatter.string(from: date)
-    }
+//    func formatDate(date: Date) -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd"
+//        return formatter.string(from: date)
+//    }
     
     func formatWeekDate(date: Date) -> String {
         let formatter = DateFormatter()

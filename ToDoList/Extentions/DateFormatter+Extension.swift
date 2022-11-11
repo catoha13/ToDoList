@@ -16,4 +16,10 @@ extension DateFormatter {
         formatter.dateFormat = "MMM d/yyyy"
         return formatter.string(from: newDate)
     }
+    
+    static func formatCalendarDayDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter.string(from: date)
+    }
 }
