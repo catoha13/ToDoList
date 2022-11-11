@@ -10,7 +10,6 @@ struct QuickView: View {
                     .font(.RobotoThinItalicHeader)
                     .padding(.vertical, 50)
                 ScrollView(showsIndicators: false) {
-                    //MARK: List
                     ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, _ in
                         //MARK: Notes
                         NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted) {
@@ -55,9 +54,6 @@ struct QuickView: View {
                                   secondaryButton: .cancel())
                         }
                         .padding(.horizontal, 10)
-                        .background(.white)
-                        .cornerRadius(Constants.radiusThree)
-                        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                         
                         //MARK: Checklists
                         ChecklistCell(content: checklists.items,
@@ -99,9 +95,6 @@ struct QuickView: View {
                                           })
                                       }
                                       .padding(.horizontal, 10)
-                                      .background(.white)
-                                      .cornerRadius(Constants.radiusThree)
-                                      .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                     }
                 }
             }
