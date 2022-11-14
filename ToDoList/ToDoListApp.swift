@@ -1,19 +1,15 @@
-//
-//  ToDoListApp.swift
-//  ToDoList
-//
-//  Created by Артём on 18.07.22.
-//
-
 import SwiftUI
 
 @main
 struct ToDoListApp: App {
+    
+    @State var isPresented = true
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
+     //        LogoView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

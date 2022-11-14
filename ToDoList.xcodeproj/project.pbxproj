@@ -61,7 +61,6 @@
 		AC6AD07D28FE96D20032F486 /* TaskHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6AD07C28FE96D20032F486 /* TaskHeader.swift */; };
 		AC6AD07F28FE9AF20032F486 /* TasksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6AD07E28FE9AF20032F486 /* TasksModel.swift */; };
 		AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714D828856C6B00A0C804 /* ToDoListApp.swift */; };
-		AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714DA28856C6B00A0C804 /* ContentView.swift */; };
 		AC7714DD28856C6D00A0C804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7714DC28856C6D00A0C804 /* Assets.xcassets */; };
 		AC7714E028856C6D00A0C804 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7714DF28856C6D00A0C804 /* Preview Assets.xcassets */; };
 		AC7714E228856C6D00A0C804 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714E128856C6D00A0C804 /* Persistence.swift */; };
@@ -71,7 +70,6 @@
 		AC7714FB28856C6D00A0C804 /* ToDoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7714FA28856C6D00A0C804 /* ToDoListUITestsLaunchTests.swift */; };
 		AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77150928857E9B00A0C804 /* LogoView.swift */; };
 		AC771513288589A100A0C804 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC771512288589A100A0C804 /* Font+Extension.swift */; };
-		AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77151428858C4400A0C804 /* CoreDataExample.swift */; };
 		AC77151828858EC400A0C804 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC77151728858EC300A0C804 /* Color+Extension.swift */; };
 		AC771526288591EE00A0C804 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771523288591AB00A0C804 /* Roboto-Black.ttf */; };
 		AC771527288591F100A0C804 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC771522288591AB00A0C804 /* Roboto-BlackItalic.ttf */; };
@@ -198,7 +196,6 @@
 		AC6AD07E28FE9AF20032F486 /* TasksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksModel.swift; sourceTree = "<group>"; };
 		AC7714D528856C6B00A0C804 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7714D828856C6B00A0C804 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
-		AC7714DA28856C6B00A0C804 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC7714DC28856C6D00A0C804 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC7714DF28856C6D00A0C804 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC7714E128856C6D00A0C804 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -210,7 +207,6 @@
 		AC7714FA28856C6D00A0C804 /* ToDoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC77150928857E9B00A0C804 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		AC771512288589A100A0C804 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
-		AC77151428858C4400A0C804 /* CoreDataExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExample.swift; sourceTree = "<group>"; };
 		AC77151728858EC300A0C804 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AC77151A288591AB00A0C804 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
 		AC77151B288591AB00A0C804 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -442,7 +438,6 @@
 			isa = PBXGroup;
 			children = (
 				AC7714D828856C6B00A0C804 /* ToDoListApp.swift */,
-				AC7714DA28856C6B00A0C804 /* ContentView.swift */,
 				ACD8F67628A24F7C009A4A6E /* Network */,
 				ACD8F67928A27F88009A4A6E /* Models */,
 				ACD8F67A28A27F9F009A4A6E /* ViewModels */,
@@ -452,7 +447,6 @@
 				AC77153A28859C4600A0C804 /* Info.plist */,
 				AC7714DC28856C6D00A0C804 /* Assets.xcassets */,
 				AC7714E128856C6D00A0C804 /* Persistence.swift */,
-				AC77151428858C4400A0C804 /* CoreDataExample.swift */,
 				AC7714E328856C6D00A0C804 /* ToDoList.xcdatamodeld */,
 				AC7714DE28856C6D00A0C804 /* Preview Content */,
 			);
@@ -903,11 +897,9 @@
 				AC5E2EA428932E18005B48BD /* SideView.swift in Sources */,
 				ACD0537528887CF900F7FF1D /* OnboardingView.swift in Sources */,
 				AC676BCC288EBE7F001DDE34 /* ViewRouter.swift in Sources */,
-				AC7714DB28856C6B00A0C804 /* ContentView.swift in Sources */,
 				ACF6F33228D9F92100665511 /* StatCollectionCell.swift in Sources */,
 				AC6406A828CA67E400D1D129 /* ProjectNetworkService.swift in Sources */,
 				AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */,
-				AC77151528858C4400A0C804 /* CoreDataExample.swift in Sources */,
 				AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */,
 				AC49149C28AAE5350030E852 /* NetworkProtocol.swift in Sources */,
 				ACF6F33A28DA05F800665511 /* ProfileNetworkService.swift in Sources */,
