@@ -6,7 +6,6 @@ class ViewRouter: ObservableObject {
     
 }
 
-
 enum Page {
     case myTask
     case menu

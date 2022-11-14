@@ -1,9 +1,14 @@
 import SwiftUI
+import Combine
 
 struct LogoView: View {
-    @State private var isPresented = false
+    @AppStorage("firstAccess") var firstAccess: Bool = true
+    @State private var showOnboarding = false
+    @State private var showSignUp = false
     @State private var selectedTab = 0
-    @State private var isSingUpPresented = false
+    @State private var isSignedIn = false
+    
+    private var token = Token()
     
     var body: some View {
         VStack {
@@ -18,58 +23,62 @@ struct LogoView: View {
         }
         .onAppear {
             _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                isPresented.toggle()
+                if firstAccess {
+                    showOnboarding.toggle()
+                } else {
+                    
+                    showSignUp.toggle()
+                }
             }
         }
-        .fullScreenCover(isPresented: $isPresented, content: {
+        .fullScreenCover(isPresented: $showSignUp) {
+            SignUpView(isPresented: $showSignUp)
+        }
+        .fullScreenCover(isPresented: $showOnboarding, content: {
             ZStack {
                 Dots(selectedDot: $selectedTab)
                 TabView(selection: $selectedTab) {
-                    OnboardingView(isPresented: isPresented,
+                    OnboardingView(isPresented: showOnboarding,
                                    image: "events",
                                    text: "Welcome to todo list",
                                    description: "Whats going to happen tomorrow?",
                                    backgroundFirst: "pathFirst",
                                    backgroundSecond: "pathFirstBack",
-                                   buttonAction: self.nextScreen)
+                                   buttonAction: {
+                        selectedTab += 1
+                    })
                     .tag(0)
                     
-                    OnboardingView(isPresented: isPresented,
+                    OnboardingView(isPresented: showOnboarding,
                                    image: "superhero",
                                    text: "Work happens",
                                    description: "Get notified when work happens.",
                                    backgroundFirst: "pathSecond",
                                    backgroundSecond: "pathSecondBack",
-                                   buttonAction: self.nextScreen)
+                                   buttonAction: {
+                        selectedTab += 1
+                    })
                     .tag(1)
                     
-                    OnboardingView(isPresented: isPresented,
+                    OnboardingView(isPresented: showOnboarding,
                                    image: "analysis",
                                    text: "Tasks and assign",
                                    description: "Task and assign them to colleagues.",
                                    backgroundFirst: "pathThird",
                                    backgroundSecond: "pathThirdBack",
-                                   buttonAction: self.showMainScreen)
+                                   buttonAction: {
+                        showSignUp.toggle()
+                        firstAccess = false
+                    })
                     .tag(2)
-                    .fullScreenCover(isPresented: $isSingUpPresented) {
-                        SignUpView(isPresented: $isSingUpPresented)
+                    .fullScreenCover(isPresented: $showSignUp) {
+                        SignUpView(isPresented: $showSignUp)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .ignoresSafeArea(edges: .bottom)
             }
         })
-    }
-    
-    func nextScreen() {
-        withAnimation {
-            self.selectedTab += 1
-        }
-    }
-    
-    func showMainScreen() {
-        // present to main screen
-        isSingUpPresented.toggle()
     }
 }
 

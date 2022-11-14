@@ -154,12 +154,6 @@ struct CustomCalendar: View {
         }
     }
     
-//    func formatDate(date: Date) -> String {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd"
-//        return formatter.string(from: date)
-//    }
-    
     func formatWeekDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "d"

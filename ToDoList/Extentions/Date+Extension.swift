@@ -2,6 +2,13 @@ import Foundation
 
 extension Date {
     
+    func getCurrentDate() -> Int {
+        let someDate = Date()
+        let timeInterval = someDate.timeIntervalSince1970
+        let date = Int(timeInterval)
+        return date
+    }
+    
     func getAllDates() -> [Date] {
         let calendar = Calendar.current
         

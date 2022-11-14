@@ -6,7 +6,7 @@ final class SignInViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var errorMessage: String = ""
-    @Published var credentialsChecked = false
+    @Published var isPresented = false
     
     private var token = Token()
     private var user = User()
@@ -36,10 +36,7 @@ final class SignInViewModel: ObservableObject {
                         self?.token.refreshToken = item.data.refreshToken ?? "no data"
                         self?.token.expireDate = item.data.expiresIn ?? 0
                         self?.token.tokenType = item.data.tokenType ?? "no data"
-                        self?.token.checkToken
-                            .sink { self?.credentialsChecked = $0
-                            }
-                            .store(in: &self!.cancellables)
+                        self?.isPresented.toggle()
                     } else {
                         self?.errorMessage = item.data.message ?? "no data"
                     }

@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import Combine
 
@@ -12,25 +11,20 @@ final class Token: ObservableObject {
     private var authService = AuthService()
     private var cancellables = Set<AnyCancellable>()
     
-    private var currentDate: Int = {
-        let someDate = Date()
-        let timeInterval = someDate.timeIntervalSince1970
-        let date = Int(timeInterval)
-        return date
-    }()
+    private var currentDate: Int = Date().getCurrentDate()
     
     private var model: TokenData {
         TokenData(refreshToken: refreshToken)
     }
     
-    private var publisher: AnyPublisher<RefreshTokenModel, NetworkError> {
+    private var refreshTokenRequest: AnyPublisher<RefreshTokenModel, NetworkError> {
         authService.refreshToken(model: model)
     }
     
     var checkToken: AnyPublisher<Bool, Never> {
         expireDate.publisher
             .map {
-                if self.currentDate >= $0 {
+                if self.currentDate >= trimExpireDate($0) {
                     getNewToken()
                     return false
                 } else {
@@ -41,7 +35,7 @@ final class Token: ObservableObject {
     }
     
     private func getNewToken() {
-        publisher
+        refreshTokenRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: {
                 if $0.data.message == nil {
@@ -51,5 +45,11 @@ final class Token: ObservableObject {
                 }
             })
             .store(in: &cancellables)
+    }
+    
+    private func trimExpireDate(_ date: Int) -> Int {
+        var stringDate = String(date)
+        stringDate.removeLast(3)
+        return Int(stringDate) ?? 0
     }
 }

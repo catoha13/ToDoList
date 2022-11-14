@@ -290,6 +290,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC1A3E4A29226FF900EEF1CE /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				ACD0537428887CF900F7FF1D /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		AC1A3E4C2922705A00EEF1CE /* TabBarViewRouter */ = {
+			isa = PBXGroup;
+			children = (
+				AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */,
+			);
+			path = TabBarViewRouter;
+			sourceTree = "<group>";
+		};
+		AC1A3E4D2922707300EEF1CE /* CustomPicker */ = {
+			isa = PBXGroup;
+			children = (
+				AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */,
+			);
+			path = CustomPicker;
+			sourceTree = "<group>";
+		};
 		AC20A02C28BD686D00E7B718 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,8 +402,6 @@
 			children = (
 				AC676BC3288EBE7F001DDE34 /* CustomTabBarView.swift */,
 				AC676BBE288EBE7F001DDE34 /* TabViews */,
-				AC676BC5288EBE7F001DDE34 /* ViewRouter.swift */,
-				AC676BC4288EBE7F001DDE34 /* CustomPicker.swift */,
 				ACD6C560288F14D30033D732 /* Create */,
 			);
 			path = MainScreen;
@@ -468,7 +490,6 @@
 				AC77150828857E4A00A0C804 /* Onboarding */,
 				AC2F6901288AF6C3007D78E0 /* Authorization */,
 				AC676BBD288EBE7F001DDE34 /* MainScreen */,
-				AC43EAAB2902B4ED001D7B31 /* CustomCalendar */,
 				AC7715372885984900A0C804 /* Helpers */,
 			);
 			path = Views;
@@ -478,7 +499,6 @@
 			isa = PBXGroup;
 			children = (
 				AC77150928857E9B00A0C804 /* LogoView.swift */,
-				ACD0537428887CF900F7FF1D /* OnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -534,6 +554,16 @@
 		AC7715372885984900A0C804 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AC1A3E4A29226FF900EEF1CE /* Onboarding */,
+				AC3F7C632903C9BE001E9F2D /* Gestures */,
+				AC66016D2892D31E005A7B02 /* Create */,
+				AC9CC19E28CA0FDB005B4387 /* Project */,
+				ACADC52728C76F5900289409 /* Task */,
+				ACFD4DBF28D235F9004EB8D3 /* Note */,
+				ACF182F128DF92CF00DD3531 /* Checklist */,
+				ACA623F428D9E48A0038888E /* Profile */,
+				AC43EAAB2902B4ED001D7B31 /* CustomCalendar */,
+				AC1A3E4D2922707300EEF1CE /* CustomPicker */,
 				AC3719E92909A92100DBE9C9 /* Dots.swift */,
 				AC2F6913288B31F5007D78E0 /* CustomButtons.swift */,
 				AC7715382885985F00A0C804 /* CustomButtonStyles.swift */,
@@ -543,13 +573,6 @@
 				ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */,
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
 				ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */,
-				AC3F7C632903C9BE001E9F2D /* Gestures */,
-				AC66016D2892D31E005A7B02 /* Create */,
-				AC9CC19E28CA0FDB005B4387 /* Project */,
-				ACADC52728C76F5900289409 /* Task */,
-				ACFD4DBF28D235F9004EB8D3 /* Note */,
-				ACF182F128DF92CF00DD3531 /* Checklist */,
-				ACA623F428D9E48A0038888E /* Profile */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -677,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				ACD4570228F5606A00E27411 /* AuthViewModels */,
+				AC1A3E4C2922705A00EEF1CE /* TabBarViewRouter */,
 				AC6406A228CA66A600D1D129 /* MenuViewModel.swift */,
 				ACF6F33528DA05BA00665511 /* ProfileViewModel.swift */,
 				ACD4570328F5642000E27411 /* QuickViewModel.swift */,

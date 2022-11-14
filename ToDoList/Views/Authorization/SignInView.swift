@@ -49,9 +49,9 @@ struct SignInView: View {
             }
             .buttonStyle(CustomButtonStyle())
             .padding(.vertical, 80)
-            .fullScreenCover(isPresented: $viewModel.credentialsChecked) {
+            .fullScreenCover(isPresented: $viewModel.isPresented) {
                 CustomTabBarView(viewRouter: ViewRouter(),
-                                 isPresented: $viewModel.credentialsChecked)
+                                 isPresented: $viewModel.isPresented)
             }
             
             CustomButton(text: "Sign Up", action: {
