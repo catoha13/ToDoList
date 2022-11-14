@@ -3,15 +3,14 @@ import Combine
 
 final class MenuViewModel: ObservableObject {
     
-    @Published var isPresented = false
-    @Published var isEditing = false
-    @Published var showAlert = false
-    @Published var selectedColor = ""
+    var isPresented = CurrentValueSubject<Bool, Never>(false)
+    var isEditing = CurrentValueSubject<Bool, Never>(false)
+    var showAlert = CurrentValueSubject<Bool, Never>(false)
     
-    @Published var projectName = ""
-    @Published var chosenColor = ""
-    @Published var projectsArray: [FetchProjectsData] = []
-    @Published var selectedProjectId = ""
+    var projectName = CurrentValueSubject<String, Never>("")
+    var chosenColor = CurrentValueSubject< String, Never>("")
+    var projectsArray = CurrentValueSubject<[FetchProjectsData], Never>([])
+    var selectedProjectId = CurrentValueSubject<String, Never>("")
     
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -28,7 +27,7 @@ final class MenuViewModel: ObservableObject {
     }
     
     private var model: ProjectModel {
-        return ProjectModel(title: projectName, color: chosenColor, ownerId: ownerId)
+        return ProjectModel(title: projectName.value, color: chosenColor.value, ownerId: ownerId)
     }
     private var createRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
         return projectService.createProject(model: model, header: header)
@@ -37,22 +36,42 @@ final class MenuViewModel: ObservableObject {
         return projectService.fetchProjects(header: header)
     }
     private var updateRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.updateProject(model: model, header: header, projectId: selectedProjectId)
+        return projectService.updateProject(model: model, header: header, projectId: selectedProjectId.value)
     }
     private var deleteRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.deleteProject(header: header, projectId: selectedProjectId)
+        return projectService.deleteProject(header: header, projectId: selectedProjectId.value)
     }
     
     init() {
-        fetchProjects()
+        addSubscriptions()
     }
     
-    func createProject() {
-        createRequest
+    func addSubscriptions() {
+        
+        fetchRequest
             .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] _ in
-                self?.fetchProjects()
+            }, receiveValue: { [weak self] item in
+                self?.objectWillChange.send()
+                self?.projectsArray.value = item.data
             })
+            .store(in: &cancellables)
+        
+        isPresented
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+        
+        isEditing
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+        
+        showAlert
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
             .store(in: &cancellables)
     }
     
@@ -60,7 +79,18 @@ final class MenuViewModel: ObservableObject {
         fetchRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                self?.projectsArray = item.data
+                self?.objectWillChange.send()
+                self?.projectsArray.value = item.data
+            })
+            .store(in: &cancellables)
+    }
+    
+    func createProject() {
+        createRequest
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] _ in
+                self?.objectWillChange.send()
+                self?.fetchProjects()
             })
             .store(in: &cancellables)
     }
@@ -69,6 +99,7 @@ final class MenuViewModel: ObservableObject {
         updateRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] _ in
+                self?.objectWillChange.send()
                 self?.fetchProjects()
             })
             .store(in: &cancellables)
