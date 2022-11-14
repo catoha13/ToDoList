@@ -31,9 +31,6 @@ struct LogoView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $showSignUp) {
-            SignUpView(isPresented: $showSignUp)
-        }
         .fullScreenCover(isPresented: $showOnboarding, content: {
             ZStack {
                 Dots(selectedDot: $selectedTab)
@@ -79,6 +76,9 @@ struct LogoView: View {
                 .ignoresSafeArea(edges: .bottom)
             }
         })
+        .fullScreenCover(isPresented: $showSignUp) {
+            SignUpView(isPresented: $showSignUp)
+        }
     }
 }
 
