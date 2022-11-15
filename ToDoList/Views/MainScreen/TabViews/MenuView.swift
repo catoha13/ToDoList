@@ -13,10 +13,10 @@ struct MenuView: View {
                     
                     LazyVGrid(columns: viewModel.flexibleLayout) {
                         ForEach(viewModel.projectsArray.value, id: \.self) { data in
-                            ProjectCell(color: data.color, text: data.title, taskCounter: 8)
+                            ProjectCell(color: data.color ?? "", text: data.title ?? "", taskCounter: 8)
                                 .onLongPressGesture {
-                                    viewModel.selectedProjectId.value = data.id
-                                    viewModel.projectName.value = data.title
+                                    viewModel.selectedProjectId.value = data.id ?? ""
+                                    viewModel.projectName.value = data.title ?? ""
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         viewModel.isEditing.value.toggle()
                                     }
@@ -31,6 +31,9 @@ struct MenuView: View {
                         }
                     }
                 }
+                .alert(isPresented: $viewModel.showNetworkAlert.value) {
+                    Alert(title: Text("Oops...\nSomething went wrong"), message: Text(viewModel.alertMessage.value), dismissButton: Alert.Button.cancel(Text("Ok")))
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.customWhiteBackground)
@@ -43,7 +46,7 @@ struct MenuView: View {
                     ProjectChooseColor(isPresented: $viewModel.isPresented.value,
                                        extracedColor: $viewModel.chosenColor.value,
                                        projectName: $viewModel.projectName.value) {
-                        viewModel.createProject()
+                        viewModel.createProjectRequest.send()
                         viewModel.projectName.value = ""
                     }
                     .frame(width: 338)
@@ -52,6 +55,7 @@ struct MenuView: View {
                 }
             }
             
+            
             if viewModel.isEditing.value {
                 ZStack {
                     Text("")
@@ -59,17 +63,17 @@ struct MenuView: View {
                         .background(.secondary)
                     VStack(spacing: 0) {
                         Button("Delete project") {
-                            viewModel.showAlert.value.toggle()
+                            viewModel.showDeleteAlert.value.toggle()
                         }
                         .foregroundColor(.red)
-                        .alert(isPresented: $viewModel.showAlert.value) {
+                        .alert(isPresented: $viewModel.showDeleteAlert.value) {
                             Alert(title: Text("Delete «\(viewModel.projectName.value)» project?"),
                                   message: Text("You cannot undo this action."),
                                   primaryButton: .cancel(),
                                   secondaryButton: .destructive(Text("Delete")) {
-                                viewModel.deleteProject()
+                                viewModel.deleteProjectRequest.send()
                                 viewModel.isEditing.value.toggle()
-                                viewModel.showAlert.value.toggle()
+                                viewModel.showDeleteAlert.value.toggle()
                             })
                         }
                         
@@ -82,7 +86,7 @@ struct MenuView: View {
                         ProjectChooseColor(isPresented: $viewModel.isEditing.value,
                                            extracedColor: $viewModel.chosenColor.value,
                                            projectName: $viewModel.projectName.value) {
-                            viewModel.updateProject()
+                            viewModel.updateProjectRequest.send()
                             viewModel.projectName.value = ""
                         }
                     }

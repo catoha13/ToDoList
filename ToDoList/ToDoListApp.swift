@@ -4,7 +4,7 @@ import SwiftUI
 struct ToDoListApp: App {
     
     @State var isPresented = true
-    let persistenceController = PersistenceController.shared
+    let persistenceController = CoreDataManager.shared
 
     var body: some Scene {
         WindowGroup {

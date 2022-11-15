@@ -8,6 +8,10 @@ final class Token: ObservableObject {
     @AppStorage("tokenType") var tokenType: String?
     @AppStorage("isValid") var isValid: Bool = false
     
+    var header: String {
+      return (tokenType ?? "") + " " + (savedToken ?? "")
+    }
+    
     private var authService = AuthService()
     private var cancellables = Set<AnyCancellable>()
     

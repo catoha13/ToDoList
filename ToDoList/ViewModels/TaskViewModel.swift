@@ -157,6 +157,7 @@ final class TaskViewModel: ObservableObject {
         createTaskRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self ]item in
+                self?.objectWillChange.send()
                 self?.fetchUserTasks()
             })
             .store(in: &cancellables)
@@ -166,6 +167,7 @@ final class TaskViewModel: ObservableObject {
         updateTaskRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
+                self?.objectWillChange.send()
                 self?.fetchUserTasks()
             })
             .store(in: &cancellables)
@@ -185,6 +187,7 @@ final class TaskViewModel: ObservableObject {
         fetchUserTasksRequest
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
+                self?.objectWillChange.send()
                 self?.fetchTasksResponse = item.data
             })
             .store(in: &cancellables)

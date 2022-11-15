@@ -5,55 +5,62 @@ final class MenuViewModel: ObservableObject {
     
     var isPresented = CurrentValueSubject<Bool, Never>(false)
     var isEditing = CurrentValueSubject<Bool, Never>(false)
-    var showAlert = CurrentValueSubject<Bool, Never>(false)
+    var showDeleteAlert = CurrentValueSubject<Bool, Never>(false)
+    var showNetworkAlert = CurrentValueSubject<Bool, Never>(false)
     
+    var alertMessage = CurrentValueSubject<String, Never>("")
     var projectName = CurrentValueSubject<String, Never>("")
     var chosenColor = CurrentValueSubject< String, Never>("")
-    var projectsArray = CurrentValueSubject<[FetchProjectsData], Never>([])
+    var projectsArray = CurrentValueSubject<[ProjectResponceData], Never>([])
     var selectedProjectId = CurrentValueSubject<String, Never>("")
     
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
-    private var token = Token()
+    private let token = Token()
     private let user = User()
-    private var projectService = ProjectNetworkService()
+    private let projectService = ProjectNetworkService()
+    private let coreDataManager = CoreDataManager.shared
     private var cancellables = Set<AnyCancellable>()
     
-    private var header: String {
-      return (token.tokenType ?? "") + " " + (token.savedToken ?? "")
-    }
-    private var ownerId: String {
-        return user.userId ?? "no data"
+    private var model: ProjectModel {
+        return ProjectModel(title: projectName.value, color: chosenColor.value, ownerId: user.userId ?? "")
     }
     
-    private var model: ProjectModel {
-        return ProjectModel(title: projectName.value, color: chosenColor.value, ownerId: ownerId)
-    }
-    private var createRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.createProject(model: model, header: header)
-    }
-    private var fetchRequest: AnyPublisher<FetchProjectsResponceModel, NetworkError> {
-        return projectService.fetchProjects(header: header)
-    }
-    private var updateRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.updateProject(model: model, header: header, projectId: selectedProjectId.value)
-    }
-    private var deleteRequest: AnyPublisher<ProjectResponceModel, NetworkError> {
-        return projectService.deleteProject(header: header, projectId: selectedProjectId.value)
-    }
+    let fetchProjectsRequest = PassthroughSubject<Void, Never>()
+    let createProjectRequest = PassthroughSubject<Void, Never>()
+    let updateProjectRequest = PassthroughSubject<Void, Never>()
+    let deleteProjectRequest = PassthroughSubject<Void, Never>()
     
     init() {
         addSubscriptions()
+        fetchProjectsRequest.send()
     }
     
-    func addSubscriptions() {
+    //MARK: Publishers
+    private func addSubscriptions() {
         
-        fetchRequest
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] item in
-                self?.objectWillChange.send()
-                self?.projectsArray.value = item.data
-            })
+        fetchProjectsRequest
+            .sink { [weak self] _ in
+                self?.fetchProjects()
+            }
+            .store(in: &cancellables)
+        
+        createProjectRequest
+            .sink { [weak self] _ in
+                self?.createProject()
+            }
+            .store(in: &cancellables)
+        
+        updateProjectRequest
+            .sink { [weak self] _ in
+                self?.updateProject()
+            }
+            .store(in: &cancellables)
+        
+        deleteProjectRequest
+            .sink { [weak self] _ in
+                self?.deleteProject()
+            }
             .store(in: &cancellables)
         
         isPresented
@@ -68,49 +75,84 @@ final class MenuViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        showAlert
+        showDeleteAlert
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+        
+        showNetworkAlert
             .sink { [weak self] _ in
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
     }
     
+    //MARK: Funcs
     private func fetchProjects() {
-        fetchRequest
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] item in
+        self.projectService.fetchProjects()
+            .sink { [weak self] item in
+                switch item {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage.value = error.description
+                    self?.showNetworkAlert.value = true
+                }
+            } receiveValue: { [weak self] item in
                 self?.objectWillChange.send()
                 self?.projectsArray.value = item.data
-            })
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func createProject() {
+        projectService.createProject(model: model)
+            .sink { [weak self] item in
+                switch item {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage.value = error.description
+                    self?.showNetworkAlert.value = true
+                }
+            } receiveValue: { [weak self] _ in
+                self?.objectWillChange.send()
+                self?.fetchProjectsRequest.send()
+            }
             .store(in: &cancellables)
     }
     
-    func createProject() {
-        createRequest
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] _ in
+    private func updateProject() {
+        projectService.updateProject(model: model, projectId: selectedProjectId.value)
+            .sink { [weak self] item in
+                switch item {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage.value = error.description
+                    self?.showNetworkAlert.value = true
+                }
+            } receiveValue: { [weak self] _ in
                 self?.objectWillChange.send()
                 self?.fetchProjects()
-            })
+            }
             .store(in: &cancellables)
     }
     
-    func updateProject() {
-        updateRequest
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] _ in
-                self?.objectWillChange.send()
-                self?.fetchProjects()
-            })
-            .store(in: &cancellables)
-    }
-    
-    func deleteProject() {
-        deleteRequest
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] _ in
-                self?.fetchProjects()
-            })
+    private func deleteProject() {
+        projectService.deleteProject(projectId: selectedProjectId.value)
+            .sink { [weak self] item in
+                switch item {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage.value = error.description
+                    self?.showNetworkAlert.value = true
+                }
+            } receiveValue: { [weak self] _ in
+                self?.fetchProjectsRequest.send()
+            }
             .store(in: &cancellables)
     }
 }
