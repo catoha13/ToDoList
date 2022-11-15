@@ -16,7 +16,6 @@ final class MenuViewModel: ObservableObject {
     
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
-    private let token = Token()
     private let user = User()
     private let projectService = ProjectNetworkService()
     private let coreDataManager = CoreDataManager.shared
