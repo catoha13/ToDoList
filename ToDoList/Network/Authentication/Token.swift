@@ -21,9 +21,7 @@ final class Token: ObservableObject {
         TokenData(refreshToken: refreshToken)
     }
     
-    private var refreshTokenRequest: AnyPublisher<RefreshTokenModel, NetworkError> {
-        authService.refreshToken(model: model)
-    }
+    private let refreshTokenRequest = PassthroughSubject<Void, Never>()
     
     var checkToken: AnyPublisher<Bool, Never> {
         expireDate.publisher
@@ -38,8 +36,20 @@ final class Token: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private func getNewToken() {
+    init() {
+        addSubscriptions()
+    }
+    
+    private func addSubscriptions() {
         refreshTokenRequest
+            .sink { [weak self] _ in
+                self?.getNewToken()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func getNewToken() {
+        authService.refreshToken(model: model)
             .sink(receiveCompletion: { _ in
             }, receiveValue: {
                 if $0.data.message == nil {

@@ -9,12 +9,12 @@ final class AuthService {
         return networkManager.post(body: model, path: path, header: nil)
     }
     
-    func signUp<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T : Encodable, U : Decodable {
+    func signUp(model: RequestBodyModel) -> AnyPublisher<SignUpResponceModel, NetworkError> {
         let path = Path.signUp.rawValue
         return networkManager.post(body: model, path: path, header: nil)
     }
     
-    func refreshToken<T,U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func refreshToken(model: TokenData) -> AnyPublisher<RefreshTokenModel, NetworkError> {
         let path = Path.refreshToken.rawValue
         return networkManager.post(body: model, path: path, header: nil)
     }

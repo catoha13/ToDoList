@@ -29,9 +29,6 @@ struct SignUpView: View {
                         ImagePicker(isShown: $showImagePicker,
                                     image: $viewModel.avatar,
                                     url: $viewModel.url)
-                        .onDisappear {
-                            viewModel.uploadAvatar()
-                        }
                     }
                 }
                 
@@ -54,8 +51,9 @@ struct SignUpView: View {
                 TextWithErrorDecsription(text: $viewModel.errorMessage)
                 
                 CustomCoralFilledButton(text: "Sign Up", action: {
-                    viewModel.signUp()
+                    viewModel.signUp.send()
                 })
+                .opacity(viewModel.isCredentialsValid ? 1 : 0.75)
                 .padding(.top, 10)
                 .fullScreenCover(isPresented: $viewModel.isPresented) {
                     CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)

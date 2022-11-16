@@ -23,19 +23,19 @@ final class SignUpViewModel: ObservableObject {
     private var model: RequestBodyModel {
         RequestBodyModel(email: email, password: password, username: username)
     }
-    private  var signUpRequest: AnyPublisher<SignUpResponceModel, NetworkError>  {
-        authService.signUp(model: model)
-    }
     
-    private var uploadAvatarRequest: AnyPublisher<ProfileResponseModel, NetworkError> {
-        return profileService.uploadUserAvatar(image: (avatar ?? UIImage(named: "background"))!,
-                                               imageName: url ?? "")
-    }
+    let signUp = PassthroughSubject<Void, Never>()
+    private let uploadAvatar = PassthroughSubject<Void, Never>()
     
-    let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
-    let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+    private let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+    private let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
 
     init() {
+        addSubscriptions()
+    }
+    
+    private func addSubscriptions() {
+        
         $email
             .map { email in
                 return self.emailFormat.evaluate(with: email)
@@ -55,10 +55,22 @@ final class SignUpViewModel: ObservableObject {
             }
             .assign(to: \.isCredentialsValid, on: self)
             .store(in: &cancellables)
+        
+        signUp
+            .sink { [weak self] _ in
+                self?.signUpRequest()
+            }
+            .store(in: &cancellables)
+        
+        uploadAvatar
+            .sink { [weak self] _ in
+                self?.uploadAvatarRequest()
+            }
+            .store(in: &cancellables)
     }
     
-    func signUp() {
-        signUpRequest
+    private func signUpRequest() {
+        authService.signUp(model: model)
             .sink(receiveCompletion: {
                 switch $0 {
                 case .finished:
@@ -67,19 +79,26 @@ final class SignUpViewModel: ObservableObject {
                     self.errorMessage = error.description
                 }
             }, receiveValue: { [weak self] item in
-                self?.token.savedToken = item.data.userSession?.accessToken ?? "no data"
-                self?.token.refreshToken = item.data.userSession?.refreshToken ?? "no data"
-                self?.token.expireDate = item.data.userSession?.expiresIn ?? 0
-                self?.token.tokenType = item.data.userSession?.tokenType
-                self?.user.userId = item.data.id ?? "no data"
-                self?.user.savedEmail = item.data.email ?? "no data"
-                self?.isPresented.toggle()
+                guard let self = self else { return }
+                if item.data.message == nil {
+                    self.token.savedToken = item.data.userSession?.accessToken ?? "no data"
+                    self.token.refreshToken = item.data.userSession?.refreshToken ?? "no data"
+                    self.token.expireDate = item.data.userSession?.expiresIn ?? 0
+                    self.token.tokenType = item.data.userSession?.tokenType
+                    self.user.userId = item.data.id ?? "no data"
+                    self.user.savedEmail = item.data.email ?? "no data"
+                    self.uploadAvatar.send()
+                    self.isPresented.toggle()
+                } else {
+                    self.errorMessage = item.data.message ?? ""
+                }
             })
             .store(in: &cancellables)
     }
     
-    func uploadAvatar() {
-        uploadAvatarRequest
+    private func uploadAvatarRequest() {
+        profileService.uploadUserAvatar(image: (avatar ?? UIImage(named: "background"))!,
+                                        imageName: url ?? "")
             .sink(receiveCompletion: { _ in },
                   receiveValue: { _ in })
             .store(in: &cancellables)

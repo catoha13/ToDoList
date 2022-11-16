@@ -12,7 +12,7 @@ final class ProfileNetworkService {
         user.userId ?? "no data"
     }
     
-    func uploadUserAvatar<U>(image: UIImage, imageName: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func uploadUserAvatar(image: UIImage, imageName: String) -> AnyPublisher<ProfileResponseModel, NetworkError> {
         let path = Path.userAvatar.rawValue
         let params = [
             "file" : imageName,
