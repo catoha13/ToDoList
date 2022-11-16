@@ -8,7 +8,7 @@ struct LogoView: View {
     @State private var selectedTab = 0
     @State private var isSignedIn = false
     
-    private var token = Token()
+    private let token = Token()
     
     var body: some View {
         VStack {

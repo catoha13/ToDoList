@@ -27,23 +27,23 @@ struct MenuView: View {
                     
                     AddProjectButton() {
                         withAnimation {
-                            self.viewModel.isPresented.value.toggle()
+                            self.viewModel.showCreateProject.value.toggle()
                         }
                     }
                 }
                 .alert(isPresented: $viewModel.showNetworkAlert.value) {
-                    Alert(title: Text("Oops...\nSomething went wrong"), message: Text(viewModel.alertMessage.value), dismissButton: Alert.Button.cancel(Text("Ok")))
+                    Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage.value), dismissButton: Alert.Button.cancel(Text("Ok")))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.customWhiteBackground)
             
-            if viewModel.isPresented.value {
+            if viewModel.showCreateProject.value {
                 ZStack {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
-                    ProjectChooseColor(isPresented: $viewModel.isPresented.value,
+                    ProjectChooseColor(isPresented: $viewModel.showCreateProject.value,
                                        extracedColor: $viewModel.chosenColor.value,
                                        projectName: $viewModel.projectName.value) {
                         viewModel.createProjectRequest.send()
@@ -61,6 +61,9 @@ struct MenuView: View {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
+                        .onTapGesture {
+                            viewModel.isEditing.value.toggle()
+                        }
                     VStack(spacing: 0) {
                         Button("Delete project") {
                             viewModel.showDeleteAlert.value.toggle()

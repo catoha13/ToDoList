@@ -3,7 +3,7 @@ import Combine
 
 final class MenuViewModel: ObservableObject {
     
-    var isPresented = CurrentValueSubject<Bool, Never>(false)
+    var showCreateProject = CurrentValueSubject<Bool, Never>(false)
     var isEditing = CurrentValueSubject<Bool, Never>(false)
     var showDeleteAlert = CurrentValueSubject<Bool, Never>(false)
     var showNetworkAlert = CurrentValueSubject<Bool, Never>(false)
@@ -62,7 +62,7 @@ final class MenuViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        isPresented
+        showCreateProject
             .sink { [weak self] _ in
                 self?.objectWillChange.send()
             }
@@ -97,10 +97,14 @@ final class MenuViewModel: ObservableObject {
                 case .failure(let error):
                     self?.alertMessage.value = error.description
                     self?.showNetworkAlert.value = true
+                    self?.coreDataManager.getAllProjects().forEach({ project in
+                        self?.projectsArray.value.append(ProjectResponceData(id: project.id, title: project.title, color: project.color, ownerId: project.owner_id, createdAt: project.created_at))
+                    })
                 }
             } receiveValue: { [weak self] item in
-                self?.objectWillChange.send()
-                self?.projectsArray.value = item.data
+                guard let self = self else { return }
+                self.objectWillChange.send()
+                self.projectsArray.value = item.data
             }
             .store(in: &self.cancellables)
     }

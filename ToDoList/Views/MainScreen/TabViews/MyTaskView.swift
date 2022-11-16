@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MyTaskView: View {
-    @ObservedObject var viewModel = TaskViewModel()
+    @StateObject var viewModel = TaskViewModel()
     
     var body: some View {
         ZStack {

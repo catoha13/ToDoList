@@ -20,7 +20,7 @@ final class SignUpViewModel: ObservableObject {
     private let user = User()
     
     private var cancellables = Set<AnyCancellable>()
-    private var  model: RequestBodyModel {
+    private var model: RequestBodyModel {
         RequestBodyModel(email: email, password: password, username: username)
     }
     private  var signUpRequest: AnyPublisher<SignUpResponceModel, NetworkError>  {

@@ -9,7 +9,7 @@ struct ToDoListApp: App {
     var body: some Scene {
         WindowGroup {
             CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
-     //        LogoView()
+//             LogoView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
