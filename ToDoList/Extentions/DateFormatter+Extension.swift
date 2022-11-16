@@ -22,4 +22,10 @@ extension DateFormatter {
         formatter.dateFormat = "dd"
         return formatter.string(from: date)
     }
+    
+    static func formatDateDayMonthYear(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: date)
+    }
 }

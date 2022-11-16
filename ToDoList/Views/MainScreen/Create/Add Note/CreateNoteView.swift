@@ -53,7 +53,7 @@ struct CreateNoteView: View {
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
                     viewModel.selectedNoteColor = selectedColor.convertToHex()
-                    viewModel.createNote()
+                    viewModel.createNote.send()
                     isPresented.toggle()
                 }
                 .disabled(isMaxLength)

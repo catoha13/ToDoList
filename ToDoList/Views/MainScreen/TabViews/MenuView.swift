@@ -55,7 +55,6 @@ struct MenuView: View {
                 }
             }
             
-            
             if viewModel.isEditing.value {
                 ZStack {
                     Text("")

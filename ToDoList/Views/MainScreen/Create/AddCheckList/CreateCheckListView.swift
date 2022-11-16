@@ -57,7 +57,7 @@ struct CreateCheckListView: View {
                     } else {
                         viewModel.checklistColor = selectedColor.convertToHex()
                         viewModel.checklistTitle = title
-                        viewModel.createChecklist()
+                        viewModel.createChecklist.send()
                         isPresented.toggle()
                     }
                 }

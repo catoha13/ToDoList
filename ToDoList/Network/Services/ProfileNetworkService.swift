@@ -22,12 +22,12 @@ final class ProfileNetworkService {
        return networkManager.uploadAvatar(path: path, header: header,image: image ,parameters: params)
     }
     
-    func fetchUser<U>() -> AnyPublisher<U,NetworkError> where U: Decodable {
+    func fetchUser() -> AnyPublisher<ProfileResponseModel,NetworkError> {
         let path = Path.fetchUser.rawValue + userId
         return networkManager.get(path: path, header: header)
     }
     
-    func fetchUserStatistics<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func fetchUserStatistics() -> AnyPublisher<FetchUserStatisticsModel, NetworkError> {
         let path = Path.fetchUserStatistics.rawValue + userId
         return networkManager.get(path: path, header: header)
     }
@@ -37,7 +37,7 @@ final class ProfileNetworkService {
         return networkManager.downloadAvatar(path: path, header: header)
     }
     
-    func signOut<T, U>(model: T) -> AnyPublisher<U, NetworkError> where U: Decodable, T: Encodable {
+    func signOut(model: SignOutModel) -> AnyPublisher<SignOut, NetworkError> {
         let path = Path.signOut.rawValue
         return networkManager.post(body: model, path: path, header: header)
     }

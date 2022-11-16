@@ -8,6 +8,7 @@ struct CircleImageView: View {
     var body: some View {
         Image(uiImage: image ?? UIImage(named: "background")! )
             .resizable()
+            .scaledToFill()
             .frame(width: width, height: height)
             .clipShape(Circle())
             .animation(.default, value: image)

@@ -48,12 +48,15 @@ struct ProfileView: View {
                 }
             }
             .background(Color.customWhiteBackground)
+            .alert(isPresented: $viewModel.showNetworkAlert) {
+                Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
+            }
             
             if viewModel.showSetting {
                 ProfileSettings(isPresented: $viewModel.showSetting) {
                     viewModel.showImagePicker.toggle()
                 } signOutAction: {
-                    viewModel.signOut()
+                    viewModel.signOut.send()
                 }
                 
             }
@@ -66,7 +69,7 @@ struct ProfileView: View {
                         image: $viewModel.avatarImage,
                         url: $viewModel.avatarUrl)
             .onDisappear {
-                viewModel.uploadAvatar()
+                viewModel.uploadAvatar.send()
             }
         }
     }

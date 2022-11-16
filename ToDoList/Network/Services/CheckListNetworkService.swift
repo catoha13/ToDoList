@@ -13,32 +13,32 @@ final class CheckListNetworkService {
         user.userId ?? "no data"
     }
     
-    func createChecklist<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func createChecklist(model: ChecklistUpdateRequestModel) -> AnyPublisher<ChecklistUpdateRequestModel, NetworkError> {
         let path = Path.checklists.rawValue
         return networkManager.post(body: model, path: path, header: header)
     }
     
-    func updateChecklist<T, U>(model: T, checklistId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func updateChecklist(model: ChecklistUpdateRequestModel, checklistId: String) -> AnyPublisher<ChecklistResponseModel, NetworkError> {
         let path = Path.checklists.rawValue + "/" + checklistId
         return networkManager.put(body: model, path: path, header: header)
     }
     
-    func deleteChecklistItem<U>(checklistItemId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func deleteChecklistItem(checklistItemId: String) -> AnyPublisher<DeleteChecklistData, NetworkError> {
         let path = Path.checklistsItems.rawValue + "/" + checklistItemId
         return networkManager.delete(path: path, header: header)
     }
     
-    func deleteChecklist<U>(checklistId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func deleteChecklist(checklistId: String) -> AnyPublisher<DeleteChecklistModel, NetworkError> {
         let path = Path.checklists.rawValue + "/" + checklistId
         return networkManager.delete(path: path, header: header)
     }
     
-    func fetchOneChecklist<U>(checklistId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func fetchOneChecklist(checklistId: String) -> AnyPublisher<ChecklistResponseModel, NetworkError> {
         let path = Path.checklists.rawValue + "/" + checklistId
         return networkManager.get(path: path, header: header)
     }
     
-    func fetchAllChecklists<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func fetchAllChecklists() -> AnyPublisher<FetchAllChecklistsResponseModel, NetworkError> {
         let path = Path.usersChecklists.rawValue + userId
         return networkManager.get(path: path, header: header)
     }

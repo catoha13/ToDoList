@@ -90,8 +90,8 @@ final class MenuViewModel: ObservableObject {
     //MARK: Funcs
     private func fetchProjects() {
         self.projectService.fetchProjects()
-            .sink { [weak self] item in
-                switch item {
+            .sink { [weak self] completion in
+                switch completion {
                 case .finished:
                     return
                 case .failure(let error):
@@ -111,8 +111,8 @@ final class MenuViewModel: ObservableObject {
     
     private func createProject() {
         projectService.createProject(model: model)
-            .sink { [weak self] item in
-                switch item {
+            .sink { [weak self] completion in
+                switch completion {
                 case .finished:
                     return
                 case .failure(let error):
@@ -128,8 +128,8 @@ final class MenuViewModel: ObservableObject {
     
     private func updateProject() {
         projectService.updateProject(model: model, projectId: selectedProjectId.value)
-            .sink { [weak self] item in
-                switch item {
+            .sink { [weak self] completion in
+                switch completion {
                 case .finished:
                     return
                 case .failure(let error):
@@ -145,8 +145,8 @@ final class MenuViewModel: ObservableObject {
     
     private func deleteProject() {
         projectService.deleteProject(projectId: selectedProjectId.value)
-            .sink { [weak self] item in
-                switch item {
+            .sink { [weak self] completion in
+                switch completion {
                 case .finished:
                     return
                 case .failure(let error):

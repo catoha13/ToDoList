@@ -45,7 +45,7 @@ struct SignInView: View {
             TextWithErrorDecsription(text: $viewModel.errorMessage)
             
             Button("Sing In") {
-                viewModel.signIn()
+                viewModel.signIn.send()
             }
             .buttonStyle(CustomButtonStyle())
             .padding(.vertical, 80)

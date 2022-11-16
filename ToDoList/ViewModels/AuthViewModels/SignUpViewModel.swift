@@ -14,6 +14,9 @@ final class SignUpViewModel: ObservableObject {
     @Published var avatar : UIImage? = nil
     @Published var url: String? = nil
     
+    @Published var alertMessage = ""
+    @Published var showNetworkAlert = false
+    
     private let authService = AuthService()
     private let profileService = ProfileNetworkService()
     private let token = Token()
@@ -29,7 +32,7 @@ final class SignUpViewModel: ObservableObject {
     
     private let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     private let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
-
+    
     init() {
         addSubscriptions()
     }
@@ -48,7 +51,7 @@ final class SignUpViewModel: ObservableObject {
             }
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellables)
-
+        
         Publishers.CombineLatest($isEmailValid, $isPasswordValid)
             .map { isEmailValid, isPasswordValid in
                 return ( isEmailValid && isPasswordValid)
@@ -99,9 +102,22 @@ final class SignUpViewModel: ObservableObject {
     private func uploadAvatarRequest() {
         profileService.uploadUserAvatar(image: (avatar ?? UIImage(named: "background"))!,
                                         imageName: url ?? "")
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { _ in })
-            .store(in: &cancellables)
+        .sink(receiveCompletion: { [weak self] completion in
+            switch completion {
+            case .finished:
+                return
+            case .failure(let error):
+                self?.alertMessage = error.description
+                self?.showNetworkAlert = true
+            }
+        },
+              receiveValue: { [weak self] item in
+            if item.data.message != nil {
+                self?.alertMessage = item.data.message ?? ""
+                self?.showNetworkAlert = true
+            }
+        })
+        .store(in: &cancellables)
     }
     
 }

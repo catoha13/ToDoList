@@ -7,7 +7,8 @@ struct ChecklistCell: View {
     @Binding var itemContent: String
     @Binding var itemId: String
     @Binding var itemIsCompleted: Bool
-    @State var action = {}
+    @State var action: () -> ()
+    @State var longPressAction: () -> ()
     
     var body: some View {
         
@@ -26,7 +27,7 @@ struct ChecklistCell: View {
                 Spacer()
             }
             
-            ForEach(content, id: \.self) { item in
+            ForEach(content.sorted(by: {$0.id ?? "" > $1.id ?? ""}), id: \.self) { item in
                 HStack {
                     Button {
                         withAnimation {
@@ -54,6 +55,11 @@ struct ChecklistCell: View {
         .background(.white)
         .cornerRadius(Constants.radiusThree)
         .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
+        .onLongPressGesture {
+            withAnimation {
+                longPressAction()
+            }
+        }
     }
 }
 
@@ -63,6 +69,6 @@ struct ChecklistCell_Previews: PreviewProvider {
     @State static var title = ""
     @State static var color = ""
     static var previews: some View {
-        ChecklistCell(itemContent: $title, itemId: $itemId, itemIsCompleted: $isCompleted)
+        ChecklistCell(itemContent: $title, itemId: $itemId, itemIsCompleted: $isCompleted, action: {},longPressAction: {})
     }
 }

@@ -63,6 +63,10 @@ final class TaskViewModel: ObservableObject {
     @Published var members: [Member]? = []
     @Published var addedMembersAvatars: [UIImage] = []
     
+    //MARK: Network Alert
+    @Published var alertMessage = ""
+    @Published var showNetworkAlert = false
+    
     private let user = User()
     private var taskService = TaskNetworkService()
     var cancellables = Set<AnyCancellable>()
@@ -103,88 +107,111 @@ final class TaskViewModel: ObservableObject {
     }
     
     //MARK: Publishers
-    private var createTaskRequest: AnyPublisher<TaskResponseModel, NetworkError> {
-        taskService.createTask(model: createTaskModel)
-    }
-    
-    private var updateTaskRequest: AnyPublisher<TaskResponseModel, NetworkError> {
-        taskService.updateTask(model: updateTaskModel, taskId: taskId)
-    }
-    
-    private var deleteTaskRequest: AnyPublisher<DeleteTaskModel, NetworkError> {
-        taskService.deleteTask(taskId: taskId)
-    }
-    
-    private var fetchUserTasksRequest: AnyPublisher<FetchTasks, NetworkError> {
-        taskService.fetchUserTasks()
-    }
-    
-    private var searchMembers: AnyPublisher<SearchUsers, NetworkError> {
-        taskService.taskMembersSearch()
-    }
-    
-    private var downloadMembersAvatars: AnyPublisher<UIImage?, NetworkError> {
-        taskService.downloadMembersAvatars(url: membersUrl)
-    }
-
-    private var downloadUsersAvatars: AnyPublisher<UIImage?, NetworkError> {
-        taskService.downloadMembersAvatars(url: userUrl)
-    }
-
-    private var searchProjects: AnyPublisher<SearchProjects, NetworkError> {
-        taskService.projectsSearch()
-    }
-    
-    private var createCommentRequest: AnyPublisher<FetchComments, NetworkError> {
-        taskService.createTaskComment(model: createCommentModel)
-    }
-    
-    private var fetchCommentsRequest: AnyPublisher<FetchComments, NetworkError> {
-        taskService.fetchTaskComments(taskId: taskId)
-    }
-    
-    private var deleteCommentRequest: AnyPublisher<DeleteCommentModel, NetworkError> {
-        taskService.deleteTaskComment(commentId: commentId)
-    }
+    let createTask = PassthroughSubject<Void, Never>()
+    let updateTask = PassthroughSubject<Void, Never>()
+    let deleteTask = PassthroughSubject<Void, Never>()
+    let fetchUserTasks = PassthroughSubject<Void, Never>()
+    let searchMembersAndProjects = PassthroughSubject<Void, Never>()
+    let loadMembers = PassthroughSubject<Void, Never>()
+    let loadAddMembers = PassthroughSubject<Void, Never>()
+    let createComment = PassthroughSubject<Void, Never>()
+    let fetchComments = PassthroughSubject<Void, Never>()
+    let deleteComment = PassthroughSubject<Void, Never>()
     
     //MARK: Initialization
     init() {
-        fetchUserTasks()
+        addSubscriptions()
+        fetchUserTasks.send()
     }
     
     //MARK: Funcs
-    func createTask() {
-        createTaskRequest
+    private func addSubscriptions() {
+        createTask
+            .sink { [weak self] _ in
+                self?.createTaskRequest()
+            }
+            .store(in: &cancellables)
+        
+        updateTask
+            .sink { [weak self] _ in
+                self?.updateTaskRequest()
+            }
+            .store(in: &cancellables)
+        
+        deleteTask
+            .sink { [weak self] _ in
+                self?.deleteTaskRequest()
+            }
+            .store(in: &cancellables)
+        
+        fetchUserTasks
+            .sink { [weak self] _ in
+                self?.fetchUserTasksRequest()
+            }
+            .store(in: &cancellables)
+        
+        searchMembersAndProjects
+            .sink { [weak self] _ in
+                self?.loadMembersAndProjectsSearchRequest()
+            }
+            .store(in: &cancellables)
+        
+        loadMembers
+            .sink { [weak self] _ in
+                self?.loadMembersAvatarsRequest()
+            }
+            .store(in: &cancellables)
+        
+        loadAddMembers
+            .sink { [weak self] _ in
+                self?.loadAddMembersRequest()
+            }
+            .store(in: &cancellables)
+        
+        createComment
+            .sink { [weak self] _ in
+                self?.createCommentRequest()
+            }
+            .store(in: &cancellables)
+        
+        fetchComments
+            .sink { [weak self] _ in
+                self?.fetchCommentsRequest()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func createTaskRequest() {
+        taskService.createTask(model: createTaskModel)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self ]item in
                 self?.objectWillChange.send()
-                self?.fetchUserTasks()
+                self?.fetchUserTasksRequest()
             })
             .store(in: &cancellables)
     }
     
-    func updateTask() {
-        updateTaskRequest
+    private func updateTaskRequest() {
+        taskService.updateTask(model: updateTaskModel, taskId: taskId)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.objectWillChange.send()
-                self?.fetchUserTasks()
+                self?.fetchUserTasksRequest()
             })
             .store(in: &cancellables)
     }
     
-    func deleteTask() {
-        deleteTaskRequest
+    private func deleteTaskRequest() {
+        taskService.deleteTask(taskId: taskId)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                print(item)
-                self?.fetchUserTasks()
+                self?.fetchUserTasksRequest()
             })
             .store(in: &cancellables)
     }
     
-    func fetchUserTasks() {
-        fetchUserTasksRequest
+    private func fetchUserTasksRequest() {
+        taskService.fetchUserTasks()
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.objectWillChange.send()
@@ -193,8 +220,8 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
         
-    func loadSearch() {
-        searchMembers.zip(searchProjects)
+    private func loadMembersAndProjectsSearchRequest() {
+        taskService.taskMembersSearch().zip(taskService.projectsSearch())
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] users, project in
                 self?.searchUsersResponseArray = users.data.sorted(by: {$0.username < $1.username})
@@ -202,15 +229,15 @@ final class TaskViewModel: ObservableObject {
                     self?.membersUrls.append(member.avatarUrl)
                 }
                 self?.searchProjectsResoponseArray = project.data
-                self?.loadAvatars()
+                self?.loadMembersAvatarsRequest()
             })
             .store(in: &cancellables)
     }
     
-    func loadAvatars() {
+    private func loadMembersAvatarsRequest() {
         for count in 0..<membersUrls.count {
             membersUrl = membersUrls[count]
-            downloadMembersAvatars
+            taskService.downloadMembersAvatars(url: membersUrl)
                 .sink { _ in
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item ?? UIImage(named: "background")!)
@@ -223,22 +250,22 @@ final class TaskViewModel: ObservableObject {
         }
     }
     
-    func loadUsers() {
-        searchMembers
+    private func loadAddMembersRequest() {
+        taskService.taskMembersSearch()
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.users = item.data.sorted(by: { $0.username < $1.username})
                 for user in item.data.sorted(by: { $0.username < $1.username}) {
                     self?.usersUrls.append(user.avatarUrl)
                 }
-                self?.loadUserAvatars()
+                self?.loadAddMemberAvatars()
             })
             .store(in: &cancellables)
     }
-    private func loadUserAvatars() {
+    private func loadAddMemberAvatars() {
         for count in 0..<usersUrls.count {
             userUrl = usersUrls[count]
-            downloadUsersAvatars
+            taskService.downloadMembersAvatars(url: userUrl)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { [weak self] item in
                     self?.usersAvatars.append(item ?? UIImage(named: "background")!)
@@ -251,17 +278,17 @@ final class TaskViewModel: ObservableObject {
         }
     }
     
-    func createComment() {
-        createCommentRequest
+    private func createCommentRequest() {
+        taskService.createTaskComment(model: createCommentModel)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                self?.fetchComments()
+                self?.fetchCommentsRequest()
             })
             .store(in: &cancellables)
     }
     
-    func fetchComments() {
-        fetchCommentsRequest
+    private func fetchCommentsRequest() {
+        taskService.fetchTaskComments(taskId: taskId)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
                 self?.commentsResponseArray = item.data
@@ -269,19 +296,13 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func deleteComment() {
-        deleteCommentRequest
+    private func deleteCommentRequest() {
+        taskService.deleteTaskComment(commentId: commentId)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { [weak self] item in
-                self?.fetchComments()
+                self?.fetchCommentsRequest()
             })
             .store(in: &cancellables)
-    }
-    
-    func formatDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        return formatter.string(from: date)
     }
     
     func formatDueDate(date: Date, time: Date) -> String {

@@ -8,19 +8,30 @@ final class SignInViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var isPresented = false
     
-    private var token = Token()
-    private var user = User()
-    private var authService = AuthService()
+    private let token = Token()
+    private let user = User()
+    private let authService = AuthService()
     private var cancellables = Set<AnyCancellable>()
     private var model: RequestBodyModel {
         return RequestBodyModel(email: email, password: password, username: email)
     }
-    private var signInRequest: AnyPublisher<SignInResponceModel, NetworkError> {
-        authService.signIn(model: model)
+    
+    let signIn = PassthroughSubject<Void, Never>()
+    
+    init() {
+        addSubscriptions()
     }
     
-    func signIn() {
-        signInRequest
+    private func addSubscriptions() {
+        signIn
+            .sink { [weak self] _ in
+                self?.signInRequest()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func signInRequest() {
+        authService.signIn(model: model)
             .sink(
                 receiveCompletion: {
                     switch $0 {

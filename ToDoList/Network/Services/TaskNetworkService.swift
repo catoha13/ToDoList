@@ -13,17 +13,17 @@ final class TaskNetworkService {
         user.userId ?? "no data"
     }
     
-    func createTask<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func createTask(model: CreateTaskModel) -> AnyPublisher<TaskResponseModel, NetworkError> {
         let path = Path.tasks.rawValue
         return networkManager.post(body: model, path: path, header: header)
     }
     
-    func updateTask<T, U>(model: T, taskId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func updateTask(model: CreateTaskModel, taskId: String) -> AnyPublisher<TaskResponseModel, NetworkError> {
         let path = Path.tasks.rawValue + "/" + taskId
         return networkManager.put(body: model, path: path, header: header)
     }
     
-    func deleteTask<U>(taskId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func deleteTask(taskId: String) -> AnyPublisher<DeleteTaskModel, NetworkError> {
         let path = Path.tasks.rawValue + "/" + taskId
         return networkManager.delete(path: path, header: header)
     }
@@ -36,7 +36,7 @@ final class TaskNetworkService {
         
     }
     
-    func fetchUserTasks<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func fetchUserTasks() -> AnyPublisher<FetchTasks, NetworkError> {
         let path = Path.userTasks.rawValue + userId 
         return networkManager.get(path: path, header: header)
     }
@@ -57,12 +57,12 @@ final class TaskNetworkService {
         
     }
     
-    func createTaskComment<T, U>(model: T) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func createTaskComment(model: CreateCommentModel) -> AnyPublisher<FetchComments, NetworkError> {
         let path = Path.comments.rawValue
         return networkManager.post(body: model, path: path, header: header)
     }
     
-    func fetchTaskComments<U>(taskId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func fetchTaskComments(taskId: String) -> AnyPublisher<FetchComments, NetworkError> {
         let path = Path.taskComments.rawValue + taskId
         return networkManager.get(path: path, header: header)
     }
@@ -71,7 +71,7 @@ final class TaskNetworkService {
         
     }
     
-    func taskMembersSearch<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func taskMembersSearch() -> AnyPublisher<SearchUsers, NetworkError> {
         let path = Path.membersSearch.rawValue
         return networkManager.get(path: path, header: header)
     }
@@ -81,12 +81,12 @@ final class TaskNetworkService {
         return networkManager.downloadAvatar(path: path, header: header)
     }
     
-    func projectsSearch<U>() -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func projectsSearch() -> AnyPublisher<SearchProjects, NetworkError> {
         let path = Path.projectSearch.rawValue
         return networkManager.get(path: path, header: header)
     }
     
-    func deleteTaskComment<U>(commentId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func deleteTaskComment(commentId: String) -> AnyPublisher<DeleteCommentModel, NetworkError> {
         let path = Path.comments.rawValue + "/" + commentId
         return networkManager.delete(path: path, header: header)
     }

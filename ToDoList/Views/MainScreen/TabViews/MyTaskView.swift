@@ -30,11 +30,14 @@ struct MyTaskView: View {
                          members: $viewModel.members,
                          membersUrl: $viewModel.membersUrls,
                          deteleAction: {
-                    viewModel.deleteTask()
+                    viewModel.deleteTask.send()
                 })
                 
             }
             .animation(.default, value: viewModel.selectedIndex)
+            .alert(isPresented: $viewModel.showNetworkAlert) {
+                Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
+            }
 
             if viewModel.showTaskCompletionView {
                 CompleteTask(isPresented: $viewModel.showTaskCompletionView,
@@ -50,26 +53,24 @@ struct MyTaskView: View {
                              commentId: $viewModel.commentId,
                              mergedArray: $viewModel.usersAndAvatars,
                              updateAction: {
-                    viewModel.isCompleted.toggle()
-                    viewModel.updateTask()
+                    viewModel.updateTask.send()
                 },
                              addMembersAction: {
-                    viewModel.updateTask()
+                    viewModel.updateTask.send()
                 }, deleteTaskAction: {
-                    viewModel.deleteTask()
+                    viewModel.deleteTask.send()
                 },
                 createCommentAction: {
-                    viewModel.createComment()
-                    viewModel.commentText = ""
-                    viewModel.fetchComments()
+                    viewModel.createComment.send()
+                    viewModel.fetchComments.send()
                 },
                 deleteCommentAction: {
-                    viewModel.deleteComment()
+                    viewModel.deleteComment.send()
                 })
                 .onAppear {
-                    viewModel.loadAvatars()
-                    viewModel.loadUsers()
-                    viewModel.fetchComments()
+                    viewModel.loadMembers.send()
+                    viewModel.loadAddMembers.send()
+                    viewModel.fetchComments.send()
                 }
                 .onDisappear {
                     viewModel.membersAvatars = []

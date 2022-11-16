@@ -104,7 +104,7 @@ struct CreateTaskView: View {
                                     viewModel.showDatePicker.toggle()
                                 }
                             } label: {
-                                Text(viewModel.dueDate != nil ? viewModel.formatDate(date: viewModel.dueDate ?? Date()) : viewModel.getDate)
+                                Text(viewModel.dueDate != nil ? DateFormatter.formatDateDayMonthYear(date: viewModel.dueDate ?? Date()) : viewModel.getDate)
                                     .font(.RobotoMediumSmall)
                             }
                             .frame(width: 105, height: 32)
@@ -179,7 +179,7 @@ struct CreateTaskView: View {
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
                             viewModel.getDate = viewModel.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
-                            viewModel.createTask()
+                            viewModel.createTask.send()
                             isPresented.toggle()
                         }
                     }
@@ -233,7 +233,7 @@ struct CreateTaskView: View {
             }
         }
         .onAppear {
-            viewModel.loadSearch()
+            viewModel.searchMembersAndProjects.send()
         }
     }
 }

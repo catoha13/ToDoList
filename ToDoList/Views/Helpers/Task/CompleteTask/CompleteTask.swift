@@ -236,6 +236,7 @@ struct CompleteTask: View {
                             CommentsView(text: $commentText,
                                          createAction: {
                                 createCommentAction()
+                                commentText = ""
                             })
                             .padding(.vertical)
                             
@@ -266,6 +267,7 @@ struct CompleteTask: View {
                         .padding(.top, 10)
                     } else {
                         CustomBlueFilledButton(text: isCompleted ? "Undo completion" : "Complete Task") {
+                            isCompleted.toggle()
                             updateAction()
                             isPresented.toggle()
                         }
