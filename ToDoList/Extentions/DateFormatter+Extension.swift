@@ -28,4 +28,12 @@ extension DateFormatter {
         formatter.dateFormat = "dd/MM/yyyy"
         return formatter.string(from: date)
     }
+    
+    static func formatDueDate(date: Date, time: Date) -> String {
+        let dayFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        dayFormatter.dateFormat = "YYYY-MM-dd"
+        timeFormatter.dateFormat = "hh:mm:ss.ssssss"
+        return "\(dayFormatter.string(from: date))T\(timeFormatter.string(from: time))"
+    }
 }

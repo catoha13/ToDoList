@@ -178,7 +178,7 @@ struct CreateTaskView: View {
                         
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
-                            viewModel.getDate = viewModel.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
+                            viewModel.getDate = DateFormatter.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
                             viewModel.createTask.send()
                             isPresented.toggle()
                         }

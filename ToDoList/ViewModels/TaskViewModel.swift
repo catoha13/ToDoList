@@ -124,7 +124,7 @@ final class TaskViewModel: ObservableObject {
         fetchUserTasks.send()
     }
     
-    //MARK: Funcs
+    //MARK: Add Subscriptions
     private func addSubscriptions() {
         createTask
             .sink { [weak self] _ in
@@ -181,9 +181,17 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Create Task
     private func createTaskRequest() {
         taskService.createTask(model: createTaskModel)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self ]item in
                 self?.objectWillChange.send()
                 self?.fetchUserTasksRequest()
@@ -191,9 +199,17 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Update Task
     private func updateTaskRequest() {
         taskService.updateTask(model: updateTaskModel, taskId: taskId)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.objectWillChange.send()
                 self?.fetchUserTasksRequest()
@@ -201,28 +217,51 @@ final class TaskViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Delete Task
     private func deleteTaskRequest() {
         taskService.deleteTask(taskId: taskId)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.fetchUserTasksRequest()
             })
             .store(in: &cancellables)
     }
     
+    //MARK: Fetch UserTasks
     private func fetchUserTasksRequest() {
         taskService.fetchUserTasks()
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.objectWillChange.send()
                 self?.fetchTasksResponse = item.data
             })
             .store(in: &cancellables)
     }
-        
+    //MARK:  Load Members And Projects
     private func loadMembersAndProjectsSearchRequest() {
         taskService.taskMembersSearch().zip(taskService.projectsSearch())
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] users, project in
                 self?.searchUsersResponseArray = users.data.sorted(by: {$0.username < $1.username})
                 for member in users.data.sorted(by: {$0.username < $1.username}) {
@@ -238,7 +277,14 @@ final class TaskViewModel: ObservableObject {
         for count in 0..<membersUrls.count {
             membersUrl = membersUrls[count]
             taskService.downloadMembersAvatars(url: membersUrl)
-                .sink { _ in
+                .sink { [weak self] completion in
+                    switch completion {
+                    case .finished:
+                        return
+                    case .failure(let error):
+                        self?.alertMessage = error.description
+                        self?.showNetworkAlert = true
+                    }
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item ?? UIImage(named: "background")!)
                     for _ in 0...(self?.membersAvatars.count ?? 0) {
@@ -250,9 +296,17 @@ final class TaskViewModel: ObservableObject {
         }
     }
     
+    //MARK: Load Add Members
     private func loadAddMembersRequest() {
         taskService.taskMembersSearch()
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.users = item.data.sorted(by: { $0.username < $1.username})
                 for user in item.data.sorted(by: { $0.username < $1.username}) {
@@ -266,7 +320,14 @@ final class TaskViewModel: ObservableObject {
         for count in 0..<usersUrls.count {
             userUrl = usersUrls[count]
             taskService.downloadMembersAvatars(url: userUrl)
-                .sink(receiveCompletion: { _ in
+                .sink(receiveCompletion: { [weak self] completion in
+                    switch completion {
+                    case .finished:
+                        return
+                    case .failure(let error):
+                        self?.alertMessage = error.description
+                        self?.showNetworkAlert = true
+                    }
                 }, receiveValue: { [weak self] item in
                     self?.usersAvatars.append(item ?? UIImage(named: "background")!)
                     for _ in 0...(self?.usersAvatars.count ?? 0) {
@@ -278,39 +339,54 @@ final class TaskViewModel: ObservableObject {
         }
     }
     
+    //MARK:  Create Comment
     private func createCommentRequest() {
         taskService.createTaskComment(model: createCommentModel)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.fetchCommentsRequest()
             })
             .store(in: &cancellables)
     }
     
+    //MARK: Fetch Comments
     private func fetchCommentsRequest() {
         taskService.fetchTaskComments(taskId: taskId)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.commentsResponseArray = item.data
             })
             .store(in: &cancellables)
     }
     
+    //MARK: Delete Comments
     private func deleteCommentRequest() {
         taskService.deleteTaskComment(commentId: commentId)
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.fetchCommentsRequest()
             })
             .store(in: &cancellables)
-    }
-    
-    func formatDueDate(date: Date, time: Date) -> String {
-        let dayFormatter = DateFormatter()
-        let timeFormatter = DateFormatter()
-        dayFormatter.dateFormat = "YYYY-MM-dd"
-        timeFormatter.dateFormat = "hh:mm:ss.ssssss"
-        return "\(dayFormatter.string(from: date))T\(timeFormatter.string(from: time))"
-        
     }
 }

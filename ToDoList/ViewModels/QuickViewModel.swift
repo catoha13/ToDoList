@@ -79,6 +79,7 @@ final class QuickViewModel: ObservableObject {
     let fetchOneChecklist = PassthroughSubject<Void, Never>()
     let fetchAllChecklists = PassthroughSubject<Void, Never>()
     
+    //MARK: Initialization
     init() {
         addSubscriptions()
         fetchNotesAndChecklists()
@@ -174,7 +175,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    //MARK: Note funcs
+    //MARK: Create Note
     private func createNoteRequest() {
         notesNetworkService.createNote(model: noteModel)
             .sink(receiveCompletion: { [weak self] completion in
@@ -191,6 +192,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Delete Note
     private func deleteNoteRequest() {
         notesNetworkService.deleteNote(noteId: selectedNote)
             .sink(receiveCompletion: { [weak self] completion in
@@ -207,6 +209,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Fetch One Note
     private func fetchOneNoteRequest() {
         notesNetworkService.fetchOneNote(noteId: selectedNote)
             .sink(receiveCompletion: { [weak self] completion in
@@ -223,6 +226,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Update Note
     private func updateNoteRequest() {
         notesNetworkService.updateNotes(model: noteModel, noteId: selectedNote)
             .sink(receiveCompletion: { [weak self] completion in
@@ -239,7 +243,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    //MARK: Checklist funcs
+    //MARK: Create Checklist
     private func createChecklistRequest() {
         checklistsNetworkService.createChecklist(model: checklistModel)
             .sink(receiveCompletion: { [weak self] completion in
@@ -256,6 +260,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Update Checklist
     private func updateChecklistRequest() {
         checklistsNetworkService.updateChecklist(model: updateChecklistModel, checklistId: checklistId)
             .sink(receiveCompletion: { [weak self] completion in
@@ -272,6 +277,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Edit Checklist
     private func editChecklistRequest() {
         checklistsNetworkService.updateChecklist(model: editChecklistModel, checklistId: checklistId)
             .sink(receiveCompletion: { [weak self] completion in
@@ -288,6 +294,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Delete Checklist
     private func deleteChecklistRequest() {
         checklistsNetworkService.deleteChecklist(checklistId: checklistId)
             .sink(receiveCompletion: { [weak self] completion in
@@ -304,6 +311,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Delete Checklist Item
     private func deleteCheclistItemRequest() {
         checklistsNetworkService.deleteChecklistItem(checklistItemId: checklistItemId)
             .sink(receiveCompletion: { [weak self] completion in
@@ -320,6 +328,7 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Fetch One Checklist
     private func fetchOneChecklistRequest() {
         checklistsNetworkService.fetchAllChecklists()
             .sink(receiveCompletion: { [weak self] completion in

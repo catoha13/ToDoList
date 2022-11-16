@@ -12,7 +12,6 @@ struct TaskList: View {
     @Binding var taskDescription: String
     @Binding var taskAssigned_to: String
     @Binding var taskProjectId: String
-    //    @Binding var attachments:
     @Binding var members: [Member]?
     @Binding var membersUrl: [String]
     
