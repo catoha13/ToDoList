@@ -6,19 +6,21 @@ final class MenuViewModel: ObservableObject {
     var showCreateProject = CurrentValueSubject<Bool, Never>(false)
     var isEditing = CurrentValueSubject<Bool, Never>(false)
     var showDeleteAlert = CurrentValueSubject<Bool, Never>(false)
-    var showNetworkAlert = CurrentValueSubject<Bool, Never>(false)
     
-    var alertMessage = CurrentValueSubject<String, Never>("")
     var projectName = CurrentValueSubject<String, Never>("")
     var chosenColor = CurrentValueSubject< String, Never>("")
     var projectsArray = CurrentValueSubject<[ProjectResponceData], Never>([])
     var selectedProjectId = CurrentValueSubject<String, Never>("")
     
+    var alertMessage = CurrentValueSubject<String, Never>("")
+    var showNetworkAlert = CurrentValueSubject<Bool, Never>(false)
+
+    
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
     private let user = User()
     private let projectService = ProjectNetworkService()
-    private let coreDataManager = CoreDataManager.shared
+    private let projectCoreDataManager = ProjectCoreDataManager()
     private var cancellables = Set<AnyCancellable>()
     
     private var model: ProjectModel {
@@ -95,15 +97,20 @@ final class MenuViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage.value = error.description
-                    self?.showNetworkAlert.value = true
-                    self?.coreDataManager.getAllProjects().forEach({ project in
-                        self?.projectsArray.value.append(ProjectResponceData(id: project.id, title: project.title, color: project.color, ownerId: project.owner_id, createdAt: project.created_at))
-                    })
+                    guard let self = self else { return }
+                    self.alertMessage.value = error.description
+                    self.showNetworkAlert.value = true
+                    self.projectsArray.value = self.projectCoreDataManager.getAllProjects()
                 }
             } receiveValue: { [weak self] item in
                 guard let self = self else { return }
                 self.objectWillChange.send()
+                if item.data != self.projectCoreDataManager.getAllProjects() {
+                    self.projectCoreDataManager.deleteProjects()
+                    item.data.forEach { project in
+                        self.projectCoreDataManager.saveProjects(model: project)
+                    }
+                }
                 self.projectsArray.value = item.data
             }
             .store(in: &self.cancellables)
@@ -138,7 +145,7 @@ final class MenuViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] _ in
                 self?.objectWillChange.send()
-                self?.fetchProjects()
+                self?.fetchProjectsRequest.send()
             }
             .store(in: &cancellables)
     }
@@ -150,8 +157,9 @@ final class MenuViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage.value = error.description
-                    self?.showNetworkAlert.value = true
+                    guard let self = self else { return }
+                    self.alertMessage.value = error.description
+                    self.showNetworkAlert.value = true
                 }
             } receiveValue: { [weak self] _ in
                 self?.fetchProjectsRequest.send()

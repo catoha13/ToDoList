@@ -10,6 +10,7 @@
 		AC0AECD028CB351800505181 /* ProjectChooseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */; };
 		AC109114290330ED009DC40E /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC109113290330ED009DC40E /* CustomDatePicker.swift */; };
 		AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */; };
+		AC1A3E5E292640D700EEF1CE /* ProjectCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1A3E5D292640D700EEF1CE /* ProjectCoreDataManager.swift */; };
 		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
 		AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImageView.swift */; };
@@ -144,6 +145,7 @@
 		AC0AECCF28CB351800505181 /* ProjectChooseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectChooseColor.swift; sourceTree = "<group>"; };
 		AC109113290330ED009DC40E /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModels.swift; sourceTree = "<group>"; };
+		AC1A3E5D292640D700EEF1CE /* ProjectCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCoreDataManager.swift; sourceTree = "<group>"; };
 		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AC2F6904288B0635007D78E0 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -313,10 +315,19 @@
 		AC1A3E562922CB6600EEF1CE /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				AC1A3E5C292640C000EEF1CE /* DataManagers */,
 				AC7714E128856C6D00A0C804 /* CoreDataManager.swift */,
 				AC7714E328856C6D00A0C804 /* ToDoListCoreData.xcdatamodeld */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		AC1A3E5C292640C000EEF1CE /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				AC1A3E5D292640D700EEF1CE /* ProjectCoreDataManager.swift */,
+			);
+			path = DataManagers;
 			sourceTree = "<group>";
 		};
 		AC20A02C28BD686D00E7B718 /* Authentication */ = {
@@ -965,6 +976,7 @@
 				AC6AD07D28FE96D20032F486 /* TaskHeader.swift in Sources */,
 				AC925B82289855CE0098892A /* ChooseColor.swift in Sources */,
 				AC7715362885964E00A0C804 /* Constants.swift in Sources */,
+				AC1A3E5E292640D700EEF1CE /* ProjectCoreDataManager.swift in Sources */,
 				AC43EAAA2902B007001D7B31 /* CustomCalendar.swift in Sources */,
 				ACA83DAA29105C2800E3C152 /* TaskFilterSettings.swift in Sources */,
 				AC676BCB288EBE7F001DDE34 /* CustomPicker.swift in Sources */,

@@ -17,30 +17,4 @@ struct CoreDataManager {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
-    
-    func getAllProjects() -> [Projects] {
-        let fetchRequest: NSFetchRequest<Projects> = Projects.fetchRequest()
-        
-        do {
-            return try container.viewContext.fetch(fetchRequest)
-        } catch {
-            return []
-        }
-    }
-    
-    func saveProject(model: ProjectResponceData) {
-        let project = Projects(context: container.viewContext)
-        
-        project.id = model.id
-        project.title = model.title
-        project.color = model.color
-        project.owner_id = model.ownerId
-        project.created_at = model.createdAt
-        
-        do {
-            try container.viewContext.save()
-        } catch {
-            print("Cannot save the project \(error.localizedDescription)")
-        }
-    }
 }

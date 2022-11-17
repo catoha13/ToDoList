@@ -15,7 +15,7 @@ final class ProjectNetworkService {
         return networkManager.get(path: path, header: token.header)
     }
     
-    func updateProject(model: ProjectModel, projectId: String) -> AnyPublisher<ProjectModel, NetworkError> {
+    func updateProject(model: ProjectModel, projectId: String) -> AnyPublisher<ProjectResponceData, NetworkError> {
         let path = Path.projects.rawValue + "/" + projectId
         return networkManager.put(body: model, path: path, header: token.header)
     }

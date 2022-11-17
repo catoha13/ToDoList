@@ -35,7 +35,9 @@ struct OnboardingView: View {
                     .resizable()
                 
                 Button {
-                    self.buttonAction()
+                    withAnimation {
+                        self.buttonAction()
+                    }
                 } label: {
                     Text("Get Started")
                 }

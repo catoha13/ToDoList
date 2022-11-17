@@ -26,7 +26,6 @@ struct LogoView: View {
                 if firstAccess {
                     showOnboarding.toggle()
                 } else {
-                    
                     showSignUp.toggle()
                 }
             }

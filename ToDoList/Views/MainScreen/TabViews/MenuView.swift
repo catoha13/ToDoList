@@ -12,13 +12,17 @@ struct MenuView: View {
                         .padding(.vertical, 50)
                     
                     LazyVGrid(columns: viewModel.flexibleLayout) {
-                        ForEach(viewModel.projectsArray.value, id: \.self) { data in
+                        ForEach(viewModel.projectsArray.value.sorted { $0.createdAt ?? "" > $1.createdAt ?? "" }, id: \.self) { data in
                             ProjectCell(color: data.color ?? "", text: data.title ?? "", taskCounter: 8)
                                 .onLongPressGesture {
                                     viewModel.selectedProjectId.value = data.id ?? ""
                                     viewModel.projectName.value = data.title ?? ""
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        viewModel.isEditing.value.toggle()
+                                        if viewModel.showNetworkAlert.value {
+                                            return
+                                        } else {
+                                            viewModel.isEditing.value.toggle()
+                                        }
                                     }
                                 }
                         }
@@ -30,6 +34,7 @@ struct MenuView: View {
                             self.viewModel.showCreateProject.value.toggle()
                         }
                     }
+                    .disabled(viewModel.showNetworkAlert.value)
                 }
                 .alert(isPresented: $viewModel.showNetworkAlert.value) {
                     Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage.value), dismissButton: Alert.Button.cancel(Text("Ok")))
@@ -43,6 +48,9 @@ struct MenuView: View {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
+                        .onTapGesture {
+                            viewModel.showCreateProject.value.toggle()
+                        }
                     ProjectChooseColor(isPresented: $viewModel.showCreateProject.value,
                                        extracedColor: $viewModel.chosenColor.value,
                                        projectName: $viewModel.projectName.value) {
