@@ -24,6 +24,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var showNetworkAlert = false
     
     private let profileService = ProfileNetworkService()
+    private let userCoreDataManager = UserCoreDataManager()
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: Model
@@ -38,23 +39,24 @@ final class ProfileViewModel: ObservableObject {
     let uploadAvatar = PassthroughSubject<Void, Never>()
     let signOut = PassthroughSubject<Void, Never>()
     
+    //MARK: Initializer
     init() {
         addSubscriptions()
         fetchUserData.send()
     }
     
-    //MARK: Funcs
+    //MARK: Add Subscriptions
     private func addSubscriptions() {
         fetchUserData
             .sink { [weak self] _ in
-                self?.fetchUser()
+                self?.fetchUserDataRequest()
                 self?.fetchUserStatistics.send()
             }
             .store(in: &cancellables)
         
         fetchUserStatistics
             .sink { [weak self] _ in
-                self?.fetchStatistics()
+                self?.fetchStatisticsRequest()
             }
             .store(in: &cancellables)
         
@@ -78,48 +80,58 @@ final class ProfileViewModel: ObservableObject {
         
     }
     
-    private func fetchUser() {
+    //MARK: Fetch User Data
+    private func fetchUserDataRequest() {
         profileService.fetchUser()
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    guard let self = self else { return }
+                    self.alertMessage = error.description
+                    self.showNetworkAlert = true
+                    self.username = self.userCoreDataManager.loadUser().username ?? ""
+                    self.email = self.userCoreDataManager.loadUser().email ?? ""
                 }
             }, receiveValue: { [weak self] item in
-                self?.username = item.data.username ?? ""
-                self?.email = item.data.email ?? ""
-                self?.avatarUrl = item.data.avatarUrl ?? ""
-                self?.downloadAvatarRequest()
+                guard let self = self else { return }
+                self.userCoreDataManager.saveUser(newUser: item.data)
+                self.username = item.data.username ?? ""
+                self.email = item.data.email ?? ""
+                self.avatarUrl = item.data.avatarUrl ?? ""
+                self.downloadAvatarRequest()
             })
             .store(in: &cancellables)
     }
     
-    private func fetchStatistics() {
+    //MARK: Fetch User Statistics
+    private func fetchStatisticsRequest() {
         profileService.fetchUserStatistics()
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    guard let self = self else { return }
+                    self.alertMessage = error.description
+                    self.showNetworkAlert = true
                 }
             }, receiveValue: { [weak self] item in
-                self?.createdTask = item.data.createdTasks ?? 0
-                self?.completedTask = item.data.completedTasks ?? 0
-                self?.eventsPercentage = item.data.events ?? ""
-                self?.quickNotesPercentage = item.data.quickNotes ?? ""
-                self?.toDotsPercentage = item.data.todo ?? ""
-                self?.eventsProgress = self?.convertProgress(percentage: item.data.events ?? "") ?? 0.0
-                self?.quickNoteProgress = self?.convertProgress(percentage: item.data.quickNotes ?? "") ?? 0.0
-                self?.toDoProgress = self?.convertProgress(percentage: item.data.todo ?? "") ?? 0.0
+                guard let self = self else { return }
+                self.createdTask = item.data.createdTasks ?? 0
+                self.completedTask = item.data.completedTasks ?? 0
+                self.eventsPercentage = item.data.events ?? ""
+                self.quickNotesPercentage = item.data.quickNotes ?? ""
+                self.toDotsPercentage = item.data.todo ?? ""
+                self.eventsProgress = self.convertProgress(percentage: item.data.events ?? "")
+                self.quickNoteProgress = self.convertProgress(percentage: item.data.quickNotes ?? "")
+                self.toDoProgress = self.convertProgress(percentage: item.data.todo ?? "")
             })
             .store(in: &cancellables)
     }
     
+    //MARK: Download Avatar
     private func downloadAvatarRequest() {
         profileService.downloadUserAvatar(url: avatarUrl ?? "")
             .sink(receiveCompletion: { [weak self] completion in
@@ -136,6 +148,7 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    //MARK: Upload Avatar
     private func uploadAvatarRequest() {
         profileService.uploadUserAvatar(image: avatarImage!, imageName: avatarUrl!)
             .sink(receiveCompletion: { [weak self] completion in
@@ -156,7 +169,8 @@ final class ProfileViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func signOutRequest() {
+    //MARK: Sign Out
+    private func signOutRequest() {
         profileService.signOut(model: signOutModel)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {

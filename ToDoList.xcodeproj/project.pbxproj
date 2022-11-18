@@ -11,6 +11,7 @@
 		AC109114290330ED009DC40E /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC109113290330ED009DC40E /* CustomDatePicker.swift */; };
 		AC156D2928A4398D00F6DFA1 /* AuthorizationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */; };
 		AC1A3E5E292640D700EEF1CE /* ProjectCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1A3E5D292640D700EEF1CE /* ProjectCoreDataManager.swift */; };
+		AC1A3E602926965800EEF1CE /* UserCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1A3E5F2926965800EEF1CE /* UserCoreDataManager.swift */; };
 		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
 		AC2F6905288B0635007D78E0 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImageView.swift */; };
@@ -146,6 +147,7 @@
 		AC109113290330ED009DC40E /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		AC156D2828A4398D00F6DFA1 /* AuthorizationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModels.swift; sourceTree = "<group>"; };
 		AC1A3E5D292640D700EEF1CE /* ProjectCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCoreDataManager.swift; sourceTree = "<group>"; };
+		AC1A3E5F2926965800EEF1CE /* UserCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataManager.swift; sourceTree = "<group>"; };
 		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AC2F6904288B0635007D78E0 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 		AC1A3E5C292640C000EEF1CE /* DataManagers */ = {
 			isa = PBXGroup;
 			children = (
+				AC1A3E5F2926965800EEF1CE /* UserCoreDataManager.swift */,
 				AC1A3E5D292640D700EEF1CE /* ProjectCoreDataManager.swift */,
 			);
 			path = DataManagers;
@@ -940,6 +943,7 @@
 				ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */,
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
+				AC1A3E602926965800EEF1CE /* UserCoreDataManager.swift in Sources */,
 				ACD4570428F5642000E27411 /* QuickViewModel.swift in Sources */,
 				AC7714E528856C6D00A0C804 /* ToDoListCoreData.xcdatamodeld in Sources */,
 				AC676BC8288EBE7F001DDE34 /* MyTaskView.swift in Sources */,

@@ -2,18 +2,17 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Projects" representedClassName="Projects" syncable="YES" codeGenerationType="class">
         <attribute name="color" attributeType="String" maxValueString="7"/>
-        <attribute name="created_at" attributeType="String"/>
+        <attribute name="createdAt" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
-        <attribute name="owner_id" attributeType="String"/>
+        <attribute name="ownerId" attributeType="String"/>
         <attribute name="title" attributeType="String" maxValueString="32"/>
         <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="relationship" inverseEntity="Users"/>
     </entity>
     <entity name="Users" representedClassName="Users" isAbstract="YES" syncable="YES" codeGenerationType="class">
-        <attribute name="avatar_path" attributeType="String"/>
-        <attribute name="created_at" attributeType="String"/>
+        <attribute name="avatarPath" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
         <attribute name="email" attributeType="String"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="password" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
         <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Projects" inverseName="relationship" inverseEntity="Projects"/>
     </entity>

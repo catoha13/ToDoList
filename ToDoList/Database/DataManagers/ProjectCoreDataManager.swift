@@ -8,7 +8,7 @@ final class ProjectCoreDataManager {
         do {
             let projects = try container.viewContext.fetch(fetchRequest)
             return projects.map { project in
-                (ProjectResponceData(id: project.id, title: project.title, color: project.color, ownerId: project.owner_id, createdAt: project.created_at))
+                (ProjectResponceData(id: project.id, title: project.title, color: project.color, ownerId: project.ownerId, createdAt: project.createdAt))
             }
         } catch {
             print("Cannot load the projects \(error.localizedDescription)")
@@ -22,8 +22,8 @@ final class ProjectCoreDataManager {
             project.id = model.id
             project.title = model.title
             project.color = model.color
-            project.owner_id = model.ownerId
-            project.created_at = model.createdAt
+            project.ownerId = model.ownerId
+            project.createdAt = model.createdAt
             
             if container.viewContext.hasChanges {
                 try container.viewContext.save()

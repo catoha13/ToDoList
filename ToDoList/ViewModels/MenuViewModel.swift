@@ -14,7 +14,6 @@ final class MenuViewModel: ObservableObject {
     
     var alertMessage = CurrentValueSubject<String, Never>("")
     var showNetworkAlert = CurrentValueSubject<Bool, Never>(false)
-
     
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     

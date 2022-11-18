@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import Combine
 
@@ -11,7 +10,7 @@ final class SignUpViewModel: ObservableObject {
     @Published var isPasswordValid = false
     @Published var isCredentialsValid = false
     @Published var isPresented = false
-    @Published var avatar : UIImage? = nil
+    @Published var avatar: UIImage? = nil
     @Published var url: String? = nil
     
     @Published var alertMessage = ""
@@ -19,6 +18,7 @@ final class SignUpViewModel: ObservableObject {
     
     private let authService = AuthService()
     private let profileService = ProfileNetworkService()
+    private let userCoreDataManager = UserCoreDataManager()
     private let token = Token()
     private let user = User()
     
@@ -28,6 +28,7 @@ final class SignUpViewModel: ObservableObject {
     }
     
     let signUp = PassthroughSubject<Void, Never>()
+    private let fetchUserData = PassthroughSubject<Void, Never>()
     private let uploadAvatar = PassthroughSubject<Void, Never>()
     
     private let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
@@ -70,6 +71,12 @@ final class SignUpViewModel: ObservableObject {
                 self?.uploadAvatarRequest()
             }
             .store(in: &cancellables)
+        
+        fetchUserData
+            .sink { [weak self] _ in
+                self?.fetchUserDataRequest()
+            }
+            .store(in: &cancellables)
     }
     
     private func signUpRequest() {
@@ -91,6 +98,7 @@ final class SignUpViewModel: ObservableObject {
                     self.user.userId = item.data.id ?? "no data"
                     self.user.savedEmail = item.data.email ?? "no data"
                     self.uploadAvatar.send()
+                    self.fetchUserData.send()
                     self.isPresented.toggle()
                 } else {
                     self.errorMessage = item.data.message ?? ""
@@ -118,6 +126,24 @@ final class SignUpViewModel: ObservableObject {
             }
         })
         .store(in: &cancellables)
+    }
+    
+    private func fetchUserDataRequest() {
+        profileService.fetchUser()
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.showNetworkAlert = true
+                }
+            } receiveValue: { [weak self] item in
+                guard let self = self else { return }
+                self.userCoreDataManager.saveUser(newUser: item.data)
+            }
+            .store(in: &cancellables)
+
     }
     
 }
