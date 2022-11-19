@@ -46,7 +46,7 @@ struct TaskCell: View {
         .cornerRadius(Constants.radiusFive)
         .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
         .frame(width: 343, height: 70)
-
+        
     }
     private func trimDate(_ strDate: String) -> String {
         let formatter = DateFormatter()

@@ -143,7 +143,7 @@ final class SignUpViewModel: ObservableObject {
                 self.userCoreDataManager.saveUser(newUser: item.data)
             }
             .store(in: &cancellables)
-
+        
     }
     
 }

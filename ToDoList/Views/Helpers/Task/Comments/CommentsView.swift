@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Comments: View {
+struct CommentsView: View {
     @Binding var comments: [FetchCommentsData]
     @Binding var commentContent: String
     @Binding var commentId: String
@@ -22,7 +22,7 @@ struct Comments: View {
                     VStack(alignment: .leading) {
                         Text(comment.commentator?.username ?? " ")
                             .font(.RobotoThinItalicExtraSmall)
-                        Text(convertDate(comment.createdAt))
+                        Text(DateFormatter.convertCommentDate(comment.createdAt))
                             .font(.RobotoRegularExtraSmall)
                             .foregroundColor(.secondary)
                     }
@@ -54,21 +54,15 @@ struct Comments: View {
     }
 }
 
-private func convertDate(_ strDate: String) -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
-    let newDate = formatter.date(from: strDate) ?? Date()
-    formatter.dateFormat = "dd.MM.yyyy"
-    return formatter.string(from: newDate)
-}
 
-struct Comments_Previews: PreviewProvider {
+
+struct CommentsView_Previews: PreviewProvider {
     @State static var comment: [FetchCommentsData] = []
     @State static var commentContent = ""
     @State static var commentId = ""
     
     static var previews: some View {
-        Comments(comments: $comment,
+        CommentsView(comments: $comment,
                  commentContent: $commentContent,
                  commentId: $commentId,
                  loadAvatars: {},

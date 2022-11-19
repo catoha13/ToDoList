@@ -40,8 +40,8 @@ struct CreateNoteView: View {
                     HStack {
                         Text("Note is too long")
                             .foregroundColor(.red)
-                        .font(.RobotoThinItalicSmall)
-                        .padding(.leading, 30)
+                            .font(.RobotoThinItalicSmall)
+                            .padding(.leading, 30)
                         Spacer()
                     }
                 }

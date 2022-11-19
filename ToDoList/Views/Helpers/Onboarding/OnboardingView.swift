@@ -59,7 +59,7 @@ struct OnboardingView_Previews: PreviewProvider {
     @State static var backgroundFirst = "pathFirst"
     @State static var backgroundSecond = "pathFirstBack"
     @State static var buttonAction = {}
-
+    
     
     static var previews: some View {
         OnboardingView(isPresented: isPresented,
@@ -69,6 +69,6 @@ struct OnboardingView_Previews: PreviewProvider {
                        backgroundFirst: backgroundFirst,
                        backgroundSecond: backgroundSecond,
                        buttonAction: buttonAction)
-       
+        
     }
 }

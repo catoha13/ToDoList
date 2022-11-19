@@ -18,7 +18,7 @@ struct MenuView: View {
                                     viewModel.selectedProjectId.value = data.id ?? ""
                                     viewModel.projectName.value = data.title ?? ""
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        if viewModel.showNetworkAlert.value {
+                                        if viewModel.isOffline.value {
                                             return
                                         } else {
                                             viewModel.isEditing.value.toggle()
@@ -34,9 +34,9 @@ struct MenuView: View {
                             self.viewModel.showCreateProject.value.toggle()
                         }
                     }
-                    .disabled(viewModel.showNetworkAlert.value)
+                    .disabled(viewModel.isOffline.value)
                 }
-                .alert(isPresented: $viewModel.showNetworkAlert.value) {
+                .alert(isPresented: $viewModel.isOffline.value) {
                     Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage.value), dismissButton: Alert.Button.cancel(Text("Ok")))
                 }
             }
@@ -57,9 +57,9 @@ struct MenuView: View {
                         viewModel.createProjectRequest.send()
                         viewModel.projectName.value = ""
                     }
-                    .frame(width: 338)
-                    .cornerRadius(Constants.radiusFive)
-                    .ignoresSafeArea()
+                                       .frame(width: 338)
+                                       .cornerRadius(Constants.radiusFive)
+                                       .ignoresSafeArea()
                 }
             }
             

@@ -1,7 +1,7 @@
 import Combine
 import SwiftUI
 
-final class CheckListNetworkService {
+struct CheckListNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
     private let token = Token()

@@ -29,7 +29,7 @@ struct TaskSettings: View {
                     })
                     .padding(.leading)
                     .padding(.vertical, 10)
-
+                    
                     //MARK: Edit task
                     Button(action: {
                         withAnimation(.default) {
@@ -43,7 +43,7 @@ struct TaskSettings: View {
                     })
                     .padding(.leading)
                     .padding(.vertical, 10)
-
+                    
                     //MARK: Delete task
                     Button(action: {
                         withAnimation(.default) {
@@ -58,7 +58,7 @@ struct TaskSettings: View {
                     })
                     .padding(.leading)
                     .padding(.vertical, 10)
-
+                    
                 }
                 .font(.RobotoThinItalicSmall)
                 .foregroundColor(.black)

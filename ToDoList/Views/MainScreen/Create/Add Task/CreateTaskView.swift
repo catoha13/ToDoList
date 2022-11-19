@@ -50,8 +50,8 @@ struct CreateTaskView: View {
                             HStack {
                                 Text("Title is too long")
                                     .foregroundColor(.red)
-                                .font(.RobotoThinItalicSmall)
-                                .padding(.leading, 30)
+                                    .font(.RobotoThinItalicSmall)
+                                    .padding(.leading, 30)
                                 Spacer()
                             }
                         }

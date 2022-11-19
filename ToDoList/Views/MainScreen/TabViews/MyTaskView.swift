@@ -35,10 +35,10 @@ struct MyTaskView: View {
                 
             }
             .animation(.default, value: viewModel.selectedIndex)
-            .alert(isPresented: $viewModel.showNetworkAlert) {
+            .alert(isPresented: $viewModel.isOffline) {
                 Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
             }
-
+            
             if viewModel.showTaskCompletionView {
                 CompleteTask(isPresented: $viewModel.showTaskCompletionView,
                              isCompleted: $viewModel.isCompleted,
@@ -60,11 +60,11 @@ struct MyTaskView: View {
                 }, deleteTaskAction: {
                     viewModel.deleteTask.send()
                 },
-                createCommentAction: {
+                             createCommentAction: {
                     viewModel.createComment.send()
                     viewModel.fetchComments.send()
                 },
-                deleteCommentAction: {
+                             deleteCommentAction: {
                     viewModel.deleteComment.send()
                 })
                 .onAppear {

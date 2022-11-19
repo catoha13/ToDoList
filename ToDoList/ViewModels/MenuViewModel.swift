@@ -13,7 +13,7 @@ final class MenuViewModel: ObservableObject {
     var selectedProjectId = CurrentValueSubject<String, Never>("")
     
     var alertMessage = CurrentValueSubject<String, Never>("")
-    var showNetworkAlert = CurrentValueSubject<Bool, Never>(false)
+    var isOffline = CurrentValueSubject<Bool, Never>(false)
     
     @Published var flexibleLayout = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -81,7 +81,7 @@ final class MenuViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        showNetworkAlert
+        isOffline
             .sink { [weak self] _ in
                 self?.objectWillChange.send()
             }
@@ -98,7 +98,7 @@ final class MenuViewModel: ObservableObject {
                 case .failure(let error):
                     guard let self = self else { return }
                     self.alertMessage.value = error.description
-                    self.showNetworkAlert.value = true
+                    self.isOffline.value = true
                     self.projectsArray.value = self.projectCoreDataManager.getAllProjects()
                 }
             } receiveValue: { [weak self] item in
@@ -123,7 +123,7 @@ final class MenuViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage.value = error.description
-                    self?.showNetworkAlert.value = true
+                    self?.isOffline.value = true
                 }
             } receiveValue: { [weak self] _ in
                 self?.objectWillChange.send()
@@ -140,7 +140,7 @@ final class MenuViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage.value = error.description
-                    self?.showNetworkAlert.value = true
+                    self?.isOffline.value = true
                 }
             } receiveValue: { [weak self] _ in
                 self?.objectWillChange.send()
@@ -158,7 +158,7 @@ final class MenuViewModel: ObservableObject {
                 case .failure(let error):
                     guard let self = self else { return }
                     self.alertMessage.value = error.description
-                    self.showNetworkAlert.value = true
+                    self.isOffline.value = true
                 }
             } receiveValue: { [weak self] _ in
                 self?.fetchProjectsRequest.send()

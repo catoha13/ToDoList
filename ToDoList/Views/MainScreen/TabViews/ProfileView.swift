@@ -48,11 +48,11 @@ struct ProfileView: View {
                 }
             }
             .background(Color.customWhiteBackground)
-            .alert(isPresented: $viewModel.showNetworkAlert) {
+            .alert(isPresented: $viewModel.isOffline) {
                 Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
             }
             
-            if viewModel.showSetting && viewModel.showNetworkAlert == false {
+            if viewModel.showSetting && viewModel.isOffline == false {
                 ProfileSettings(isPresented: $viewModel.showSetting) {
                     viewModel.showImagePicker.toggle()
                 } signOutAction: {

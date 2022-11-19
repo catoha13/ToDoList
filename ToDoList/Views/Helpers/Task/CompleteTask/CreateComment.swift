@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CommentsView: View {
+struct CreateComment: View {
     @Binding var text: String
     
     @State var createAction: () -> ()
@@ -51,8 +51,8 @@ struct CommentsView: View {
             }
             .frame(width: 295, height: 120)
             .overlay(RoundedRectangle(cornerRadius: Constants.radiusFive)
-            .stroke(lineWidth: 1)
-            .foregroundColor(.customGray))
+                .stroke(lineWidth: 1)
+                .foregroundColor(.customGray))
             .cornerRadius(Constants.radiusFive)
             
             
@@ -60,9 +60,9 @@ struct CommentsView: View {
     }
 }
 
-struct CommentsView_Previews: PreviewProvider {
+struct CreateComment_Previews: PreviewProvider {
     @State static var text = ""
     static var previews: some View {
-        CommentsView(text: $text, createAction: {})
+        CreateComment(text: $text, createAction: {})
     }
 }

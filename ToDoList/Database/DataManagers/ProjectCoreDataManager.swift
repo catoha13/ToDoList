@@ -1,6 +1,6 @@
 import CoreData
 
-final class ProjectCoreDataManager {
+struct ProjectCoreDataManager {
     private let container = CoreDataManager.shared.container
     private let fetchRequest: NSFetchRequest<Projects> = Projects.fetchRequest()
     

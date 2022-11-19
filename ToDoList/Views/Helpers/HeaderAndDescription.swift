@@ -27,6 +27,6 @@ struct HeaderAndDescription: View {
 struct HeaderAndDescription_Previews: PreviewProvider {
     static var previews: some View {
         HeaderAndDescription(text: "Forgot Password",
-                           description: "Please enter your email below to recevie your password reset instructions")
+                             description: "Please enter your email below to recevie your password reset instructions")
     }
 }

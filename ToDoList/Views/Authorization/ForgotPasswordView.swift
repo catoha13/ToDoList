@@ -7,15 +7,15 @@ struct ForgotPasswordView: View {
     
     //MARK: Custom back button
     var backButton : some View { Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 25.2, height: 17.71)
-                    .padding()
-            }
-        }
+        self.presentationMode.wrappedValue.dismiss()
+    }) {
+        Image(systemName: "arrow.left")
+            .resizable()
+            .foregroundColor(.black)
+            .frame(width: 25.2, height: 17.71)
+            .padding()
+    }
+    }
     
     var body: some View {
         

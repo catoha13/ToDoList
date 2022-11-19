@@ -14,9 +14,9 @@ struct ProjectChooseColor: View {
             HStack {
                 Text("Title")
                     .font(.RobotoThinItalicSmall)
-                .padding(.horizontal, 72)
-                .padding(.vertical, 20)
-                .padding(.leading, -22)
+                    .padding(.horizontal, 72)
+                    .padding(.vertical, 20)
+                    .padding(.leading, -22)
                 Spacer()
             }
             
@@ -41,8 +41,8 @@ struct ProjectChooseColor: View {
                 HStack {
                     Text("Title is too long")
                         .foregroundColor(.red)
-                    .font(.RobotoThinItalicSmall)
-                    .padding(.leading, 30)
+                        .font(.RobotoThinItalicSmall)
+                        .padding(.leading, 30)
                     Spacer()
                 }
             }

@@ -1,6 +1,6 @@
 import Combine
 
-final class NotesNetworkService {
+struct NotesNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
     private let token = Token()

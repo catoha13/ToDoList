@@ -1,7 +1,7 @@
 import Combine
 import SwiftUI
 
-final class TaskNetworkService {
+struct TaskNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
     private let token = Token()

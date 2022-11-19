@@ -14,7 +14,7 @@ final class QuickViewModel: ObservableObject {
     @Published var isNoteEditing = false
     @Published var showNoteEditView = false
     @Published var showNoteAlert = false
-
+    
     //MARK: Checklist
     @Published var checklistRequestArray: [ChecklistItemsModel] = []
     @Published var checklistResponseItems: [ChecklistItemsModel] = []
@@ -33,11 +33,12 @@ final class QuickViewModel: ObservableObject {
     
     //MARK: Network Alert
     @Published var alertMessage = ""
-    @Published var showNetworkAlert = false
+    @Published var isOffline = false
     
     private let user = User()
     private let notesNetworkService = NotesNetworkService()
     private let checklistsNetworkService = CheckListNetworkService()
+    private let notesCoreDataManager = NotesCoreDataManager()
     private var cancellables = Set<AnyCancellable>()
     
     private var ownerId: String {
@@ -157,8 +158,10 @@ final class QuickViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    guard let self = self else { return }
+                    self.alertMessage = error.description
+                    self.isOffline = true
+                    let notesData = self.notesCoreDataManager.loadNotes()
                 }
             },
                   receiveValue: { [weak self] item in
@@ -184,7 +187,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchNotesAndChecklists()
@@ -201,7 +204,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
@@ -218,7 +221,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
@@ -235,7 +238,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
                 self?.fetchOneNote.send()
@@ -252,7 +255,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchNotesAndChecklists()
@@ -269,7 +272,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchOneChecklist.send()
@@ -286,7 +289,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchOneChecklist.send()
@@ -303,7 +306,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
@@ -320,7 +323,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
@@ -337,7 +340,7 @@ final class QuickViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-final class AuthService {
+struct AuthService {
     private let networkManager = NetworkMaganer.shared
     
     func signIn(model: RequestBodyModel) -> AnyPublisher<SignInResponceModel, NetworkError> {

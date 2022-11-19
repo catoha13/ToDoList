@@ -1,7 +1,7 @@
 import CoreData
 import Foundation
 
-final class UserCoreDataManager {
+struct UserCoreDataManager {
     private let container = CoreDataManager.shared.container
     private let fetchRequest: NSFetchRequest<Users> = Users.fetchRequest()
     

@@ -73,38 +73,38 @@ struct QuickView: View {
                             viewModel.selectedChecklist = checklists.items
                             viewModel.isChecklistEditing.toggle()
                         }
-                                      .confirmationDialog("What do you want?", isPresented: $viewModel.isChecklistEditing) {
-                                          Button("Edit", role: .none) {
-                                              withAnimation(.default) {
-                                                  viewModel.showChecklistEditView.toggle()
-                                              }
-                                          }
-                                          Button("Delete Checklist", role: .destructive) {
-                                              viewModel.showChecklistAlert.toggle()
-                                          }
-                                      } message: {
-                                          Text("What do you want to do?")
-                                      }
-                                      .alert(isPresented: $viewModel.showChecklistAlert) {
-                                          Alert(title: Text("Delete «\(viewModel.checklistTitle)» checklist?"),
-                                                message: Text("You cannot undo this action."),
-                                                primaryButton: .cancel(),
-                                                secondaryButton: .destructive(Text("Delete")) {
-                                              viewModel.deleteChecklist.send()
-                                          })
-                                      }
-                                      .padding(.horizontal, 10)
+                        .confirmationDialog("What do you want?", isPresented: $viewModel.isChecklistEditing) {
+                            Button("Edit", role: .none) {
+                                withAnimation(.default) {
+                                    viewModel.showChecklistEditView.toggle()
+                                }
+                            }
+                            Button("Delete Checklist", role: .destructive) {
+                                viewModel.showChecklistAlert.toggle()
+                            }
+                        } message: {
+                            Text("What do you want to do?")
+                        }
+                        .alert(isPresented: $viewModel.showChecklistAlert) {
+                            Alert(title: Text("Delete «\(viewModel.checklistTitle)» checklist?"),
+                                  message: Text("You cannot undo this action."),
+                                  primaryButton: .cancel(),
+                                  secondaryButton: .destructive(Text("Delete")) {
+                                viewModel.deleteChecklist.send()
+                            })
+                        }
+                        .padding(.horizontal, 10)
                     }
                     .animation(.default, value: viewModel.mergedResponseArray.map { $0.0 })
                     .animation(.default, value: viewModel.mergedResponseArray.map { $0.1 })
                 }
-                .alert(isPresented: $viewModel.showNetworkAlert) {
+                .alert(isPresented: $viewModel.isOffline) {
                     Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
                 }
             }
             .frame(maxWidth: .infinity)
             .background(Color.customWhiteBackground)
-
+            
             
             if viewModel.showChecklistEditView {
                 EditChecklist(isPresented: $viewModel.showChecklistEditView,

@@ -21,7 +21,6 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Delete Task
     @Published var taskId = ""
-    @Published var tasksResponseArray: [FetchComments] = []
     
     //MARK: CreateTaskView
     @Published var membersUrl = ""
@@ -65,10 +64,11 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Network Alert
     @Published var alertMessage = ""
-    @Published var showNetworkAlert = false
+    @Published var isOffline = false
     
     private let user = User()
-    private var taskService = TaskNetworkService()
+    private let taskService = TaskNetworkService()
+    private let taskCoreDataManager = TaskCoreDataManager()
     var cancellables = Set<AnyCancellable>()
     
     private var ownerId: String {
@@ -102,8 +102,8 @@ final class TaskViewModel: ObservableObject {
     
     private var createCommentModel: CreateCommentModel {
         CreateCommentModel(content: commentText,
-                      taskId: taskId,
-                      ownerId: ownerId)
+                           taskId: taskId,
+                           ownerId: ownerId)
     }
     
     //MARK: Publishers
@@ -190,7 +190,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self ]item in
                 self?.objectWillChange.send()
@@ -208,7 +208,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.objectWillChange.send()
@@ -226,7 +226,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchUserTasksRequest()
@@ -242,12 +242,21 @@ final class TaskViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    guard let self = self else { return }
+                    self.alertMessage = error.description
+                    self.isOffline = true
+                    self.fetchTasksResponse = self.taskCoreDataManager.loadTasks()
                 }
             }, receiveValue: { [weak self] item in
-                self?.objectWillChange.send()
-                self?.fetchTasksResponse = item.data
+                guard let self = self else { return }
+                self.objectWillChange.send()
+                self.fetchTasksResponse = item.data
+                if item.data != self.taskCoreDataManager.loadTasks() {
+                    self.taskCoreDataManager.deleteTasks()
+                    item.data.forEach { task in
+                        self.taskCoreDataManager.saveTask(model: task)
+                    }
+                }
             })
             .store(in: &cancellables)
     }
@@ -260,7 +269,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] users, project in
                 self?.searchUsersResponseArray = users.data.sorted(by: {$0.username < $1.username})
@@ -283,7 +292,7 @@ final class TaskViewModel: ObservableObject {
                         return
                     case .failure(let error):
                         self?.alertMessage = error.description
-                        self?.showNetworkAlert = true
+                        self?.isOffline = true
                     }
                 } receiveValue: { [weak self] item in
                     self?.membersAvatars.append(item ?? UIImage(named: "background")!)
@@ -305,7 +314,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.users = item.data.sorted(by: { $0.username < $1.username})
@@ -326,7 +335,7 @@ final class TaskViewModel: ObservableObject {
                         return
                     case .failure(let error):
                         self?.alertMessage = error.description
-                        self?.showNetworkAlert = true
+                        self?.isOffline = true
                     }
                 }, receiveValue: { [weak self] item in
                     self?.usersAvatars.append(item ?? UIImage(named: "background")!)
@@ -348,7 +357,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchCommentsRequest()
@@ -364,8 +373,9 @@ final class TaskViewModel: ObservableObject {
                 case .finished:
                     return
                 case .failure(let error):
-                    self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    guard let self = self else { return }
+                    self.alertMessage = error.description
+                    self.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.commentsResponseArray = item.data
@@ -382,7 +392,7 @@ final class TaskViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.fetchCommentsRequest()

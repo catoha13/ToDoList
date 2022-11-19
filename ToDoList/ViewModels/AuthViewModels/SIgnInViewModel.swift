@@ -65,7 +65,7 @@ final class SignInViewModel: ObservableObject {
                 })
             .store(in: &cancellables)
     }
-        
+    
     private func fetchUserDataRequest() {
         profileService.fetchUser()
             .sink { [weak self] completion in

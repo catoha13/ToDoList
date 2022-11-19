@@ -31,7 +31,7 @@ enum Path: String {
 
 //MARK: Endpoint
 enum BaseUrl: String {
-    case authorization = "https://todolist.dev2.cogniteq.com/api/v1"
+    case baseUrl = "https://todolist.dev2.cogniteq.com/api/v1"
 }
 
 //MARK: Method

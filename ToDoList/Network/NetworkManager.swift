@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-final class NetworkMaganer: NetworkProtocol {
+struct NetworkMaganer: NetworkProtocol {
     
     static let shared = NetworkMaganer()
     
@@ -17,7 +17,7 @@ final class NetworkMaganer: NetworkProtocol {
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
         
-        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        let url = URL(string: BaseUrl.baseUrl.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.get.rawValue
         
@@ -41,7 +41,7 @@ final class NetworkMaganer: NetworkProtocol {
         
         let jsonData = try? encoder.encode(body)
         
-        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        let url = URL(string: BaseUrl.baseUrl.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.put.rawValue
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
@@ -63,7 +63,7 @@ final class NetworkMaganer: NetworkProtocol {
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
         
-        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        let url = URL(string: BaseUrl.baseUrl.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.delete.rawValue
         request.setValue(header, forHTTPHeaderField: "Authorization")
@@ -85,7 +85,7 @@ final class NetworkMaganer: NetworkProtocol {
         
         let jsonData = try? encoder.encode(body)
         
-        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        let url = URL(string: BaseUrl.baseUrl.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.post.rawValue
         request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
@@ -108,7 +108,7 @@ final class NetworkMaganer: NetworkProtocol {
     
     func uploadAvatar<U>(path: String, header: String, image: UIImage?, parameters: [String : Any]) -> AnyPublisher<U, NetworkError> where U : Decodable {
         
-        let url = URL(string: BaseUrl.authorization.rawValue + path)
+        let url = URL(string: BaseUrl.baseUrl.rawValue + path)
         var request = URLRequest(url: url!)
         request.httpMethod = Method.post.rawValue
         request.setValue(header, forHTTPHeaderField: "Authorization")
@@ -151,7 +151,7 @@ final class NetworkMaganer: NetworkProtocol {
         var request = URLRequest(url: url!)
         request.httpMethod = Method.get.rawValue
         request.setValue(header, forHTTPHeaderField: "Authorization")
-
+        
         return session.dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
             .map { UIImage(data: $0.data) ?? UIImage(named: "background")!}

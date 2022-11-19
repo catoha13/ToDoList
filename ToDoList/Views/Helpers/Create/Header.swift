@@ -7,7 +7,7 @@ struct Header: View {
     var body: some View {
         HStack {
             BackButton(isPresented: $isPresented)
-            .padding()
+                .padding()
             Spacer()
             Text(text)
                 .font(Font(Roboto.thinItalic(size: 20)))

@@ -233,20 +233,20 @@ struct CompleteTask: View {
                     //MARK: Show Comments
                     if showComments {
                         VStack {
-                            CommentsView(text: $commentText,
-                                         createAction: {
+                            CreateComment(text: $commentText,
+                                          createAction: {
                                 createCommentAction()
                                 commentText = ""
                             })
                             .padding(.vertical)
                             
-                            Comments(comments: $comments,
-                                     commentContent: $commentContent,
-                                     commentId: $commentId,
-                                     loadAvatars: {
+                            CommentsView(comments: $comments,
+                                         commentContent: $commentContent,
+                                         commentId: $commentId,
+                                         loadAvatars: {
                                 
                             },
-                                     deleteComment: {
+                                         deleteComment: {
                                 deleteCommentAction()
                             })
                         }

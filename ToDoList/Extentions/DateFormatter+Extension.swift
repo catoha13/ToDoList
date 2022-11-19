@@ -36,4 +36,12 @@ extension DateFormatter {
         timeFormatter.dateFormat = "hh:mm:ss.ssssss"
         return "\(dayFormatter.string(from: date))T\(timeFormatter.string(from: time))"
     }
+    
+    static func convertCommentDate(_ strDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        let newDate = formatter.date(from: strDate) ?? Date()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter.string(from: newDate)
+    }
 }

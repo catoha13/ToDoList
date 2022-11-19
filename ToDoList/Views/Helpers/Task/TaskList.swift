@@ -31,42 +31,42 @@ struct TaskList: View {
             ForEach(headers.sorted {$0 > $1} , id: \.self) { header in
                 Section(header: Text(header)
                     .font(.RobotoThinItalicSmall)) {
-                    ForEach(groupedByDate[header] ?? [], id: \.self) { task in
-                        TaskCell(title: task.title,
-                                 time: task.dueDate,
-                                 isDone: task.isCompleted,
-                                 editAction: {
-                            withAnimation(.default) {
+                        ForEach(groupedByDate[header] ?? [], id: \.self) { task in
+                            TaskCell(title: task.title,
+                                     time: task.dueDate,
+                                     isDone: task.isCompleted,
+                                     editAction: {
+                                withAnimation(.default) {
+                                    taskId = task.id
+                                    taskTitle = task.title
+                                    taskDueDate = task.dueDate
+                                    taskDescription = task.description
+                                    taskAssigned_to = task.assignedTo
+                                    taskProjectId = task.projectId
+                                    members = task.members
+                                    for user in members ?? [] {
+                                        membersUrl.append(user.avatarUrl)
+                                    }
+                                    showTask.toggle()
+                                }
+                            },
+                                     deleteAction: {
                                 taskId = task.id
                                 taskTitle = task.title
-                                taskDueDate = task.dueDate
-                                taskDescription = task.description
-                                taskAssigned_to = task.assignedTo
-                                taskProjectId = task.projectId
-                                members = task.members
-                                for user in members ?? [] {
-                                    membersUrl.append(user.avatarUrl)
-                                }
-                                showTask.toggle()
-                            }
-                        },
-                                 deleteAction: {
-                            taskId = task.id
-                            taskTitle = task.title
-                            showAlert.toggle()
-                        })
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Delete «\(taskTitle)»?"),
-                                  message: Text("You cannot undo this action"),
-                                  primaryButton: .cancel(),
-                                  secondaryButton: .destructive(Text("Delete")) {
-                                userTasks.removeAll { $0.id == taskId }
-                                deteleAction()
+                                showAlert.toggle()
                             })
+                            .alert(isPresented: $showAlert) {
+                                Alert(title: Text("Delete «\(taskTitle)»?"),
+                                      message: Text("You cannot undo this action"),
+                                      primaryButton: .cancel(),
+                                      secondaryButton: .destructive(Text("Delete")) {
+                                    userTasks.removeAll { $0.id == taskId }
+                                    deteleAction()
+                                })
+                            }
+                            .listRowSeparator(.hidden)
                         }
-                        .listRowSeparator(.hidden)
                     }
-                }
             }
         }
         .scrollIndicators(.never)

@@ -1,7 +1,7 @@
 import Combine
 import SwiftUI
 
-final class ProfileNetworkService {
+struct ProfileNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
     private let token = Token()

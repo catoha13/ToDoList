@@ -1,19 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ChecklistItems" representedClassName="ChecklistItems" syncable="YES" codeGenerationType="class">
+        <attribute name="checklistId" optional="YES" attributeType="String"/>
+        <attribute name="content" optional="YES" attributeType="String" maxValueString="512"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="checklist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checklists" inverseName="checklistItems" inverseEntity="Checklists"/>
+    </entity>
+    <entity name="Checklists" representedClassName="Checklists" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String" maxValueString="7"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="ownerId" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String" maxValueString="256"/>
+        <relationship name="checklistItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChecklistItems" inverseName="checklist" inverseEntity="ChecklistItems"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="checklist" inverseEntity="Users"/>
+    </entity>
+    <entity name="Comments" representedClassName="Comments" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" maxValueString="1024"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="ownerId" optional="YES" attributeType="String"/>
+        <attribute name="taskId" optional="YES" attributeType="String"/>
+        <relationship name="task" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tasks" inverseName="comment" inverseEntity="Tasks"/>
+    </entity>
+    <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String" maxValueString="7"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="descriptions" optional="YES" attributeType="String" maxValueString="512"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="ownerId" optional="YES" attributeType="String"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="note" inverseEntity="Users"/>
+    </entity>
     <entity name="Projects" representedClassName="Projects" syncable="YES" codeGenerationType="class">
         <attribute name="color" attributeType="String" maxValueString="7"/>
         <attribute name="createdAt" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="ownerId" attributeType="String"/>
         <attribute name="title" attributeType="String" maxValueString="32"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="relationship" inverseEntity="Users"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="project" inverseEntity="Users"/>
     </entity>
-    <entity name="Users" representedClassName="Users" isAbstract="YES" syncable="YES" codeGenerationType="class">
+    <entity name="Tasks" representedClassName="Tasks" syncable="YES" codeGenerationType="class">
+        <attribute name="assignedTo" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="descriptions" optional="YES" attributeType="String"/>
+        <attribute name="dueDate" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="ownerId" optional="YES" attributeType="String"/>
+        <attribute name="projectId" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String" maxValueString="256"/>
+        <relationship name="comment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comments" inverseName="task" inverseEntity="Comments"/>
+        <relationship name="taskMembers" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tasks" inverseName="taskMembers" inverseEntity="Tasks"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="task" inverseEntity="Users"/>
+    </entity>
+    <entity name="TasksMembers" representedClassName="TasksMembers" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TasksMembers" inverseName="task" inverseEntity="TasksMembers"/>
+    </entity>
+    <entity name="Users" representedClassName="Users" syncable="YES" codeGenerationType="class">
         <attribute name="avatarPath" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="String"/>
         <attribute name="email" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
-        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Projects" inverseName="relationship" inverseEntity="Projects"/>
+        <relationship name="checklist" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Checklists" inverseName="user" inverseEntity="Checklists"/>
+        <relationship name="note" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Notes" inverseName="user" inverseEntity="Notes"/>
+        <relationship name="project" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Projects" inverseName="user" inverseEntity="Projects"/>
+        <relationship name="task" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tasks" inverseName="user" inverseEntity="Tasks"/>
     </entity>
 </model>

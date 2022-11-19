@@ -9,15 +9,15 @@ struct ResetPasswordView: View {
     
     //MARK: Custom back button
     var backButton : some View { Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 25.2, height: 17.71)
-                    .padding()
-            }
-        }
+        self.presentationMode.wrappedValue.dismiss()
+    }) {
+        Image(systemName: "arrow.left")
+            .resizable()
+            .foregroundColor(.black)
+            .frame(width: 25.2, height: 17.71)
+            .padding()
+    }
+    }
     
     var body: some View {
         
@@ -30,12 +30,12 @@ struct ResetPasswordView: View {
                             variable: $resetNumber)
             
             CustomSecureTextField(text: "New password",
-                            placeholder: "Enter new password",
-                            variable: $newPassword)
+                                  placeholder: "Enter new password",
+                                  variable: $newPassword)
             
             CustomSecureTextField(text: "Confirm password",
-                            placeholder: "Confirm",
-                            variable: $confirmPassword)
+                                  placeholder: "Confirm",
+                                  variable: $confirmPassword)
             
             NavigationLink("Change password") {
                 SuccessfulView()

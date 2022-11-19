@@ -74,7 +74,6 @@ struct CustomCircleButton: View {
         } label: {
             Text("+")
                 .frame(width: 60, height: 60)
-//                .background(Color.customCoral) // change to gradient
                 .background(RadialGradient(colors: [.firstColor, .secondColor], center: UnitPoint(x: 0, y: 0), startRadius: 90, endRadius: 20))
                 .foregroundColor(.white)
                 .font(.RobotoThinItalic)
@@ -107,11 +106,9 @@ struct CustomAvatarButton: View {
             self.action()
         } label: {
             Text("Upload\navatar\nsdfsddsafa\nsdfadsf")
-//                .font(.footnote)
                 .foregroundColor(.clear)
         }
         .frame(width: 107, height: 104)
-//        .background(.secondary)
         .clipShape(Circle())
         .foregroundColor(.customGray)
         .overlay(Circle().stroke(lineWidth: 1).fill(Color.customCoral))

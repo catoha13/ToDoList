@@ -1,6 +1,6 @@
 import Combine
 
-final class ProjectNetworkService {
+struct ProjectNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
     private let token = Token()

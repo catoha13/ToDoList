@@ -21,7 +21,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var showSetting = false
     @Published var isSignedOut = false
     @Published var showImagePicker = false
-    @Published var showNetworkAlert = false
+    @Published var isOffline = false
     
     private let profileService = ProfileNetworkService()
     private let userCoreDataManager = UserCoreDataManager()
@@ -90,7 +90,7 @@ final class ProfileViewModel: ObservableObject {
                 case .failure(let error):
                     guard let self = self else { return }
                     self.alertMessage = error.description
-                    self.showNetworkAlert = true
+                    self.isOffline = true
                     self.username = self.userCoreDataManager.loadUser().username ?? ""
                     self.email = self.userCoreDataManager.loadUser().email ?? ""
                 }
@@ -115,7 +115,7 @@ final class ProfileViewModel: ObservableObject {
                 case .failure(let error):
                     guard let self = self else { return }
                     self.alertMessage = error.description
-                    self.showNetworkAlert = true
+                    self.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 guard let self = self else { return }
@@ -140,7 +140,7 @@ final class ProfileViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.avatarImage = item ?? UIImage(named: "background")!
@@ -157,13 +157,13 @@ final class ProfileViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             },
                   receiveValue: { [weak self] item in
                 if item.data.message != nil {
                     self?.alertMessage = item.data.message ?? ""
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             })
             .store(in: &cancellables)
@@ -178,7 +178,7 @@ final class ProfileViewModel: ObservableObject {
                     return
                 case .failure(let error):
                     self?.alertMessage = error.description
-                    self?.showNetworkAlert = true
+                    self?.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
                 self?.isSignedOut.toggle()
