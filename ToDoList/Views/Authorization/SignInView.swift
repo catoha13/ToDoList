@@ -5,7 +5,7 @@ struct SignInView: View {
     @StateObject private var viewModel = SignInViewModel()
     
     //MARK: Custom back button
-    var backButton : some View { Button(action: {
+    var backButton: some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
     }) {
         Image(systemName: "arrow.left")
@@ -18,9 +18,10 @@ struct SignInView: View {
     
     var body: some View {
         
-        VStack {
+        ScrollView(showsIndicators: false) {
             HeaderAndDescription(text: "Welcome back",
                                  description: "Sign in to continue")
+            .padding(.top, 24)
             
             CustomTextField(text: "Email",
                             placeholder: "Enter your email",
@@ -48,7 +49,7 @@ struct SignInView: View {
                 viewModel.signIn.send()
             }
             .buttonStyle(CustomButtonStyle())
-            .padding(.vertical, 80)
+            .padding(.vertical, 90)
             .fullScreenCover(isPresented: $viewModel.isPresented) {
                 CustomTabBarView(viewRouter: ViewRouter(),
                                  isPresented: $viewModel.isPresented)
@@ -57,8 +58,7 @@ struct SignInView: View {
             CustomButton(text: "Sign Up", action: {
                 self.presentationMode.wrappedValue.dismiss()
             })
-            .padding(.vertical, 30)
-            .padding(.bottom, 36)
+            .padding(.vertical, 20)
             
             Spacer()
             

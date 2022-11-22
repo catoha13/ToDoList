@@ -3,12 +3,12 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     @Binding var isPresented: Bool
-    @State private var showImagePicker : Bool = false
+    @State private var showImagePicker: Bool = false
     
     var body: some View {
         
         NavigationView {
-            VStack {
+            ScrollView(showsIndicators: false) {
                 HeaderAndDescription(text: "Welcome",
                                      description: "Sign up to continue")
                 .padding(.top, 66)

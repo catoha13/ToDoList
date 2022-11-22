@@ -8,15 +8,15 @@ struct TaskCoreDataManager {
     func loadTasks() -> [TaskResponseData] {
         do {
             let tasks = try container.viewContext.fetch(fetchTasksRequest)
-            return tasks.map { TaskResponseData(id: $0.id ?? "",
+            return tasks.map { TaskResponseData(id: String($0.id),
                                                 title: $0.title ?? "",
-                                                dueDate: $0.dueDate ?? "",
+                                                dueDate: DateFormatter.dateToString($0.dueDate ?? Date() ),
                                                 description: $0.descriptions ?? "",
-                                                assignedTo: $0.assignedTo ?? "",
+                                                assignedTo: String($0.assignedTo),
                                                 isCompleted: $0.isCompleted,
-                                                projectId: $0.projectId ?? "",
-                                                ownerId: $0.ownerId ?? "",
-                                                createdAt: $0.createdAt ?? ""
+                                                projectId: String($0.projectId),
+                                                ownerId: String($0.ownerId),
+                                                createdAt: DateFormatter.dateToString($0.createdAt ?? Date() )
             )}
             
         } catch {
@@ -30,15 +30,15 @@ struct TaskCoreDataManager {
         do {
             let task = Tasks(context: container.viewContext)
             
-            task.id = model.id
+            task.id = Int16(model.id) ?? 0
             task.title = model.title
-            task.dueDate = model.dueDate
+            task.dueDate = DateFormatter.stringToDate(model.dueDate)
             task.descriptions = model.description
-            task.assignedTo = model.assignedTo
+            task.assignedTo = Int16(model.assignedTo) ?? 0
             task.isCompleted = model.isCompleted
-            task.projectId = model.projectId
-            task.ownerId = model.ownerId
-            task.createdAt = model.createdAt
+            task.projectId = Int16(model.projectId) ?? 0
+            task.ownerId = Int16(model.ownerId) ?? 0
+            task.createdAt = DateFormatter.stringToDate(model.createdAt)
             
             if container.viewContext.hasChanges {
                 try container.viewContext.save()

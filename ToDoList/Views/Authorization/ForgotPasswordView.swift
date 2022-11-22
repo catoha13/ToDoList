@@ -22,6 +22,7 @@ struct ForgotPasswordView: View {
         VStack {
             HeaderAndDescription(text: "Forgot Password",
                                  description: "Please enter your email below to recevie your password reset instructions")
+            .padding(.top, 24)
             
             CustomTextField(text: "Email",
                             placeholder: "Enter your email",

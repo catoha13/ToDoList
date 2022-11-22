@@ -8,7 +8,11 @@ struct ProjectCoreDataManager {
         do {
             let projects = try container.viewContext.fetch(fetchRequest)
             return projects.map { project in
-                (ProjectResponceData(id: project.id, title: project.title, color: project.color, ownerId: project.ownerId, createdAt: project.createdAt))
+                ProjectResponceData(id: project.id?.uuidString,
+                                     title: project.title,
+                                     color: project.color,
+                                     ownerId: project.ownerId?.uuidString,
+                                    createdAt: DateFormatter.dateToString(project.createdAt ?? Date()))
             }
         } catch {
             print("Cannot load the projects \(error.localizedDescription)")
@@ -19,11 +23,11 @@ struct ProjectCoreDataManager {
     func saveProjects(model: ProjectResponceData) {
         do {
             let project = Projects(context: container.viewContext)
-            project.id = model.id
+            project.id = UUID(uuidString: model.id ?? "")
             project.title = model.title
             project.color = model.color
-            project.ownerId = model.ownerId
-            project.createdAt = model.createdAt
+            project.ownerId = UUID(uuidString: model.ownerId ?? "")
+            project.createdAt = DateFormatter.stringToDate(model.createdAt ?? "")
             
             if container.viewContext.hasChanges {
                 try container.viewContext.save()

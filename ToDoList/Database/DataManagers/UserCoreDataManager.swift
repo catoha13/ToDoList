@@ -8,11 +8,11 @@ struct UserCoreDataManager {
     func loadUser() -> ProfileResponseData {
         do {
             let users = try container.viewContext.fetch(fetchRequest)
-            return users.first.map { ProfileResponseData(id: $0.id,
+            return users.first.map { ProfileResponseData(id: $0.id?.uuidString,
                                                          email: $0.email,
                                                          username: $0.username,
                                                          avatarUrl: $0.avatarPath,
-                                                         createdAt: $0.createdAt) } ?? ProfileResponseData()
+                                                         createdAt: DateFormatter.dateToString($0.createdAt ?? Date() )) } ?? ProfileResponseData()
         } catch {
             print("Cannot load the user \(error.localizedDescription)")
             return ProfileResponseData()
@@ -22,11 +22,11 @@ struct UserCoreDataManager {
     func saveUser(newUser: ProfileResponseData) {
         do {
             let user = Users(context: container.viewContext)
-            user.id = newUser.id
+            user.id = UUID(uuidString: newUser.id ?? "")
             user.username = newUser.username
             user.email = newUser.email
             user.avatarPath = newUser.avatarUrl
-            user.createdAt = newUser.createdAt
+            user.createdAt = DateFormatter.stringToDate(newUser.createdAt ?? "")
             
             if container.viewContext.hasChanges {
                 try container.viewContext.save()

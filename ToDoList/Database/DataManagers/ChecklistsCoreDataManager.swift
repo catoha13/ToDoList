@@ -11,15 +11,20 @@ struct ChecklistsCoreDataManager {
             let checklists = try container.viewContext.fetch(fetchChecklistsRequest)
             
             let convertItems = checklistItems.map {
-                ChecklistItemsModel(id: $0.id, content: $0.content ?? "", checklistId: $0.checklistId, isCompleted: $0.isCompleted, createdAt: $0.createdAt)
+                ChecklistItemsModel(id: String($0.id),
+                                    content: $0.content ?? "",
+                                    checklistId: String($0.checklistId),
+                                    isCompleted: $0.isCompleted,
+                                    createdAt: DateFormatter.dateToString($0.createdAt ?? Date() ))
+                
             }
             
-            return checklists.map { ChecklistData(id: $0.id ?? "",
+            return checklists.map { ChecklistData(id: String($0.id),
                                              title: $0.title ?? "",
                                              color: $0.color ?? "",
-                                             ownerId: $0.ownerId ?? "",
+                                             ownerId: String($0.ownerId),
                                              items: convertItems,
-                                             createdAt: $0.createdAt ?? ""
+                                                  createdAt: DateFormatter.dateToString($0.createdAt ?? Date())
             )}
             
         } catch {

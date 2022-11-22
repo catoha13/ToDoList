@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-final class Token: ObservableObject {
+final class Token {
     @AppStorage("token") var savedToken: String?
     @AppStorage("refreshToken") var refreshToken : String?
     @AppStorage("expireDate") var expireDate: Int?
@@ -23,24 +23,26 @@ final class Token: ObservableObject {
     
     private let refreshTokenRequest = PassthroughSubject<Void, Never>()
     
-    var checkToken: AnyPublisher<Bool, Never> {
-        expireDate.publisher
-            .map {
-                if self.currentDate >= trimExpireDate($0) {
-                    getNewToken()
-                    return false
-                } else {
-                    return true
-                }
-            }
-            .eraseToAnyPublisher()
-    }
-    
     init() {
         addSubscriptions()
     }
     
     private func addSubscriptions() {
+        expireDate.publisher
+            .map {
+                if self.currentDate >= trimExpireDate($0) {
+                    isValid = false
+                } else {
+                    isValid = true
+                }
+            }
+            .sink { [weak self] _ in
+                if self?.isValid == false {
+                    self?.refreshTokenRequest.send()
+                }
+            }
+            .store(in: &cancellables)
+        
         refreshTokenRequest
             .sink { [weak self] _ in
                 self?.getNewToken()

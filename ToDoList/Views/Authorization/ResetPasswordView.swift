@@ -21,9 +21,10 @@ struct ResetPasswordView: View {
     
     var body: some View {
         
-        VStack {
+        ScrollView(showsIndicators: false) {
             HeaderAndDescription(text: "Reset Password",
                                  description: "Reset code was sent to your email. Please enter the code and create new password")
+            .padding(.top, 24)
             
             CustomTextField(text: "Reset code",
                             placeholder: "Enter your number",
