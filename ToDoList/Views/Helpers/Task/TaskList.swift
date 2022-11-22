@@ -30,7 +30,8 @@ struct TaskList: View {
         List {
             ForEach(headers.sorted {$0 > $1} , id: \.self) { header in
                 Section(header: Text(header)
-                    .font(.RobotoThinItalicSmall)) {
+                    .font(.RobotoThinItalicSmall)
+                    .padding(.leading)) {
                         ForEach(groupedByDate[header] ?? [], id: \.self) { task in
                             TaskCell(title: task.title,
                                      time: task.dueDate,
@@ -69,10 +70,9 @@ struct TaskList: View {
                     }
             }
         }
-        .scrollIndicators(.never)
+        .listStyle(.plain)
+        .background(Color.customWhiteBackground)
         .animation(.default, value: userTasks)
-        .background(Color.customWhiteBackground.ignoresSafeArea())
-        .scrollContentBackground(.hidden)
         .padding(.top, -8)
     }
 }
