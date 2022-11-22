@@ -8,8 +8,8 @@ struct ToDoListApp: App {
 
     var body: some Scene {
         WindowGroup {
-            CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
-//             LogoView()
+//            CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
+             LogoView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
