@@ -6,7 +6,7 @@
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="checklist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checklists" inverseName="checklistItems" inverseEntity="Checklists"/>
+        <relationship name="checklist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checklists" inverseName="checklistItem" inverseEntity="Checklists"/>
     </entity>
     <entity name="Checklists" representedClassName="Checklists" syncable="YES" codeGenerationType="class">
         <attribute name="color" attributeType="String" maxValueString="7"/>
@@ -14,7 +14,7 @@
         <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ownerId" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" maxValueString="256"/>
-        <relationship name="checklistItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChecklistItems" inverseName="checklist" inverseEntity="ChecklistItems"/>
+        <relationship name="checklistItem" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChecklistItems" inverseName="checklist" inverseEntity="ChecklistItems"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="checklist" inverseEntity="Users"/>
     </entity>
     <entity name="Comments" representedClassName="Comments" syncable="YES" codeGenerationType="class">

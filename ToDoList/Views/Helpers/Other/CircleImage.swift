@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CircleImageView: View {
+struct CircleImage: View {
     @Binding var image: UIImage?
     var width: CGFloat
     var height: CGFloat

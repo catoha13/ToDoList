@@ -12,7 +12,7 @@ struct AboutUser: View {
     var body: some View {
         VStack {
             HStack {
-                CircleImageView(image: $userAvatar, width: 64, height: 64)
+                CircleImage(image: $userAvatar, width: 64, height: 64)
                 VStack(alignment: .leading) {
                     Text(userName)
                         .font(.RobotoThinItalicSmall)

@@ -36,6 +36,7 @@ final class SignUpViewModel: ObservableObject {
     
     init() {
         addSubscriptions()
+        user.readPassword()
     }
     
     private func addSubscriptions() {
@@ -96,7 +97,9 @@ final class SignUpViewModel: ObservableObject {
                     self.token.expireDate = item.data.userSession?.expiresIn ?? 0
                     self.token.tokenType = item.data.userSession?.tokenType
                     self.user.userId = item.data.id ?? "no data"
-                    self.user.savedEmail = item.data.email ?? "no data"
+                    self.user.email = item.data.email ?? "no data"
+                    self.user.password = self.password.toBase64()
+                    self.user.savePassword()
                     self.uploadAvatar.send()
                     self.fetchUserData.send()
                     self.isPresented.toggle()

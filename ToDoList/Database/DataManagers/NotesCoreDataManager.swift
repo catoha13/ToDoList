@@ -16,7 +16,7 @@ struct NotesCoreDataManager {
             )}
             
         } catch {
-            print("Cannot load the tasks \(error.localizedDescription)")
+            print("Cannot load the notes \(error.localizedDescription)")
             return []
         }
     }
@@ -36,7 +36,18 @@ struct NotesCoreDataManager {
                 try container.viewContext.save()
             }
         } catch {
-            print("Cannot save the task \(error.localizedDescription)")
+            print("Cannot save the note \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteNotes() {
+        do {
+            let notes = try container.viewContext.fetch(fetchNotesRequest)
+            notes.forEach { note in
+                container.viewContext.delete(note)
+            }
+        } catch {
+            print("Cannot delete the notes \(error.localizedDescription)")
         }
     }
 }
