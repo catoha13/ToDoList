@@ -85,7 +85,8 @@ struct TabBarIcon: View {
     let assignedPage: Page
     
     let width, height: CGFloat
-    let systemIconName, tabName: String
+    let systemIconName: String
+    let tabName: LocalizedStringKey
     
     var body: some View {
         VStack {

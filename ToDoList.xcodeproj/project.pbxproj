@@ -464,10 +464,10 @@
 		AC676BBE288EBE7F001DDE34 /* TabViews */ = {
 			isa = PBXGroup;
 			children = (
-				AC676BBF288EBE7F001DDE34 /* ProfileView.swift */,
-				AC676BC0288EBE7F001DDE34 /* QuickView.swift */,
 				AC676BC1288EBE7F001DDE34 /* MyTaskView.swift */,
 				AC676BC2288EBE7F001DDE34 /* MenuView.swift */,
+				AC676BC0288EBE7F001DDE34 /* QuickView.swift */,
+				AC676BBF288EBE7F001DDE34 /* ProfileView.swift */,
 			);
 			path = TabViews;
 			sourceTree = "<group>";

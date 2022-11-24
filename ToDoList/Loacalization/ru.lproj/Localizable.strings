@@ -47,3 +47,9 @@
 //MARK: SuccessfulView
 "Successful!" = "Успешно!";
 "You have successfully change password. Please use your new passwords when logging in." = "Вы успешно изменили пароль. Пожалуйста, используйте новые пароли при входе в систему.";
+
+//MARK: Custom TabBarView
+"My task" = "Задачи";
+"Menu" = "Меню";
+"Quick" = "Заметки";
+"Profile" = "Профиль";
