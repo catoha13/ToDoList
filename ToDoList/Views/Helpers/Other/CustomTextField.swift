@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct CustomTextField: View {
-    @State var text: String
-    @State var placeholder: String
+    @State var text: LocalizedStringKey
+    @State var placeholder: LocalizedStringKey
     @Binding var variable: String
 
     var body: some View {

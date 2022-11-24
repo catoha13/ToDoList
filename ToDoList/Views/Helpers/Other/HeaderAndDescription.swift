@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct HeaderAndDescription: View {
-    @State var text: String
-    @State var description: String
+    @State var text: LocalizedStringKey
+    @State var description: LocalizedStringKey
     
     var body: some View {
         
         HStack {
             VStack(alignment: .leading) {
                 Text(text)
-                    .font(.custom("Roboto-ThinItalic", size: 32)) // add to extension?
+                    .font(.custom("Roboto-ThinItalic", size: 32))
                     .padding(.bottom, 10)
                 
                 Text(description)

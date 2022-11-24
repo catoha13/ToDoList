@@ -10,3 +10,16 @@
 "Task and assign them to colleagues." = "Ставьте задачи и назначайте их коллегам.";
 
 "Get Started" = "Начать";
+
+//MARK: SignUpView
+"Welcome" = "Добро пожаловать";
+"Sign up to continue" = "Зарегистрируйтесь, чтобы продолжить";
+"Email" = "Электронная почта";
+"Enter email" = "Введите адрес электронной почты";
+"Username" = "Имя пользователя";
+"Enter username" = "Введите имя пользователя";
+"Password" = "Пароль";
+"Enter your password" = "Введите пароль";
+"Sign Up" = "Зарегистрироваться";
+"Sign In" = "Войти";
+

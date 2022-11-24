@@ -2,7 +2,7 @@ import SwiftUI
 
 //MARK: Custom Coral Button
 struct CustomCoralFilledButton: View {
-    var text: String
+    var text: LocalizedStringKey
     var action: () -> Void
     
     var body: some View {

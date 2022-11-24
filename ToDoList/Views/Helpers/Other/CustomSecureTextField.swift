@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct CustomSecureTextField: View {
-    @State var text: String
-    @State var placeholder: String
+    @State var text: LocalizedStringKey
+    @State var placeholder: LocalizedStringKey
     @Binding var variable: String
     @State private var showPassword = false
     
@@ -14,7 +14,7 @@ struct CustomSecureTextField: View {
             HStack {
                 SecureField(text: $variable) {
                     Text(placeholder)
-                        .font(.custom("Roboto-Regular", size: 16)) // add to extension?
+                        .font(.custom("Roboto-Regular", size: 16))
                         .foregroundColor(.customGray)
                 }
                 .textInputAutocapitalization(.never)
@@ -59,8 +59,8 @@ struct CustomSecureTextField: View {
 }
 
 struct CustomSecureTextField_Previews: PreviewProvider {
-    @State static var text = ""
-    @State static var placeholder = "Enter password"
+    @State static var text: LocalizedStringKey = ""
+    @State static var placeholder: LocalizedStringKey = "Enter password"
     @State static var variable = ""
     static var previews: some View {
         CustomSecureTextField(text: text, placeholder: placeholder, variable: $variable)
