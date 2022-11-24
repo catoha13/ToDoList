@@ -23,3 +23,10 @@
 "Sign Up" = "Зарегистрироваться";
 "Sign In" = "Войти";
 
+//MARK: SignInView
+"Welcome back" = "С возвращением";
+"Sign in to continue" = "Войдите, чтобы продолжить";
+"Forgot password" = "Забыли пароль?";
+"" = "";
+"" = "";
+"" = "";

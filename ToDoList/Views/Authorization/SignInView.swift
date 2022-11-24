@@ -24,7 +24,7 @@ struct SignInView: View {
             .padding(.top, 24)
             
             CustomTextField(text: "Email",
-                            placeholder: "Enter your email",
+                            placeholder: "Enter email",
                             variable: $viewModel.email)
             .keyboardType(.emailAddress)
             .padding(.bottom, 20)
@@ -45,9 +45,11 @@ struct SignInView: View {
             
             TextWithErrorDecsription(text: $viewModel.errorMessage)
             
-            Button("Sing In") {
+            Button(action: {
                 viewModel.signIn.send()
-            }
+            }, label: {
+                Text("Sign In")
+            })
             .buttonStyle(CustomButtonStyle())
             .padding(.vertical, 90)
             .fullScreenCover(isPresented: $viewModel.isPresented) {

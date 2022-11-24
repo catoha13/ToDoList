@@ -50,7 +50,7 @@ struct CustomBlueFilledButton: View {
 
 //MARK: Custom Button
 struct CustomButton: View {
-    var text: String
+    var text: LocalizedStringKey
     var action: () -> Void
     
     var body: some View {
