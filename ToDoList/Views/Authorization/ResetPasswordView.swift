@@ -27,7 +27,7 @@ struct ResetPasswordView: View {
             .padding(.top, 24)
             
             CustomTextField(text: "Reset code",
-                            placeholder: "Enter your number",
+                            placeholder: "Enter the number",
                             variable: $resetNumber)
             
             CustomSecureTextField(text: "New password",

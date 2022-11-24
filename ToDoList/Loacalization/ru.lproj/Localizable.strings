@@ -27,6 +27,23 @@
 "Welcome back" = "С возвращением";
 "Sign in to continue" = "Войдите, чтобы продолжить";
 "Forgot password" = "Забыли пароль?";
-"" = "";
-"" = "";
-"" = "";
+
+//MARK: ForgotPasswordView
+"Forgot Password" = "Забыли пароль?";
+"Please enter your email below to recevie your password reset instructions" = "Пожалуйста, введите свой e-mail, чтобы получить инструкции по восстановлению пароля.";
+"Send Request" = "Отправить запрос";
+
+//MARK: ResetPasswordView
+"Reset Password" = "Сброс пароля";
+"Reset code was sent to your email. Please enter the code and create new password" = "Код сброса был отправлен на вашу электронную почту. Пожалуйста, введите код и создайте новый пароль";
+"Reset code" = "Код сброса";
+"Enter the number" = "Введите номер";
+"New password" = "Новый пароль";
+"Enter new password" = "Введите новый пароль";
+"Confirm password" = "Подтвердите пароль";
+"Confirm" = "Подтвердить";
+"Change password" = "Сменить пароль";
+
+//MARK: SuccessfulView
+"Successful!" = "Успешно!";
+"You have successfully change password. Please use your new passwords when logging in." = "Вы успешно изменили пароль. Пожалуйста, используйте новые пароли при входе в систему.";

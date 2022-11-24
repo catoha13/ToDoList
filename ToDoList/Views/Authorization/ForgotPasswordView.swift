@@ -25,7 +25,7 @@ struct ForgotPasswordView: View {
             .padding(.top, 24)
             
             CustomTextField(text: "Email",
-                            placeholder: "Enter your email",
+                            placeholder: "Enter email",
                             variable: $email)
             .keyboardType(.emailAddress)
             
