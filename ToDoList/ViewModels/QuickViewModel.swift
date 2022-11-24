@@ -161,7 +161,7 @@ final class QuickViewModel: ObservableObject {
                     guard let self = self else { return }
                     self.alertMessage = error.description
                     self.isOffline = true
-                    let notesData = self.notesCoreDataManager.loadNotes()
+//                    let notesData = self.notesCoreDataManager.loadNotes()
                 }
             },
                   receiveValue: { [weak self] item in

@@ -9,6 +9,9 @@ struct QuickView: View {
                 Text("Quick Notes")
                     .font(.RobotoThinItalicHeader)
                     .padding(.vertical, 50)
+                    .alert(isPresented: $viewModel.isOffline) {
+                        Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
+                    }
                 ScrollView(showsIndicators: false) {
                     ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, _ in
                         //MARK: Notes
@@ -97,9 +100,6 @@ struct QuickView: View {
                     }
                     .animation(.default, value: viewModel.mergedResponseArray.map { $0.0 })
                     .animation(.default, value: viewModel.mergedResponseArray.map { $0.1 })
-                }
-                .alert(isPresented: $viewModel.isOffline) {
-                    Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
                 }
             }
             .frame(maxWidth: .infinity)

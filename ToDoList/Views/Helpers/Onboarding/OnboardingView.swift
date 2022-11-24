@@ -4,8 +4,8 @@ struct OnboardingView: View {
     @State var isPresented: Bool
     
     var image: String
-    var text: String
-    var description: String
+    var text: LocalizedStringKey
+    var description: LocalizedStringKey
     var backgroundFirst: String
     var backgroundSecond: String
     var buttonAction: () -> Void
@@ -23,6 +23,7 @@ struct OnboardingView: View {
             
             Text(description)
                 .font(.RobotoMedium)
+                .multilineTextAlignment(.center)
                 .font(.system(.title3))
                 .foregroundColor(.customBlack)
                 .padding(.top, 11)
@@ -54,8 +55,8 @@ struct OnboardingView: View {
 struct OnboardingView_Previews: PreviewProvider {
     @State static var isPresented = false
     @State static var image = "events"
-    @State static var text = "Welcome to todo list"
-    @State static var description = "Whats going to happen tomorrow?"
+    @State static var text: LocalizedStringKey = "Welcome to todo list"
+    @State static var description: LocalizedStringKey = "Whats going to happen tomorrow?"
     @State static var backgroundFirst = "pathFirst"
     @State static var backgroundSecond = "pathFirstBack"
     @State static var buttonAction = {}

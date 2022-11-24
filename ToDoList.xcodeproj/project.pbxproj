@@ -14,6 +14,7 @@
 		AC1A3E602926965800EEF1CE /* UserCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1A3E5F2926965800EEF1CE /* UserCoreDataManager.swift */; };
 		AC1D104B2928115900C49671 /* ChecklistsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D104A2928115900C49671 /* ChecklistsCoreDataManager.swift */; };
 		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
+		AC2432D4292FC86D0054D25D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC2432D6292FC86D0054D25D /* Localizable.strings */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
 		AC2F6905288B0635007D78E0 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImage.swift */; };
 		AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6907288B0687007D78E0 /* CustomTextField.swift */; };
@@ -157,6 +158,7 @@
 		AC1A3E5F2926965800EEF1CE /* UserCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataManager.swift; sourceTree = "<group>"; };
 		AC1D104A2928115900C49671 /* ChecklistsCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistsCoreDataManager.swift; sourceTree = "<group>"; };
 		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		AC2432D7292FC8CC0054D25D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AC2F6904288B0635007D78E0 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		AC2F6907288B0687007D78E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -359,6 +361,14 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		AC2432D1292FC8220054D25D /* Loacalization */ = {
+			isa = PBXGroup;
+			children = (
+				AC2432D6292FC86D0054D25D /* Localizable.strings */,
+			);
+			path = Loacalization;
+			sourceTree = "<group>";
+		};
 		AC2F6901288AF6C3007D78E0 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,7 +512,9 @@
 				AC6A7A14292CDDD300FB2B8E /* Notifications */,
 				AC612278292E1F840001FD3A /* Keychain */,
 				AC7715112885898E00A0C804 /* Extentions */,
+				AC7715342885963E00A0C804 /* Constants */,
 				AC7715332885957400A0C804 /* Resources */,
+				AC2432D1292FC8220054D25D /* Loacalization */,
 				AC77153A28859C4600A0C804 /* Info.plist */,
 				AC7714DC28856C6D00A0C804 /* Assets.xcassets */,
 				AC7714DE28856C6D00A0C804 /* Preview Content */,
@@ -589,7 +601,6 @@
 		AC7715332885957400A0C804 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AC7715342885963E00A0C804 /* Constants */,
 				AC7715192885919C00A0C804 /* Font */,
 			);
 			path = Resources;
@@ -875,6 +886,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = AC7714CC28856C6B00A0C804;
 			productRefGroup = AC7714D628856C6B00A0C804 /* Products */;
@@ -903,6 +915,7 @@
 				AC77152C288591FF00A0C804 /* Roboto-LightItalic.ttf in Resources */,
 				AC771528288591F400A0C804 /* Roboto-BoldItalic.ttf in Resources */,
 				AC77152B288591FC00A0C804 /* Roboto-Light.ttf in Resources */,
+				AC2432D4292FC86D0054D25D /* Localizable.strings in Resources */,
 				AC7715312885922800A0C804 /* Roboto-ThinItalic.ttf in Resources */,
 				AC77152E2885922000A0C804 /* Roboto-MediumItalic.ttf in Resources */,
 				AC7715302885922600A0C804 /* Roboto-Thin.ttf in Resources */,
@@ -1072,11 +1085,23 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		AC2432D6292FC86D0054D25D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC2432D7292FC8CC0054D25D /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		AC7714FC28856C6D00A0C804 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1123,7 +1148,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1137,6 +1162,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1177,7 +1203,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
