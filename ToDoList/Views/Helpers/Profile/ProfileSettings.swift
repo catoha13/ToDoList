@@ -41,7 +41,7 @@ struct ProfileSettings: View {
                 }
                 .foregroundColor(.black)
                 .font(.RobotoThinItalicSmall)
-                .frame(width: 140, height: 100)
+                .frame(width: 160, height: 100)
                 .padding(.horizontal)
                 .background(.white)
                 .cornerRadius(Constants.radiusFive)

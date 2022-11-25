@@ -377,7 +377,6 @@
 				AC2F690B288B2A9A007D78E0 /* ForgotPasswordView.swift */,
 				AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */,
 				AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */,
-				AC9063F628BFFD03002450A8 /* ImagePicker */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -625,6 +624,7 @@
 				ACFD4DBF28D235F9004EB8D3 /* Note */,
 				ACF182F128DF92CF00DD3531 /* Checklist */,
 				ACA623F428D9E48A0038888E /* Profile */,
+				AC9063F628BFFD03002450A8 /* ImagePicker */,
 				AC43EAAB2902B4ED001D7B31 /* CustomCalendar */,
 				AC1A3E4D2922707300EEF1CE /* CustomPicker */,
 				AC77C5F5292ED41F00A3CB75 /* Other */,

@@ -116,6 +116,21 @@
 "Choose Color" = "Выберете цввет";
 
 //MARK: QuickView
+"Quick Notes" = "Быстрые Заметки";
 "What do you want to do?" = "Что вы хотите сделать?";
 "Edit" = "Редактировать";
 
+//MARK: ProfileView
+"Created Task" = "Создано задач";
+"Statistic" = "Статистика";
+"Events" = "События";
+"To do" = "Сделать";
+"Quick notes" = "Быстрые заметки";
+
+//MARK: ProfileSettings
+"Change avatar" = "Изменить аватар";
+"Sign Out" = "Выйти";
+
+//MARK: StatCollectionCell
+"To do Task" = "В работе";
+"Tasks" = "Задачи";

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StatCollectionCell: View {
-    @State var text = "Events"
+    @State var text: LocalizedStringKey = "Events"
     @Binding var count: Int
     @State var backgroundColor: Color = Color.customBlue
     

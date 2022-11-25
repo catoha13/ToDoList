@@ -29,7 +29,7 @@ struct AboutUser: View {
                     Image(systemName: "gearshape.fill")
                         .resizable()
                         .foregroundColor(.black)
-                        .rotationEffect(showEdit ? .degrees(-180) : .degrees(180))
+                        .rotationEffect(showEdit ? .degrees(180) : .degrees(0))
                 }
                 .frame(width: 20, height: 20)
                 .offset(x: 2, y: -42)
