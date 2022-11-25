@@ -49,8 +49,8 @@ struct QuickView: View {
                             Text("What do you want to do?")
                         }
                         .alert(isPresented: $viewModel.showNoteAlert) {
-                            Alert(title: Text("Delete «\(viewModel.noteText)» note?"),
-                                  message: Text("You cannot undo this action."),
+                            Alert(title: Text("Delete") + Text(" «\(viewModel.noteText)»?"),
+                                  message: Text("You cannot undo this action"),
                                   primaryButton: .destructive(Text("Delete")) {
                                 viewModel.deleteNote.send()
                             },
@@ -76,21 +76,21 @@ struct QuickView: View {
                             viewModel.selectedChecklist = checklists.items
                             viewModel.isChecklistEditing.toggle()
                         }
-                        .confirmationDialog("What do you want?", isPresented: $viewModel.isChecklistEditing) {
+                        .confirmationDialog("What do you want to do?", isPresented: $viewModel.isChecklistEditing) {
                             Button("Edit", role: .none) {
                                 withAnimation(.default) {
                                     viewModel.showChecklistEditView.toggle()
                                 }
                             }
-                            Button("Delete Checklist", role: .destructive) {
+                            Button("Delete", role: .destructive) {
                                 viewModel.showChecklistAlert.toggle()
                             }
                         } message: {
                             Text("What do you want to do?")
                         }
                         .alert(isPresented: $viewModel.showChecklistAlert) {
-                            Alert(title: Text("Delete «\(viewModel.checklistTitle)» checklist?"),
-                                  message: Text("You cannot undo this action."),
+                            Alert(title: Text("Delete") + Text(" «\(viewModel.checklistTitle)»?"),
+                                  message: Text("You cannot undo this action"),
                                   primaryButton: .cancel(),
                                   secondaryButton: .destructive(Text("Delete")) {
                                 viewModel.deleteChecklist.send()

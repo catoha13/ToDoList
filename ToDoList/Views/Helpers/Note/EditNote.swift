@@ -14,6 +14,9 @@ struct EditNote: View {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.secondary)
+                .onTapGesture {
+                    isPresented.toggle()
+                }
             VStack {
                 //MARK: View
                 VStack(alignment: .trailing) {

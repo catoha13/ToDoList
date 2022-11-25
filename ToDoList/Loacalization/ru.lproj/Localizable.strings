@@ -114,3 +114,8 @@
 
 //MARK: Choose Color
 "Choose Color" = "Выберете цввет";
+
+//MARK: QuickView
+"What do you want to do?" = "Что вы хотите сделать?";
+"Edit" = "Редактировать";
+

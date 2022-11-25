@@ -21,6 +21,9 @@ struct EditChecklist: View {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.secondary)
+                .onTapGesture {
+                    isPresented.toggle()
+                }
             //MARK: View
             VStack(alignment: .trailing) {
                 //MARK: Description
