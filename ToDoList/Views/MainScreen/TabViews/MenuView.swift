@@ -78,7 +78,7 @@ struct MenuView: View {
                         }
                         .foregroundColor(.red)
                         .alert(isPresented: $viewModel.showDeleteAlert.value) {
-                            Alert(title: Text("Delete «\(viewModel.projectName.value)» project?"),
+                            Alert(title: Text("Delete") + Text("« \(viewModel.projectName.value)»?"),
                                   message: Text("You cannot undo this action."),
                                   primaryButton: .cancel(),
                                   secondaryButton: .destructive(Text("Delete")) {

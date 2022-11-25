@@ -102,3 +102,15 @@
 "Incomplete Tasks" = "Невыполненные задачи";
 "Completed Tasks" = "Выполненные задачи";
 "All Tasks" = "Все задачи";
+
+//MARK: MenuView
+"Projects" = "Проекты";
+
+//MARK: ProjectChooseColor
+"Title" = "Заголовок";
+"Project Name" = "Название проекта";
+"Title is too long" = "Заголовок слишком длинный";
+"Delete project" = "Удалить проект";
+
+//MARK: Choose Color
+"Choose Color" = "Выберете цввет";
