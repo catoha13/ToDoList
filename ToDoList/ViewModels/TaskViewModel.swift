@@ -7,7 +7,7 @@ final class TaskViewModel: ObservableObject {
     @Published var selectedIndex = 0
     @Published var selectedDate: Date?
     @Published var fetchTasksResponse: [TaskResponseData] = []
-    @Published var filterCompletedTasks: Bool? = false
+    @Published var filterCompletedTasks: CompletedType = .notCompleted
     @Published var filterIndex = 0
     @Published var showFilter = false
     @Published var users: [Member] = []
@@ -399,4 +399,8 @@ final class TaskViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+}
+
+enum CompletedType {
+    case all, notCompleted, completed
 }

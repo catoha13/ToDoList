@@ -53,3 +53,52 @@
 "Menu" = "Меню";
 "Quick" = "Заметки";
 "Profile" = "Профиль";
+
+//MARK: MyTaskView
+"Work List" = "Список работ";
+"Today" = "Сегодня";
+"Month" = "Месяц";
+"Mon" = "Пн";
+"Tue" = "Вт";
+"Wed" = "Ср";
+"Thu" = "Чт";
+"Fri" = "Пт";
+"Sat" = "Сб";
+"Sun" = "Вс";
+
+//MARK: CompleteTask
+"Editing" = "Редактирование";
+"Enter new title" = "Введите новое название";
+"Assigned to" = "Назначено";
+"Due Date" = "Срок исполнения";
+"Description" = "Описание";
+"Enter new description" = "Введите новое описание";
+"Members" = "Участники";
+"Tag" = "Тег";
+"Done" = "Готово";
+"Undo completion" = "Отмена завершение";
+"Complete Task" = "Выполнено";
+"Comment" = "Комментарии";
+"Delete «\(title)» task?" = "Удалить задачу «\(title)»?";
+
+//MARK: TaskSettings
+"Add member" = "Добавить участника";
+"Edit task" = "Редактировать задачу";
+"Delete task" = "Удалить задачу";
+
+//MARK: Create Comment
+"Send" = "Отправить";
+
+//MARK: CommentView
+"Delete comment" = "Удалить комментарий";
+
+//MARK: Alert
+"You cannot undo this action" = "Вы не сможете отменить это действие";
+"Delete" = "Удалить";
+"Something went wrong" = "Что-то пошло не так";
+"Ok" = "Ок";
+
+//MARK: TaskFilterSettigns
+"Incomplete Tasks" = "Невыполненные задачи";
+"Completed Tasks" = "Выполненные задачи";
+"All Tasks" = "Все задачи";

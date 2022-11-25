@@ -37,6 +37,14 @@ extension DateFormatter {
         return "\(dayFormatter.string(from: date))T\(timeFormatter.string(from: time))"
     }
     
+    static func minutesAndHours(_ strDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        let newDate = formatter.date(from: strDate) ?? Date()
+        formatter.dateFormat = "hh:mm"
+        return formatter.string(from: newDate)
+    }
+    
     static func convertCommentDate(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"

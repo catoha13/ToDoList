@@ -334,16 +334,14 @@ struct CompleteTask: View {
                 }
             }
         }
-        .alert("Delete «\(title)» task?", isPresented: $showTaskAlert) {
-            Button("Delete", role: .destructive) {
+        .alert(isPresented: $showTaskAlert) {
+            Alert(title: Text("Delete") + Text(" «\(title)»?"),
+                  message: Text("You cannot undo this action"),
+                  primaryButton: .cancel(),
+                  secondaryButton: .destructive(Text("Delete")) {
                 deleteTaskAction()
                 isPresented.toggle()
-            }
-            Button("Cancel", role: .cancel) {
-                showTaskAlert.toggle()
-            }
-        } message: {
-            Text("You cannot undo this action")
+            })
         }
     }
 }

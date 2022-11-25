@@ -40,7 +40,7 @@ struct CommentsView: View {
         .padding(.horizontal, 30)
         .padding(.vertical, 10)
         .animation(.default, value: comments)
-        .alert("Delete comment«\(commentContent)»?", isPresented: $showAlert) {
+        .alert(Text("Delete comment") + Text(" «\(commentContent)»?"), isPresented: $showAlert) {
             Button("Delete", role: .destructive) {
                 comments.removeAll(where: {$0.id == commentId })
                 deleteComment()

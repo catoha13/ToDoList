@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SegmentedPickerExample: View {
-    let titles: [String]
+    let titles: [LocalizedStringKey]
     @Binding var selectedIndex: Int
 
     var body: some View {

@@ -3,13 +3,19 @@ import SwiftUI
 struct CustomCalendar: View {
     @Binding var selectedDate: Date?
     
-    @State var currentDate: Date = Date()
+    @State private var currentDate: Date = Date()
     
-    @State var days = ["M","T", "W", "T", "F", "S", "S"]
-    @State var columns = Array(repeating: GridItem(.flexible()), count: 7)
+    @State private var days = [NSLocalizedString("Mon", comment: ""),
+                               NSLocalizedString("Tue", comment: ""),
+                               NSLocalizedString("Wed", comment: ""),
+                               NSLocalizedString("Thu", comment: ""),
+                               NSLocalizedString("Fri", comment: ""),
+                               NSLocalizedString("Sat", comment: ""),
+                               NSLocalizedString("Sun", comment: "")]
+    @State private var columns = Array(repeating: GridItem(.flexible()), count: 7)
     
-    @State var currentMonth: Int  = 0
-    @State var currentWeek: [Date] = []
+    @State private var currentMonth: Int  = 0
+    @State private var currentWeek: [Date] = []
     @State private var showFullCalendar = false
     
     var body: some View {

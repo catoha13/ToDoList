@@ -3,9 +3,9 @@ import Foundation
 
 struct TaskList: View {
     @Binding var userTasks: [TaskResponseData]
-    @Binding var filterCompletedTasks: Bool?
+    @Binding var filterCompletedTasks: CompletedType
     @Binding var showTask: Bool
-    
+    @Binding var isTaskCompleted: Bool
     @Binding var taskTitle: String
     @Binding var taskId: String
     @Binding var taskDueDate: String
@@ -20,7 +20,15 @@ struct TaskList: View {
     @State private var showAlert = false
     
     private var groupedByDate: [String : [TaskResponseData]] {
-        Dictionary(grouping: userTasks.filter { filterCompletedTasks == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
+        switch filterCompletedTasks {
+        case .all:
+           return Dictionary(grouping: userTasks, by: { DateFormatter.trimDate($0.dueDate) })
+        case .notCompleted:
+            return Dictionary(grouping: userTasks.filter { false == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
+        case .completed:
+           return Dictionary(grouping: userTasks.filter { true == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
+        }
+
     }
     private var headers: [String] {
         groupedByDate.map { $0.key }
@@ -48,6 +56,7 @@ struct TaskList: View {
                                     for user in members ?? [] {
                                         membersUrl.append(user.avatarUrl)
                                     }
+                                    isTaskCompleted = task.isCompleted
                                     showTask.toggle()
                                 }
                             },
@@ -57,7 +66,7 @@ struct TaskList: View {
                                 showAlert.toggle()
                             })
                             .alert(isPresented: $showAlert) {
-                                Alert(title: Text("Delete «\(taskTitle)»?"),
+                                Alert(title: Text("Delete") + Text(" «\(taskTitle)»?"),
                                       message: Text("You cannot undo this action"),
                                       primaryButton: .cancel(),
                                       secondaryButton: .destructive(Text("Delete")) {
@@ -79,9 +88,9 @@ struct TaskList: View {
 
 struct TaskList_Previews: PreviewProvider {
     @State static var userTasks: [TaskResponseData] = []
-    @State static var filterTask: Bool? = false
+    @State static var filterTask: CompletedType = .completed
     @State static var showTaskCompletion = false
-    
+    @State static var isTaskCompleted = false
     @State static var taskTitle = ""
     @State static var taskId = ""
     @State static var dueDate = ""
@@ -96,6 +105,7 @@ struct TaskList_Previews: PreviewProvider {
         TaskList(userTasks: $userTasks,
                  filterCompletedTasks: $filterTask,
                  showTask: $showTaskCompletion,
+                 isTaskCompleted: $isTaskCompleted,
                  taskTitle: $taskTitle,
                  taskId: $taskId,
                  taskDueDate: $dueDate,

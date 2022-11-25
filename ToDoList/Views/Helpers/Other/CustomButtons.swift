@@ -34,7 +34,7 @@ struct CustomCoralFilledButtonSmall: View {
 
 //MARK: Custom Blue Button
 struct CustomBlueFilledButton: View {
-    var text: String
+    var text: LocalizedStringKey
     var action: () -> Void
     
     var body: some View {

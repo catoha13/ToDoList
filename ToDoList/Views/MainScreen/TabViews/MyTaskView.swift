@@ -22,6 +22,7 @@ struct MyTaskView: View {
                 TaskList(userTasks: $viewModel.fetchTasksResponse,
                          filterCompletedTasks: $viewModel.filterCompletedTasks,
                          showTask: $viewModel.showTaskCompletionView,
+                         isTaskCompleted: $viewModel.isCompleted,
                          taskTitle: $viewModel.title,
                          taskId: $viewModel.taskId,
                          taskDueDate: $viewModel.getDate,
@@ -37,7 +38,9 @@ struct MyTaskView: View {
             }
             .animation(.default, value: viewModel.selectedIndex)
             .alert(isPresented: $viewModel.isOffline) {
-                Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
+                Alert(title: Text("Something went wrong"),
+                      message: Text(viewModel.alertMessage),
+                      dismissButton: Alert.Button.cancel(Text("Ok")))
             }
             
             if viewModel.showTaskCompletionView {
@@ -83,13 +86,13 @@ struct MyTaskView: View {
                 TaskFilterSettings(isPresented: $viewModel.showFilter,
                                    isSelected: $viewModel.filterIndex,
                                    showIncpomlete: {
-                    viewModel.filterCompletedTasks = false
+                    viewModel.filterCompletedTasks = .notCompleted
                 },
                                    showComplete: {
-                    viewModel.filterCompletedTasks = true
+                    viewModel.filterCompletedTasks = .completed
                 },
                                    showAll: {
-                    viewModel.filterCompletedTasks = nil
+                    viewModel.filterCompletedTasks = .all
                 })
             }
         }
