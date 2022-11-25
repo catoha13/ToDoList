@@ -54,6 +54,8 @@ final class SignInViewModel: ObservableObject {
                     if item.data.message == nil {
                         self.user.userId = item.data.userId ?? "no data"
                         self.user.email = self.email
+                        self.user.password = self.password
+                        self.user.savePassword()
                         self.token.savedToken = item.data.accessToken ?? "no data"
                         self.token.refreshToken = item.data.refreshToken ?? "no data"
                         self.token.expireDate = item.data.expiresIn ?? 0
