@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Header: View {
-    @State var text: String
+    @State var text: LocalizedStringKey
     @Binding var isPresented: Bool
     
     var body: some View {
@@ -21,7 +21,7 @@ struct Header: View {
 }
 
 struct Header_Previews: PreviewProvider {
-    @State static var text = "New Task"
+    @State static var text: LocalizedStringKey = "New Task"
     @State static var isPresented = false
     static var previews: some View {
         Header(text: text, isPresented: $isPresented)

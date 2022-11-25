@@ -7,7 +7,13 @@ struct CustomDatePicker: View {
     
     @State private var currentDate: Date = Date()
     @State private var currentTime: Date = Date()
-    @State private var days = ["M","T", "W", "T", "F", "S", "S"]
+    @State private var days = [NSLocalizedString("Mon", comment: ""),
+                               NSLocalizedString("Tue", comment: ""),
+                               NSLocalizedString("Wed", comment: ""),
+                               NSLocalizedString("Thu", comment: ""),
+                               NSLocalizedString("Fri", comment: ""),
+                               NSLocalizedString("Sat", comment: ""),
+                               NSLocalizedString("Sun", comment: "")]
     @State private var columns = Array(repeating: GridItem(.flexible()), count: 7)
     @State private var currentMonth: Int  = 0
     
@@ -16,6 +22,9 @@ struct CustomDatePicker: View {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.secondary)
+                .onTapGesture {
+                    isPresented.toggle()
+                }
             ZStack {
                 SwipeGesture(selector: $currentMonth)
                 
@@ -59,7 +68,7 @@ struct CustomDatePicker: View {
                         })
                     }
                     DatePicker("", selection: $currentTime, displayedComponents: .hourAndMinute)
-                        .padding(.trailing, 130)
+                        .padding(.trailing, 140)
                         .padding(.bottom)
                     
                     CustomCoralFilledButtonSmall(text: "Done") {

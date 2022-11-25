@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TextFieldAndText: View {
     @Binding var text: String
-    @State var description: String
+    @State var description: LocalizedStringKey
     var body: some View {
         HStack {
             Text("For")
@@ -19,7 +19,7 @@ struct TextFieldAndText: View {
 }
 struct TextAndTextfield_Previews: PreviewProvider {
     @State static var text = ""
-    @State static var descriprtion = "Assignee"
+    @State static var descriprtion: LocalizedStringKey = "Assignee"
     static var previews: some View {
         TextFieldAndText(text: $text, description: descriprtion)
     }

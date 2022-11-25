@@ -5,6 +5,7 @@ struct CreateTaskView: View {
     
     @Binding var isPresented: Bool
     
+    @State private var warning: LocalizedStringKey = ""
     @State private var isMaxLength = false
     
     var body: some View {
@@ -127,7 +128,7 @@ struct CreateTaskView: View {
                             }
                             .padding(.horizontal)
                             HStack {
-                                if viewModel.members == nil {
+                                if viewModel.members?.count ?? 0 < 1 {
                                     Text("Anyone")
                                         .frame(width: 90, height: 58)
                                         .multilineTextAlignment(.center)
@@ -176,12 +177,26 @@ struct CreateTaskView: View {
                         .padding(.bottom, 30)
                         .padding(.leading, 10)
                         
+                        //MARK: Warning
+                        Text(warning)
+                            .font(.RobotoThinItalicFootnote)
+                            .foregroundColor(.red)
+                            .offset(y: -20)
+                            .padding(.leading, 10)
+                            .animation(.default, value: warning)
+                        
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
-                            viewModel.getDate = DateFormatter.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
-                            viewModel.createTask.send()
-                            isPresented.toggle()
+                            if viewModel.title.isEmpty || viewModel.assigneeName.isEmpty || viewModel.projectName.isEmpty || viewModel.description.isEmpty {
+                                warning = "Fill empty fields"
+                            } else {
+                                viewModel.getDate = DateFormatter.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
+                                viewModel.createTask.send()
+                                isPresented.toggle()
+                            }
                         }
+                        .disabled(isMaxLength)
+                        .opacity(isMaxLength ? 0.75 : 1)
                     }
                     .frame(width: 343, height: 682)
                     .background(.white)

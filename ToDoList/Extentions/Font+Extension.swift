@@ -20,6 +20,9 @@ extension Font {
     static var RobotoThinItalicExtraSmall: Font {
         Font.custom("Roboto-ThinItalic", size: 16, relativeTo: .title2)
     }
+    static var RobotoThinItalicFootnote: Font {
+        Font.custom("Roboto-ThinItalic", size: 12, relativeTo: .title2)
+    }
     static var RobotoThinItalic: Font {
         Font.custom("Roboto-ThinItalic", size: 24, relativeTo: .title2)
     }

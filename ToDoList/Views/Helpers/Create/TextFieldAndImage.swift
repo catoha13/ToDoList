@@ -3,7 +3,7 @@ import SwiftUI
 struct TextFieldAndImage: View {
     @Binding var image: UIImage?
     @Binding var text: String
-    @State var description: String
+    @State var description: LocalizedStringKey
     
     var body: some View {
         HStack {
@@ -40,7 +40,7 @@ struct TextFieldAndImage: View {
 struct TextFieldAndImage_Previews: PreviewProvider {
     @State static var image = UIImage(named: "background")
     @State static var text = ""
-    @State static var description = ""
+    @State static var description: LocalizedStringKey = ""
     
     static var previews: some View {
         TextFieldAndImage(image: $image, text: $text, description: description)

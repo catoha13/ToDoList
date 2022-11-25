@@ -13,6 +13,9 @@ struct AddMembersView: View {
             Text("")
                 .background(Color.customBar)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onTapGesture {
+                    isPresented.toggle()
+                }
             
             ScrollView(showsIndicators: false) {
                 ForEach(mergedArray, id: \.id) { user, avatar, id in

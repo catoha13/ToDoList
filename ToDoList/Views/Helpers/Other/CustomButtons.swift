@@ -18,7 +18,7 @@ struct CustomCoralFilledButton: View {
 
 //MARK: Custom Coral Small Button
 struct CustomCoralFilledButtonSmall: View {
-    var text: String
+    var text: LocalizedStringKey
     var action: () -> Void
     
     var body: some View {

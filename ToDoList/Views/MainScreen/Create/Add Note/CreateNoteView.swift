@@ -5,7 +5,9 @@ struct CreateNoteView: View {
     
     @StateObject private var viewModel = QuickViewModel()
     @State private var selectedColor: Color = .customBlue
+    @State private var warning: LocalizedStringKey = ""
     @State private var isMaxLength = false
+    
     
     var body: some View {
         VStack {
@@ -50,11 +52,23 @@ struct CreateNoteView: View {
                 ChooseColor(selectedColor: $selectedColor)
                     .padding(.trailing, 48)
                 
+                //MARK: Warning
+                Text(warning)
+                    .font(.RobotoThinItalicFootnote)
+                    .foregroundColor(.red)
+                    .offset(y: 30)
+                    .padding(.trailing, 144)
+                    .animation(.default, value: warning)
+                
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
-                    viewModel.selectedNoteColor = selectedColor.convertToHex()
-                    viewModel.createNote.send()
-                    isPresented.toggle()
+                    if viewModel.noteText.isEmpty {
+                        warning = "Enter the title"
+                    } else {
+                        viewModel.selectedNoteColor = selectedColor.convertToHex()
+                        viewModel.createNote.send()
+                        isPresented.toggle()
+                    }
                 }
                 .disabled(isMaxLength)
                 .opacity(isMaxLength ? 0.75 : 1)

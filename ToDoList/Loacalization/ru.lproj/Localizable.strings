@@ -48,6 +48,33 @@
 "Successful!" = "Успешно!";
 "You have successfully change password. Please use your new passwords when logging in." = "Вы успешно изменили пароль. Пожалуйста, используйте новые пароли при входе в систему.";
 
+//MARK: CreateView
+"Add Task" = "Добавить Задачу";
+"Add Quick Note" = "Добавить заметку";
+"Add Check List" = "Добавить список";
+
+//MARK: CreateTaskView
+"New Task" = "Новая задача";
+"For" = "Для";
+"Assignee" = "   Кого";
+"Project" = "Проекта";
+"Add Member" = "Добавить участника";
+"Anyone" = "Любой";
+"Anytime" = "Нет срока";
+"Fill empty fields" = "Заполните пустые поля";
+
+//MARK: CreateNoteView
+"Add Note" = "Добавить Заметку";
+"Note is too long" = "Заметка слишком длинная";
+"Enter the title" = "Введите название";
+
+//MARK: CreateCheckListView
+"Add CheckList" = "Добавить Чеклист";
+"Name the checklist" = "Назовите чеклист";
+"Item name is too long" = "Название элемента слишком длинное";
+"Enter the title and add some checklists" = "Введите название и добавьте чеклисты";
+"+ Add new item" = "+ Новый элемент";
+
 //MARK: Custom TabBarView
 "My task" = "Задачи";
 "Menu" = "Меню";
@@ -79,7 +106,6 @@
 "Undo completion" = "Отмена завершение";
 "Complete Task" = "Выполнено";
 "Comment" = "Комментарии";
-"Delete «\(title)» task?" = "Удалить задачу «\(title)»?";
 
 //MARK: TaskSettings
 "Add member" = "Добавить участника";
@@ -91,12 +117,6 @@
 
 //MARK: CommentView
 "Delete comment" = "Удалить комментарий";
-
-//MARK: Alert
-"You cannot undo this action" = "Вы не сможете отменить это действие";
-"Delete" = "Удалить";
-"Something went wrong" = "Что-то пошло не так";
-"Ok" = "Ок";
 
 //MARK: TaskFilterSettigns
 "Incomplete Tasks" = "Невыполненные задачи";
@@ -113,7 +133,7 @@
 "Delete project" = "Удалить проект";
 
 //MARK: Choose Color
-"Choose Color" = "Выберете цввет";
+"Choose Color" = "Выберете цвет";
 
 //MARK: QuickView
 "Quick Notes" = "Быстрые Заметки";
@@ -134,3 +154,9 @@
 //MARK: StatCollectionCell
 "To do Task" = "В работе";
 "Tasks" = "Задачи";
+
+//MARK: Alert
+"You cannot undo this action" = "Вы не сможете отменить это действие";
+"Delete" = "Удалить";
+"Something went wrong" = "Что-то пошло не так";
+"Ok" = "Ок";

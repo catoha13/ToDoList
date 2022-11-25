@@ -36,7 +36,7 @@ final class TaskViewModel: ObservableObject {
     @Published var projectName = ""
     @Published var title = ""
     @Published var description = ""
-    @Published var getDate = "Anytime"
+    @Published var getDate = NSLocalizedString("Anytime", comment: "")
     @Published var membersId: [String]? = []
     @Published var showDatePicker = false
     @Published var dueDate: Date?

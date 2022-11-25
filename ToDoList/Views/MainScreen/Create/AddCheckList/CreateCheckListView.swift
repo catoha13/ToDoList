@@ -4,7 +4,8 @@ struct CreateCheckListView: View {
     @StateObject private var viewModel = QuickViewModel()
     @Binding var isPresented: Bool
     @State private var title = ""
-    @State private var placeholder = "Name the checklist"
+    @State private var placeholder: LocalizedStringKey = "Name the checklist"
+    @State private var warning: LocalizedStringKey = ""
     @State var selectedColor: Color = .customBlue
     
     @State private var isAddItemEnabled = true
@@ -50,10 +51,18 @@ struct CreateCheckListView: View {
                 ChooseColor(selectedColor: $selectedColor)
                     .padding(.trailing, 48)
                 
+                //MARK: Warning
+                Text(warning)
+                    .font(.RobotoThinItalicFootnote)
+                    .foregroundColor(.red)
+                    .offset(y: 30)
+                    .padding(.trailing, 80)
+                    .animation(.default, value: warning)
+                
                 //MARK: Custom Filled Button
                 CustomCoralFilledButton(text: "Done") {
                     if title.isEmpty && viewModel.checklistRequestArray.isEmpty {
-                        placeholder = "Enter the title and add some checklists"
+                        warning = "Enter the title and add some checklists"
                     } else {
                         viewModel.checklistColor = selectedColor.convertToHex()
                         viewModel.checklistTitle = title
