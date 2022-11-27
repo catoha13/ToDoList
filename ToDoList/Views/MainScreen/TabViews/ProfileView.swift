@@ -70,7 +70,7 @@ struct ProfileView: View {
             ImagePicker(isShown: $viewModel.showImagePicker,
                         image: $viewModel.avatarImage,
                         url: $viewModel.avatarUrl)
-            .onDisappear {
+            .onChange(of: viewModel.avatarImage) { _ in
                 viewModel.uploadAvatar.send()
             }
         }

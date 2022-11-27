@@ -17,7 +17,7 @@ struct LogoView: View {
         }
         .onAppear {
             _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                if viewModel.firstAccess {
+                if viewModel.firstAccess == false {
                     viewModel.showOnboarding.toggle()
                 } else {
                     if viewModel.isSignedIn {

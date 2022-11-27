@@ -34,7 +34,7 @@ struct SignUpView: View {
                                     url: $viewModel.url)
                     }
                 }
-                .offset(y: isAnimated ? 0 : 160)
+                .offset(y: isAnimated ? -20 : 160)
                 .opacity(isAnimated ? 1 : 0)
                 
                 Group {
