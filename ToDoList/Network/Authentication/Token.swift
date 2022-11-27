@@ -6,7 +6,6 @@ final class Token {
     @AppStorage("refreshToken") var refreshToken : String?
     @AppStorage("expireDate") var expireDate: Int?
     @AppStorage("tokenType") var tokenType: String?
-    @AppStorage("isValid") var isValid: Bool = false
     
     var header: String {
       return (tokenType ?? "") + " " + (savedToken ?? "")
@@ -20,32 +19,17 @@ final class Token {
     private var model: TokenData {
         TokenData(refreshToken: refreshToken)
     }
-    
-    private let refreshTokenRequest = PassthroughSubject<Void, Never>()
-    
+        
     init() {
         addSubscriptions()
     }
     
     private func addSubscriptions() {
         expireDate.publisher
-            .map {
-                if self.currentDate >= trimExpireDate($0) {
-                    isValid = false
-                } else {
-                    isValid = true
+            .sink { [weak self] date in
+                if self?.currentDate ?? 0 >= date.trimExpireDate() {
+                    self?.getNewToken()
                 }
-            }
-            .sink { [weak self] _ in
-                if self?.isValid == false {
-                    self?.refreshTokenRequest.send()
-                }
-            }
-            .store(in: &cancellables)
-        
-        refreshTokenRequest
-            .sink { [weak self] _ in
-                self?.getNewToken()
             }
             .store(in: &cancellables)
     }
@@ -61,11 +45,5 @@ final class Token {
                 }
             })
             .store(in: &cancellables)
-    }
-    
-    private func trimExpireDate(_ date: Int) -> Int {
-        var stringDate = String(date)
-        stringDate.removeLast(3)
-        return Int(stringDate) ?? 0
     }
 }

@@ -4,6 +4,7 @@ struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     @Binding var isPresented: Bool
     @State private var showImagePicker: Bool = false
+    @State private var isAnimated = false
     
     var body: some View {
         
@@ -12,6 +13,8 @@ struct SignUpView: View {
                 HeaderAndDescription(text: "Welcome",
                                      description: "Sign up to continue")
                 .padding(.top, 66)
+                .offset(y: isAnimated ? 0 : 200)
+                .opacity(isAnimated ? 1 : 0)
                 
                 ZStack {
                     Image(uiImage: (viewModel.avatar ?? UIImage(named: "background"))!)
@@ -31,6 +34,8 @@ struct SignUpView: View {
                                     url: $viewModel.url)
                     }
                 }
+                .offset(y: isAnimated ? 0 : 160)
+                .opacity(isAnimated ? 1 : 0)
                 
                 Group {
                     CustomTextField(text: "Email",
@@ -47,6 +52,8 @@ struct SignUpView: View {
                                           variable: $viewModel.password)
                 }
                 .padding(.vertical, 2)
+                .offset(y: isAnimated ? 0 : 100)
+                .opacity(isAnimated ? 1 : 0)
                 
                 TextWithErrorDecsription(text: $viewModel.errorMessage)
                 
@@ -55,6 +62,8 @@ struct SignUpView: View {
                 })
                 .opacity(viewModel.isCredentialsValid ? 1 : 0.75)
                 .padding(.top, 10)
+                .offset(y: isPresented ? 0 : 70)
+                .opacity(isPresented ? 1 : 0)
                 .fullScreenCover(isPresented: $viewModel.isPresented) {
                     CustomTabBarView(viewRouter: ViewRouter(), isPresented: $isPresented)
                 }
@@ -65,12 +74,22 @@ struct SignUpView: View {
                 .font(.RobotoMediumItalic)
                 .foregroundColor(.customCoral)
                 .padding(.top, 40)
+                .offset(y: isAnimated ? 0 : 40)
+                .opacity(isAnimated ? 1 : 0)
                 
                 Spacer()
             }
             .padding(.horizontal, 30)
             .navigationBarHidden(true)
+            .animation(.spring(response: 0.7, dampingFraction: 0.8, blendDuration: 0), value: isAnimated)
+            .onAppear{
+                isAnimated.toggle()
+            }
+            .onDisappear {
+                isAnimated.toggle()
+            }
         }
+       
     }
 }
 

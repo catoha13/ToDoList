@@ -25,6 +25,7 @@
 		AC2F6916288B4409007D78E0 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */; };
 		AC2F6918288B49E2007D78E0 /* SuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */; };
 		AC3719EA2909A92100DBE9C9 /* Dots.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3719E92909A92100DBE9C9 /* Dots.swift */; };
+		AC3929CD29340824000F225C /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3929CC29340823000F225C /* Int+Extension.swift */; };
 		AC397780289C670F0007BEBB /* CreateCheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39777F289C670F0007BEBB /* CreateCheckListView.swift */; };
 		AC397782289C68CA0007BEBB /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC397781289C68CA0007BEBB /* CheckList.swift */; };
 		AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39BC3628B177A4001FB8D8 /* NetworkError.swift */; };
@@ -169,6 +170,7 @@
 		AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulView.swift; sourceTree = "<group>"; };
 		AC3719E92909A92100DBE9C9 /* Dots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dots.swift; sourceTree = "<group>"; };
+		AC3929CC29340823000F225C /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		AC39777F289C670F0007BEBB /* CreateCheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCheckListView.swift; sourceTree = "<group>"; };
 		AC397781289C68CA0007BEBB /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		AC39BC3628B177A4001FB8D8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -369,7 +371,7 @@
 			path = Loacalization;
 			sourceTree = "<group>";
 		};
-		AC2F6901288AF6C3007D78E0 /* Authorization */ = {
+		AC2F6901288AF6C3007D78E0 /* Authorisation */ = {
 			isa = PBXGroup;
 			children = (
 				AC2F6902288AF6DA007D78E0 /* SignUpView.swift */,
@@ -378,7 +380,7 @@
 				AC2F6915288B4409007D78E0 /* ResetPasswordView.swift */,
 				AC2F6917288B49E2007D78E0 /* SuccessfulView.swift */,
 			);
-			path = Authorization;
+			path = Authorisation;
 			sourceTree = "<group>";
 		};
 		AC39777E289C66EF0007BEBB /* AddCheckList */ = {
@@ -550,7 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				AC77150828857E4A00A0C804 /* Onboarding */,
-				AC2F6901288AF6C3007D78E0 /* Authorization */,
+				AC2F6901288AF6C3007D78E0 /* Authorisation */,
 				AC676BBD288EBE7F001DDE34 /* MainScreen */,
 				AC7715372885984900A0C804 /* Helpers */,
 			);
@@ -574,6 +576,7 @@
 				AC43EAAE2902BB30001D7B31 /* Date+Extension.swift */,
 				ACEF1183291D0B6C00D6369E /* DateFormatter+Extension.swift */,
 				AC61227B292E2A5F0001FD3A /* String+Extension.swift */,
+				AC3929CC29340823000F225C /* Int+Extension.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -948,6 +951,7 @@
 				AC77DEBC2927D75F001BF682 /* TaskCoreDataManager.swift in Sources */,
 				AC6AD07F28FE9AF20032F486 /* TasksModel.swift in Sources */,
 				AC20A02E28BD689300E7B718 /* Token.swift in Sources */,
+				AC3929CD29340824000F225C /* Int+Extension.swift in Sources */,
 				ACDC76B528D2101E00B4C5F9 /* CreateNoteView.swift in Sources */,
 				AC1D104B2928115900C49671 /* ChecklistsCoreDataManager.swift in Sources */,
 				AC49149128A6EEC90030E852 /* SIgnInViewModel.swift in Sources */,

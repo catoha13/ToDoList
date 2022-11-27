@@ -11,9 +11,9 @@ final class LogoViewModel: ObservableObject {
     @Published var showMainScreen = false
     
     private let user = User()
+    private let token = Token()
     private let hoursToExpire = 48
     private let currentDate = Date()
-    private let signedInDate = UserDefaults.standard.value(forKey: "signedInDate") as? Date
     
     init() {
         checkUser()
@@ -23,17 +23,24 @@ final class LogoViewModel: ObservableObject {
         user.readPassword()
         if !user.password.isEmpty {
             checkExpireDate()
-            UserDefaults.standard.set(Date(), forKey: "signedInDate")
         }
     }
     
     private func checkExpireDate() {
-        let diffComponents = Calendar.current.dateComponents([.hour], from: signedInDate ?? Date(), to: currentDate)
+        let diffComponents = Calendar.current.dateComponents([.hour], from: convertExpireDate(), to: currentDate)
         let hours = diffComponents.hour
         
         guard let hours = hours else { return }
         if hours <= hoursToExpire {
             isSignedIn = true
+            
+        } else {
+            isSignedIn = false
         }
+    }
+    
+    private func convertExpireDate() -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(token.expireDate?.trimExpireDate() ?? 0 ))
+     
     }
 }
