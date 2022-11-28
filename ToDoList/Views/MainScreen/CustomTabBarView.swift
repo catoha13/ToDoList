@@ -102,6 +102,7 @@ struct TabBarIcon: View {
         .onTapGesture {
             viewRouter.currentPage = assignedPage
         }
+        .scaleEffect(viewRouter.currentPage == assignedPage ? 1.1 : 1)
         .animation(.default, value: viewRouter.currentPage)
         .foregroundColor(viewRouter.currentPage == assignedPage ? .white : .gray)
     }
