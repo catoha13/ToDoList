@@ -1,5 +1,4 @@
 import SwiftUI
-import Foundation
 
 struct SuccessfulView: View {
     @StateObject private var notificationManager = LocalNotificationManager()

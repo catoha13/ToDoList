@@ -48,7 +48,6 @@ struct CustomTabBarView: View {
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .quick, width: 74, height: 26, systemIconName: "list.bullet.rectangle.portrait.fill", tabName: "Quick")
                             TabBarIcon(viewRouter: viewRouter, assignedPage: .profile, width: 74, height: 26, systemIconName: "person.fill", tabName: "Profile")
                         }
-                        
                         .frame(height: 106)
                         .frame(maxWidth: .infinity)
                         .background(Color.customTabBarColor.shadow(radius: 2))
@@ -103,6 +102,7 @@ struct TabBarIcon: View {
         .onTapGesture {
             viewRouter.currentPage = assignedPage
         }
+        .animation(.default, value: viewRouter.currentPage)
         .foregroundColor(viewRouter.currentPage == assignedPage ? .white : .gray)
     }
 }

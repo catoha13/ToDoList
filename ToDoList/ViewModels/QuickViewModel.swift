@@ -41,13 +41,12 @@ final class QuickViewModel: ObservableObject {
     private let notesCoreDataManager = NotesCoreDataManager()
     private var cancellables = Set<AnyCancellable>()
     
-    private var ownerId: String {
-        return user.userId ?? "no data"
-    }
-    
     //MARK: Note Models
     private var noteModel: NotesModel {
-        NotesModel(description: noteText, color: selectedNoteColor, ownerId: ownerId, isCompleted: isNoteCompleted)
+        .init(description: noteText,
+              color: selectedNoteColor,
+              ownerId: user.id,
+              isCompleted: isNoteCompleted)
     }
     
     //MARK: Note Publishers
@@ -59,16 +58,27 @@ final class QuickViewModel: ObservableObject {
     
     //MARK: Checklist Models
     private var updateItemsModel: [ChecklistItemsModel] {
-        [ChecklistItemsModel(id: checklistItemId,content: newItemContent, isCompleted: isChecklistItemCompleted)]
+        [.init(id: checklistItemId,
+               content: newItemContent,
+               isCompleted: isChecklistItemCompleted)]
     }
     private var updateChecklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: updateItemsModel)
+        .init(title: checklistTitle,
+              color: checklistColor,
+              ownerId: user.id,
+              items: updateItemsModel)
     }
     private var editChecklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: checklistResponseItems)
+        .init(title: checklistTitle,
+              color: checklistColor,
+              ownerId: user.id,
+              items: checklistResponseItems)
     }
     private var checklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: checklistRequestArray)
+        .init(title: checklistTitle,
+              color: checklistColor,
+              ownerId: user.id,
+              items: checklistRequestArray)
     }
     
     //MARK: Checklist Publishers

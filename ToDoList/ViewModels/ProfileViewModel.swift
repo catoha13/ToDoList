@@ -29,7 +29,7 @@ final class ProfileViewModel: ObservableObject {
     
     //MARK: Model
     private var signOutModel: SignOutModel {
-        SignOutModel(email: email)
+        .init(email: email)
     }
     
     //MARK: Publishers
@@ -124,9 +124,9 @@ final class ProfileViewModel: ObservableObject {
                 self.eventsPercentage = item.data.events ?? ""
                 self.quickNotesPercentage = item.data.quickNotes ?? ""
                 self.toDotsPercentage = item.data.todo ?? ""
-                self.eventsProgress = self.convertProgress(percentage: item.data.events ?? "")
-                self.quickNoteProgress = self.convertProgress(percentage: item.data.quickNotes ?? "")
-                self.toDoProgress = self.convertProgress(percentage: item.data.todo ?? "")
+                self.eventsProgress = item.data.events?.convertProgress() ?? 0.0
+                self.quickNoteProgress = item.data.quickNotes?.convertProgress() ?? 0.0
+                self.toDoProgress = item.data.todo?.convertProgress() ?? 0.0
             })
             .store(in: &cancellables)
     }
@@ -184,15 +184,5 @@ final class ProfileViewModel: ObservableObject {
                 self?.isSignedOut.toggle()
             })
             .store(in: &cancellables)
-    }
-    
-    private func convertProgress(percentage: String) -> Double {
-        var string = percentage
-        if string.isEmpty {
-        } else {
-            string.removeLast()
-        }
-        let number = Double(string)
-        return (number ?? 0.4) / 100
     }
 }

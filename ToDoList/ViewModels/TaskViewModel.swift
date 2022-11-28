@@ -71,39 +71,35 @@ final class TaskViewModel: ObservableObject {
     private let taskCoreDataManager = TaskCoreDataManager()
     var cancellables = Set<AnyCancellable>()
     
-    private var ownerId: String {
-        return user.userId ?? "no data"
-    }
-    
     //MARK: Models
     private var createTaskModel: CreateTaskModel {
-        CreateTaskModel(title: title,
-                        dueDate: getDate,
-                        description: description,
-                        assigned_to: assigneeId,
-                        isCompleted: false,
-                        projectId: selectedProjectId,
-                        ownerId: ownerId,
-                        members: membersId,
-                        attachments: nil)
+        .init(title: title,
+              dueDate: getDate,
+              description: description,
+              assigned_to: assigneeId,
+              isCompleted: false,
+              projectId: selectedProjectId,
+              ownerId: user.id,
+              members: membersId,
+              attachments: nil)
     }
     
     private var updateTaskModel: CreateTaskModel {
-        CreateTaskModel(title: title,
-                        dueDate: getDate,
-                        description: description,
-                        assigned_to: assigneeId,
-                        isCompleted: isCompleted,
-                        projectId: selectedProjectId,
-                        ownerId: ownerId,
-                        members: membersId,
-                        attachments: nil)
+        .init(title: title,
+              dueDate: getDate,
+              description: description,
+              assigned_to: assigneeId,
+              isCompleted: isCompleted,
+              projectId: selectedProjectId,
+              ownerId: user.id,
+              members: membersId,
+              attachments: nil)
     }
     
     private var createCommentModel: CreateCommentModel {
-        CreateCommentModel(content: commentText,
-                           taskId: taskId,
-                           ownerId: ownerId)
+        .init(content: commentText,
+              taskId: taskId,
+              ownerId: user.id)
     }
     
     //MARK: Publishers

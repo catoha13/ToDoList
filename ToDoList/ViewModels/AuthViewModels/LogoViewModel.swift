@@ -40,7 +40,7 @@ final class LogoViewModel: ObservableObject {
     }
     
     private func convertExpireDate() -> Date {
-        return Date(timeIntervalSince1970: TimeInterval(token.expireDate?.trimExpireDate() ?? 0 ))
+        return Date(timeIntervalSince1970: TimeInterval(token.expireDate.trimExpireDate()))
      
     }
 }

@@ -8,6 +8,7 @@ struct TextWithErrorDecsription: View {
             .font(.footnote)
             .foregroundColor(.red)
             .multilineTextAlignment(.center)
+            .animation(.easeIn(duration: 0.1), value: text)
     }
 }
 

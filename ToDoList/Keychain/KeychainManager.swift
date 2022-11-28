@@ -8,13 +8,13 @@ struct KeychainManager {
         case unexpectedStatus(OSStatus)
     }
     
-     func save(password: Data, service: String, account: String) throws {
+     func save(data: Data, service: String, account: String) throws {
 
         let query: [String: AnyObject] = [
             kSecAttrService as String: service as AnyObject,
             kSecAttrAccount as String: account as AnyObject,
             kSecClass as String: kSecClassGenericPassword,
-            kSecValueData as String: password as AnyObject
+            kSecValueData as String: data as AnyObject
         ]
         let status = SecItemAdd(
             query as CFDictionary,
@@ -30,7 +30,7 @@ struct KeychainManager {
         }
     }
     
-     func update(password: Data, service: String, account: String) throws {
+     func update(data: Data, service: String, account: String) throws {
         let query: [String: AnyObject] = [
             kSecAttrService as String: service as AnyObject,
             kSecAttrAccount as String: account as AnyObject,
@@ -38,7 +38,7 @@ struct KeychainManager {
         ]
          
         let attributes: [String: AnyObject] = [
-            kSecValueData as String: password as AnyObject
+            kSecValueData as String: data as AnyObject
         ]
         
         let status = SecItemUpdate(
@@ -55,7 +55,7 @@ struct KeychainManager {
         }
     }
     
-     func readPassword(service: String, account: String) throws -> Data {
+     func read(service: String, account: String) throws -> Data {
         let query: [String: AnyObject] = [
             kSecAttrService as String: service as AnyObject,
             kSecAttrAccount as String: account as AnyObject,
@@ -86,7 +86,7 @@ struct KeychainManager {
     }
     
     
-     func deletePassword(service: String, account: String) throws {
+     func delete(service: String, account: String) throws {
         let query: [String: AnyObject] = [
             kSecAttrService as String: service as AnyObject,
             kSecAttrAccount as String: account as AnyObject,

@@ -15,11 +15,11 @@ final class SignInViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     private var model: RequestBodyModel {
-        return RequestBodyModel(email: email, password: password, username: email)
+        .init(email: email, password: password, username: email)
     }
     
-    let signIn = PassthroughSubject<Void, Never>()
     private let fetchUserData = PassthroughSubject<Void, Never>()
+    let signIn = PassthroughSubject<Void, Never>()
     
     init() {
         addSubscriptions()
@@ -52,14 +52,16 @@ final class SignInViewModel: ObservableObject {
                 }, receiveValue: { [weak self] item in
                     guard let self = self else { return }
                     if item.data.message == nil {
-                        self.user.userId = item.data.userId ?? "no data"
+                        self.user.id = item.data.userId ?? "no data"
                         self.user.email = self.email
                         self.user.password = self.password
                         self.user.savePassword()
-                        self.token.savedToken = item.data.accessToken ?? "no data"
-                        self.token.refreshToken = item.data.refreshToken ?? "no data"
+                        self.token.accessToken = item.data.accessToken?.toBase64() ?? "no data"
+                        self.token.refreshToken = item.data.refreshToken?.toBase64() ?? "no data"
                         self.token.expireDate = item.data.expiresIn ?? 0
                         self.token.tokenType = item.data.tokenType ?? "no data"
+                        self.token.saveToken()
+                        self.token.saveRefreshToken()
                         self.fetchUserData.send()
                         self.isPresented.toggle()
                     } else {

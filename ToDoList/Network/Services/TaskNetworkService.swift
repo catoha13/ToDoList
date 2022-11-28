@@ -6,26 +6,19 @@ struct TaskNetworkService {
     private let user = User()
     private let token = Token()
     
-    private var header: String {
-        (token.tokenType ?? "no data") + " " + (token.savedToken ?? "no data")
-    }
-    private var userId: String {
-        user.userId ?? "no data"
-    }
-    
     func createTask(model: CreateTaskModel) -> AnyPublisher<TaskResponseModel, NetworkError> {
         let path = Path.tasks.rawValue
-        return networkManager.post(body: model, path: path, header: header)
+        return networkManager.post(body: model, path: path, header: token.header)
     }
     
     func updateTask(model: CreateTaskModel, taskId: String) -> AnyPublisher<TaskResponseModel, NetworkError> {
         let path = Path.tasks.rawValue + "/" + taskId
-        return networkManager.put(body: model, path: path, header: header)
+        return networkManager.put(body: model, path: path, header: token.header)
     }
     
     func deleteTask(taskId: String) -> AnyPublisher<DeleteTaskModel, NetworkError> {
         let path = Path.tasks.rawValue + "/" + taskId
-        return networkManager.delete(path: path, header: header)
+        return networkManager.delete(path: path, header: token.header)
     }
     
     func fetchOneTask() {
@@ -37,8 +30,8 @@ struct TaskNetworkService {
     }
     
     func fetchUserTasks() -> AnyPublisher<FetchTasks, NetworkError> {
-        let path = Path.userTasks.rawValue + userId 
-        return networkManager.get(path: path, header: header)
+        let path = Path.userTasks.rawValue + user.id
+        return networkManager.get(path: path, header: token.header)
     }
     
     func fetchAssignToTasks() {
@@ -59,12 +52,12 @@ struct TaskNetworkService {
     
     func createTaskComment(model: CreateCommentModel) -> AnyPublisher<FetchComments, NetworkError> {
         let path = Path.comments.rawValue
-        return networkManager.post(body: model, path: path, header: header)
+        return networkManager.post(body: model, path: path, header: token.header)
     }
     
     func fetchTaskComments(taskId: String) -> AnyPublisher<FetchComments, NetworkError> {
         let path = Path.taskComments.rawValue + taskId
-        return networkManager.get(path: path, header: header)
+        return networkManager.get(path: path, header: token.header)
     }
     
     func fetchTaskComponents() {
@@ -73,22 +66,22 @@ struct TaskNetworkService {
     
     func taskMembersSearch() -> AnyPublisher<SearchUsers, NetworkError> {
         let path = Path.membersSearch.rawValue
-        return networkManager.get(path: path, header: header)
+        return networkManager.get(path: path, header: token.header)
     }
     
     func downloadMembersAvatars(url: String) -> AnyPublisher<UIImage?, NetworkError> {
         let path = url
-        return networkManager.downloadAvatar(path: path, header: header)
+        return networkManager.downloadAvatar(path: path, header: token.header)
     }
     
     func projectsSearch() -> AnyPublisher<SearchProjects, NetworkError> {
         let path = Path.projectSearch.rawValue
-        return networkManager.get(path: path, header: header)
+        return networkManager.get(path: path, header: token.header)
     }
     
     func deleteTaskComment(commentId: String) -> AnyPublisher<DeleteCommentModel, NetworkError> {
         let path = Path.comments.rawValue + "/" + commentId
-        return networkManager.delete(path: path, header: header)
+        return networkManager.delete(path: path, header: token.header)
     }
     
     func uploadTaskCommentAttachment() {

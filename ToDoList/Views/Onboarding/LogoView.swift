@@ -1,5 +1,4 @@
 import SwiftUI
-import Combine
 
 struct LogoView: View {
     @StateObject private var viewModel = LogoViewModel()

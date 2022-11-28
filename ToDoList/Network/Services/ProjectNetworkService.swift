@@ -11,7 +11,7 @@ struct ProjectNetworkService {
     }
     
     func fetchProjects() -> AnyPublisher<FetchProjectsResponceModel, NetworkError> {
-        let path = Path.fetchProjects.rawValue + (user.userId ?? "no data")
+        let path = Path.fetchProjects.rawValue + user.id
         return networkManager.get(path: path, header: token.header)
     }
     

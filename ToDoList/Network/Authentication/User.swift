@@ -2,9 +2,9 @@ import Foundation
 import SwiftUI
 
 final class User {
-    @AppStorage("id") var userId: String?
-    @AppStorage("email") var email: String?
-    @AppStorage("avatar") var avatar: String?
+    @AppStorage("id") var id: String = ""
+    @AppStorage("email") var email: String = ""
+    @AppStorage("avatar") var avatar: String = ""
     @Published var password = ""
     
     private let keychain = KeychainManager()
@@ -12,9 +12,9 @@ final class User {
     func savePassword() {
         let data = Data(password.utf8)
         do {
-            try keychain.save(password: data,
+            try keychain.save(data: data,
                               service: "unlockPassword",
-                              account: email ?? "")
+                              account: email)
             
         } catch let error as KeychainManager.KeychainError {
             print("Exception setting password: \(error.localizedDescription).")
@@ -26,8 +26,8 @@ final class User {
     
     func readPassword() {
         do {
-            let data = try keychain.readPassword(service: "unlockPassword",
-                                                 account: email ?? "")
+            let data = try keychain.read(service: "unlockPassword",
+                                         account: email)
             password = String(decoding: data, as: UTF8.self)
             
         } catch let error as KeychainManager.KeychainError {

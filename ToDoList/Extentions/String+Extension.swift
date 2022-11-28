@@ -10,4 +10,13 @@ extension String {
             return Data(self.utf8).base64EncodedString()
         }
 
+    func convertProgress() -> Double {
+        var string = self
+        if string.isEmpty {
+        } else {
+            string.removeLast()
+        }
+        let number = Double(string)
+        return (number ?? 0.4) / 100
+    }
 }

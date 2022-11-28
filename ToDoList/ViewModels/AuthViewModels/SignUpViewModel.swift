@@ -24,12 +24,12 @@ final class SignUpViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private var model: RequestBodyModel {
-        RequestBodyModel(email: email, password: password, username: username)
+        .init(email: email, password: password, username: username)
     }
     
-    let signUp = PassthroughSubject<Void, Never>()
     private let fetchUserData = PassthroughSubject<Void, Never>()
     private let uploadAvatar = PassthroughSubject<Void, Never>()
+    let signUp = PassthroughSubject<Void, Never>()
     
     private let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     private let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
@@ -92,12 +92,14 @@ final class SignUpViewModel: ObservableObject {
             }, receiveValue: { [weak self] item in
                 guard let self = self else { return }
                 if item.data.message == nil {
-                    self.token.savedToken = item.data.userSession?.accessToken ?? "no data"
-                    self.token.refreshToken = item.data.userSession?.refreshToken ?? "no data"
+                    self.token.accessToken = item.data.userSession?.accessToken.toBase64() ?? ""
+                    self.token.refreshToken = item.data.userSession?.refreshToken.toBase64() ?? ""
                     self.token.expireDate = item.data.userSession?.expiresIn ?? 0
-                    self.token.tokenType = item.data.userSession?.tokenType
-                    self.user.userId = item.data.id ?? "no data"
-                    self.user.email = item.data.email ?? "no data"
+                    self.token.tokenType = item.data.userSession?.tokenType ?? ""
+                    self.token.saveToken()
+                    self.token.saveRefreshToken()
+                    self.user.id = item.data.id ?? ""
+                    self.user.email = item.data.email ?? ""
                     self.user.password = self.password.toBase64()
                     self.user.savePassword()
                     self.uploadAvatar.send()

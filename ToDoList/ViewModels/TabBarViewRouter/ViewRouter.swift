@@ -1,9 +1,7 @@
 import SwiftUI
 
 class ViewRouter: ObservableObject {
-    
     @Published var currentPage: Page = .myTask
-    
 }
 
 enum Page {

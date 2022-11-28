@@ -29,7 +29,7 @@ enum Path: String {
     case commentsAttachments = "/comments-attachments"
 }
 
-//MARK: Endpoint
+//MARK: BaseURL
 enum BaseUrl: String {
     case baseUrl = "https://todolist.dev2.cogniteq.com/api/v1"
 }

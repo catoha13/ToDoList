@@ -23,7 +23,7 @@ final class MenuViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     private var model: ProjectModel {
-        return ProjectModel(title: projectName.value, color: chosenColor.value, ownerId: user.userId ?? "")
+        .init(title: projectName.value, color: chosenColor.value, ownerId: user.id)
     }
     
     let fetchProjectsRequest = PassthroughSubject<Void, Never>()
