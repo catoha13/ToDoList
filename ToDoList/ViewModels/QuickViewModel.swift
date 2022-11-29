@@ -42,6 +42,11 @@ final class QuickViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: Note Models
+    private var createNoteModel: CreateNoteModel {
+        .init(description: noteText,
+              color: selectedNoteColor,
+              ownerId: user.id)
+    }
     private var noteModel: NotesModel {
         .init(description: noteText,
               color: selectedNoteColor,
@@ -62,19 +67,19 @@ final class QuickViewModel: ObservableObject {
                content: newItemContent,
                isCompleted: isChecklistItemCompleted)]
     }
-    private var updateChecklistModel: ChecklistUpdateRequestModel {
+    private var updateChecklistModel: ChecklistRequestsModel {
         .init(title: checklistTitle,
               color: checklistColor,
               ownerId: user.id,
               items: updateItemsModel)
     }
-    private var editChecklistModel: ChecklistUpdateRequestModel {
+    private var editChecklistModel: ChecklistRequestsModel {
         .init(title: checklistTitle,
               color: checklistColor,
               ownerId: user.id,
               items: checklistResponseItems)
     }
-    private var checklistModel: ChecklistUpdateRequestModel {
+    private var checklistModel: ChecklistRequestsModel {
         .init(title: checklistTitle,
               color: checklistColor,
               ownerId: user.id,
@@ -190,7 +195,7 @@ final class QuickViewModel: ObservableObject {
     
     //MARK: Create Note
     private func createNoteRequest() {
-        notesNetworkService.createNote(model: noteModel)
+        notesNetworkService.createNote(model: createNoteModel)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:

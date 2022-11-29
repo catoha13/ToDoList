@@ -1,5 +1,12 @@
 import Foundation
 
+struct ChecklistRequestsModel: Codable {
+    var title: String
+    var color: String
+    var ownerId: String
+    var items: [ChecklistItemsModel?]
+}
+
 struct ChecklistResponseModel: Codable {
     var data: ChecklistData
 }
@@ -21,13 +28,6 @@ struct ChecklistItemsModel: Codable, Hashable {
     var checklistId: String?
     var isCompleted: Bool
     var createdAt: String?
-}
-
-struct ChecklistUpdateRequestModel: Codable {
-    var title: String
-    var color: String
-    var ownerId: String
-    var items: [ChecklistItemsModel?]
 }
 
 struct DeleteChecklistModel: Codable {

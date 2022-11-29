@@ -1,5 +1,11 @@
 import Foundation
 
+struct CreateNoteModel: Codable {
+    var description: String
+    var color: String
+    var ownerId: String
+}
+
 struct NotesModel: Codable {
     var description: String
     var color: String

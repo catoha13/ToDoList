@@ -5,7 +5,7 @@ struct NotesNetworkService {
     private let user = User()
     private let token = Token()
     
-    func createNote(model: NotesModel) -> AnyPublisher<NotesResponseModel, NetworkError> {
+    func createNote(model: CreateNoteModel) -> AnyPublisher<NotesResponseModel, NetworkError> {
         let path = Path.note.rawValue
         return networkManager.post(body: model, path: path, header: token.header)
     }
