@@ -53,7 +53,7 @@ struct MyTaskView: View {
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
                              commentText: $viewModel.commentText,
-                             comments: $viewModel.commentsResponseArray,
+                             comments: $viewModel.commentsResponse,
                              commentId: $viewModel.commentId,
                              mergedArray: $viewModel.usersAndAvatars,
                              updateAction: {

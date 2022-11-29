@@ -50,7 +50,7 @@ struct TaskNetworkService {
         
     }
     
-    func createTaskComment(model: CreateCommentModel) -> AnyPublisher<FetchComments, NetworkError> {
+    func createTaskComment(model: CreateCommentModel) -> AnyPublisher<CreateCommentResponseModel, NetworkError> {
         let path = Path.comments.rawValue
         return networkManager.post(body: model, path: path, header: token.header)
     }

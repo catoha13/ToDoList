@@ -70,6 +70,10 @@ struct CreateCommentModel: Codable {
     var ownerId: String
 }
 
+struct CreateCommentResponseModel: Codable {
+    var data: FetchCommentsData
+}
+
 struct FetchComments: Codable, Hashable {
     var data: [FetchCommentsData]
 }

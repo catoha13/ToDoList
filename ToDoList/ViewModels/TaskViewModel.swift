@@ -43,7 +43,7 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Create comment model
     @Published var commentText = ""
-    @Published var commentsResponseArray: [FetchCommentsData] = []
+    @Published var commentsResponse: [FetchCommentsData] = []
     
     //MARK: Delete comment
     @Published var commentId = ""
@@ -375,7 +375,7 @@ final class TaskViewModel: ObservableObject {
                     self.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
-                self?.commentsResponseArray = item.data
+                self?.commentsResponse = item.data
             })
             .store(in: &cancellables)
     }
