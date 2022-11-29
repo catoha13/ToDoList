@@ -4,6 +4,7 @@ extension DateFormatter {
     static func convertDate(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         let newDate = formatter.date(from: string) ?? Date()
         formatter.dateFormat = "MMM dd,yyyy"
         return formatter.string(from: newDate)
@@ -12,6 +13,7 @@ extension DateFormatter {
     static func trimDate(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         let newDate = formatter.date(from: string) ?? Date()
         formatter.dateFormat = "MMM d/yyyy"
         return formatter.string(from: newDate)
@@ -29,7 +31,7 @@ extension DateFormatter {
         return formatter.string(from: date)
     }
     
-    static func formatDueDate(date: Date, time: Date) -> String {
+    static func createDueDate(date: Date, time: Date) -> String {
         let dayFormatter = DateFormatter()
         let timeFormatter = DateFormatter()
         dayFormatter.dateFormat = "YYYY-MM-dd"
@@ -40,6 +42,7 @@ extension DateFormatter {
     static func minutesAndHours(_ strDate: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         let newDate = formatter.date(from: strDate) ?? Date()
         formatter.dateFormat = "hh:mm"
         return formatter.string(from: newDate)
@@ -48,6 +51,7 @@ extension DateFormatter {
     static func convertCommentDate(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         let newDate = formatter.date(from: string) ?? Date()
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: newDate)
@@ -62,6 +66,7 @@ extension DateFormatter {
     static func dateToString(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter.string(from: date)
     }
 }

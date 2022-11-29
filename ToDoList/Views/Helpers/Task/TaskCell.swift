@@ -8,10 +8,12 @@ struct TaskCell: View {
     @State var editAction: () -> ()
     @State var deleteAction: () -> ()
     
+    @State private var color: Color = .customBlue
+    
     var body: some View {
         HStack {
             Image(systemName: isDone ? "checkmark.circle.fill" : "circle")
-                .foregroundColor(isDone ? Color.customCoral : Color.customBlue)
+                .foregroundColor(isDone ? Color.customCoral : color)
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
                     .strikethrough(isDone, color: .secondary)
@@ -24,7 +26,7 @@ struct TaskCell: View {
             .foregroundColor(isDone ? .secondary : .black)
             Spacer()
             Rectangle()
-                .foregroundColor(isDone ? .customCoral : .customBlue)
+                .foregroundColor(isDone ? .customCoral : color)
                 .frame(width: 4, height: 21)
                 .offset(x: 5)
         }
@@ -46,6 +48,11 @@ struct TaskCell: View {
         .cornerRadius(Constants.radiusFive)
         .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
         .frame(width: 343, height: 70)
-        
+        .onAppear {
+            if DateFormatter.stringToDate(time).checkTaskHoursToExpire() {
+                color = .customYellow
+            }
+        }
+        .animation(.default, value: color)
     }
 }

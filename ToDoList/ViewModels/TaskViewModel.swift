@@ -253,6 +253,7 @@ final class TaskViewModel: ObservableObject {
                         self.taskCoreDataManager.saveTask(model: task)
                     }
                 }
+                self.checkTaskDate()
             })
             .store(in: &cancellables)
     }
@@ -395,6 +396,28 @@ final class TaskViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+    
+    //MARK: Check Task Expire Date
+    private func checkTaskDate() {
+        let expiredTasks = fetchTasksResponse.filter {
+            DateFormatter.stringToDate($0.dueDate).checkTaskDateToExpire() && $0.isCompleted == false
+        }
+        expiredTasks.forEach { task in
+            let model: CreateTaskModel = .init(title: task.title, dueDate: task.dueDate, description: task.description, assigned_to: task.assignedTo, isCompleted: true, projectId: task.projectId, ownerId: task.ownerId, members: [task.ownerId] ,attachments: nil)
+            taskService.updateTask(model: model, taskId: task.id)
+                .sink { error in
+                    switch error {
+                    case .finished:
+                        return
+                    case .failure(let error):
+                        print(error.description)
+                    }
+                } receiveValue: { _ in
+                }
+                .store(in: &cancellables)
+        }
+    }
+    
 }
 
 enum CompletedType {

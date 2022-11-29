@@ -6,7 +6,9 @@ struct CustomDatePicker: View {
     @Binding var selectedTime: Date?
     
     @State private var currentDate: Date = Date()
-    @State private var currentTime: Date = Date()
+    var hours = 0
+    var minutes = 0
+    @State private var currentTime: Date = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
     @State private var days = [NSLocalizedString("Mon", comment: ""),
                                NSLocalizedString("Tue", comment: ""),
                                NSLocalizedString("Wed", comment: ""),
@@ -149,6 +151,12 @@ struct CustomDatePicker: View {
         }
         
         return days
+    }
+    
+    func getHours() -> Date {
+        let calendar = Calendar.current
+        guard let currentHours = calendar.date(bySetting: .hour, value: hours, of: Date()) else { return Date() }
+        return currentHours
     }
     
     func getCurrentMonth() -> Date {

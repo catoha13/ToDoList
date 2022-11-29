@@ -22,11 +22,11 @@ struct TaskList: View {
     private var groupedByDate: [String : [TaskResponseData]] {
         switch filterCompletedTasks {
         case .all:
-           return Dictionary(grouping: userTasks, by: { DateFormatter.trimDate($0.dueDate) })
+            return Dictionary(grouping: userTasks, by: { DateFormatter.trimDate($0.dueDate) })
         case .notCompleted:
             return Dictionary(grouping: userTasks.filter { false == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
         case .completed:
-           return Dictionary(grouping: userTasks.filter { true == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
+            return Dictionary(grouping: userTasks.filter { true == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
         }
 
     }
@@ -36,7 +36,7 @@ struct TaskList: View {
     
     var body: some View {
         List {
-            ForEach(headers.sorted {$0 > $1} , id: \.self) { header in
+            ForEach(headers.sorted {$0 < $1} , id: \.self) { header in
                 Section(header: Text(header)
                     .font(.RobotoThinItalicSmall)
                     .padding(.leading)) {

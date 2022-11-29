@@ -23,4 +23,24 @@ extension Date {
                           to: startDate ?? Date()) ?? Date()
         } ?? [Date()]
     }
+    
+    func checkTaskHoursToExpire() -> Bool {
+        let diffComponents = Calendar.current.dateComponents([.hour], from: Date(), to: self)
+        let hours = diffComponents.hour ?? 0
+        if hours <= 2 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func checkTaskDateToExpire() -> Bool {
+        let diffComponents = Calendar.current.dateComponents([.hour], from: Date(), to: self)
+        let hours = diffComponents.hour ?? 0
+        if hours <= 0 {
+            return true
+        } else {
+            return false
+        }
+    }
 }

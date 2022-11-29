@@ -190,7 +190,7 @@ struct CreateTaskView: View {
                             if viewModel.title.isEmpty || viewModel.assigneeName.isEmpty || viewModel.projectName.isEmpty || viewModel.description.isEmpty {
                                 warning = "Fill empty fields"
                             } else {
-                                viewModel.getDate = DateFormatter.formatDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
+                                viewModel.getDate = DateFormatter.createDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
                                 viewModel.createTask.send()
                                 isPresented.toggle()
                             }
