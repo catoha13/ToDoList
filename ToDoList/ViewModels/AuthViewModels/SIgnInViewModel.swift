@@ -15,7 +15,7 @@ final class SignInViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     private var model: RequestBodyModel {
-        .init(email: email, password: password, username: email)
+        .init(email: email, password: password.toBase64(), username: email)
     }
     
     private let fetchUserData = PassthroughSubject<Void, Never>()

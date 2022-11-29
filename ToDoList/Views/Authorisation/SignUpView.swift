@@ -60,7 +60,6 @@ struct SignUpView: View {
                 CustomCoralFilledButton(text: "Sign Up", action: {
                     viewModel.signUp.send()
                 })
-                .opacity(viewModel.isCredentialsValid ? 1 : 0.75)
                 .padding(.top, 10)
                 .offset(y: isPresented ? 0 : 70)
                 .opacity(isPresented ? 1 : 0)
