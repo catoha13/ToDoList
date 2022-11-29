@@ -5,14 +5,13 @@ struct CheckList: View {
     @Binding var isEditable: Bool
     @State var isMaxLenght = false
     @State var deleteAction = {}
-    
-    @State private var emptyItem = ChecklistItemsModel(content: "", isCompleted: false)
-    
+        
     var body: some View {
         ScrollView(showsIndicators: false) {
+            //MARK: Checklist Items
             ForEach($checklistArray, id: \.self) { item  in
-                ChecklistItem(title: item.content,
-                              isChecked: item.isCompleted,
+                ChecklistItem(content: item.content,
+                              isCompleted: item.isCompleted,
                               isMaxLength: isMaxLenght,
                               deleteAction: {
                     if let index = checklistArray.firstIndex(where: {$0.id == $0.id}) {
@@ -25,7 +24,8 @@ struct CheckList: View {
                 //MARK: Add Button
                 if isEditable {
                     Button {
-                        checklistArray.append(emptyItem)
+                        checklistArray.append(ChecklistItemsModel(content: "",
+                                                                  isCompleted: false))
                     } label: {
                         Text("+ Add new item")
                             .font(Font(Roboto.thinItalic(size: 16)))

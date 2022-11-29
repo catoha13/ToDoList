@@ -1,15 +1,12 @@
 import SwiftUI
 
 struct CreateTaskView: View {
+    @ObservedObject var viewModel = TaskViewModel()
+    
     @Binding var isPresented: Bool
-    @State private var assignee = ""
-    @State private var project = ""
-    @State private var title = ""
-    @State private var description = ""
-    @State private var getDate = "Anytime"
-    @State private var addTaskPressed = false
-    @State private var showSideView = false
-    @State private var searchedUser = ""
+    
+    @State private var warning: LocalizedStringKey = ""
+    @State private var isMaxLength = false
     
     var body: some View {
         ZStack {
@@ -21,23 +18,44 @@ struct CreateTaskView: View {
                     VStack(alignment: .center) {
                         HStack {
                             //MARK: Assignee
-                            TextAndTextfield(text: $assignee, description: "Assignee")
+                            TextFieldAndImage(image: $viewModel.selectedUserAvatar,
+                                              text: $viewModel.assigneeName,
+                                              description: "Assignee")
                             Spacer()
                             //MARK: Project
-                            TextAndTextfield(text: $project, description: "Project")
+                            TextFieldAndText(text: $viewModel.projectName, description: "Project")
                         }
                         .padding(.top, -10)
                         .padding(.bottom, 10)
                         .padding(.horizontal)
                         
                         //MARK: Title
-                        TextField(text: $title) {
+                        TextField(text: $viewModel.title) {
                             Text("Title")
                         }
                         .padding()
                         .font(Font(Roboto.thinItalic(size: 18)))
                         .frame(height: 66)
                         .background(Color.customBar)
+                        .onChange(of: viewModel.title) { _ in
+                            withAnimation {
+                                if viewModel.title.count > Constants.maxTaskLenght {
+                                    isMaxLength = true
+                                } else {
+                                    isMaxLength = false
+                                }
+                            }
+                        }
+                        
+                        if isMaxLength {
+                            HStack {
+                                Text("Title is too long")
+                                    .foregroundColor(.red)
+                                    .font(.RobotoThinItalicSmall)
+                                    .padding(.leading, 30)
+                                Spacer()
+                            }
+                        }
                         
                         //MARK: Description Label
                         HStack {
@@ -51,11 +69,10 @@ struct CreateTaskView: View {
                         
                         //MARK: Description Text
                         VStack {
-                            TextField(text: $description) {
-                                Text("Text here")
-                                    .font(Font(Roboto.regular(size: 16)))
-                            }
-                            .padding(.horizontal, 10)
+                            TextEditor(text: $viewModel.description)
+                                .font(Font(Roboto.regular(size: 16)))
+                                .lineLimit(3)
+                                .padding(.horizontal, 10)
                             Spacer()
                             HStack {
                                 //MARK: Attachments
@@ -79,19 +96,23 @@ struct CreateTaskView: View {
                             .foregroundColor(.customGray))
                         .cornerRadius(Constants.radiusFive)
                         
+                        //MARK: Due date
                         HStack {
                             Text("Due Date")
+                                .font(.RobotoMediumSmall)
                             Button {
-                                
+                                withAnimation() {
+                                    viewModel.showDatePicker.toggle()
+                                }
                             } label: {
-                                Text(getDate)
+                                Text(viewModel.dueDate != nil ? DateFormatter.formatDateDayMonthYear(date: viewModel.dueDate ?? Date()) : viewModel.getDate)
+                                    .font(.RobotoMediumSmall)
                             }
-                            .frame(width: 90, height: 32)
+                            .frame(width: 105, height: 32)
                             .background(Color.customBlue)
                             .foregroundColor(.white)
                             .cornerRadius(Constants.radiusFive)
                             Spacer()
-                            
                         }
                         .padding(.leading, 24)
                         .frame(height: 66)
@@ -102,18 +123,43 @@ struct CreateTaskView: View {
                         VStack {
                             HStack {
                                 Text("Add Member")
-                                    .font(Font(Roboto.regular(size: 16)))
+                                    .font(.RobotoMediumSmall)
                                 Spacer()
                             }
                             .padding(.horizontal)
                             HStack {
-                                Text("Anyone")
-                                    .frame(width: 90, height: 58)
-                                    .multilineTextAlignment(.center)
-                                    .background(Color.customBar)
-                                    .cornerRadius(Constants.raidiusFifty)
+                                if viewModel.members?.count ?? 0 < 1 {
+                                    Text("Anyone")
+                                        .frame(width: 90, height: 58)
+                                        .multilineTextAlignment(.center)
+                                        .background(Color.customBar)
+                                        .cornerRadius(Constants.raidiusFifty)
+                                } else {
+                                    Text("")
+                                        .padding(.leading, 6)
+                                    ForEach(viewModel.addedMembersAvatars, id: \.self) { image in
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .clipShape(Circle())
+                                            .frame(width: 32, height: 32)
+                                            .padding(.vertical, 13)
+                                            .onLongPressGesture {
+                                                withAnimation {
+                                                    if let index = viewModel.addedMembersAvatars.firstIndex(where: { $0 == image}) {
+                                                        viewModel.addedMembersAvatars.remove(at: index)
+                                                    }
+                                                    if let index = viewModel.members?.firstIndex(where: { $0.id == $0.id}) {
+                                                        viewModel.members?.remove(at: index)
+                                                    }
+                                                }   
+                                            }
+                                    }
+                                }
                                 Button {
-                                    
+                                    withAnimation {
+                                        viewModel.showAddMemberView.toggle()
+                                    }
                                 } label: {
                                     Text("+")
                                         .frame(width: 32, height: 32)
@@ -121,66 +167,89 @@ struct CreateTaskView: View {
                                         .background(Color.secondary)
                                         .foregroundColor(.white)
                                         .clipShape(Circle())
+                                        .padding(.vertical, 13)
                                     
                                 }
                                 Spacer()
                             }
+                            .animation(.easeInOut, value: viewModel.members == nil)
                         }
-                        .padding(.top, 20)
                         .padding(.bottom, 30)
                         .padding(.leading, 10)
                         
+                        //MARK: Warning
+                        Text(warning)
+                            .font(.RobotoThinItalicFootnote)
+                            .foregroundColor(.red)
+                            .offset(y: -20)
+                            .padding(.leading, 10)
+                            .animation(.default, value: warning)
+                        
                         //MARK: Custom Button
                         CustomCoralFilledButton(text: "Add Task") {
-                            withAnimation {
-                                addTaskPressed.toggle()
+                            if viewModel.title.isEmpty || viewModel.assigneeName.isEmpty || viewModel.projectName.isEmpty || viewModel.description.isEmpty {
+                                warning = "Fill empty fields"
+                            } else {
+                                viewModel.getDate = DateFormatter.createDueDate(date: viewModel.dueDate ?? Date(), time: viewModel.selectedTime ?? Date())
+                                viewModel.createTask.send()
+                                isPresented.toggle()
                             }
                         }
+                        .disabled(isMaxLength)
+                        .opacity(isMaxLength ? 0.75 : 1)
                     }
-                    .frame(width: 343, height: 672)
+                    .frame(width: 343, height: 682)
                     .background(.white)
                     .cornerRadius(Constants.radiusFive)
                     .offset(y: -40)
                     .shadow(radius: 4)
                     
-                    if assignee != searchedUser {
-                        //MARK: SearchUser View
-                        SearchUserView(filteredText: $assignee,searchedUser: $assignee) {
-                            searchedUser = assignee
+                    //MARK: SearchUser View
+                    if viewModel.assigneeName != viewModel.selectedUser {
+                        SearchUserView(mergedArray: $viewModel.mergedMebmersAndAvatars,
+                                       filteredText: $viewModel.assigneeName,
+                                       searchedUser: $viewModel.assigneeName,
+                                       searchedUserId: $viewModel.assigneeId,
+                                       searchedUserAvatar: $viewModel.selectedUserAvatar,
+                                       memberId: $viewModel.membersId) {
+                            viewModel.selectedUser = viewModel.assigneeName
+                        }
+                    }
+                    
+                    //MARK: SearchProject View
+                    if viewModel.projectName != viewModel.selectedProjectName {
+                        SearchProjectsView(projects: $viewModel.searchProjectsResoponseArray,
+                                           projectName: $viewModel.selectedProjectName,
+                                           projectId: $viewModel.selectedProjectId) {
+                            viewModel.projectName = viewModel.selectedProjectName
+                        }
+                    }
+                    
+                    //MARK: AddMember View
+                    if viewModel.showAddMemberView {
+                        AddMembersView(isPresented: $viewModel.showAddMemberView,
+                                       mergedArray: $viewModel.mergedMebmersAndAvatars,
+                                       members: $viewModel.members,
+                                       membersId: $viewModel.membersId,
+                                       membersAvatars: $viewModel.addedMembersAvatars) {
+                            viewModel.showAddMemberView.toggle()
                         }
                     }
                 }
             }
             .frame(height: 669)
+            .navigationBarHidden(true)
             
-            //MARK: Show ViewTask
-            if addTaskPressed {
-                ViewTask(title: title,
-                         image: "pathFirst",
-                         username: assignee,
-                         dueDate: "Jul 13, 2022",
-                         description: description,
-                         tag: project,
-                         color: .customBlue,
-                         showSideView: $showSideView,
-                         closeViewTask: $addTaskPressed)
-                .offset(y: -10)
-            }
-            //MARK: Show SideView
-            if showSideView {
-                SideView(isPresented: $showSideView,
-                         firstText: "Add Member",
-                         secondText: "Edit Task",
-                         thirdText: "Delete Task")
-                .onTapGesture {
-                    if showSideView {
-                        showSideView.toggle()
-                    }
-                }
-                
+            //MARK: Custom DatePicker
+            if viewModel.showDatePicker {
+                CustomDatePicker(isPresented: $viewModel.showDatePicker,
+                                 selectedDate: $viewModel.dueDate,
+                                 selectedTime: $viewModel.selectedTime)
             }
         }
-        .navigationBarHidden(true)
+        .onAppear {
+            viewModel.searchMembersAndProjects.send()
+        }
     }
 }
 

@@ -10,22 +10,18 @@ struct ProjectResponceModel: Codable {
     var data: ProjectResponceData
 }
 
-struct ProjectResponceData: Codable {
+struct ProjectResponceData: Codable, Hashable {
     var id: String?
     var title: String?
     var color: String?
     var ownerId: String?
     var createdAt: String?
+    var message: String?
+    var code: Int?
 }
 
 struct FetchProjectsResponceModel: Codable {
-    var data: [FetchProjectsData]
+    var data: [ProjectResponceData]
 }
 
-struct FetchProjectsData: Codable, Hashable {
-    var id: String
-    var title: String
-    var color: String
-    var ownerId: String
-    var createdAt: String
-}
+

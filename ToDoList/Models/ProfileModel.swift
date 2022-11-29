@@ -27,3 +27,15 @@ struct FetchUserStatisticsData: Codable {
     var message: String?
     var code: Int?
 }
+
+struct SignOutModel: Codable {
+    var email: String
+}
+
+struct SignOut: Codable {
+    var data: SignOutData
+}
+
+struct SignOutData: Codable {
+    var success: Bool
+}

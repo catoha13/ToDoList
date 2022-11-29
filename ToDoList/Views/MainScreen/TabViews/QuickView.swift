@@ -1,17 +1,19 @@
 import SwiftUI
 
 struct QuickView: View {
-    @ObservedObject private var viewModel = QuickViewModel()
+    @StateObject private var viewModel = QuickViewModel()
     
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
-                Text("Notes")
+                Text("Quick Notes")
                     .font(.RobotoThinItalicHeader)
                     .padding(.vertical, 50)
+                    .alert(isPresented: $viewModel.isOffline) {
+                        Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
+                    }
                 ScrollView(showsIndicators: false) {
-                    //MARK: List
-                    ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, id in
+                    ForEach(viewModel.mergedResponseArray, id: \.id) { notes, checklists, _ in
                         //MARK: Notes
                         NoteCell(color: notes.color, text: notes.description, isCompleted: notes.isCompleted) {
                             viewModel.selectedNote = notes.id
@@ -25,7 +27,7 @@ struct QuickView: View {
                                 viewModel.isNoteCompleted.toggle()
                                 viewModel.isNoteCompleted = true
                             }
-                            viewModel.updateNote()
+                            viewModel.updateNote.send()
                         } longTap: {
                             viewModel.selectedNote = notes.id
                             viewModel.noteText = notes.description
@@ -36,7 +38,9 @@ struct QuickView: View {
                         .confirmationDialog("Delete this note?",
                                             isPresented: $viewModel.isNoteEditing) {
                             Button("Edit") {
-                                viewModel.showNoteEditView.toggle()
+                                withAnimation(.default) {
+                                    viewModel.showNoteEditView.toggle()
+                                }
                             }
                             Button("Delete", role: .destructive) {
                                 viewModel.showNoteAlert.toggle()
@@ -45,17 +49,14 @@ struct QuickView: View {
                             Text("What do you want to do?")
                         }
                         .alert(isPresented: $viewModel.showNoteAlert) {
-                            Alert(title: Text("You want to delete «\(viewModel.noteText)»?"),
-                                  message: Text("You cannot undone this action."),
+                            Alert(title: Text("Delete") + Text(" «\(viewModel.noteText)»?"),
+                                  message: Text("You cannot undo this action"),
                                   primaryButton: .destructive(Text("Delete")) {
-                                viewModel.deleteNote()
+                                viewModel.deleteNote.send()
                             },
                                   secondaryButton: .cancel())
                         }
                         .padding(.horizontal, 10)
-                        .background(.white)
-                        .cornerRadius(Constants.radiusThree)
-                        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
                         
                         //MARK: Checklists
                         ChecklistCell(content: checklists.items,
@@ -68,41 +69,42 @@ struct QuickView: View {
                             viewModel.checklistColor = checklists.color
                             viewModel.checklistId = checklists.id
                             viewModel.isChecklistItemCompleted.toggle()
-                            viewModel.updateChecklist()
+                            viewModel.updateChecklist.send()
+                        } longPressAction: {
+                            viewModel.checklistId = checklists.id
+                            viewModel.checklistTitle = checklists.title
+                            viewModel.selectedChecklist = checklists.items
+                            viewModel.isChecklistEditing.toggle()
                         }
-                                      .onLongPressGesture {
-                                          viewModel.checklistId = checklists.id
-                                          viewModel.checklistTitle = checklists.title
-                                          viewModel.selectedChecklist = checklists.items
-                                          viewModel.isChecklistEditing.toggle()
-                                      }
-                                      .confirmationDialog("What do you want?", isPresented: $viewModel.isChecklistEditing) {
-                                          Button("Edit", role: .none) {
-                                              viewModel.showChecklistEditView.toggle()
-                                          }
-                                          Button("Delete Checklist", role: .destructive) {
-                                              viewModel.showChecklistAlert.toggle()
-                                          }
-                                      } message: {
-                                          Text("What do you want to do?")
-                                      }
-                                      .alert(isPresented: $viewModel.showChecklistAlert) {
-                                          Alert(title: Text("You want to delete «\(viewModel.checklistTitle)» checklist?"),
-                                                message: Text("You cannot undone this action."),
-                                                primaryButton: .cancel(),
-                                                secondaryButton: .destructive(Text("Delete")) {
-                                              viewModel.deleteChecklist()
-                                          })
-                                      }
-                                      .padding(.horizontal, 10)
-                                      .background(.white)
-                                      .cornerRadius(Constants.radiusThree)
-                                      .shadow(color: .secondary.opacity(0.3), radius: 2, x: 4, y: 2)
+                        .confirmationDialog("What do you want to do?", isPresented: $viewModel.isChecklistEditing) {
+                            Button("Edit", role: .none) {
+                                withAnimation(.default) {
+                                    viewModel.showChecklistEditView.toggle()
+                                }
+                            }
+                            Button("Delete", role: .destructive) {
+                                viewModel.showChecklistAlert.toggle()
+                            }
+                        } message: {
+                            Text("What do you want to do?")
+                        }
+                        .alert(isPresented: $viewModel.showChecklistAlert) {
+                            Alert(title: Text("Delete") + Text(" «\(viewModel.checklistTitle)»?"),
+                                  message: Text("You cannot undo this action"),
+                                  primaryButton: .cancel(),
+                                  secondaryButton: .destructive(Text("Delete")) {
+                                viewModel.deleteChecklist.send()
+                            })
+                        }
+                        .padding(.horizontal, 10)
                     }
+                    .animation(.default, value: viewModel.mergedResponseArray.map { $0.0 })
+                    .animation(.default, value: viewModel.mergedResponseArray.map { $0.1 })
                 }
             }
             .frame(maxWidth: .infinity)
             .background(Color.customWhiteBackground)
+            
             
             if viewModel.showChecklistEditView {
                 EditChecklist(isPresented: $viewModel.showChecklistEditView,
@@ -113,10 +115,10 @@ struct QuickView: View {
                               selectedArray: $viewModel.selectedChecklist,
                               updatedArray: $viewModel.checklistResponseItems,
                               updateAction: {
-                    viewModel.editChecklist()
+                    viewModel.editChecklist.send()
                 },
                               deleteAction: {
-                    viewModel.deleteCheclistItem()
+                    viewModel.deleteChecklistItem.send()
                 })
             }
             
@@ -125,7 +127,7 @@ struct QuickView: View {
                          title: $viewModel.noteText,
                          color: $viewModel.selectedNoteColor,
                          updateAction: {
-                    viewModel.updateNote()
+                    viewModel.updateNote.send()
                 })
             }
         }

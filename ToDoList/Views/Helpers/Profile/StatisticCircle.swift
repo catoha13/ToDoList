@@ -2,7 +2,7 @@ import SwiftUI
 
 struct StatisticCircle: View {
     @Binding var percentage: String
-    @State var text = "Events"
+    @State var text: LocalizedStringKey = "Events"
     @State var color: Color = .customCoral
     @Binding var progress: Double
     var body: some View {
@@ -26,6 +26,7 @@ struct StatisticCircle: View {
             Text(text)
                 .font(.RobotoMediumSmall)
         }
+        .animation(.default, value: progress)
     }
 }
 

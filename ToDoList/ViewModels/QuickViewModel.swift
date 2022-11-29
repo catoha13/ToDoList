@@ -14,7 +14,7 @@ final class QuickViewModel: ObservableObject {
     @Published var isNoteEditing = false
     @Published var showNoteEditView = false
     @Published var showNoteAlert = false
-
+    
     //MARK: Checklist
     @Published var checklistRequestArray: [ChecklistItemsModel] = []
     @Published var checklistResponseItems: [ChecklistItemsModel] = []
@@ -31,87 +31,148 @@ final class QuickViewModel: ObservableObject {
     @Published var showChecklistAlert = false
     @Published var isAddItemEnabled = false
     
-    private let user = User()
-    private var notesNetworkService = NotesNetworkService()
-    private var checklistsNetworkService = CheckListNetworkService()
-    private var cancellables = Set<AnyCancellable>()
+    //MARK: Network Alert
+    @Published var alertMessage = ""
+    @Published var isOffline = false
     
-    private var ownerId: String {
-        return user.userId ?? "no data"
-    }
+    private let user = User()
+    private let notesNetworkService = NotesNetworkService()
+    private let checklistsNetworkService = CheckListNetworkService()
+    private let notesCoreDataManager = NotesCoreDataManager()
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: Note Models
     private var noteModel: NotesModel {
-        NotesModel(description: noteText, color: selectedNoteColor, ownerId: ownerId, isCompleted: isNoteCompleted)
+        .init(description: noteText,
+              color: selectedNoteColor,
+              ownerId: user.id,
+              isCompleted: isNoteCompleted)
     }
     
-    //MARK: Note Models
-    private var createNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
-        notesNetworkService.createNote(model: noteModel)
-    }
-    private var deleteNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
-        notesNetworkService.deleteNote(noteId: selectedNote)
-    }
-    private var fetchOneNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
-        notesNetworkService.fetchOneNote(noteId: selectedNote)
-    }
-    private var fetchAllNotesRequest: AnyPublisher<FetchAllNotesResponseModel, NetworkError> {
-        notesNetworkService.fetchAllNotes()
-    }
-    private var updateNoteRequest: AnyPublisher<NotesResponseModel, NetworkError> {
-        notesNetworkService.updateNotes(model: noteModel, noteId: selectedNote)
-    }
+    //MARK: Note Publishers
+    let createNote = PassthroughSubject<Void, Never>()
+    let deleteNote = PassthroughSubject<Void, Never>()
+    let fetchOneNote = PassthroughSubject<Void, Never>()
+    let fetchAllNotes = PassthroughSubject<Void, Never>()
+    let updateNote = PassthroughSubject<Void, Never>()
     
     //MARK: Checklist Models
     private var updateItemsModel: [ChecklistItemsModel] {
-        [ChecklistItemsModel(id: checklistItemId,content: newItemContent, isCompleted: isChecklistItemCompleted)]
+        [.init(id: checklistItemId,
+               content: newItemContent,
+               isCompleted: isChecklistItemCompleted)]
     }
     private var updateChecklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: updateItemsModel)
+        .init(title: checklistTitle,
+              color: checklistColor,
+              ownerId: user.id,
+              items: updateItemsModel)
     }
     private var editChecklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: checklistResponseItems)
+        .init(title: checklistTitle,
+              color: checklistColor,
+              ownerId: user.id,
+              items: checklistResponseItems)
     }
     private var checklistModel: ChecklistUpdateRequestModel {
-        ChecklistUpdateRequestModel(title: checklistTitle, color: checklistColor, ownerId: ownerId, items: checklistRequestArray)
+        .init(title: checklistTitle,
+              color: checklistColor,
+              ownerId: user.id,
+              items: checklistRequestArray)
     }
     
     //MARK: Checklist Publishers
-    private var createChecklistRequest: AnyPublisher<ChecklistUpdateRequestModel, NetworkError> {
-        checklistsNetworkService.createChecklist(model: checklistModel)
-    }
+    let createChecklist = PassthroughSubject<Void, Never>()
+    let updateChecklist = PassthroughSubject<Void, Never>()
+    let editChecklist = PassthroughSubject<Void, Never>()
+    let deleteChecklistItem = PassthroughSubject<Void, Never>()
+    let deleteChecklist = PassthroughSubject<Void, Never>()
+    let fetchOneChecklist = PassthroughSubject<Void, Never>()
+    let fetchAllChecklists = PassthroughSubject<Void, Never>()
     
-    private var updateChecklistRequest: AnyPublisher<ChecklistResponseModel, NetworkError> {
-        checklistsNetworkService.updateChecklist(model: updateChecklistModel, checklistId: checklistId)
-    }
-    private var editChecklistRequest: AnyPublisher<ChecklistResponseModel, NetworkError> {
-        checklistsNetworkService.updateChecklist(model: editChecklistModel, checklistId: checklistId)
-    }
-    
-    private var deleteChecklistItemRequest: AnyPublisher<DeleteChecklistData, NetworkError> {
-        checklistsNetworkService.deleteChecklistItem(checklistItemId: checklistItemId)
-    }
-    
-    private var deleteChecklistRequest: AnyPublisher<DeleteChecklistModel, NetworkError> {
-        checklistsNetworkService.deleteChecklist(checklistId: checklistId)
-    }
-    
-    private var fetchOneChecklistRequest: AnyPublisher<ChecklistResponseModel, NetworkError> {
-        checklistsNetworkService.fetchOneChecklist(checklistId: checklistId)
-    }
-    
-    private var fetchAllChecklistsRequest: AnyPublisher<FetchAllChecklistsResponseModel, NetworkError> {
-        checklistsNetworkService.fetchAllChecklists()
-    }
-    
+    //MARK: Initialization
     init() {
+        addSubscriptions()
         fetchNotesAndChecklists()
+    }
+    
+    //MARK: Add Subsriptions
+    private func addSubscriptions() {
+        
+        createNote
+            .sink { [weak self] _ in
+                self?.createNoteRequest()
+            }
+            .store(in: &cancellables)
+        
+        deleteNote
+            .sink { [weak self] _ in
+                self?.deleteNoteRequest()
+            }
+            .store(in: &cancellables)
+        
+        fetchOneNote
+            .sink { [weak self] _ in
+                self?.fetchOneNoteRequest()
+            }
+            .store(in: &cancellables)
+        
+        updateNote
+            .sink { [weak self] _ in
+                self?.updateNoteRequest()
+            }
+            .store(in: &cancellables)
+        
+        createChecklist
+            .sink { [weak self] _ in
+                self?.createChecklistRequest()
+            }
+            .store(in: &cancellables)
+        
+        updateChecklist
+            .sink { [weak self] _ in
+                self?.updateChecklistRequest()
+            }
+            .store(in: &cancellables)
+        
+        editChecklist
+            .sink { [weak self] _ in
+                self?.editChecklistRequest()
+            }
+            .store(in: &cancellables)
+        
+        deleteChecklistItem
+            .sink { [weak self] _ in
+                self?.deleteCheclistItemRequest()
+            }
+            .store(in: &cancellables)
+        
+        deleteChecklist
+            .sink { [weak self] _ in
+                self?.deleteChecklistRequest()
+            }
+            .store(in: &cancellables)
+        
+        fetchOneChecklist
+            .sink { [weak self] _ in
+                self?.fetchNotesAndChecklists()
+            }
+            .store(in: &cancellables)
     }
     
     //MARK: Fetch Notes & Checklists
     private func fetchNotesAndChecklists() {
-        fetchAllNotesRequest.zip(fetchAllChecklistsRequest)
-            .sink(receiveCompletion: { _ in
+        notesNetworkService.fetchAllNotes().zip(checklistsNetworkService.fetchAllChecklists())
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    guard let self = self else { return }
+                    self.alertMessage = error.description
+                    self.isOffline = true
+//                    let notesData = self.notesCoreDataManager.loadNotes()
+                }
             },
                   receiveValue: { [weak self] item in
                 let notesData = item.0.data
@@ -127,92 +188,170 @@ final class QuickViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    //MARK: Note funcs
-    func createNote() {
-        createNoteRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Create Note
+    private func createNoteRequest() {
+        notesNetworkService.createNote(model: noteModel)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
     
-    func deleteNote() {
-        deleteNoteRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Delete Note
+    private func deleteNoteRequest() {
+        notesNetworkService.deleteNote(noteId: selectedNote)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
     
-    private func fetchOneNote() {
-        fetchOneNoteRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Fetch One Note
+    private func fetchOneNoteRequest() {
+        notesNetworkService.fetchOneNote(noteId: selectedNote)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
     
-    func updateNote() {
-        updateNoteRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Update Note
+    private func updateNoteRequest() {
+        notesNetworkService.updateNotes(model: noteModel, noteId: selectedNote)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] _ in
-                self?.fetchOneNote()
+                self?.fetchOneNote.send()
             })
             .store(in: &cancellables)
     }
     
-    //MARK: Checklist funcs
-    func createChecklist() {
-        createChecklistRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Create Checklist
+    private func createChecklistRequest() {
+        checklistsNetworkService.createChecklist(model: checklistModel)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] item in
                 self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
     
-    func updateChecklist() {
-        updateChecklistRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Update Checklist
+    private func updateChecklistRequest() {
+        checklistsNetworkService.updateChecklist(model: updateChecklistModel, checklistId: checklistId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] item in
-                self?.fetchOneChecklist()
+                self?.fetchOneChecklist.send()
             })
             .store(in: &cancellables)
     }
     
-    func editChecklist() {
-        editChecklistRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Edit Checklist
+    private func editChecklistRequest() {
+        checklistsNetworkService.updateChecklist(model: editChecklistModel, checklistId: checklistId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] item in
-                self?.fetchOneChecklist()
+                self?.fetchOneChecklist.send()
             })
             .store(in: &cancellables)
     }
     
-    func deleteChecklist() {
-        deleteChecklistRequest
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { [weak self] _ in
-                self?.fetchOneChecklist()
-            })
-            .store(in: &cancellables)
-    }
-    
-    func deleteCheclistItem() {
-        deleteChecklistItemRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Delete Checklist
+    private func deleteChecklistRequest() {
+        checklistsNetworkService.deleteChecklist(checklistId: checklistId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
     
-    private func fetchOneChecklist() {
-        fetchOneChecklistRequest
-            .sink(receiveCompletion: { _ in
+    //MARK: Delete Checklist Item
+    private func deleteCheclistItemRequest() {
+        checklistsNetworkService.deleteChecklistItem(checklistItemId: checklistItemId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
+            }, receiveValue: { [weak self] _ in
+                self?.fetchNotesAndChecklists()
+            })
+            .store(in: &cancellables)
+    }
+    
+    //MARK: Fetch One Checklist
+    private func fetchOneChecklistRequest() {
+        checklistsNetworkService.fetchAllChecklists()
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                case .failure(let error):
+                    self?.alertMessage = error.description
+                    self?.isOffline = true
+                }
             }, receiveValue: { [weak self] _ in
                 self?.fetchNotesAndChecklists()
             })

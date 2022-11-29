@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct StatCollectionCell: View {
-    @State var text = "Events"
-    @State var count = 0
+    @State var text: LocalizedStringKey = "Events"
+    @Binding var count: Int
     @State var backgroundColor: Color = Color.customBlue
     
     var body: some View {
@@ -27,7 +27,8 @@ struct StatCollectionCell: View {
 }
 
 struct StatCollectionCell_Previews: PreviewProvider {
+    @State static var count = 0
     static var previews: some View {
-        StatCollectionCell()
+        StatCollectionCell(count: $count)
     }
 }

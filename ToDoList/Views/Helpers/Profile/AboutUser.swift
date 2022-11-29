@@ -3,15 +3,16 @@ import SwiftUI
 struct AboutUser: View {
     @Binding var userName: String
     @Binding var userEmail: String
-    @Binding var userAvatar: String
+    @Binding var userAvatar: UIImage?
     @Binding var createdTask: Int
     @Binding var completedTasks: Int
     @State var showEditView: () -> ()
+    @State private var showEdit = false
     
     var body: some View {
         VStack {
             HStack {
-                CircleImageView(imageUrl: $userAvatar, width: 64, height: 64)
+                CircleImage(image: $userAvatar, width: 64, height: 64)
                 VStack(alignment: .leading) {
                     Text(userName)
                         .font(.RobotoThinItalicSmall)
@@ -20,11 +21,15 @@ struct AboutUser: View {
                 }
                 Spacer()
                 Button {
-                    showEditView()
+                    withAnimation {
+                        showEditView()
+                        showEdit.toggle()
+                    }
                 } label: {
                     Image(systemName: "gearshape.fill")
                         .resizable()
                         .foregroundColor(.black)
+                        .rotationEffect(showEdit ? .degrees(180) : .degrees(0))
                 }
                 .frame(width: 20, height: 20)
                 .offset(x: 2, y: -42)
@@ -60,7 +65,7 @@ struct AboutUser: View {
 struct AboutUser_Previews: PreviewProvider {
     @State static var username = "Stephen Chow"
     @State static var email  = "some23098@mail.com"
-    @State static var avatar = "person"
+    @State static var avatar: UIImage? = UIImage(named: "background")!
     @State static var createdTask = 0
     @State static var completedTask = 0
     

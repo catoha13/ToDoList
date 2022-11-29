@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StatisticCollection: View {
-    @State var tasksCount = 0
+    @Binding var tasksCount: Int
     @State var toDoCount = 0
     @State var eventsCount = 0
     
@@ -9,12 +9,14 @@ struct StatisticCollection: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 StatCollectionCell(text: "Events",
-                                   count: eventsCount,
+                                   count: $eventsCount,
                                    backgroundColor: .customCoral)
                 StatCollectionCell(text: "To do Task",
-                                   count: toDoCount,
+                                   count: $toDoCount,
                                    backgroundColor: .customBlue)
-                StatCollectionCell(text: "Tasks", count: tasksCount, backgroundColor: .customPurple)
+                StatCollectionCell(text: "Tasks",
+                                   count: $tasksCount,
+                                   backgroundColor: .customPurple)
             }
         }
         .padding(.horizontal, 8)
@@ -22,7 +24,8 @@ struct StatisticCollection: View {
 }
 
 struct StatisticCollection_Previews: PreviewProvider {
+    @State static var tasksCount = 0
     static var previews: some View {
-        StatisticCollection()
+        StatisticCollection(tasksCount: $tasksCount)
     }
 }

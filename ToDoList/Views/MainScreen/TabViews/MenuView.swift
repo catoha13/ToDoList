@@ -6,68 +6,85 @@ struct MenuView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
-                ScrollView {
+                VStack {
                     Text("Projects")
                         .font(.RobotoThinItalicHeader)
                         .padding(.vertical, 50)
-                    
-                    LazyVGrid(columns: viewModel.flexibleLayout) {
-                        ForEach(viewModel.projectsArray, id: \.self) { data in
-                            ProjectCell(color: data.color, text: data.title, taskCounter: 8)
-                                .onLongPressGesture {
-                                    viewModel.selectedProjectId = data.id
-                                    viewModel.projectName = data.title
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        viewModel.isEditing.toggle()
+                    ScrollView(showsIndicators: false) {
+                        LazyVGrid(columns: viewModel.flexibleLayout) {
+                            ForEach(viewModel.projectsArray.value.sorted { $0.createdAt ?? "" > $1.createdAt ?? "" }, id: \.self) { data in
+                                ProjectCell(color: data.color ?? "", text: data.title ?? "", taskCounter: 8)
+                                    .onLongPressGesture {
+                                        viewModel.selectedProjectId.value = data.id ?? ""
+                                        viewModel.projectName.value = data.title ?? ""
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            if viewModel.isOffline.value {
+                                                return
+                                            } else {
+                                                viewModel.isEditing.value.toggle()
+                                            }
+                                        }
                                     }
-                                }
+                            }
                         }
+                        .animation(.default, value: viewModel.projectsArray.value)
+                        
+                        AddProjectButton() {
+                            withAnimation {
+                                self.viewModel.showCreateProject.value.toggle()
+                            }
+                        }
+                        .disabled(viewModel.isOffline.value)
                     }
-                    
-                    AddProjectButton() {
-                        withAnimation {
-                            self.viewModel.isPresented.toggle()
-                        }
+                    .alert(isPresented: $viewModel.isOffline.value) {
+                        Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage.value), dismissButton: Alert.Button.cancel(Text("Ok")))
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.customWhiteBackground)
             
-            if viewModel.isPresented {
+            if viewModel.showCreateProject.value {
                 ZStack {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
-                    ProjectChooseColor(isPresented: $viewModel.isPresented,
-                                       extracedColor: $viewModel.chosenColor,
-                                       projectName: $viewModel.projectName) {
-                        viewModel.createProject()
-                        viewModel.projectName = ""
+                        .onTapGesture {
+                            viewModel.showCreateProject.value.toggle()
+                        }
+                    ProjectChooseColor(isPresented: $viewModel.showCreateProject.value,
+                                       extracedColor: $viewModel.chosenColor.value,
+                                       projectName: $viewModel.projectName.value) {
+                        viewModel.createProjectRequest.send()
+                        viewModel.projectName.value = ""
                     }
-                    .frame(width: 338)
-                    .cornerRadius(Constants.radiusFive)
-                    .ignoresSafeArea()
+                                       .frame(width: 338)
+                                       .cornerRadius(Constants.radiusFive)
+                                       .ignoresSafeArea()
                 }
             }
             
-            if viewModel.isEditing {
+            if viewModel.isEditing.value {
                 ZStack {
                     Text("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(.secondary)
+                        .onTapGesture {
+                            viewModel.isEditing.value.toggle()
+                        }
                     VStack(spacing: 0) {
                         Button("Delete project") {
-                            viewModel.showAlert.toggle()
+                            viewModel.showDeleteAlert.value.toggle()
                         }
                         .foregroundColor(.red)
-                        .alert(isPresented: $viewModel.showAlert) {
-                            Alert(title: Text("You want to delete «\(viewModel.projectName)»?"), message: Text("You cannot undone this action."),
+                        .alert(isPresented: $viewModel.showDeleteAlert.value) {
+                            Alert(title: Text("Delete") + Text("« \(viewModel.projectName.value)»?"),
+                                  message: Text("You cannot undo this action."),
                                   primaryButton: .cancel(),
                                   secondaryButton: .destructive(Text("Delete")) {
-                                viewModel.deleteProject()
-                                viewModel.isEditing.toggle()
-                                viewModel.showAlert.toggle()
+                                viewModel.deleteProjectRequest.send()
+                                viewModel.isEditing.value.toggle()
+                                viewModel.showDeleteAlert.value.toggle()
                             })
                         }
                         
@@ -77,11 +94,11 @@ struct MenuView: View {
                         .background(.white)
                         .font(.RobotoThinItalicSmall)
                         
-                        ProjectChooseColor(isPresented: $viewModel.isEditing,
-                                           extracedColor: $viewModel.chosenColor,
-                                           projectName: $viewModel.projectName) {
-                            viewModel.updateProject()
-                            viewModel.projectName = ""
+                        ProjectChooseColor(isPresented: $viewModel.isEditing.value,
+                                           extracedColor: $viewModel.chosenColor.value,
+                                           projectName: $viewModel.projectName.value) {
+                            viewModel.updateProjectRequest.send()
+                            viewModel.projectName.value = ""
                         }
                     }
                     .frame(width: 338)

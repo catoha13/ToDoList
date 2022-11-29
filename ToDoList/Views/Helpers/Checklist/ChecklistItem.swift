@@ -1,30 +1,28 @@
 import SwiftUI
 
 struct ChecklistItem: View {
-    @Binding var title: String
-    @Binding var isChecked: Bool
-    @State var id: String?
+    @Binding var content: String
+    @Binding var isCompleted: Bool
     @State var isMaxLength = false
     @State var deleteAction = {}
-    
-    func toggle() {
-        isChecked = !isChecked
-    }
+        
     var body: some View {
         HStack{
             //MARK: Check button
             Button(action: toggle) {
-                Image(systemName: isChecked ? "checkmark.square" : "square")
+                Image(systemName: isCompleted ? "checkmark.square" : "square")
                     .foregroundColor(.secondary)
                     .background(Color.customBar)
             }
-            TextField(text: $title, label: {
+            //MARK: Content
+            TextField(text: $content, label: {
                 Text("List item")
             })
-            .foregroundColor(isChecked ? Color.secondary : Color.black)
-            .onChange(of: title) { _ in
+            
+            .foregroundColor(isCompleted ? Color.secondary : Color.black)
+            .onChange(of: content) { _ in
                 withAnimation {
-                    if title.count > Constants.maxChecklistLenght {
+                    if content.count > Constants.maxChecklistLenght {
                         isMaxLength = true
                     } else {
                         isMaxLength = false
@@ -44,5 +42,9 @@ struct ChecklistItem: View {
             }
             .padding()
         }
+    }
+    
+    private func toggle() {
+        isCompleted = !isCompleted
     }
 }

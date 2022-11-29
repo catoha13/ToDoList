@@ -3,39 +3,51 @@ import SwiftUI
 
 extension Font {
     static var RobotoRegular: Font {
-            Font.custom("Roboto-Regular", size: 20, relativeTo: .title3)
-        }
+        Font.custom("Roboto-Regular", size: 20, relativeTo: .title3)
+    }
     static var RobotoRegularSmall: Font {
-            Font.custom("Roboto-Regular", size: 18, relativeTo: .title3)
-        }
+        Font.custom("Roboto-Regular", size: 18, relativeTo: .title3)
+    }
+    static var RobotoRegularExtraSmall: Font {
+        Font.custom("Roboto-Regular", size: 14, relativeTo: .title3)
+    }
     static var RobotoThinItalicTabBar: Font {
         Font.custom("Roboto-ThinItalic", size: 12, relativeTo: .subheadline)
-        }
+    }
     static var RobotoThinItalicSmall: Font {
-            Font.custom("Roboto-ThinItalic", size: 18, relativeTo: .title2)
-        }
+        Font.custom("Roboto-ThinItalic", size: 18, relativeTo: .title2)
+    }
+    static var RobotoThinItalicExtraSmall: Font {
+        Font.custom("Roboto-ThinItalic", size: 16, relativeTo: .title2)
+    }
+    static var RobotoThinItalicFootnote: Font {
+        Font.custom("Roboto-ThinItalic", size: 12, relativeTo: .title2)
+    }
     static var RobotoThinItalic: Font {
-            Font.custom("Roboto-ThinItalic", size: 24, relativeTo: .title2)
-        }
+        Font.custom("Roboto-ThinItalic", size: 24, relativeTo: .title2)
+    }
     static var RobotoThinItalicHeader: Font {
-            Font.custom("Roboto-ThinItalic", size: 20, relativeTo: .title2)
-        }
+        Font.custom("Roboto-ThinItalic", size: 20, relativeTo: .title2)
+    }
     static var RobotoThinItalicTaskHeader: Font {
-            Font.custom("Roboto-ThinItalic", size: 14, relativeTo: .title2)
-        }
+        Font.custom("Roboto-ThinItalic", size: 14, relativeTo: .title2)
+    }
     static var RobotoThinItalicLarge: Font {
-            Font.custom("Roboto-ThinItalic", size: 48, relativeTo: .title)
-        }
+        Font.custom("Roboto-ThinItalic", size: 48, relativeTo: .title)
+    }
     static var RobotoMedium: Font {
-            Font.custom("Roboto-Medium", size: 18, relativeTo: .title3)
-        }
+        Font.custom("Roboto-Medium", size: 18, relativeTo: .title3)
+    }
     static var RobotoMediumSmall: Font {
         Font.custom("Roboto-Medium", size: 16, relativeTo: .title3)
     }
+    static var RobotoMediumExtraSmall: Font {
+        Font.custom("Roboto-Medium", size: 14, relativeTo: .title3)
+    }
     static var RobotoMediumItalic: Font {
-            Font.custom("Roboto-MediumItalic", size: 18, relativeTo: .title3)
-        }
-
+        Font.custom("Roboto-MediumItalic", size: 18, relativeTo: .title3)
+    }
+    
 }
 
 enum Roboto {
@@ -54,5 +66,5 @@ enum Roboto {
     static func regular(size: CGFloat) -> UIFont {
         return UIFont(name: "Roboto-Regular", size: size)!
     }
-
+    
 }

@@ -4,6 +4,7 @@ import Foundation
 enum Path: String {
     case signIn = "/sign-in"
     case signUp = "/sign-up"
+    case signOut = "/sign-out"
     case refreshToken = "/refresh-token"
     case projects = "/projects"
     case fetchProjects = "/user-projects/"
@@ -15,11 +16,22 @@ enum Path: String {
     case checklists = "/checklists"
     case checklistsItems = "/checklists-items"
     case usersChecklists = "/user-checklists/"
+    case tasks = "/tasks"
+    case projectTasks = "/project-tasks/"
+    case userTasks = "/user-tasks/"
+    case assignedTasks = "/assigned-tasks/"
+    case participateInTasks = "/participate-in-tasks/"
+    case tasksAttachments = "/tasks-attachments"
+    case comments = "/comments"
+    case taskComments = "/tasks-comments/"
+    case membersSearch = "/task-members-search?query=kas"
+    case projectSearch = "/projects-search?query=roj"
+    case commentsAttachments = "/comments-attachments"
 }
 
-//MARK: Endpoint
+//MARK: BaseURL
 enum BaseUrl: String {
-    case authorization = "https://todolist.dev2.cogniteq.com/api/v1"
+    case baseUrl = "https://todolist.dev2.cogniteq.com/api/v1"
 }
 
 //MARK: Method

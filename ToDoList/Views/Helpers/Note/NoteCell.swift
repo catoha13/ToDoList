@@ -39,6 +39,9 @@ struct NoteCell: View {
         .padding(.vertical, 20)
         .padding(.horizontal, 10)
         .frame(width: 343)
+        .background(.white)
+        .cornerRadius(Constants.radiusThree)
+        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
     }
 }
 

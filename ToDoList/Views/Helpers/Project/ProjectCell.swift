@@ -21,16 +21,16 @@ struct ProjectCell: View {
                 .padding(.bottom, 26)
                 Spacer()
             }
-                Text(text)
-                    .font(.RobotoThinItalic)
-                    .padding(.horizontal,15)
-                    .padding(.bottom, 17)
-                
-                Text("\(taskCounter) Tasks")
-                    .font(.RobotoRegular)
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal,15)
-                    .padding(.bottom, 27)
+            Text(text)
+                .font(.RobotoThinItalic)
+                .padding(.horizontal,15)
+                .padding(.bottom, 17)
+            
+            Text("\(taskCounter) Tasks")
+                .font(.RobotoRegular)
+                .foregroundColor(.secondary)
+                .padding(.horizontal,15)
+                .padding(.bottom, 27)
         }
         .frame(width: 165, height: 180)
         .background(.white)

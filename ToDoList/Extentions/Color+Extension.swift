@@ -36,6 +36,9 @@ extension Color {
     public static var customBiege: Color {
         return Color(hex: "#F4CA8F")
     }
+    public static var customYellow: Color {
+        return Color(hex: "#FFDA29")
+    }
     public static var customBar: Color {
         return Color(UIColor(red: 0.956, green: 0.956, blue: 0.956, alpha: 1))
     }
@@ -69,7 +72,7 @@ extension Color {
         default:
             (a, r, g, b) = (1, 1, 1, 0)
         }
-
+        
         self.init(
             .sRGB,
             red: Double(r) / 255,

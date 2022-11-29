@@ -1,26 +1,27 @@
 import Combine
 
-final class ProjectNetworkService {
+struct ProjectNetworkService {
     private let networkManager = NetworkMaganer.shared
     private let user = User()
+    private let token = Token()
     
-    func createProject<T, U>(model: T, header: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func createProject(model: ProjectModel) -> AnyPublisher<ProjectResponceModel, NetworkError> {
         let path = Path.projects.rawValue
-        return networkManager.post(body: model, path: path, header: header)
+        return networkManager.post(body: model, path: path, header: token.header)
     }
     
-    func fetchProjects<U>( header: String) -> AnyPublisher<U, NetworkError> where  U: Decodable {
-        let path = Path.fetchProjects.rawValue + (user.userId ?? "no data")
-        return networkManager.get(path: path, header: header)
+    func fetchProjects() -> AnyPublisher<FetchProjectsResponceModel, NetworkError> {
+        let path = Path.fetchProjects.rawValue + user.id
+        return networkManager.get(path: path, header: token.header)
     }
     
-    func updateProject<T, U>(model: T, header: String, projectId: String) -> AnyPublisher<U, NetworkError> where T: Encodable, U: Decodable {
+    func updateProject(model: ProjectModel, projectId: String) -> AnyPublisher<ProjectResponceData, NetworkError> {
         let path = Path.projects.rawValue + "/" + projectId
-        return networkManager.put(body: model, path: path, header: header)
+        return networkManager.put(body: model, path: path, header: token.header)
     }
     
-    func deleteProject<U>(header: String, projectId: String) -> AnyPublisher<U, NetworkError> where U: Decodable {
+    func deleteProject(projectId: String) -> AnyPublisher<ProjectResponceModel, NetworkError> {
         let path = Path.projects.rawValue + "/" + projectId
-        return networkManager.delete(path: path, header: header)
+        return networkManager.delete(path: path, header: token.header)
     }
 }

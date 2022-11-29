@@ -1,20 +1,23 @@
 import SwiftUI
 
 struct TaskCell: View {
-    @Binding var task: String
-    @Binding var time: String
-    @Binding var color: Color
+    @State var title: String
+    @State var time: String
+    @State var isDone: Bool
+    
+    @State var editAction: () -> ()
     @State var deleteAction: () -> ()
-//    @State var editAction: () -> ()
-    @State private var isDone = false
+    
+    @State private var color: Color = .customBlue
     
     var body: some View {
         HStack {
-            CheckButton(isDone: $isDone)
+            Image(systemName: isDone ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(isDone ? Color.customCoral : color)
             VStack(alignment: .leading, spacing: 5) {
-                Text(task)
+                Text(title)
                     .strikethrough(isDone, color: .secondary)
-                Text(time)
+                Text(DateFormatter.minutesAndHours(time))
                     .foregroundColor(.secondary)
                     .strikethrough(isDone, color: .secondary)
             }
@@ -23,67 +26,33 @@ struct TaskCell: View {
             .foregroundColor(isDone ? .secondary : .black)
             Spacer()
             Rectangle()
-                .foregroundColor(color)
+                .foregroundColor(isDone ? .customCoral : color)
                 .frame(width: 4, height: 21)
-                .padding()
-                .offset(x: 7)
+                .offset(x: 5)
         }
-        .frame(width: 343, height: 70)
-        .swipeActions {
+        .swipeActions(allowsFullSwipe: false) {
             HStack {
                 DeleteCustomButton {
                     self.deleteAction()
                 }
-                .tint(.red)
-                .background(.blue)
+                .tint(.white)
+                
                 EditCustomButton {
-//                    self.editAction()
+                    self.editAction()
                 }
+                .tint(.white)
             }
         }
-    }
-}
-
-struct Task_Previews: PreviewProvider {
-    @State static var task = "Go fishing with Stephen"
-    @State static var time = "9:00 AM"
-    @State static var color = Color.blue
-    
-    static var previews: some View {
-        TaskCell(task: $task, time: $time, color: $color, deleteAction: {})
-            .previewLayout(.fixed(width: 343, height: 70))
-    }
-}
-
-
-struct Check: View {
-    var body: some View {
-        Image(systemName: "checkmark.circle.fill")
-            .foregroundColor(Color.customCoral)
-    }
-}
-
-struct NotCheck: View {
-    var body: some View {
-        Image(systemName: "circle")
-            .foregroundColor(.blue)
-    }
-}
-
-struct CheckButton: View {
-    @State private var isChecked = false
-    @Binding var isDone: Bool
-    var body: some View {
-        Button {
-            isChecked.toggle()
-            isDone.toggle()
-        } label: {
-            if isChecked {
-                Check()
-            } else {
-                NotCheck()
+        .padding()
+        .background(.white)
+        .cornerRadius(Constants.radiusFive)
+        .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 3)
+        .frame(width: 343, height: 70)
+        .onAppear {
+            if DateFormatter.stringToDate(time).checkTaskHoursToExpire() {
+                color = .customYellow
             }
         }
-        .padding(.horizontal, 10)
+        .animation(.default, value: color)
     }
 }

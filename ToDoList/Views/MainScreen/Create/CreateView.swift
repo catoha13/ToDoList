@@ -13,9 +13,7 @@ struct CreateView: View {
                 .blur(radius: 20)
                 .background(showCreateTask || showQuickNote || showCheckList ? .clear : .secondary)
                 .onTapGesture {
-                    if showQuickNote || showCreateTask || showCheckList {
-                        isPresented.toggle()
-                    }
+                    isPresented.toggle()
                 }
             
             VStack {
