@@ -2,13 +2,11 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
-    
+    @State private var animated = false
     var body: some View {
         ZStack {
             VStack {
-                Text("Profile")
-                    .font(.RobotoThinItalicHeader)
-                    .padding(.top, 50)
+                TopHeader(text: "Profile")
                 
                 ScrollView(showsIndicators: false) {
                     AboutUser(userName: $viewModel.username,
@@ -48,6 +46,7 @@ struct ProfileView: View {
                                         progress: $viewModel.quickNoteProgress)
                     }
                 }
+                .padding(.top, -40)
                 .background(Color.customWhiteBackground)
                 .alert(isPresented: $viewModel.isOffline) {
                     Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
@@ -72,6 +71,12 @@ struct ProfileView: View {
                         url: $viewModel.avatarUrl)
             .onDisappear {
                 viewModel.uploadAvatar.send()
+            }
+        }
+        .opacity(animated ? 1 : 0)
+        .onAppear {
+            withAnimation(.default) {
+                animated.toggle()
             }
         }
     }

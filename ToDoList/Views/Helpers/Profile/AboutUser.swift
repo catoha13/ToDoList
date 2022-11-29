@@ -56,9 +56,10 @@ struct AboutUser: View {
         }
         .foregroundColor(.gray)
         .background(.white)
+        .cornerRadius(Constants.radiusFive)
         .frame(width: 343, height: 190)
         .padding()
-        .cornerRadius(Constants.radiusFive)
+        .shadow(color: .secondary.opacity(0.3), radius: 8, x: 0, y: 0)
     }
 }
 

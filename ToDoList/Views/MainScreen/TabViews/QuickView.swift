@@ -6,9 +6,7 @@ struct QuickView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
-                Text("Quick Notes")
-                    .font(.RobotoThinItalicHeader)
-                    .padding(.vertical, 50)
+                TopHeader(text: "Quick Notes")
                     .alert(isPresented: $viewModel.isOffline) {
                         Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
                     }

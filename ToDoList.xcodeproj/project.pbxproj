@@ -15,6 +15,7 @@
 		AC1D104B2928115900C49671 /* ChecklistsCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D104A2928115900C49671 /* ChecklistsCoreDataManager.swift */; };
 		AC20A02E28BD689300E7B718 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20A02D28BD689300E7B718 /* Token.swift */; };
 		AC2432D4292FC86D0054D25D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC2432D6292FC86D0054D25D /* Localizable.strings */; };
+		AC24573D29368F2C00A26CC5 /* TopHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC24573C29368F2C00A26CC5 /* TopHeader.swift */; };
 		AC2F6903288AF6DA007D78E0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6902288AF6DA007D78E0 /* SignUpView.swift */; };
 		AC2F6905288B0635007D78E0 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6904288B0635007D78E0 /* CircleImage.swift */; };
 		AC2F6908288B0687007D78E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F6907288B0687007D78E0 /* CustomTextField.swift */; };
@@ -160,6 +161,7 @@
 		AC1D104A2928115900C49671 /* ChecklistsCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistsCoreDataManager.swift; sourceTree = "<group>"; };
 		AC20A02D28BD689300E7B718 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		AC2432D7292FC8CC0054D25D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC24573C29368F2C00A26CC5 /* TopHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeader.swift; sourceTree = "<group>"; };
 		AC2F6902288AF6DA007D78E0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AC2F6904288B0635007D78E0 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		AC2F6907288B0687007D78E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 				ACD8F67728A2514E009A4A6E /* CustomSecureTextField.swift */,
 				AC2F690F288B2D2E007D78E0 /* HeaderAndDescription.swift */,
 				ACEEE53028B8DF3800D3E4E6 /* TextWithErrorDecsription.swift */,
+				AC24573C29368F2C00A26CC5 /* TopHeader.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1011,6 +1014,7 @@
 				ACEEE53128B8DF3800D3E4E6 /* TextWithErrorDecsription.swift in Sources */,
 				ACDC76BB28D21E6C00B4C5F9 /* NotesNetworkService.swift in Sources */,
 				AC676BC9288EBE7F001DDE34 /* MenuView.swift in Sources */,
+				AC24573D29368F2C00A26CC5 /* TopHeader.swift in Sources */,
 				AC7714D928856C6B00A0C804 /* ToDoListApp.swift in Sources */,
 				AC1A3E602926965800EEF1CE /* UserCoreDataManager.swift in Sources */,
 				ACD4570428F5642000E27411 /* QuickViewModel.swift in Sources */,
