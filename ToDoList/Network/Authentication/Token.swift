@@ -20,7 +20,16 @@ final class Token {
     }
     
     private var model: TokenData {
-        .init(refreshToken: refreshToken)
+        readRefreshToken()
+        return .init(refreshToken: refreshToken)
+    }
+        
+    init() {
+        let expireDate = expireDate.trimExpireDate()
+        let currentDate = Date().timeIntervalSince1970
+        if expireDate >= Int(currentDate) {
+            getNewToken()
+        }
     }
     
     //MARK: Save Token
