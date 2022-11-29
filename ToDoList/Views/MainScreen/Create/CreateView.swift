@@ -2,46 +2,84 @@ import SwiftUI
 
 struct CreateView: View {
     @Binding var isPresented: Bool
-    @State private var isCreateViewPresented = false
-    
+    @State var showQuickNote = false
+    @State var showCreateTask = false
+    @State var showCheckList = false
     var body: some View {
         
         ZStack {
             Text("")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: 20)
-                .background(.secondary)
+                .background(showCreateTask || showQuickNote || showCheckList ? .clear : .secondary)
+                .onTapGesture {
+                    isPresented.toggle()
+                }
             
             VStack {
-                CustomCreateButton(action: {
-                    isCreateViewPresented.toggle()
-                }, text: "Add Task")
-                .padding()
-                .frame(width: 220)
-                
+                Button {
+                    withAnimation {
+                        showCreateTask.toggle()
+                    }
+                } label: {
+                    Label {
+                        Text("Add Task")
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .foregroundColor(.customBlack)
+                    } icon: {}
+                        .padding()
+                        .frame(width: 220)
+                }
                 Divider()
                 
-                CustomCreateButton(action: {
-                    
-                }, text: "Add Quick Note")
-                .padding()
-                .frame(width: 220)
-                
+                Button {
+                    withAnimation {
+                        showQuickNote.toggle()
+                    }
+                } label: {
+                    Label {
+                        Text("Add Quick Note")
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .foregroundColor(.customBlack)
+                    } icon: {}
+                        .padding()
+                        .frame(width: 220)
+                }
                 Divider()
                 
-                CustomCreateButton(action: {
-                    
-                }, text: "Add Check List")
-                .padding()
-                .frame(width: 220)
-                
+                Button {
+                    withAnimation {
+                        showCheckList.toggle()
+                    }
+                } label: {
+                    Label {
+                        Text("Add Check List")
+                            .font(Font(Roboto.thinItalic(size: 18)))
+                            .foregroundColor(.customBlack)
+                    } icon: {}
+                        .padding()
+                        .frame(width: 220)
+                }
             }
             .frame(width: 268, height: 214)
             .background(.white)
             .cornerRadius(Constants.radiusFive)
-        }
-        .fullScreenCover(isPresented: $isCreateViewPresented) {
-            CreateTaskView(isPresented: $isCreateViewPresented)
+            .onChange(of: showCreateTask || showQuickNote || showCheckList) { newValue in
+                isPresented = newValue
+            }
+            
+            //MARK: Show Create Task
+            if showCreateTask {
+                CreateTaskView(isPresented: $showCreateTask)
+            }
+            //MARK: Show Quick Note
+            if showQuickNote {
+                CreateNoteView(isPresented: $showQuickNote)
+            }
+            //MARK: Show Check List
+            if showCheckList {
+                CreateCheckListView(isPresented: $showCheckList)
+            }
         }
     }
 }

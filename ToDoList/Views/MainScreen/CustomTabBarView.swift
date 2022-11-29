@@ -8,62 +8,60 @@ struct CustomTabBarView: View {
     @State private var isCreatePressed = false
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                Spacer()
-                switch viewRouter.currentPage {
-                case .myTask:
-                    MyTaskView()
-                case .menu:
-                    MenuView()
-                case .quick:
-                    QuickView()
-                case .profile:
-                    ProfileView()
-                }
-                Spacer()
-                
-                ZStack {
-                    HStack {
-                        TabBarIcon(viewRouter: viewRouter, assignedPage: .myTask, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "checkmark.circle.fill", tabName: "My task")
-                        TabBarIcon(viewRouter: viewRouter, assignedPage: .menu, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "square.grid.2x2.fill", tabName: "Menu")
-                        ZStack {
-                            Button {
-                                withAnimation(.easeOut(duration: 0.3)) {
-                                    isCreatePressed.toggle()
-                                }
-                            } label: {
-                                Text("+")
-                                    .font(.RobotoThinItalic)
-                                    .frame(width: geometry.size.width/6 , height: geometry.size.width/6)
-                                    .foregroundColor(.white)
-                                    .background(RadialGradient(colors: [.firstColor, .secondColor], center: UnitPoint(x: 0, y: 0), startRadius: 90, endRadius: 20))
-                                    .clipShape(Circle())
-                                    .scaleEffect()
-                            }
-                        }
-                        .offset(y: -geometry.size.height/8/3)
-                        
-                        
-                        TabBarIcon(viewRouter: viewRouter, assignedPage: .quick, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "list.bullet.rectangle.portrait.fill", tabName: "Quick")
-                        TabBarIcon(viewRouter: viewRouter, assignedPage: .profile, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "person.fill", tabName: "Profile")
+        NavigationView {
+            GeometryReader { _ in
+                VStack {
+                    Spacer()
+                    switch viewRouter.currentPage {
+                    case .myTask:
+                        MyTaskView()
+                    case .menu:
+                        MenuView()
+                    case .quick:
+                        QuickView()
+                    case .profile:
+                        ProfileView()
                     }
-                    .frame(width: geometry.size.width, height: geometry.size.height/8)
-                    .background(Color.customTabBarColor.shadow(radius: 2))
+                    Spacer()
+                    
+                    ZStack {
+                        HStack {
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .myTask, width: 74, height: 22, systemIconName: "checkmark.circle.fill", tabName: "My task")
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .menu, width: 74, height: 24, systemIconName: "square.grid.2x2.fill", tabName: "Menu")
+                            ZStack {
+                                Button {
+                                    withAnimation(.easeOut(duration: 0.3)) {
+                                        isCreatePressed.toggle()
+                                    }
+                                } label: {
+                                    Text("+")
+                                        .font(.RobotoThinItalic)
+                                        .frame(width: 60 , height: 60)
+                                        .foregroundColor(.white)
+                                        .background(RadialGradient(colors: [.firstColor, .secondColor], center: UnitPoint(x: 0, y: 0), startRadius: 90, endRadius: 20))
+                                        .clipShape(Circle())
+                                        .scaleEffect()
+                                }
+                            }
+                            .offset(y: -34)
+                            
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .quick, width: 74, height: 26, systemIconName: "list.bullet.rectangle.portrait.fill", tabName: "Quick")
+                            TabBarIcon(viewRouter: viewRouter, assignedPage: .profile, width: 74, height: 26, systemIconName: "person.fill", tabName: "Profile")
+                        }
+                        .frame(height: 106)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.customTabBarColor.shadow(radius: 2))
+                    }
+                    .offset(y: -10)
                 }
-            }
-            .edgesIgnoringSafeArea(.bottom)
-            .ignoresSafeArea(edges: .top)
-            .overlay {
+                .offset(y: 10)
+                .edgesIgnoringSafeArea(.bottom)
+                .ignoresSafeArea(edges: .top)
+                
                 if isCreatePressed {
                     CreateView(isPresented: $isCreatePressed)
                         .cornerRadius(Constants.radiusFive)
                         .ignoresSafeArea()
-                }
-            }
-            .onTapGesture {
-                if isCreatePressed == true {
-                    isCreatePressed.toggle()
                 }
             }
         }
@@ -86,7 +84,8 @@ struct TabBarIcon: View {
     let assignedPage: Page
     
     let width, height: CGFloat
-    let systemIconName, tabName: String
+    let systemIconName: String
+    let tabName: LocalizedStringKey
     
     var body: some View {
         VStack {
@@ -103,6 +102,8 @@ struct TabBarIcon: View {
         .onTapGesture {
             viewRouter.currentPage = assignedPage
         }
+        .scaleEffect(viewRouter.currentPage == assignedPage ? 1.1 : 1)
+        .animation(.default, value: viewRouter.currentPage)
         .foregroundColor(viewRouter.currentPage == assignedPage ? .white : .gray)
     }
 }

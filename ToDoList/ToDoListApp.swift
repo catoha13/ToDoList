@@ -1,19 +1,14 @@
-//
-//  ToDoListApp.swift
-//  ToDoList
-//
-//  Created by Артём on 18.07.22.
-//
-
 import SwiftUI
 
 @main
 struct ToDoListApp: App {
-    let persistenceController = PersistenceController.shared
+    
+    @State var isPresented = true
+    let persistenceController = CoreDataManager.shared
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+             LogoView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

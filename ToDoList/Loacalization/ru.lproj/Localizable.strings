@@ -1,0 +1,162 @@
+//MARK: Onboarding
+"Welcome to todo list" = "Добро пожаловать в todo list";
+"Whats going to happen tomorrow?" = "Что произойдет завтра?";
+
+"Work happens" = "Работа идет";
+"Get notified when work happens." = "Получайте уведомления, когда происходит работа.";
+
+
+"Tasks and assign" = "Задачи и поручения";
+"Task and assign them to colleagues." = "Ставьте задачи и назначайте их коллегам.";
+
+"Get Started" = "Начать";
+
+//MARK: SignUpView
+"Welcome" = "Добро пожаловать";
+"Sign up to continue" = "Зарегистрируйтесь, чтобы продолжить";
+"Email" = "Электронная почта";
+"Enter email" = "Введите адрес электронной почты";
+"Username" = "Имя пользователя";
+"Enter username" = "Введите имя пользователя";
+"Password" = "Пароль";
+"Enter your password" = "Введите пароль";
+"Sign Up" = "Зарегистрироваться";
+"Sign In" = "Войти";
+
+//MARK: SignInView
+"Welcome back" = "С возвращением";
+"Sign in to continue" = "Войдите, чтобы продолжить";
+"Forgot password" = "Забыли пароль?";
+
+//MARK: ForgotPasswordView
+"Forgot Password" = "Забыли пароль?";
+"Please enter your email below to recevie your password reset instructions" = "Пожалуйста, введите свой e-mail, чтобы получить инструкции по восстановлению пароля.";
+"Send Request" = "Отправить запрос";
+
+//MARK: ResetPasswordView
+"Reset Password" = "Сброс пароля";
+"Reset code was sent to your email. Please enter the code and create new password" = "Код сброса был отправлен на вашу электронную почту. Пожалуйста, введите код и создайте новый пароль";
+"Reset code" = "Код сброса";
+"Enter the number" = "Введите номер";
+"New password" = "Новый пароль";
+"Enter new password" = "Введите новый пароль";
+"Confirm password" = "Подтвердите пароль";
+"Confirm" = "Подтвердить";
+"Change password" = "Сменить пароль";
+
+//MARK: SuccessfulView
+"Successful!" = "Успешно!";
+"You have successfully change password. Please use your new passwords when logging in." = "Вы успешно изменили пароль. Пожалуйста, используйте новые пароли при входе в систему.";
+
+//MARK: CreateView
+"Add Task" = "Добавить Задачу";
+"Add Quick Note" = "Добавить заметку";
+"Add Check List" = "Добавить список";
+
+//MARK: CreateTaskView
+"New Task" = "Новая задача";
+"For" = "Для";
+"Assignee" = "   Кого";
+"Project" = "Проекта";
+"Add Member" = "Добавить участника";
+"Anyone" = "Любой";
+"Anytime" = "Нет срока";
+"Fill empty fields" = "Заполните пустые поля";
+
+//MARK: CreateNoteView
+"Add Note" = "Добавить Заметку";
+"Note is too long" = "Заметка слишком длинная";
+"Enter the title" = "Введите название";
+
+//MARK: CreateCheckListView
+"Add CheckList" = "Добавить Чеклист";
+"Name the checklist" = "Назовите чеклист";
+"Item name is too long" = "Название элемента слишком длинное";
+"Enter the title and add some checklists" = "Введите название и добавьте чеклисты";
+"+ Add new item" = "+ Новый элемент";
+
+//MARK: Custom TabBarView
+"My task" = "Задачи";
+"Menu" = "Меню";
+"Quick" = "Заметки";
+"Profile" = "Профиль";
+
+//MARK: MyTaskView
+"Work List" = "Список работ";
+"Today" = "Сегодня";
+"Month" = "Месяц";
+"Mon" = "Пн";
+"Tue" = "Вт";
+"Wed" = "Ср";
+"Thu" = "Чт";
+"Fri" = "Пт";
+"Sat" = "Сб";
+"Sun" = "Вс";
+
+//MARK: CompleteTask
+"Editing" = "Редактирование";
+"Enter new title" = "Введите новое название";
+"Assigned to" = "Назначено";
+"Due Date" = "Срок исполнения";
+"Description" = "Описание";
+"Enter new description" = "Введите новое описание";
+"Members" = "Участники";
+"Tag" = "Тег";
+"Done" = "Готово";
+"Undo completion" = "Отмена завершение";
+"Complete Task" = "Выполнено";
+"Comment" = "Комментарии";
+
+//MARK: TaskSettings
+"Add member" = "Добавить участника";
+"Edit task" = "Редактировать задачу";
+"Delete task" = "Удалить задачу";
+
+//MARK: Create Comment
+"Send" = "Отправить";
+
+//MARK: CommentView
+"Delete comment" = "Удалить комментарий";
+
+//MARK: TaskFilterSettigns
+"Incomplete Tasks" = "Невыполненные задачи";
+"Completed Tasks" = "Выполненные задачи";
+"All Tasks" = "Все задачи";
+
+//MARK: MenuView
+"Projects" = "Проекты";
+
+//MARK: ProjectChooseColor
+"Title" = "Заголовок";
+"Project Name" = "Название проекта";
+"Title is too long" = "Заголовок слишком длинный";
+"Delete project" = "Удалить проект";
+
+//MARK: Choose Color
+"Choose Color" = "Выберете цвет";
+
+//MARK: QuickView
+"Quick Notes" = "Быстрые Заметки";
+"What do you want to do?" = "Что вы хотите сделать?";
+"Edit" = "Редактировать";
+
+//MARK: ProfileView
+"Created Task" = "Создано задач";
+"Statistic" = "Статистика";
+"Events" = "События";
+"To do" = "Сделать";
+"Quick notes" = "Быстрые заметки";
+
+//MARK: ProfileSettings
+"Change avatar" = "Изменить аватар";
+"Sign Out" = "Выйти";
+
+//MARK: StatCollectionCell
+"To do Task" = "В работе";
+"Tasks" = "Задачи";
+
+//MARK: Alert
+"You cannot undo this action" = "Вы не сможете отменить это действие";
+"Delete" = "Удалить";
+"Something went wrong" = "Что-то пошло не так";
+"Ok" = "Ок";
