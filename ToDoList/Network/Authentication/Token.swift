@@ -25,10 +25,14 @@ final class Token {
     }
         
     init() {
-        let expireDate = expireDate.trimExpireDate()
-        let currentDate = Date().timeIntervalSince1970
-        if expireDate >= Int(currentDate) {
-            getNewToken()
+        if expireDate == 0 {
+            return
+        } else {
+            let expireDate = expireDate.trimExpireDate()
+            let currentDate = Date().timeIntervalSince1970
+            if expireDate <= Int(currentDate) {
+                getNewToken()
+            }
         }
     }
     
@@ -37,11 +41,12 @@ final class Token {
         let data = Data(accessToken.utf8)
         do {
             try keychain.save(data: data,
-                              service: "unlockToken",
+                              service: TokenService.accessToken.rawValue,
                               account: user.email)
             
         } catch let error as KeychainManager.KeychainError {
             print("Exception setting Access Token: \(error.localizedDescription).")
+            updateToken()
         }
         catch {
             print("An error occurred setting the Access Token: \(error)")
@@ -51,7 +56,7 @@ final class Token {
     //MARK: Read Token
     private func readToken() {
         do {
-            let data = try keychain.read(service: "unlockToken",
+            let data = try keychain.read(service: TokenService.accessToken.rawValue,
                                          account: user.email)
             accessToken = String(decoding: data, as: UTF8.self).fromBase64() ?? ""
             
@@ -68,7 +73,7 @@ final class Token {
         let data = Data(accessToken.utf8)
         do {
             try keychain.update(data: data,
-                                service: "unlockToken",
+                                service: TokenService.accessToken.rawValue,
                                 account: user.email)
             
         } catch let error as KeychainManager.KeychainError {
@@ -81,14 +86,15 @@ final class Token {
     
     //MARK: Save Refresh Token
     func saveRefreshToken() {
-        let data = Data(accessToken.utf8)
+        let data = Data(refreshToken.utf8)
         do {
             try keychain.save(data: data,
-                              service: "unlockRefreshToken",
+                              service: TokenService.refreshToken.rawValue,
                               account: user.email)
             
         } catch let error as KeychainManager.KeychainError {
             print("Exception setting Refresh Token: \(error.localizedDescription).")
+            updateRefreshToken()
         }
         catch {
             print("An error occurred setting the Refresh Token: \(error)")
@@ -98,7 +104,7 @@ final class Token {
     //MARK: Read Refresh Token
     private func readRefreshToken() {
         do {
-            let data = try keychain.read(service: "unlockRefreshToken",
+            let data = try keychain.read(service: TokenService.refreshToken.rawValue,
                                          account: user.email)
             
             let token = String(decoding: data, as: UTF8.self)
@@ -114,10 +120,10 @@ final class Token {
     
     //MARK: Update Refresh Token
     private func updateRefreshToken() {
-        let data = Data(accessToken.utf8)
+        let data = Data(refreshToken.utf8)
         do {
             try keychain.update(data: data,
-                                service: "unlockRefreshToken",
+                                service: TokenService.refreshToken.rawValue,
                                 account: user.email)
             
         } catch let error as KeychainManager.KeychainError {
@@ -150,4 +156,10 @@ final class Token {
             })
             .store(in: &cancellables)
     }
+}
+
+//MARK: Token Service
+private enum TokenService: String {
+    case accessToken = "unlockToken"
+    case refreshToken = "unlockRefreshToken"
 }
