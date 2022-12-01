@@ -9,8 +9,8 @@ struct UserCoreDataManager {
     func loadUser() -> ProfileResponseData {
         do {
             let users = try context.viewContext.fetch(fetchRequest)
-            print("User loaded from core data")
-            return users.first.map { ProfileResponseData(id: $0.id,
+            let user = users.first(where: { $0.id == savedUser.id })
+            return user.map { ProfileResponseData(id: $0.id,
                                                          email: $0.email,
                                                          username: $0.username,
                                                          avatarUrl: $0.avatarPath,
@@ -33,7 +33,6 @@ struct UserCoreDataManager {
             
             if context.viewContext.hasChanges {
                 try context.viewContext.save()
-                print("User saved to core data")
             }
         } catch {
             print("Cannot save the user \(error.localizedDescription)")
