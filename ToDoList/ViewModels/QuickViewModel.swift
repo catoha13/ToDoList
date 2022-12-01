@@ -3,7 +3,7 @@ import Combine
 
 final class QuickViewModel: ObservableObject {
     
-    @Published var mergedResponseArray: [(FetchAllNotesResponseData, ChecklistData, id: UUID)] = []
+    @Published var mergedResponseArray: [NotesAndChecklists] = []
     
     //MARK: Note
     @Published var noteText = ""
@@ -180,15 +180,16 @@ final class QuickViewModel: ObservableObject {
                 }
             },
                   receiveValue: { [weak self] item in
-                let notesData = item.0.data
-                let checklistData = item.1.data
-                let sortedNotes = notesData.sorted(by: {$0.createdAt > $1.createdAt} )
-                let sortedChecklists = checklistData.sorted(by: { $0.createdAt > $1.createdAt} )
-                var id = [UUID]()
-                for _ in 0...sortedNotes.count + sortedChecklists.count {
-                    id.append(UUID())
+                
+                for notes in item.0.data {
+                    let loadedNotes: NotesAndChecklists = .notes(notes)
+                    self?.mergedResponseArray.append(loadedNotes)
                 }
-                self?.mergedResponseArray = Array(zip(sortedNotes, sortedChecklists, id))
+
+                for checklists in item.1.data {
+                    let loadedChechlists: NotesAndChecklists = .checklists(checklists)
+                    self?.mergedResponseArray.append(loadedChechlists)
+                }
             })
             .store(in: &cancellables)
     }
@@ -362,4 +363,9 @@ final class QuickViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+}
+
+enum NotesAndChecklists: Hashable {
+    case notes (FetchAllNotesResponseData)
+    case checklists (ChecklistData)
 }
