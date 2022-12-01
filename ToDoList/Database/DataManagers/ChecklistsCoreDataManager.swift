@@ -41,7 +41,7 @@ struct ChecklistsCoreDataManager {
             checklist.title = model.title
             checklist.color = model.color
             checklist.ownerId = Int16(model.id) ?? 0
-            checklist.checklistItem?.addingObjects(from: model.items)
+            checklist.checklistItems?.addingObjects(from: model.items)
             checklist.createdAt = DateFormatter.stringToDate(model.createdAt)
             
             if container.viewContext.hasChanges {
