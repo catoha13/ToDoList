@@ -242,7 +242,6 @@ final class TaskViewModel: ObservableObject {
                     self.alertMessage = error.description
                     self.isOffline = true
                     self.fetchTasksResponse = self.dataStorage.loadTasks()
-//                    print(self.dataStorage.loadTasks())
                 }
             }, receiveValue: { [weak self] item in
                 guard let self = self else { return }
@@ -254,7 +253,6 @@ final class TaskViewModel: ObservableObject {
                         self.dataStorage.saveTasks(from: task)
                     }
                 }
-                print(self.dataStorage.loadTasks().count)
                 self.checkTasksDate()
             })
             .store(in: &cancellables)

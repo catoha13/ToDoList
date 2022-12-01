@@ -132,6 +132,7 @@
 		ACF6F33828DA05C400665511 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33728DA05C400665511 /* ProfileModel.swift */; };
 		ACF6F33A28DA05F800665511 /* ProfileNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6F33928DA05F800665511 /* ProfileNetworkService.swift */; };
 		ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */; };
+		ACFB2BD229395E1A00DE703E /* NotesAndChecklists+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB2BD129395E1A00DE703E /* NotesAndChecklists+Extension.swift */; };
 		ACFD4DC128D2360A004EB8D3 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD4DC028D2360A004EB8D3 /* NoteCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -282,6 +283,7 @@
 		ACF6F33728DA05C400665511 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		ACF6F33928DA05F800665511 /* ProfileNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkService.swift; sourceTree = "<group>"; };
 		ACF8371D28AD2C3D00ED78B1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		ACFB2BD129395E1A00DE703E /* NotesAndChecklists+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesAndChecklists+Extension.swift"; sourceTree = "<group>"; };
 		ACFD4DC028D2360A004EB8D3 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -579,6 +581,7 @@
 				ACEF1183291D0B6C00D6369E /* DateFormatter+Extension.swift */,
 				AC61227B292E2A5F0001FD3A /* String+Extension.swift */,
 				AC3929CC29340823000F225C /* Int+Extension.swift */,
+				ACFB2BD129395E1A00DE703E /* NotesAndChecklists+Extension.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -969,6 +972,7 @@
 				ACF8371E28AD2C3D00ED78B1 /* AuthService.swift in Sources */,
 				AC66545628DDEC4100BF80F8 /* ChekListModel.swift in Sources */,
 				AC66016A2892D232005A7B02 /* Header.swift in Sources */,
+				ACFB2BD229395E1A00DE703E /* NotesAndChecklists+Extension.swift in Sources */,
 				AC39BC3728B177A4001FB8D8 /* NetworkError.swift in Sources */,
 				AC77150A28857E9B00A0C804 /* LogoView.swift in Sources */,
 				ACF182F728E198E100DD3531 /* EditChecklist.swift in Sources */,

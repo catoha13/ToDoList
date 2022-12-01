@@ -11,18 +11,19 @@ struct QuickView: View {
                         Alert(title: Text("Something went wrong"), message: Text(viewModel.alertMessage), dismissButton: Alert.Button.cancel(Text("Ok")))
                     }
                 ScrollView(showsIndicators: false) {
-                    ForEach(viewModel.mergedResponseArray, id: \.self) { item in
+                    ForEach(viewModel.mergedResponseArray, id: \.id) { item in
                         switch item {
                             
                             //MARK: Notes
                         case .notes(let note):
-                            NoteCell(color: note.color,
-                                     text: note.description,
-                                     isCompleted: note.isCompleted) {
-                                viewModel.selectedNote = note.id
-                                viewModel.noteText = note.description
-                                viewModel.selectedNoteColor = note.color
-                                viewModel.isNoteCompleted = note.isCompleted
+                            NoteCell(color: note.color ?? "",
+                                     text: note.description ?? "",
+                                     isCompleted: note.isCompleted ?? false,
+                                     isOffline: viewModel.isOffline) {
+                                viewModel.selectedNote = note.id ?? ""
+                                viewModel.noteText = note.description ?? ""
+                                viewModel.selectedNoteColor = note.color ?? ""
+                                viewModel.isNoteCompleted = note.isCompleted ?? false
                                 if viewModel.isNoteCompleted {
                                     viewModel.isNoteCompleted.toggle()
                                     viewModel.isNoteCompleted = false
@@ -32,10 +33,10 @@ struct QuickView: View {
                                 }
                                 viewModel.updateNote.send()
                             } longTap: {
-                                viewModel.selectedNote = note.id
-                                viewModel.noteText = note.description
-                                viewModel.selectedNoteColor = note.color
-                                viewModel.isNoteCompleted = note.isCompleted
+                                viewModel.selectedNote = note.id ?? ""
+                                viewModel.noteText = note.description ?? ""
+                                viewModel.selectedNoteColor = note.color ?? ""
+                                viewModel.isNoteCompleted = note.isCompleted ?? false
                                 viewModel.isNoteEditing.toggle()
                             }
                             .confirmationDialog("Delete this note?",
@@ -66,6 +67,7 @@ struct QuickView: View {
                             ChecklistCell(content: checklist.items,
                                           title: checklist.title,
                                           color: checklist.color,
+                                          isOffline: viewModel.isOffline,
                                           itemContent: $viewModel.newItemContent,
                                           itemId: $viewModel.checklistItemId,
                                           itemIsCompleted: $viewModel.isChecklistItemCompleted) {

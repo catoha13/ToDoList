@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ChecklistItems" representedClassName="ChecklistItems" syncable="YES" codeGenerationType="class">
-        <attribute name="checklistId" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="checklistId" attributeType="String"/>
         <attribute name="content" attributeType="String" maxValueString="512"/>
-        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="checklist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checklists" inverseName="checklistItems" inverseEntity="Checklists"/>
     </entity>
     <entity name="Checklists" representedClassName="Checklists" syncable="YES" codeGenerationType="class">
         <attribute name="color" attributeType="String" maxValueString="7"/>
-        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="ownerId" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="ownerId" attributeType="String"/>
         <attribute name="title" attributeType="String" maxValueString="256"/>
         <relationship name="checklistItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChecklistItems" inverseName="checklist" inverseEntity="ChecklistItems"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="checklists" inverseEntity="Users"/>
@@ -27,11 +27,11 @@
     </entity>
     <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
         <attribute name="color" attributeType="String" maxValueString="7"/>
-        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdAt" attributeType="String"/>
         <attribute name="descriptions" attributeType="String" maxValueString="512"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="ownerId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="ownerId" attributeType="String"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="notes" inverseEntity="Users"/>
     </entity>
     <entity name="Projects" representedClassName="Projects" syncable="YES" codeGenerationType="class">

@@ -1,30 +1,35 @@
 import CoreData
 
 struct ChecklistsCoreDataManager {
-    private let container = CoreDataManager.shared.container
+    private let savedUser = User()
+    private let context = CoreDataManager.shared.container
     private let fetchChecklistsRequest: NSFetchRequest<Checklists> = Checklists.fetchRequest()
     private let fetchChecklistItems: NSFetchRequest<ChecklistItems> = ChecklistItems.fetchRequest()
+    private let fetchUsersRequest: NSFetchRequest<Users> = Users.fetchRequest()
     
     func loadChecklists() -> [ChecklistData] {
         do {
-            let checklistItems = try container.viewContext.fetch(fetchChecklistItems)
-            let checklists = try container.viewContext.fetch(fetchChecklistsRequest)
-            
-            let convertItems = checklistItems.map {
-                ChecklistItemsModel(id: String($0.id),
+            let users = try context.viewContext.fetch(fetchUsersRequest)
+            let user = users.first(where: { $0.id == savedUser.id })
+            let savedChecklistItems = try context.viewContext.fetch(fetchChecklistItems)
+            let savedChecklists = try context.viewContext.fetch(fetchChecklistsRequest)
+            let userChecklists = savedChecklists.filter { $0.user == user }
+                        
+            let checklistItems = savedChecklistItems.map {
+                ChecklistItemsModel(id: $0.id ?? "",
                                     content: $0.content ?? "",
-                                    checklistId: String($0.checklistId),
+                                    checklistId: $0.checklistId,
                                     isCompleted: $0.isCompleted,
-                                    createdAt: DateFormatter.dateToString($0.createdAt ?? Date() ))
+                                    createdAt: $0.createdAt ?? "")
             }
             
-            return checklists.map { checklist in
-                ChecklistData(id: String(checklist.id),
+            return userChecklists.map { checklist in
+                ChecklistData(id: checklist.id ?? "",
                               title: checklist.title ?? "",
                               color: checklist.color ?? "",
-                              ownerId: String(checklist.ownerId),
-                              items: convertItems.filter { $0.checklistId == String(checklist.id) },
-                              createdAt: DateFormatter.dateToString(checklist.createdAt ?? Date())
+                              ownerId: checklist.ownerId ?? "",
+                              items: checklistItems.filter { $0.checklistId == checklist.id },
+                              createdAt: checklist.createdAt ?? ""
                 )}
             
         } catch {
@@ -35,38 +40,67 @@ struct ChecklistsCoreDataManager {
     
     func saveChecklist(model: ChecklistData) {
         do {
-            let checklist = Checklists(context: container.viewContext)
+            let users = try context.viewContext.fetch(fetchUsersRequest)
+            let user = users.first(where: { $0.id == savedUser.id })
+            let checklist = Checklists(context: context.viewContext)
+            let checklistItem = ChecklistItems(context: context.viewContext)
+            var userChecklists = user?.checklists
+            var userchecklistItems = checklist.checklistItems
+            var saveChecklists: [Checklists] = []
+            var saveChecklistsItems: [ChecklistItems] = []
             
-            checklist.id = Int16(model.id) ?? 0
+            model.items.forEach { item in
+                checklistItem.id = item.id
+                checklistItem.content = item.content
+                checklistItem.isCompleted = item.isCompleted
+                checklistItem.checklistId = item.checklistId
+                checklistItem.createdAt = item.createdAt
+                checklistItem.checklist = checklist
+                saveChecklistsItems.append(checklistItem)
+            }
+
+            if let newChecklistItems = userchecklistItems {
+                userchecklistItems = newChecklistItems.addingObjects(from: saveChecklistsItems) as NSSet
+            } else {
+                userchecklistItems = Set(saveChecklistsItems) as NSSet
+            }
+            
+            checklist.id = model.id
             checklist.title = model.title
             checklist.color = model.color
-            checklist.ownerId = Int16(model.id) ?? 0
+            checklist.ownerId = model.id
             checklist.checklistItems?.addingObjects(from: model.items)
-            checklist.createdAt = DateFormatter.stringToDate(model.createdAt)
+            checklist.createdAt = model.createdAt
+            checklist.user = user
             
-            if container.viewContext.hasChanges {
-                try container.viewContext.save()
+            saveChecklists.append(checklist)
+            
+            if let newChecklists = userChecklists {
+                userChecklists = newChecklists.addingObjects(from: saveChecklists) as NSSet
+            } else {
+                userChecklists = Set(saveChecklists) as NSSet
+            }
+            
+            if context.viewContext.hasChanges {
+                try context.viewContext.save()
             }
         } catch {
             print("Cannot save the checklist \(error.localizedDescription)")
         }
     }
     
-    func saveChecklistItems(model: ChecklistItemsModel) {
+    func deleteChecklist() {
         do {
-            let checklistItems = ChecklistItems(context: container.viewContext)
+            let users = try context.viewContext.fetch(fetchUsersRequest)
+            let user = users.first(where: { $0.id == savedUser.id })
             
-            checklistItems.id = Int16(model.id ?? "") ?? 0
-            checklistItems.content = model.content
-            checklistItems.isCompleted = model.isCompleted
-            checklistItems.checklistId = Int16(model.checklistId ?? "") ?? 0
-            checklistItems.createdAt = DateFormatter.stringToDate(model.createdAt ?? "")
-            
-            if container.viewContext.hasChanges {
-                try container.viewContext.save()
+            let checklists = try context.viewContext.fetch(fetchChecklistsRequest)
+            let userChecklists = checklists.filter { $0.user == user }
+            userChecklists.forEach { checklist in
+                context.viewContext.delete(checklist)
             }
         } catch {
-            print("Cannot save the checklist items \(error.localizedDescription)")
+            print("Cannot delete the checklists \(error.localizedDescription)")
         }
     }
 }

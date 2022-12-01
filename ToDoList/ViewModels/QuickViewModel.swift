@@ -38,7 +38,8 @@ final class QuickViewModel: ObservableObject {
     private let user = User()
     private let notesNetworkService = NotesNetworkService()
     private let checklistsNetworkService = CheckListNetworkService()
-    private let notesCoreDataManager = NotesCoreDataManager()
+    private let notesDataStorage = NotesCoreDataManager()
+    private let checklistsDataStorage = ChecklistsCoreDataManager()
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: Note Models
@@ -176,19 +177,42 @@ final class QuickViewModel: ObservableObject {
                     guard let self = self else { return }
                     self.alertMessage = error.description
                     self.isOffline = true
-//                    let notesData = self.notesCoreDataManager.loadNotes()
+                    self.notesDataStorage.loadNotes().forEach { note in
+                        let loadedNotes: NotesAndChecklists = .notes(note)
+                        self.mergedResponseArray.append(loadedNotes)
+                    }
+                    self.checklistsDataStorage.loadChecklists().forEach { checklist in
+                        let loadedChecklists: NotesAndChecklists = .checklists(checklist)
+                        self.mergedResponseArray.append(loadedChecklists)
+                    }
                 }
             },
                   receiveValue: { [weak self] item in
+                guard let self = self else { return }
                 
-                for notes in item.0.data {
-                    let loadedNotes: NotesAndChecklists = .notes(notes)
-                    self?.mergedResponseArray.append(loadedNotes)
+                self.mergedResponseArray.removeAll()
+                
+                let notes = item.0.data.sorted(by: { $0.createdAt ?? "" > $1.createdAt ?? ""})
+                notes.forEach { note in
+                    let loadedNotes: NotesAndChecklists = .notes(note)
+                    self.mergedResponseArray.append(loadedNotes)
+                    if notes != self.notesDataStorage.loadNotes() {
+                        self.notesDataStorage.deleteNotes()
+                        notes.forEach {
+                            self.notesDataStorage.saveNote(model: $0)
+                        }
+                    }
                 }
-
-                for checklists in item.1.data {
-                    let loadedChechlists: NotesAndChecklists = .checklists(checklists)
-                    self?.mergedResponseArray.append(loadedChechlists)
+                let checklists = item.1.data.sorted(by: { $0.createdAt > $1.createdAt})
+                checklists.forEach { checklist in
+                    let loadedChecklists: NotesAndChecklists = .checklists(checklist)
+                    self.mergedResponseArray.append(loadedChecklists)
+                    if checklists != self.checklistsDataStorage.loadChecklists() {
+                        self.checklistsDataStorage.deleteChecklist()
+                        checklists.forEach {
+                            self.checklistsDataStorage.saveChecklist(model: $0)
+                        }
+                    }
                 }
             })
             .store(in: &cancellables)
@@ -257,7 +281,7 @@ final class QuickViewModel: ObservableObject {
                     self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
-                self?.fetchOneNote.send()
+                self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
@@ -365,7 +389,7 @@ final class QuickViewModel: ObservableObject {
     }
 }
 
-enum NotesAndChecklists: Hashable {
-    case notes (FetchAllNotesResponseData)
+enum NotesAndChecklists: Hashable, Identifiable {
+    case notes (NotesResponseData)
     case checklists (ChecklistData)
 }
