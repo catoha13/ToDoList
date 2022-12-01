@@ -96,7 +96,6 @@ final class ProfileViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] item in
                 guard let self = self else { return }
-                self.userCoreDataManager.saveUser(newUser: item.data)
                 self.username = item.data.username ?? ""
                 self.email = item.data.email ?? ""
                 self.avatarUrl = item.data.avatarUrl ?? ""
