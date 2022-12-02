@@ -22,11 +22,11 @@ struct TaskList: View {
     private var groupedByDate: [String : [TaskResponseData]] {
         switch filterCompletedTasks {
         case .all:
-            return Dictionary(grouping: userTasks, by: { DateFormatter.trimDate($0.dueDate) })
+            return Dictionary(grouping: userTasks, by: { DateFormatter.headerDate($0.dueDate) })
         case .notCompleted:
-            return Dictionary(grouping: userTasks.filter { false == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
+            return Dictionary(grouping: userTasks.filter { false == $0.isCompleted }, by: { DateFormatter.headerDate($0.dueDate) })
         case .completed:
-            return Dictionary(grouping: userTasks.filter { true == $0.isCompleted }, by: { DateFormatter.trimDate($0.dueDate) })
+            return Dictionary(grouping: userTasks.filter { true == $0.isCompleted }, by: { DateFormatter.headerDate($0.dueDate) })
         }
 
     }

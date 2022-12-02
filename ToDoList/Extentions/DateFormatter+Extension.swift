@@ -1,7 +1,7 @@
 import Foundation
 
 extension DateFormatter {
-    static func convertDate(_ string: String) -> String {
+    static func dueDate(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -10,7 +10,7 @@ extension DateFormatter {
         return formatter.string(from: newDate)
     }
     
-    static func trimDate(_ string: String) -> String {
+    static func headerDate(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -39,12 +39,14 @@ extension DateFormatter {
         return "\(dayFormatter.string(from: date))T\(timeFormatter.string(from: time))"
     }
     
-    static func minutesAndHours(_ strDate: String) -> String {
+    static func minutesAndHours(_ string: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        let newDate = formatter.date(from: strDate) ?? Date()
-        formatter.dateFormat = "hh:mm"
+        let date = formatter.date(from: string)
+        formatter.dateFormat = "hh:mm a"
+        let stringDate = formatter.string(from: date ?? Date())
+        let newDate = formatter.date(from: stringDate) ?? Date()
+        
         return formatter.string(from: newDate)
     }
     
@@ -60,13 +62,36 @@ extension DateFormatter {
     static func stringToDate(_ string: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter.date(from: string) ?? Date()
     }
     
-    static func dateToString(_ date: Date) -> String {
+    static func checkTaskDueDate(from stringDate: String) -> Bool {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
-        return formatter.string(from: date)
+        let date = formatter.date(from: stringDate)
+        let diffComponents = Calendar.current.dateComponents([.hour], from: Date(), to: date ?? Date())
+        let hours = diffComponents.hour ?? 0
+        if hours <= 2 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    static func checkTaskComplitionDate(from stringDate: String) -> Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd'T'hh:mm:ss.ssssss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        let date = formatter.date(from: stringDate)
+        let diffComponents = Calendar.current.dateComponents([.hour], from: Date(), to: date ?? Date())
+        let hours = diffComponents.hour ?? 0
+        if hours <= 0 {
+            return true
+        } else {
+            return false
+            
+        }
     }
 }
