@@ -26,11 +26,11 @@ struct NetworkMaganer: NetworkProtocol {
         }
         
         return session.dataTaskPublisher(for: request)
-            .receive(on: DispatchQueue.main)
             .map { $0.data }
-            .decode(type: U.self, decoder: decoder )
+            .decode(type: U.self, decoder: decoder)
+            .receive(on: RunLoop.main)
             .mapError { error -> NetworkError in
-                return NetworkError.requestFailed(error.localizedDescription)
+                NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }
@@ -50,11 +50,11 @@ struct NetworkMaganer: NetworkProtocol {
         request.httpBody = jsonData
         
         return session.dataTaskPublisher(for: request)
-            .receive(on: DispatchQueue.main)
             .map { $0.data }
-            .decode(type: U.self, decoder: decoder )
+            .decode(type: U.self, decoder: decoder)
+            .receive(on: RunLoop.main)
             .mapError { error -> NetworkError in
-                return NetworkError.requestFailed(error.localizedDescription)
+                NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }
@@ -69,11 +69,11 @@ struct NetworkMaganer: NetworkProtocol {
         request.setValue(header, forHTTPHeaderField: "Authorization")
         
         return session.dataTaskPublisher(for: request)
-            .receive(on: DispatchQueue.main)
             .map { $0.data }
-            .decode(type: U.self, decoder: decoder )
+            .decode(type: U.self, decoder: decoder)
+            .receive(on: RunLoop.main)
             .mapError { error -> NetworkError in
-                return NetworkError.requestFailed(error.localizedDescription)
+                NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }
@@ -97,11 +97,11 @@ struct NetworkMaganer: NetworkProtocol {
         }
         
         return session.dataTaskPublisher(for: request)
-            .receive(on: DispatchQueue.main)
             .map { $0.data }
-            .decode(type: U.self, decoder: decoder )
+            .decode(type: U.self, decoder: decoder)
+            .receive(on: RunLoop.main)
             .mapError { error -> NetworkError in
-                return NetworkError.requestFailed(error.localizedDescription)
+                NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }
@@ -137,11 +137,11 @@ struct NetworkMaganer: NetworkProtocol {
         }
         
         return session.dataTaskPublisher(for: request)
-            .receive(on: DispatchQueue.main)
             .map { $0.data }
-            .decode(type: U.self, decoder: decoder )
+            .decode(type: U.self, decoder: decoder)
+            .receive(on: RunLoop.main)
             .mapError { error -> NetworkError in
-                return NetworkError.requestFailed(error.localizedDescription)
+                NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }
@@ -153,10 +153,13 @@ struct NetworkMaganer: NetworkProtocol {
         request.setValue(header, forHTTPHeaderField: "Authorization")
         
         return session.dataTaskPublisher(for: request)
-            .receive(on: DispatchQueue.main)
-            .map { UIImage(data: $0.data) ?? UIImage(named: "background")!}
+            .map {
+                guard let image = UIImage(data:$0.data) else { return UIImage(named: "background")! }
+                return image
+            }
+            .receive(on: RunLoop.main)
             .mapError { error -> NetworkError in
-                return NetworkError.requestFailed(error.localizedDescription)
+                NetworkError.requestFailed(error.localizedDescription)
             }
             .eraseToAnyPublisher()
     }

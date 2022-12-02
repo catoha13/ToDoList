@@ -79,7 +79,7 @@ public struct SegmentedPicker<Element, Content, Selection>: View
                     )
                     .buttonStyle(PlainButtonStyle())
                     .background(GeometryReader { proxy in
-                        Color.customCoral.onAppear { frames[index] = proxy.frame(in: .global) }
+                        Color.clear.onAppear { frames[index] = proxy.frame(in: .global) }
                     })
                     .alignmentGuide(.horizontalCenterAlignment,
                                     isActive: selectedIndex == index) { dimensions in

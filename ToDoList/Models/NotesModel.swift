@@ -1,5 +1,11 @@
 import Foundation
 
+struct CreateNoteModel: Codable {
+    var description: String
+    var color: String
+    var ownerId: String
+}
+
 struct NotesModel: Codable {
     var description: String
     var color: String
@@ -11,7 +17,7 @@ struct NotesResponseModel: Codable {
     var data: NotesResponseData
 }
 
-struct NotesResponseData: Codable {
+struct NotesResponseData: Codable, Hashable {
     var id: String?
     var description: String?
     var color: String?
@@ -23,14 +29,5 @@ struct NotesResponseData: Codable {
 }
 
 struct FetchAllNotesResponseModel: Codable, Hashable {
-    var data: [FetchAllNotesResponseData]
-}
-
-struct FetchAllNotesResponseData: Codable, Hashable {
-    var id: String
-    var description: String
-    var color: String
-    var ownerId: String
-    var isCompleted: Bool
-    var createdAt: String
+    var data: [NotesResponseData]
 }

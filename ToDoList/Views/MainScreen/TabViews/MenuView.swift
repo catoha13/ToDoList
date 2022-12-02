@@ -2,14 +2,12 @@ import SwiftUI
 
 struct MenuView: View {
     @StateObject private var viewModel = MenuViewModel()
-    
+    @State private var animated = false
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
                 VStack {
-                    Text("Projects")
-                        .font(.RobotoThinItalicHeader)
-                        .padding(.vertical, 50)
+                    TopHeader(text: "Projects")
                     ScrollView(showsIndicators: false) {
                         LazyVGrid(columns: viewModel.flexibleLayout) {
                             ForEach(viewModel.projectsArray.value.sorted { $0.createdAt ?? "" > $1.createdAt ?? "" }, id: \.self) { data in
@@ -104,6 +102,12 @@ struct MenuView: View {
                     .frame(width: 338)
                     .cornerRadius(Constants.radiusFive)
                 }
+            }
+        }
+        .opacity(animated ? 1 : 0)
+        .onAppear {
+            withAnimation(.default) {
+                animated.toggle()
             }
         }
     }

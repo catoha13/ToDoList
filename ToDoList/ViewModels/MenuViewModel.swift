@@ -99,12 +99,12 @@ final class MenuViewModel: ObservableObject {
                     guard let self = self else { return }
                     self.alertMessage.value = error.description
                     self.isOffline.value = true
-                    self.projectsArray.value = self.projectCoreDataManager.getAllProjects()
+                    self.projectsArray.value = self.projectCoreDataManager.loadProjects()
                 }
             } receiveValue: { [weak self] item in
                 guard let self = self else { return }
                 self.objectWillChange.send()
-                if item.data != self.projectCoreDataManager.getAllProjects() {
+                if item.data != self.projectCoreDataManager.loadProjects() {
                     self.projectCoreDataManager.deleteProjects()
                     item.data.forEach { project in
                         self.projectCoreDataManager.saveProjects(model: project)

@@ -3,7 +3,7 @@ import Combine
 
 final class QuickViewModel: ObservableObject {
     
-    @Published var mergedResponseArray: [(FetchAllNotesResponseData, ChecklistData, id: UUID)] = []
+    @Published var mergedResponseArray: [NotesAndChecklists] = []
     
     //MARK: Note
     @Published var noteText = ""
@@ -38,10 +38,16 @@ final class QuickViewModel: ObservableObject {
     private let user = User()
     private let notesNetworkService = NotesNetworkService()
     private let checklistsNetworkService = CheckListNetworkService()
-    private let notesCoreDataManager = NotesCoreDataManager()
+    private let notesDataStorage = NotesCoreDataManager()
+    private let checklistsDataStorage = ChecklistsCoreDataManager()
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: Note Models
+    private var createNoteModel: CreateNoteModel {
+        .init(description: noteText,
+              color: selectedNoteColor,
+              ownerId: user.id)
+    }
     private var noteModel: NotesModel {
         .init(description: noteText,
               color: selectedNoteColor,
@@ -62,19 +68,19 @@ final class QuickViewModel: ObservableObject {
                content: newItemContent,
                isCompleted: isChecklistItemCompleted)]
     }
-    private var updateChecklistModel: ChecklistUpdateRequestModel {
+    private var updateChecklistModel: ChecklistRequestsModel {
         .init(title: checklistTitle,
               color: checklistColor,
               ownerId: user.id,
               items: updateItemsModel)
     }
-    private var editChecklistModel: ChecklistUpdateRequestModel {
+    private var editChecklistModel: ChecklistRequestsModel {
         .init(title: checklistTitle,
               color: checklistColor,
               ownerId: user.id,
               items: checklistResponseItems)
     }
-    private var checklistModel: ChecklistUpdateRequestModel {
+    private var checklistModel: ChecklistRequestsModel {
         .init(title: checklistTitle,
               color: checklistColor,
               ownerId: user.id,
@@ -171,26 +177,50 @@ final class QuickViewModel: ObservableObject {
                     guard let self = self else { return }
                     self.alertMessage = error.description
                     self.isOffline = true
-//                    let notesData = self.notesCoreDataManager.loadNotes()
+                    self.notesDataStorage.loadNotes().forEach { note in
+                        let loadedNotes: NotesAndChecklists = .notes(note)
+                        self.mergedResponseArray.append(loadedNotes)
+                    }
+                    self.checklistsDataStorage.loadChecklists().forEach { checklist in
+                        let loadedChecklists: NotesAndChecklists = .checklists(checklist)
+                        self.mergedResponseArray.append(loadedChecklists)
+                    }
                 }
             },
                   receiveValue: { [weak self] item in
-                let notesData = item.0.data
-                let checklistData = item.1.data
-                let sortedNotes = notesData.sorted(by: {$0.createdAt > $1.createdAt} )
-                let sortedChecklists = checklistData.sorted(by: { $0.createdAt > $1.createdAt} )
-                var id = [UUID]()
-                for _ in 0...sortedNotes.count + sortedChecklists.count {
-                    id.append(UUID())
+                guard let self = self else { return }
+                
+                self.mergedResponseArray.removeAll()
+                
+                let notes = item.0.data.sorted(by: { $0.createdAt ?? "" > $1.createdAt ?? ""})
+                notes.forEach { note in
+                    let loadedNotes: NotesAndChecklists = .notes(note)
+                    self.mergedResponseArray.append(loadedNotes)
+                    if notes != self.notesDataStorage.loadNotes() {
+                        self.notesDataStorage.deleteNotes()
+                        notes.forEach {
+                            self.notesDataStorage.saveNote(model: $0)
+                        }
+                    }
                 }
-                self?.mergedResponseArray = Array(zip(sortedNotes, sortedChecklists, id))
+                let checklists = item.1.data.sorted(by: { $0.createdAt > $1.createdAt})
+                checklists.forEach { checklist in
+                    let loadedChecklists: NotesAndChecklists = .checklists(checklist)
+                    self.mergedResponseArray.append(loadedChecklists)
+                    if checklists != self.checklistsDataStorage.loadChecklists() {
+                        self.checklistsDataStorage.deleteChecklist()
+                        checklists.forEach {
+                            self.checklistsDataStorage.saveChecklist(model: $0)
+                        }
+                    }
+                }
             })
             .store(in: &cancellables)
     }
     
     //MARK: Create Note
     private func createNoteRequest() {
-        notesNetworkService.createNote(model: noteModel)
+        notesNetworkService.createNote(model: createNoteModel)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -251,7 +281,7 @@ final class QuickViewModel: ObservableObject {
                     self?.isOffline = true
                 }
             }, receiveValue: { [weak self] _ in
-                self?.fetchOneNote.send()
+                self?.fetchNotesAndChecklists()
             })
             .store(in: &cancellables)
     }
@@ -357,4 +387,9 @@ final class QuickViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+}
+
+enum NotesAndChecklists: Hashable, Identifiable {
+    case notes (NotesResponseData)
+    case checklists (ChecklistData)
 }

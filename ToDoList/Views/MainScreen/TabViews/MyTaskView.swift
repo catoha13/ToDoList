@@ -3,7 +3,7 @@ import UIKit
 
 struct MyTaskView: View {
     @StateObject var viewModel = TaskViewModel()
-    
+    @State private var animated = false
     var body: some View {
         ZStack {
             VStack {
@@ -53,7 +53,7 @@ struct MyTaskView: View {
                              dueDate: $viewModel.getDate,
                              description: $viewModel.description,
                              commentText: $viewModel.commentText,
-                             comments: $viewModel.commentsResponseArray,
+                             comments: $viewModel.commentsResponse,
                              commentId: $viewModel.commentId,
                              mergedArray: $viewModel.usersAndAvatars,
                              updateAction: {
@@ -94,6 +94,12 @@ struct MyTaskView: View {
                                    showAll: {
                     viewModel.filterCompletedTasks = .all
                 })
+            }
+        }
+        .opacity(animated ? 1 : 0)
+        .onAppear {
+            withAnimation(.default) {
+                animated.toggle()
             }
         }
     }

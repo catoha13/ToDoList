@@ -43,7 +43,7 @@ final class TaskViewModel: ObservableObject {
     
     //MARK: Create comment model
     @Published var commentText = ""
-    @Published var commentsResponseArray: [FetchCommentsData] = []
+    @Published var commentsResponse: [FetchCommentsData] = []
     
     //MARK: Delete comment
     @Published var commentId = ""
@@ -68,7 +68,7 @@ final class TaskViewModel: ObservableObject {
     
     private let user = User()
     private let taskService = TaskNetworkService()
-    private let taskCoreDataManager = TaskCoreDataManager()
+    private let dataStorage = TaskCoreDataManager()
     var cancellables = Set<AnyCancellable>()
     
     //MARK: Models
@@ -241,19 +241,19 @@ final class TaskViewModel: ObservableObject {
                     guard let self = self else { return }
                     self.alertMessage = error.description
                     self.isOffline = true
-                    self.fetchTasksResponse = self.taskCoreDataManager.loadTasks()
+                    self.fetchTasksResponse = self.dataStorage.loadTasks()
                 }
             }, receiveValue: { [weak self] item in
                 guard let self = self else { return }
                 self.objectWillChange.send()
                 self.fetchTasksResponse = item.data
-                if item.data != self.taskCoreDataManager.loadTasks() {
-                    self.taskCoreDataManager.deleteTasks()
+                if item.data != self.dataStorage.loadTasks() {
+                    self.dataStorage.deleteTasks()
                     item.data.forEach { task in
-                        self.taskCoreDataManager.saveTask(model: task)
+                        self.dataStorage.saveTasks(from: task)
                     }
                 }
-                self.checkTaskDate()
+                self.checkTasksDate()
             })
             .store(in: &cancellables)
     }
@@ -375,7 +375,7 @@ final class TaskViewModel: ObservableObject {
                     self.isOffline = true
                 }
             }, receiveValue: { [weak self] item in
-                self?.commentsResponseArray = item.data
+                self?.commentsResponse = item.data
             })
             .store(in: &cancellables)
     }
@@ -398,7 +398,7 @@ final class TaskViewModel: ObservableObject {
     }
     
     //MARK: Check Task Expire Date
-    private func checkTaskDate() {
+    private func checkTasksDate() {
         let expiredTasks = fetchTasksResponse.filter {
             DateFormatter.stringToDate($0.dueDate).checkTaskDateToExpire() && $0.isCompleted == false
         }

@@ -4,6 +4,7 @@ struct NoteCell: View {
     @State var color: String = Color.customPink.description
     @State var text: String = "Some action to do at 10:00 AM with my friends"
     @State var isCompleted: Bool = false
+    @State var isOffline: Bool = false
     @State var updateAction: () -> ()
     @State var longTap: () -> ()
     
@@ -33,6 +34,7 @@ struct NoteCell: View {
                             longTap()
                         }
                 }
+                .disabled(isOffline)
                 Spacer()
             }
         }

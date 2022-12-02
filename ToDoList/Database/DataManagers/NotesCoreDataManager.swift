@@ -1,18 +1,23 @@
 import CoreData
 
 struct NotesCoreDataManager {
-    private let container = CoreDataManager.shared.container
+    private let savedUser = User()
+    private let context = CoreDataManager.shared.container
     private let fetchNotesRequest: NSFetchRequest<Notes> = Notes.fetchRequest()
+    private let fetchUsersRequest: NSFetchRequest<Users> = Users.fetchRequest()
     
     func loadNotes() -> [NotesResponseData] {
         do {
-            let notes = try container.viewContext.fetch(fetchNotesRequest)
-            return notes.map { NotesResponseData(id: String($0.id),
-                                                 description: $0.descriptions,
-                                                 color: $0.color,
-                                                 ownerId: $0.ownerId?.uuidString,
+            let users = try context.viewContext.fetch(fetchUsersRequest)
+            let user = users.first(where: { $0.id == savedUser.id })
+            let notes = try context.viewContext.fetch(fetchNotesRequest)
+            let savedUserNotes = notes.filter { $0.user == user }
+            return savedUserNotes.map { NotesResponseData(id: $0.id ?? "",
+                                                 description: $0.descriptions ?? "",
+                                                 color: $0.color ?? "",
+                                                 ownerId: $0.ownerId ?? "",
                                                  isCompleted: $0.isCompleted,
-                                                 createdAt: DateFormatter.dateToString($0.createdAt ?? Date())
+                                                 createdAt: $0.createdAt ?? ""
             )}
             
         } catch {
@@ -23,17 +28,31 @@ struct NotesCoreDataManager {
     
     func saveNote(model: NotesResponseData) {
         do {
-            let note = Notes(context: container.viewContext)
+            let users = try context.viewContext.fetch(fetchUsersRequest)
+            let user = users.first(where: { $0.id == savedUser.id })
+            var userNotes = user?.notes
             
-            note.id = Int16(model.id ?? "") ?? 0
+            let note = Notes(context: context.viewContext)
+            var saveNotes: [Notes] = []
+            
+            note.id = model.id
             note.descriptions = model.description
             note.color = model.color
-            note.ownerId = UUID(uuidString: model.ownerId ?? "")
+            note.ownerId = model.ownerId
             note.isCompleted = model.isCompleted ?? false
-            note.createdAt = DateFormatter.stringToDate(model.createdAt ?? "")
+            note.createdAt = model.createdAt
+            note.user = user
             
-            if container.viewContext.hasChanges {
-                try container.viewContext.save()
+            saveNotes.append(note)
+            
+            if let newNotes = userNotes {
+                userNotes = newNotes.addingObjects(from: saveNotes) as NSSet
+            } else {
+                userNotes = Set(saveNotes) as NSSet
+            }
+            
+            if context.viewContext.hasChanges {
+                try context.viewContext.save()
             }
         } catch {
             print("Cannot save the note \(error.localizedDescription)")
@@ -42,9 +61,13 @@ struct NotesCoreDataManager {
     
     func deleteNotes() {
         do {
-            let notes = try container.viewContext.fetch(fetchNotesRequest)
-            notes.forEach { note in
-                container.viewContext.delete(note)
+            let users = try context.viewContext.fetch(fetchUsersRequest)
+            let user = users.first(where: { $0.id == savedUser.id })
+            
+            let notes = try context.viewContext.fetch(fetchNotesRequest)
+            let userNotes = notes.filter { $0.user == user }
+            userNotes.forEach { note in
+                context.viewContext.delete(note)
             }
         } catch {
             print("Cannot delete the notes \(error.localizedDescription)")

@@ -6,9 +6,6 @@ final class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var email: String = ""
     @Published var errorMessage: String = ""
-    @Published var isEmailValid = false
-    @Published var isPasswordValid = false
-    @Published var isCredentialsValid = false
     @Published var isPresented = false
     @Published var avatar: UIImage? = nil
     @Published var url: String? = nil
@@ -24,43 +21,19 @@ final class SignUpViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private var model: RequestBodyModel {
-        .init(email: email, password: password, username: username)
+        .init(email: email, password: password.toBase64(), username: username)
     }
     
     private let fetchUserData = PassthroughSubject<Void, Never>()
     private let uploadAvatar = PassthroughSubject<Void, Never>()
     let signUp = PassthroughSubject<Void, Never>()
-    
-    private let emailFormat = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
-    private let passwordFormat = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
-    
+        
     init() {
         addSubscriptions()
         user.readPassword()
     }
     
     private func addSubscriptions() {
-        
-        $email
-            .map { email in
-                return self.emailFormat.evaluate(with: email)
-            }
-            .assign(to: \.isEmailValid, on: self)
-            .store(in: &cancellables)
-        $password
-            .map { password in
-                return self.passwordFormat.evaluate(with: password)
-            }
-            .assign(to: \.isPasswordValid, on: self)
-            .store(in: &cancellables)
-        
-        Publishers.CombineLatest($isEmailValid, $isPasswordValid)
-            .map { isEmailValid, isPasswordValid in
-                return ( isEmailValid && isPasswordValid)
-            }
-            .assign(to: \.isCredentialsValid, on: self)
-            .store(in: &cancellables)
-        
         signUp
             .sink { [weak self] _ in
                 self?.signUpRequest()
@@ -92,16 +65,16 @@ final class SignUpViewModel: ObservableObject {
             }, receiveValue: { [weak self] item in
                 guard let self = self else { return }
                 if item.data.message == nil {
+                    self.user.id = item.data.id ?? ""
+                    self.user.email = item.data.email ?? ""
+                    self.user.password = self.password.toBase64()
+                    self.user.savePassword()
                     self.token.accessToken = item.data.userSession?.accessToken.toBase64() ?? ""
                     self.token.refreshToken = item.data.userSession?.refreshToken.toBase64() ?? ""
                     self.token.expireDate = item.data.userSession?.expiresIn ?? 0
                     self.token.tokenType = item.data.userSession?.tokenType ?? ""
                     self.token.saveToken()
                     self.token.saveRefreshToken()
-                    self.user.id = item.data.id ?? ""
-                    self.user.email = item.data.email ?? ""
-                    self.user.password = self.password.toBase64()
-                    self.user.savePassword()
                     self.uploadAvatar.send()
                     self.fetchUserData.send()
                     self.isPresented.toggle()

@@ -4,6 +4,7 @@ struct ChecklistCell: View {
     @State var content = [ChecklistItemsModel]()
     @State var title = "Some"
     @State var color = "#5ABB56"
+    @State var isOffline = false
     @Binding var itemContent: String
     @Binding var itemId: String
     @Binding var itemIsCompleted: Bool
@@ -60,6 +61,7 @@ struct ChecklistCell: View {
                 longPressAction()
             }
         }
+        .disabled(isOffline)
     }
 }
 
