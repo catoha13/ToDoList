@@ -131,7 +131,7 @@ struct CompleteTask: View {
                                     .font(Font(Roboto.regular(size: 16)))
                                     .foregroundColor(.secondary)
                                     .padding(.bottom, 1)
-                                Text(DateFormatter.convertDate(dueDate))
+                                Text(DateFormatter.dueDate(dueDate))
                                     .font(Font(Roboto.thinItalic(size: 16)))
                             }
                             Spacer()

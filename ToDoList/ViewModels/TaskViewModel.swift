@@ -400,10 +400,14 @@ final class TaskViewModel: ObservableObject {
     //MARK: Check Task Expire Date
     private func checkTasksDate() {
         let expiredTasks = fetchTasksResponse.filter {
-            DateFormatter.stringToDate($0.dueDate).checkTaskDateToExpire() && $0.isCompleted == false
+            DateFormatter.checkTaskComplitionDate(from: $0.dueDate) && $0.isCompleted == false
         }
         expiredTasks.forEach { task in
-            let model: CreateTaskModel = .init(title: task.title, dueDate: task.dueDate, description: task.description, assigned_to: task.assignedTo, isCompleted: true, projectId: task.projectId, ownerId: task.ownerId, members: [task.ownerId] ,attachments: nil)
+            var taskMembers: [String] = []
+            task.members?.forEach({ member in
+                taskMembers.append(member.id)
+            })
+            let model: CreateTaskModel = .init(title: task.title, dueDate: task.dueDate, description: task.description, assigned_to: task.assignedTo, isCompleted: true, projectId: task.projectId, ownerId: task.ownerId, members: taskMembers ,attachments: nil)
             taskService.updateTask(model: model, taskId: task.id)
                 .sink { error in
                     switch error {
