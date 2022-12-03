@@ -66,6 +66,7 @@ struct CreateNoteView: View {
                     } else {
                         viewModel.selectedNoteColor = selectedColor.convertToHex()
                         viewModel.createNote.send()
+                        viewModel.noteText = ""
                         isPresented.toggle()
                     }
                 }

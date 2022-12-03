@@ -103,10 +103,6 @@ final class QuickViewModel: ObservableObject {
         print("QuickViewModel initialized")
     }
     
-    deinit {
-        print("QuickViewModel deinitialized")
-    }
-    
     //MARK: Add Subsriptions
     private func addSubscriptions() {
         

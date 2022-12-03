@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateCheckListView: View {
-    @StateObject private var viewModel = QuickViewModel()
+    @EnvironmentObject private var viewModel: QuickViewModel
     @Binding var isPresented: Bool
     @State private var title = ""
     @State private var placeholder: LocalizedStringKey = "Name the checklist"
@@ -67,6 +67,7 @@ struct CreateCheckListView: View {
                         viewModel.checklistColor = selectedColor.convertToHex()
                         viewModel.checklistTitle = title
                         viewModel.createChecklist.send()
+                        viewModel.checklistRequestArray = []
                         isPresented.toggle()
                     }
                 }
