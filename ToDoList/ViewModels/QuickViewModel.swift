@@ -100,6 +100,11 @@ final class QuickViewModel: ObservableObject {
     init() {
         addSubscriptions()
         fetchNotesAndChecklists()
+        print("QuickViewModel initialized")
+    }
+    
+    deinit {
+        print("QuickViewModel deinitialized")
     }
     
     //MARK: Add Subsriptions
@@ -167,7 +172,7 @@ final class QuickViewModel: ObservableObject {
     }
     
     //MARK: Fetch Notes & Checklists
-    private func fetchNotesAndChecklists() {
+    func fetchNotesAndChecklists() {
         notesNetworkService.fetchAllNotes().zip(checklistsNetworkService.fetchAllChecklists())
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -189,7 +194,7 @@ final class QuickViewModel: ObservableObject {
             },
                   receiveValue: { [weak self] item in
                 guard let self = self else { return }
-                
+                self.objectWillChange.send()
                 self.mergedResponseArray.removeAll()
                 
                 let notes = item.0.data.sorted(by: { $0.createdAt ?? "" > $1.createdAt ?? ""})

@@ -3,11 +3,10 @@ import SwiftUI
 struct CreateNoteView: View {
     @Binding var isPresented: Bool
     
-    @StateObject private var viewModel = QuickViewModel()
+    @EnvironmentObject private var viewModel: QuickViewModel
     @State private var selectedColor: Color = .customBlue
     @State private var warning: LocalizedStringKey = ""
     @State private var isMaxLength = false
-    
     
     var body: some View {
         VStack {
