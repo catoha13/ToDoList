@@ -6,7 +6,7 @@ struct CheckListNetworkService {
     private let user = User()
     private let token = Token()
     
-    func createChecklist(model: ChecklistRequestsModel) -> AnyPublisher<ChecklistRequestsModel, NetworkError> {
+    func createChecklist(model: ChecklistRequestsModel) -> AnyPublisher<ChecklistResponseModel, NetworkError> {
         let path = Path.checklists.rawValue
         return networkManager.post(body: model, path: path, header: token.header)
     }

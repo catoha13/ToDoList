@@ -10,6 +10,7 @@ struct ToDoListApp: App {
         WindowGroup {
              LogoView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(QuickViewModel())
         }
     }
 }

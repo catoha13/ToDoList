@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct QuickView: View {
-    @StateObject private var viewModel = QuickViewModel()
+    @EnvironmentObject private var viewModel: QuickViewModel
     
     var body: some View {
         ZStack {
