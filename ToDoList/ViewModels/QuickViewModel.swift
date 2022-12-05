@@ -100,7 +100,6 @@ final class QuickViewModel: ObservableObject {
     init() {
         addSubscriptions()
         fetchNotesAndChecklists()
-        print("QuickViewModel initialized")
     }
     
     //MARK: Add Subsriptions

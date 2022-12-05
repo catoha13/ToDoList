@@ -343,6 +343,11 @@ struct CompleteTask: View {
                 isPresented.toggle()
             })
         }
+        .onDisappear {
+            title = ""
+            description = ""
+            dueDate = "Anytime"
+        }
     }
 }
 

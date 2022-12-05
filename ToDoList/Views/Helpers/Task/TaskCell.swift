@@ -9,6 +9,7 @@ struct TaskCell: View {
     @State var deleteAction: () -> ()
     
     @State private var color: Color = .customBlue
+    @State private var opacity = 1.0
     
     var body: some View {
         HStack {
@@ -30,6 +31,7 @@ struct TaskCell: View {
                 .frame(width: 4, height: 21)
                 .offset(x: 5)
         }
+        .opacity(opacity)
         .swipeActions(allowsFullSwipe: false) {
             HStack {
                 DeleteCustomButton {
@@ -51,6 +53,7 @@ struct TaskCell: View {
         .onAppear {
             if DateFormatter.checkTaskDueDate(from: time) {
                 color = .customYellow
+                opacity = 0.5
             }
         }
         .animation(.default, value: color)
