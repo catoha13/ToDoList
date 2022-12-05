@@ -82,6 +82,9 @@ struct EditChecklist: View {
             .cornerRadius(Constants.radiusFive)
             .shadow(radius: 4)
         }
+        .onDisappear {
+            title = ""
+        }
     }
 }
 

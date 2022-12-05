@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateTaskView: View {
-    @ObservedObject var viewModel = TaskViewModel()
+    @EnvironmentObject var viewModel: TaskViewModel
     
     @Binding var isPresented: Bool
     
@@ -249,6 +249,21 @@ struct CreateTaskView: View {
         }
         .onAppear {
             viewModel.searchMembersAndProjects.send()
+        }
+        .onDisappear {
+            viewModel.assigneeName = ""
+            viewModel.assigneeId = ""
+            viewModel.projectName = ""
+            viewModel.selectedProjectName = ""
+            viewModel.title = ""
+            viewModel.description = ""
+            viewModel.getDate = "Anytime"
+            viewModel.membersAvatars = []
+            viewModel.membersUrls = []
+            viewModel.dueDate = nil
+            viewModel.selectedTime = Date()
+            viewModel.selectedUserAvatar = nil
+            viewModel.description = ""
         }
     }
 }

@@ -80,6 +80,9 @@ struct EditNote: View {
             .ignoresSafeArea()
             .navigationBarHidden(true)
         }
+        .onDisappear {
+            title = ""
+        }
     }
 }
 

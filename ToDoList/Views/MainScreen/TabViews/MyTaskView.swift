@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 struct MyTaskView: View {
-    @StateObject var viewModel = TaskViewModel()
+    @EnvironmentObject var viewModel: TaskViewModel
     @State private var animated = false
     var body: some View {
         ZStack {
@@ -32,6 +32,7 @@ struct MyTaskView: View {
                          members: $viewModel.members,
                          membersUrl: $viewModel.membersUrls,
                          deteleAction: {
+                    viewModel.title = ""
                     viewModel.deleteTask.send()
                 })
                 
