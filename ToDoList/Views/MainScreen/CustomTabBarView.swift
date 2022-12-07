@@ -3,6 +3,8 @@ import SwiftUI
 struct CustomTabBarView: View {
     
     @StateObject var viewRouter: ViewRouter
+    let tasksViewModel = TaskViewModel()
+    let quickViewModel = QuickViewModel()
     
     @Binding var isPresented: Bool
     @State private var isCreatePressed = false
@@ -15,12 +17,10 @@ struct CustomTabBarView: View {
                     switch viewRouter.currentPage {
                     case .myTask:
                         MyTaskView()
-                            .environmentObject(TaskViewModel())
                     case .menu:
                         MenuView()
                     case .quick:
                         QuickView()
-                            .environmentObject(QuickViewModel())
                     case .profile:
                         ProfileView()
                     }
@@ -67,6 +67,8 @@ struct CustomTabBarView: View {
                 }
             }
         }
+        .environmentObject(tasksViewModel)
+        .environmentObject(quickViewModel)
     }
 }
 
