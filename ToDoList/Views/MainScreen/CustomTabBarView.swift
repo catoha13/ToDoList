@@ -15,10 +15,12 @@ struct CustomTabBarView: View {
                     switch viewRouter.currentPage {
                     case .myTask:
                         MyTaskView()
+                            .environmentObject(TaskViewModel())
                     case .menu:
                         MenuView()
                     case .quick:
                         QuickView()
+                            .environmentObject(QuickViewModel())
                     case .profile:
                         ProfileView()
                     }
