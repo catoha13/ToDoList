@@ -170,6 +170,12 @@ final class TaskViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        deleteComment
+            .sink { [weak self] _ in
+                self?.deleteCommentRequest()
+            }
+            .store(in: &cancellables)
+        
         fetchComments
             .sink { [weak self] _ in
                 self?.fetchCommentsRequest()
